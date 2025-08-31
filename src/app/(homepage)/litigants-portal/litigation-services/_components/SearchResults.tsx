@@ -47,9 +47,9 @@ const SearchResults = () => {
     queryFn: () =>
       getAllLawyers(
         searchName || "",
+        searchField || "",
         searchKeyword || "",
         searchCircle || "",
-        searchField || "",
         10,
         currentPage
       ),

@@ -39,8 +39,8 @@ const LawyerSearchForm = ({ circles, fields }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="space-y-4 w-full max-w-[300px]">
-      <div className="flex w-full max-w-sm flex-col gap-3 rounded-xl bg-gray-50 p-4">
+    <form onSubmit={handleSearch} className="space-y-4 w-full md:max-w-[300px]">
+      <div className="flex w-full md:max-w-sm flex-col gap-3 rounded-xl bg-gray-50 p-4">
         <SearchInput
           placeholder="اسم المحامي"
           value={name}

@@ -200,6 +200,7 @@ const Navbar = ({ opacity = false }: Props) => {
                         item.children && toggleSubmenu(index, e);
                         if (item.path) {
                           route.push(`${item.path}`);
+                          setIsMenuOpen(false);
                         }
                       }}
                     >
@@ -231,6 +232,7 @@ const Navbar = ({ opacity = false }: Props) => {
                                 <Link
                                   href={subItem.path}
                                   className="font-arabic flex items-center justify-center gap-2 text-end text-[20px] font-[400] text-gray-300"
+                                  onClick={() => setIsMenuOpen(false)}
                                 >
                                   {subItem.name}
                                 </Link>

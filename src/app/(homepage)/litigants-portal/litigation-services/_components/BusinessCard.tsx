@@ -55,12 +55,12 @@ const BusinessCard = ({ lawyer }: ContactCardProps) => {
       {/* Contact information */}
       <div className="mt-4 border-t border-gray-200 pt-4">
         <div className="mb-2 flex items-center justify-end" dir="rtl">
-          <span className="mr-2 text-gray-700">{lawyer.phone}</span>
           <Phone className="h-4 w-4 text-yellow-600" />
+          <span className="mr-2 text-gray-700">{lawyer.phone}</span>
         </div>
         <div className="flex items-center justify-end" dir="rtl">
-          <span className="mr-2 text-gray-700">{lawyer.email}</span>
           <Mail className="h-4 w-4 text-yellow-600" />
+          <span className="mr-2 text-gray-700">{lawyer.email}</span>
         </div>
       </div>
     </div>

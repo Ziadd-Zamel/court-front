@@ -108,7 +108,7 @@ export default function ImportantNoticesPage({
         {/* Tab list and content container */}
         <div className="flex flex-col lg:flex-row items-start gap-20 w-full">
           {/* Tab list - vertical navigation */}
-          <TabsList className="flex flex-col items-center gap-1 max-w-[300px] w-full bg-transparent mt-24">
+          <TabsList className="flex flex-col items-center gap-1 md:max-w-[300px] w-full bg-transparent mt-24">
             <div className="w-full mb-12">
               <SearchBar />
             </div>
