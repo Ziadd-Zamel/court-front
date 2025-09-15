@@ -1,0 +1,59 @@
+import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
+import ComingSoon from "@/components/custom/coming-soon";
+import CourtPublications from "@/components/custom/court-publications";
+import BooksContent from "./books-content";
+import SearchBooks from "./search-books";
+type Props = {
+  pagination: {
+    currentPage: number;
+    limit: number;
+  };
+  searchQueries: {
+    book?: string;
+    author?: string;
+    text?: string;
+  };
+};
+
+export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
+  // Tabs data configuration
+  const courtReleaseTabs: TabItem[] = [
+    {
+      label: "الكتب",
+      value: "all-books",
+      heading: "الكتب",
+      component: <BooksContent pagination={pagination} />,
+    },
+    {
+      label: "البحث في الكتب",
+      value: "search-books",
+      component: <SearchBooks searchQueries={searchQueries} />,
+    },
+    {
+      label: "إصدارات المحكمة",
+      value: "court-publications",
+      component: <CourtPublications pagination={pagination} />,
+    },
+    {
+      label: "البحث في الإصدارات",
+      value: "search-publications",
+      heading: "البحث في الإصدارات",
+      component: <ComingSoon />,
+    },
+    {
+      label: "خدمات الرواد",
+      value: "available-publications",
+      heading: "البحث في الإصدارات",
+      component: <ComingSoon />,
+    },
+  ];
+  return (
+    <section
+      id="ImportantNotices"
+      aria-labelledby="Important Notices Page"
+      className="relative pt-10 w-full box-container mb-80"
+    >
+      <ReusableTabs tabs={courtReleaseTabs} defaultValue="all-books" />
+    </section>
+  );
+}

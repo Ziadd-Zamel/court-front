@@ -8,6 +8,8 @@ import PaginationComp from "@/components/common/pagination-comp";
 import { getAllLawyers } from "@/lib/api/accepted-awyers.api";
 import { useQueryState } from "nuqs";
 import SearchResults from "./SearchResults";
+import ErrorState from "@/components/custom/error-state";
+import NoDataState from "@/components/custom/no-data-state";
 
 const ContentSection = () => {
   const [activeTab, setActiveTab] = useQueryState("tab");
@@ -27,7 +29,6 @@ const ContentSection = () => {
     data: lawyersResponse,
     isLoading: lawyersLoading,
     error: lawyersError,
-    refetch: refetchLawyers,
   } = useQuery({
     queryKey: ["lawyers", currentPage],
     queryFn: () =>
@@ -44,11 +45,6 @@ const ContentSection = () => {
   // Handles page change event for pagination
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-  };
-
-  // Handles retry action when lawyer fetching fails
-  const handleRetry = () => {
-    refetchLawyers();
   };
 
   return (
@@ -89,15 +85,7 @@ const ContentSection = () => {
           </div>
         ) : // Error state
         lawyersError ? (
-          <div className="text-center py-10">
-            <p className="text-red-500 mb-4">حدث خطأ في تحميل البيانات</p>
-            <button
-              onClick={handleRetry}
-              className="bg-main text-white px-4 py-2 rounded-md hover:bg-main/90"
-            >
-              إعادة المحاولة
-            </button>
-          </div>
+          <ErrorState />
         ) : // Success state with data
         lawyersResponse?.data && lawyersResponse.data.length > 0 ? (
           <>
@@ -124,12 +112,7 @@ const ContentSection = () => {
             )}
           </>
         ) : (
-          // Empty state
-          <div className="text-center py-10">
-            <p className="text-gray-500 text-lg">
-              لا توجد محامين متاحين حالياً
-            </p>
-          </div>
+          <NoDataState />
         )}
       </TabsContent>
     </Tabs>

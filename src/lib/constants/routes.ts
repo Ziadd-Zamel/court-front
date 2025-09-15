@@ -27,8 +27,8 @@ export const ROUTES: RouteItem[] = [
         path: "/litigants-portal/litigation-services",
       },
       {
-        name: "الطباعة والنشر",
-        path: "/litigants-portal/printing-publishing",
+        name: " إصدارات المحكمة و النشر",
+        path: "/litigants-portal/court-releases",
       },
     ],
   },

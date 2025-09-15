@@ -17,6 +17,10 @@ const routeNameMap: { [key: string]: string } = {
   "/litigants-portal": "بوابة المتقاضين والقانونيين",
   "/litigants-portal/important-notices": "معلومات مهمة",
   "/litigants-portal/litigation-services": " المحامون المقبولون",
+  "/litigants-portal/court-releases": "إصدارات المحكمة و النشر",
+  "/technical-office": "المكتب الفني",
+  "/constitutional-court": "الدائرة الدستورية",
+  "/legal-principles": "المبادئ القانونية",
 };
 
 interface CustomBreadcrumbProps {

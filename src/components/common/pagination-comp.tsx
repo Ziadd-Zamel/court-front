@@ -3,7 +3,6 @@
 import React, { FC } from "react";
 import { PaginationComponent } from "../ui/pagination";
 
-// Define the props type based on PaginationComponent's props
 type PaginationCompProps = React.ComponentProps<typeof PaginationComponent>;
 
 const PaginationComp: FC<PaginationCompProps> = ({

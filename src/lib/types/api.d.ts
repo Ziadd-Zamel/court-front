@@ -4,9 +4,8 @@ declare type ErrorResponse = {
 };
 
 declare type SuccessfulResponse<T> = {
-  success: true;
-  message: string;
   data: T;
+  meta: PaginationMeta;
 };
 
 declare type APIResponse<T> = SuccessfulResponse<T> | ErrorResponse;
@@ -27,32 +26,6 @@ declare type PaginationMeta = {
   total: number;
   from: number;
   to: number;
-};
-
-// Complete response structure matching your API
-declare type ArticlesResponse = {
-  success: true;
-  message: string;
-  data: Article[];
-  pagination: PaginationMeta;
-};
-
-declare type Qabasat = {
-  uuid: string;
-  source: string;
-  description: string;
-  image: null | string;
-  time: number;
-  qabasat_category_uuid: null | string;
-  category: {
-    name: string;
-    uuid: string;
-  };
-};
-declare type QabasatResponse = {
-  success: true;
-  message: string;
-  data: Qabasat[];
 };
 
 declare type Message = {

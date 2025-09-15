@@ -31,7 +31,10 @@ export default function MainHeading({
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
-    <section ref={ref} className="relative w-full h-[60vh] overflow-hidden">
+    <section
+      ref={ref}
+      className="relative w-full h-fit sm:h-[60vh] pb-10 sm:pb-0 overflow-hidden"
+    >
       {/* Background Image with parallax effect */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <Image
@@ -48,14 +51,14 @@ export default function MainHeading({
       {/**Content container */}
       <div className="relative flex flex-col box-container z-20 gap-8 mt-32">
         {/** Title with Breadcrumb */}
-        <div className="flex w-full max-w[80%] items-center justify-between">
+        <div className="flex gap-10 sm:gap-0 sm:flex-row flex-col-reverse w-full max-w[80%] items-center justify-between">
           <motion.h2
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className={cn(
               titleClassName,
-              "text-3xl sm:text-5xl font-bold text-white"
+              "text-3xl sm:text-5xl font-bold text-white self-start"
             )}
           >
             {title}
@@ -64,6 +67,7 @@ export default function MainHeading({
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="self-end"
           >
             <CustomBreadcrumb />
           </motion.div>
@@ -77,7 +81,7 @@ export default function MainHeading({
             transition={{ duration: 1, delay: 0.6 }}
             className={cn(
               descriptionClassname,
-              "font-normal leading-7 text-gray-300 sm:text-lg md:text-xl max-w-[80%]"
+              "font-normal leading-7 text-gray-300 text-sm sm:text-lg md:text-xl md:max-w-[80%]"
             )}
           >
             {description}

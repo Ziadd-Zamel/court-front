@@ -92,7 +92,7 @@ export default function ImportantNoticesPage({
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-80"
+      className="relative pt-10 w-full box-container flex flex-col "
     >
       <p className=" pb-20 text-lg text-gray-500">
         <span className="text-xl"> تنبيه:</span> هذه المعلومات معدة لتيسير
@@ -106,7 +106,7 @@ export default function ImportantNoticesPage({
         className="w-full"
       >
         {/* Tab list and content container */}
-        <div className="flex flex-col lg:flex-row items-start gap-20 w-full">
+        <div className="flex flex-col lg:flex-row items-start gap-20 w-full mt-40 mb-80">
           {/* Tab list - vertical navigation */}
           <TabsList className="flex flex-col items-center gap-1 md:max-w-[300px] w-full bg-transparent mt-24">
             <div className="w-full mb-12">
@@ -129,7 +129,7 @@ export default function ImportantNoticesPage({
           <div className="w-full">
             {TabsData.map((tab) => (
               <TabsContent
-                className=" mt-20 lg:mt-0 w-full "
+                className=" mt-20 lg:-mt-16 w-full "
                 key={tab.uuid}
                 value={tab.uuid}
               >
