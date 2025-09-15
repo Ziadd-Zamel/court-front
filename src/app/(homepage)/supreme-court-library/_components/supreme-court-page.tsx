@@ -43,7 +43,7 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
     {
       label: "خدمات الرواد",
       value: "available-publications",
-      heading: "البحث في الإصدارات",
+      heading: " خدمات الرواد ",
       component: <ComingSoon />,
     },
   ];
@@ -51,9 +51,13 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-80"
+      className="relative pt-10 w-full box-container mb-20"
     >
-      <ReusableTabs tabs={courtReleaseTabs} defaultValue="all-books" />
+      <ReusableTabs
+        tabs={courtReleaseTabs}
+        defaultValue="all-books"
+        tabContentClassName="lg:mt-[130px]"
+      />
     </section>
   );
 }

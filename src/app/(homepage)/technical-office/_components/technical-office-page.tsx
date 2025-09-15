@@ -59,9 +59,14 @@ export default async function TechnicalOfficePage({
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-80"
+      className="relative pt-10 w-full box-container mb-20"
     >
-      <ReusableTabs tabs={allTabs} defaultValue="printing" />
+      <ReusableTabs
+        tabs={allTabs}
+        defaultValue="printing"
+        className="lg:mt-0"
+        tabContentClassName="lg:mt-[155px]"
+      />
     </section>
   );
 }

@@ -39,6 +39,6 @@ export const getLegalPrinciplesSub = async () => {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  const payload: APIResponse<response[]> = await response.json();
+  const payload: response = await response.json();
   return payload;
 };

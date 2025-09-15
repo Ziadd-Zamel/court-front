@@ -19,6 +19,7 @@ const routeNameMap: { [key: string]: string } = {
   "/litigants-portal/litigation-services": " المحامون المقبولون",
   "/litigants-portal/court-releases": "إصدارات المحكمة و النشر",
   "/technical-office": "المكتب الفني",
+  "/supreme-court-library": "مكتبة المحكمة العليا ",
   "/constitutional-court": "الدائرة الدستورية",
   "/legal-principles": "المبادئ القانونية",
 };

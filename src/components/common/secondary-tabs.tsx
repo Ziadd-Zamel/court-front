@@ -56,11 +56,7 @@ export default function SecondaryTabs({
               ease-in-out
               hover:border-b-main/60
               hover:text-main/80
-              hover:scale-105
               data-[state=active]:hover:border-b-main
-              data-[state=active]:hover:text-current
-              data-[state=active]:hover:scale-100
-              data-[state=active]:hover:pb-3 sm:data-[state=active]:hover:pb-6
               ${tabTriggerClassName}
             `}
             value={tab.value}

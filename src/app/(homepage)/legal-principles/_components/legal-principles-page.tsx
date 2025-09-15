@@ -1,7 +1,7 @@
 import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
 import ArticleListSkeleton from "@/components/custom/article-list-skeleton";
 import ArticlePage from "@/components/custom/article-page";
-import { getConstitutionSub } from "@/lib/api/subcategories";
+import { getLegalPrinciplesSub } from "@/lib/api/subcategories";
 import { Suspense } from "react";
 
 type Props = {
@@ -12,11 +12,11 @@ type Props = {
   search?: string;
 };
 
-export default async function ConstitutionalCourtPage({
+export default async function LegalPrinciplesPage({
   pagination,
   search,
 }: Props) {
-  const data = await getConstitutionSub();
+  const data = await getLegalPrinciplesSub();
   const categoriesData = data?.data || [];
 
   // Static tabs configuration
@@ -67,13 +67,12 @@ export default async function ConstitutionalCourtPage({
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-80"
+      className="relative pt-10 w-full box-container mb-20"
     >
       <ReusableTabs
         tabs={allTabs}
         defaultValue="constitutional-court"
-        className="lg:-mt-12"
-        tabContentClassName=" mt-32 lg:mt-[200px]"
+        tabContentClassName=" mt-32 lg:mt-[100px]"
       />
     </section>
   );

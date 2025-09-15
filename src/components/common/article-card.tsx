@@ -78,7 +78,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
           </AccordionTrigger>
 
           <AccordionContent className="border-b border-main pb-10">
-            <h6 className="mt-5 text-center font-zain text-xl font-bold text-main_orang">
+            <h6 className="mt-5 text-center font-zain text-xl font-bold text-main">
               {`[${article.rule.title}]`}
             </h6>
             <div

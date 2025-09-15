@@ -59,7 +59,7 @@ const ArabicSearchBar = () => {
   );
 
   return (
-    <div className="mx-auto w-full border border-gray-200 bg-white shadow-sm">
+    <div className="mx-auto w-full border border-gray-200 bg-white shadow-sm mt-5">
       {/* Desktop Layout */}
       <div className="hidden items-center sm:flex">
         {/* Dropdown */}
