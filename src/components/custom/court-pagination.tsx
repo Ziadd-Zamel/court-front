@@ -36,6 +36,7 @@ export default function CourtPagination({ pagination, totalPages }: Props) {
       currentPage={pagination.currentPage}
       totalPages={totalPages}
       onPageChange={handlePageChange}
+      maxVisiblePages={3}
     />
   );
 }

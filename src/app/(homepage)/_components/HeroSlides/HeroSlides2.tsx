@@ -47,7 +47,7 @@ const HeroSlides2 = () => {
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.1, delay: 0 }}
-              className="mt-7 w-[130px] self-center rounded-md bg-main_orang py-2 text-white hover:bg-main_orang"
+              className="mt-7 w-[130px] self-center rounded-md bg-main py-2 text-white hover:bg-main"
               onClick={() => router.push("/litigants-lawyers-portal")}
             >
               دخول

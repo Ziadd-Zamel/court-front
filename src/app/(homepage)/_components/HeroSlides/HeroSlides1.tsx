@@ -32,7 +32,7 @@ const HeroSlides1 = () => {
           </motion.p>
 
           <motion.div
-            className="my-3 h-[1px] w-[320px] bg-main_orang sm:w-[550px]"
+            className="my-3 h-[1px] w-[320px] bg-main sm:w-[550px]"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2, delay: 1.2 }}

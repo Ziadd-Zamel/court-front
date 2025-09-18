@@ -104,7 +104,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             <div className="mt-5 flex w-full items-end justify-end">
               <Link
                 href={`/technical-office/${article.uuid}`}
-                className="flex w-fit items-center gap-2 rounded-[2px] bg-main_orang px-2 text-lg text-white hover:bg-main_orang xl:px-3 xl:py-[5px]"
+                className="flex w-fit items-center gap-2 rounded-[2px] bg-main px-2 text-lg text-white hover:bg-main xl:px-3 xl:py-[5px]"
               >
                 <span className="">
                   <ChevronLeft />

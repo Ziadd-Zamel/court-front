@@ -86,7 +86,7 @@ const SiteHighlights: FC = () => {
           })}
         </div>
       </div>
-      <div className="main-padding m-auto bg-main_orang/10">
+      <div className="main-padding m-auto bg-main/10">
         <div className="flex flex-col items-center justify-between md:flex-row md:items-start md:gap-20">
           {areas.map((area) => {
             return (
@@ -178,7 +178,7 @@ const SiteHighlights: FC = () => {
           })}
         </div>
       </div>
-      <div className="main-padding m-auto bg-main_orang/10">
+      <div className="main-padding m-auto bg-main/10">
         <div className="flex flex-col items-center justify-between md:flex-row md:items-start md:gap-20">
           {areas.map((area) => {
             return (

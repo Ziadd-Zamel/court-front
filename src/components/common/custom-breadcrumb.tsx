@@ -22,6 +22,8 @@ const routeNameMap: { [key: string]: string } = {
   "/supreme-court-library": "مكتبة المحكمة العليا ",
   "/constitutional-court": "الدائرة الدستورية",
   "/legal-principles": "المبادئ القانونية",
+  "/about-court": "عن المحكمة",
+  "/about-court/news": "الأخبار",
 };
 
 interface CustomBreadcrumbProps {

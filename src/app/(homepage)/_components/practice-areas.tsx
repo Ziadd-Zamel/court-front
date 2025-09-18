@@ -96,7 +96,7 @@ const PracticeCard = ({ title, description, Icon }: PracticeCardProps) => {
             >
               {title}
             </h3>
-            <div className="h-[2px] w-[30px] bg-main_orang" />
+            <div className="h-[2px] w-[30px] bg-main" />
 
             <p
               style={{ direction: "rtl" }}
@@ -109,10 +109,10 @@ const PracticeCard = ({ title, description, Icon }: PracticeCardProps) => {
 
         {/* Border animation elements (unchanged) */}
         <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-          <div className="animate-border-top absolute left-0 top-0 h-[2px] w-0 bg-main_orang"></div>
-          <div className="animate-border-left absolute left-0 top-0 h-0 w-[2px] bg-main_orang"></div>
-          <div className="animate-border-bottom absolute bottom-0 right-0 h-[2px] w-0 bg-main_orang"></div>
-          <div className="animate-border-right absolute bottom-0 right-0 h-0 w-[2px] bg-main_orang"></div>
+          <div className="animate-border-top absolute left-0 top-0 h-[2px] w-0 bg-main"></div>
+          <div className="animate-border-left absolute left-0 top-0 h-0 w-[2px] bg-main"></div>
+          <div className="animate-border-bottom absolute bottom-0 right-0 h-[2px] w-0 bg-main"></div>
+          <div className="animate-border-right absolute bottom-0 right-0 h-0 w-[2px] bg-main"></div>
         </div>
       </div>
     </motion.div>

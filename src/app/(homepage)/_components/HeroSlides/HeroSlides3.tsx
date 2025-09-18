@@ -40,7 +40,7 @@ const HeroSlides3 = () => {
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.1, delay: 0.4 }}
-              className="mt-3 w-[130px] rounded-sm bg-main_orang py-2 text-white hover:bg-main_orang"
+              className="mt-3 w-[130px] rounded-sm bg-main py-2 text-white hover:bg-main"
               onClick={() => router.push("/litigants-lawyers-portal")}
             >
               دخول

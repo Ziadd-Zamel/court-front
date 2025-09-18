@@ -19,7 +19,7 @@ const HeroSlides4 = () => {
           </motion.h1>
 
           <motion.div
-            className="mb-3 mt-2 h-[1px] w-[320px] bg-main_orang sm:w-[500px]"
+            className="mb-3 mt-2 h-[1px] w-[320px] bg-main sm:w-[500px]"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2, delay: 1.2 }}
@@ -47,7 +47,7 @@ const HeroSlides4 = () => {
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.1, delay: 0.4 }}
-              className="mt-3 w-[130px] rounded-sm bg-main_orang py-2 text-white hover:bg-main_orang"
+              className="mt-3 w-[130px] rounded-sm bg-main py-2 text-white hover:bg-main"
               onClick={() => router.push("/legal-principles")}
             >
               دخول
