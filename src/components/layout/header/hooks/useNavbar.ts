@@ -28,7 +28,14 @@ export const useNavbar = () => {
     pathname.includes("/constitutional-court") ||
     pathname.includes("/legal-principles") ||
     pathname.includes("/supreme-court-library") ||
-    pathname.includes("/technical-office");
+    pathname.includes("/technical-office") ||
+    // About court section paths with SecondaryHeading
+    pathname.includes("/about-court/counselors") ||
+    pathname.includes("/about-court/courts-law") ||
+    // Litigants portal paths with SecondaryHeading
+    pathname.includes("/litigants-portal/important-notices") ||
+    pathname.includes("/litigants-portal/litigation-services") ||
+    pathname.includes("/litigants-portal/court-releases");
 
   // Handle body overflow when modals are open
   useEffect(() => {

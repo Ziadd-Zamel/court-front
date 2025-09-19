@@ -36,7 +36,7 @@ const useSlider = (slides: SlideData[], autoPlayInterval: number = 5000) => {
       // Reset transition state after animation
       setTimeout(() => {
         setState((prev) => ({ ...prev, isTransitioning: false }));
-      }, 1000);
+      }, 5000);
     },
     [state.currentIndex, state.isTransitioning]
   );
@@ -163,7 +163,10 @@ const DotsNavigation = ({
   onDotClick: (index: number) => void;
   isTransitioning: boolean;
 }) => (
-  <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 transform space-x-4">
+  <div
+    style={{ direction: "ltr" }}
+    className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 transform space-x-4"
+  >
     <div className="flex gap-3">
       {Array.from({ length: totalSlides }).map((_, index) => (
         <button

@@ -22,10 +22,9 @@ const RecentNews = () => {
   };
 
   return (
-    <section>
+    <section className="pt-12 mb-16">
       <AnimatedSectionHeader title="  أخبار المحكمة العليا" />
-
-      <div className="mt-7 flex flex-col items-end justify-center lg:flex-row ">
+      <div className="mt-7 flex flex-col items-center justify-center lg:flex-row box-container ">
         <div className="flex w-full flex-col items-start text-right lg:w-[50%]">
           <div className="flex w-full text-right">
             <motion.div
@@ -36,13 +35,13 @@ const RecentNews = () => {
               <StaggeredNavigationCarousel onCardClick={handleCardClick} />
             </motion.div>
           </div>
-          <p className="mt-5 cursor-pointer pl-[15px] text-left font-zain text-[20px] font-bold text-main_orang">
+          <p className=" cursor-pointer pl-[15px] text-left text-lg font-bold text-main">
             اطلع على كل الأخبار
           </p>
         </div>
         <div className="mb-20 w-full lg:mt-0 lg:w-[50%]">
           <motion.div
-            className="h-[340px] w-full border bg-white px-7 py-5 shadow-lg"
+            className="min-h-[380px] w-full border bg-white px-7 py-5 shadow-lg"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
@@ -55,17 +54,12 @@ const RecentNews = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
-                <div className="flex flex-row-reverse items-end gap-2">
-                  <h6
-                    style={{ direction: "rtl" }}
-                    className="font-zain text-main_orang md:text-[20px] lg:text-xl"
-                  >
+                <div className="flex flex-row items-end gap-2">
+                  <h6 className=" text-main md:text-[20px] lg:text-xl">
                     {SelectedNew.text}:
                   </h6>
                 </div>
-                <p className="text-justify font-zain text-md text-gray-500">
-                  {SelectedNew.desc}
-                </p>
+                <p className="text-md text-gray-500">{SelectedNew.desc}</p>
               </motion.div>
             )}
           </motion.div>

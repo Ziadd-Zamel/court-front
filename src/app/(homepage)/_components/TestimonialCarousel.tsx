@@ -91,7 +91,10 @@ const StaggeredNavigationCarousel: React.FC<CarouselProps> = ({
   }, []);
 
   return (
-    <div className="flex w-full flex-col items-start justify-end">
+    <div
+      style={{ direction: "ltr" }}
+      className="flex w-full flex-col items-start justify-end"
+    >
       <div className="w-full overflow-hidden">
         <div className="mr-40 flex w-full flex-col items-start space-y-2">
           {testimonials[currentIndex].map((item, cardIndex) => (
@@ -127,11 +130,11 @@ const StaggeredNavigationCarousel: React.FC<CarouselProps> = ({
         </div>
       </div>
 
-      <div className="-mr-2 mt-4 flex w-full items-center justify-center space-x-2">
+      <div className="mt-2 flex w-full items-center justify-start gap-2 ml-10">
         {testimonials.map((_, index) => (
           <button
             key={index}
-            className={`rounded-full transition-colors ${
+            className={`rounded-full transition-colors cursor-pointer ${
               currentIndex === index ? "h-3 w-3 bg-main" : "h-4 w-4 bg-gray-400"
             }`}
             onClick={() => handleNavigation(index)}

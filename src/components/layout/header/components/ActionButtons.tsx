@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Search, FolderOpen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ActionButtonsProps } from "../types/navbar.types";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 export default function ActionButtons({
   onToggleSearch,
@@ -13,20 +14,16 @@ export default function ActionButtons({
   const router = useRouter();
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center">
       {!isSearchOpen && (
         <Button
           onClick={onToggleMenu}
           variant="ghost"
           size="icon"
-          className="h-12 w-12 hover:bg-transparent focus:outline-none"
+          className="size-8 sm:size-12 hover:bg-transparent focus:outline-none"
           aria-label="فتح القائمة"
         >
-          <div className="flex flex-col gap-1">
-            <div className="h-0.5 w-6 bg-white transition-all duration-300 group-hover:bg-main" />
-            <div className="h-0.5 w-6 bg-white transition-all duration-300 group-hover:bg-main" />
-            <div className="h-0.5 w-6 bg-white transition-all duration-300 group-hover:bg-main" />
-          </div>
+          <RxHamburgerMenu className="size-4 sm:size-6 text-white transition-colors hover:text-main" />
         </Button>
       )}
 
@@ -34,20 +31,20 @@ export default function ActionButtons({
         onClick={onToggleSearch}
         variant="ghost"
         size="icon"
-        className="h-12 w-12 hover:bg-transparent focus:outline-none"
+        className="size-8 sm:size-12 hover:bg-transparent focus:outline-none"
         aria-label="البحث"
       >
-        <Search className="h-6 w-6 text-white transition-colors hover:text-main" />
+        <Search className="size-4 sm:size-6 text-white transition-colors hover:text-main" />
       </Button>
 
       <Button
         onClick={() => router.push("/favorit")}
         variant="ghost"
         size="icon"
-        className="h-12 w-12 hover:bg-transparent focus:outline-none"
+        className="size-8 sm:size-12 hover:bg-transparent focus:outline-none"
         aria-label="المفضلة"
       >
-        <FolderOpen className="h-6 w-6 text-white transition-colors hover:text-main" />
+        <FolderOpen className="size-4 sm:size-6 text-white transition-colors hover:text-main" />
       </Button>
     </div>
   );

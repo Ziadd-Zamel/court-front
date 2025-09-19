@@ -4,53 +4,53 @@ import Image from "next/image";
 
 const HeroSlides1 = () => {
   return (
-    <div className="flex h-screen w-full items-center justify-center">
-      <div className="relative flex w-full flex-col items-center justify-center">
+    <div className="flex h-screen w-full items-center justify-center box-container">
+      <div className="relative flex w-full">
         <Image
           src={"/assets/BasmAyah.png"}
           alt="Aya"
           width={400}
           height={0}
-          className="absolute -top-32 w-[300px] sm:w-[400px] lg:-top-32"
+          className="absolute -top-24 w-[250px] sm:w-[350px] lg:-top-36 left-1/2 -translate-x-1/2"
         />
         <div className="flex w-full flex-col items-center justify-center">
           <motion.h1
-            className="font-zain text-5xl font-extrabold lg:text-7xl"
+            className=" text-3xl sm:text-5xl font-medium lg:text-6xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
             المحكمة العليا
           </motion.h1>
           <motion.p
-            className="-mt-3 font-zain text-2xl lg:text-4xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeInOut", delay: 0.4 }}
+            className=" text-lg sm:text-2xl lg:text-4xl mt-3"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2, delay: 0.6 }}
           >
             قمّة هرم السّلطة القضائيّة في ليبيا
           </motion.p>
 
           <motion.div
-            className="my-3 h-[1px] w-[320px] bg-main sm:w-[550px]"
+            className="my-3 h-[1px] w-[250px] bg-main sm:w-[550px]"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, delay: 1.2 }}
+            transition={{ duration: 0.2, delay: 0.8 }}
           />
           <motion.p
-            className="text-center font-zain text-sm text-main lg:text-lg"
+            className="text-center text-xs sm:text-sm text-main lg:text-lg"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, delay: 1.4 }}
+            transition={{ duration: 0.2, delay: 1 }}
           >
             "المبادئ القانونية التي تقرّرها المحكمة العليا في أحكامها ملزمةٌ
             لجميع المحاكم وكافّة الجهات الأخرى في ليبيا"
           </motion.p>
           <motion.p
-            className="mt-4 font-zain text-sm text-white lg:text-lg"
+            className="mt-4 text-sm text-white lg:text-lg"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, delay: 1.6 }}
+            transition={{ duration: 0.2, delay: 1.2 }}
           >
             {" "}
             المادة 31 من قانون المحكمة العليا
