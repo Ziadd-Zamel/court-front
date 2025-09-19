@@ -80,13 +80,13 @@ export default function ContactSection() {
   return (
     <>
       <section
-        className="relative h-full bg-cover bg-center pb-20 pt-[55px] box-container"
+        className="relative h-full bg-cover bg-center pb-20 pt-[55px]"
         style={{ backgroundImage: 'url("/assets/bg-2.jpg")' }}
       >
-        <div className="pb-10">
+        <div className="pb-10  box-container">
           <AnimatedSectionHeader title="" />
         </div>
-        <div className="flex flex-col items-stretch justify-between gap-10 text-gray-400 md:flex-row">
+        <div className=" box-container flex flex-col items-stretch justify-between gap-10 text-gray-400 md:flex-row">
           {/* Info Text */}
           <div className="w-full md:w-1/2">
             <h2 className="pb-12 text-3xl font-bold text-white">
