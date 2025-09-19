@@ -1,4 +1,3 @@
-import ContactSection from "@/components/custom/contact-section";
 import NewsPage from "./_components/news-page";
 import MainHeading from "@/components/common/main-heading";
 

@@ -38,12 +38,13 @@ export default async function CourtLawsPage({}: Props) {
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-20"
+      className="relative pt-10 w-full box-container mb-60"
     >
       <ReusableTabs
         tabs={courtReleaseTabs}
-        defaultValue="cassation-texts"
-        tabContentClassName="lg:mt-[130px]"
+        defaultValue={`law-${data.data[0].uuid}`}
+        className="lg:mt-[130px]"
+        tabContentClassName=" mt-32 lg:mt-[100px]"
       />
     </section>
   );

@@ -1,5 +1,5 @@
 export const getAllLaws = async () => {
-  const url = `${process.env.API}laws`;
+  const url = `${process.env.API}laws?per_page=6`;
   const response = await fetch(url, {
     next: { revalidate: 600 },
   });
