@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Bookmark, Download, Share2 } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 type BookCardProps = {
   book: BookData;
@@ -55,7 +56,10 @@ export default function BookCard({ book, hideIcons }: BookCardProps) {
   };
 
   return (
-    <div className="cursor-pointer w-[120px] sm:w-[160px]">
+    <Link
+      href={`/books/${book.uuid}`}
+      className="cursor-pointer w-[120px] sm:w-[160px]"
+    >
       {/* Book Image */}
       <div
         className="relative h-40 sm:h-52 w-full mb-2"
@@ -99,6 +103,6 @@ export default function BookCard({ book, hideIcons }: BookCardProps) {
           </button>
         </div>
       )}
-    </div>
+    </Link>
   );
 }

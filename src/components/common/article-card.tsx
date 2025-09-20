@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { ChevronLeft, Slash } from "lucide-react";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 type ArticleCardProps = {
   article: Article;
@@ -102,14 +103,11 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             )}
 
             <div className="mt-5 flex w-full items-end justify-end">
-              <Link
-                href={`/technical-office/${article.uuid}`}
-                className="flex w-fit items-center gap-2 rounded-[2px] bg-main px-2 text-lg text-white hover:bg-main xl:px-3 xl:py-[5px]"
-              >
-                <span className="">
+              <Link href={`/article/${article.uuid}`}>
+                <Button className="text-lg py-1.5">
+                  المزيد
                   <ChevronLeft />
-                </span>
-                اقرأ المزيد
+                </Button>
               </Link>
             </div>
           </AccordionContent>

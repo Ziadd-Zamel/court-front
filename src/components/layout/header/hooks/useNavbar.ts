@@ -32,7 +32,8 @@ export const useNavbar = () => {
     // Litigants portal paths with SecondaryHeading
     pathname.includes("/litigants-portal/important-notices") ||
     pathname.includes("/litigants-portal/litigation-services") ||
-    pathname.includes("/litigants-portal/court-releases");
+    pathname.includes("/litigants-portal/court-releases") ||
+    (pathname.startsWith("/article/") && pathname.length > "/article/".length);
 
   // Handle body overflow when modals are open
   useEffect(() => {

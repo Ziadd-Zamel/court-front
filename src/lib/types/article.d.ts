@@ -13,7 +13,12 @@ declare type Article = {
     body_html: string;
     body_text: string;
   };
-  contents: any[];
+  contents: {
+    title: string;
+    body: string;
+    body_text: string;
+  }[];
   tags: string[];
   sub_category: string;
+  counselors: any[];
 };

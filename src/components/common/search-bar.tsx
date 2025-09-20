@@ -5,8 +5,9 @@ import { Search, X } from "lucide-react";
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
-const SearchBar = () => {
+const SearchBar = ({ className }: { className?: string }) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -48,7 +49,7 @@ const SearchBar = () => {
   const showClearButton = Boolean(searchQuery);
 
   return (
-    <div className="w-full">
+    <div className={cn("w-full")}>
       <form
         onSubmit={handleSearch}
         className="flex w-full items-center justify-between gap-1 rounded-2xl border border-gray-200 bg-white py-1 shadow-sm focus-within:ring-1 focus-within:ring-main"
@@ -58,7 +59,12 @@ const SearchBar = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="ابحث في هذه الصفحة"
-          className="w-full py-2 pl-8 pr-4 text-gray-800 placeholder-gray-400 outline-none"
+          className={
+            (cn(
+              "w-full py-2 pl-8 pr-4 text-gray-800 placeholder-gray-400 outline-none"
+            ),
+            className)
+          }
         />
 
         {showClearButton ? (

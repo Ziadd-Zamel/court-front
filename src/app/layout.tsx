@@ -2,7 +2,7 @@ import { Zain } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers";
 import Footer from "@/components/layout/Footer";
-import Navbar from "@/components/layout/header";
+import Header from "@/components/layout/header";
 
 // تحميل خط Zain
 const zain = Zain({
@@ -35,7 +35,7 @@ export default function RootLayout({
       <body className="font-zain antialiased bg-background">
         <Providers>
           <main className="flex flex-col min-h-screen overflow-hidden">
-            <Navbar />
+            <Header />
             <div className="flex-1">{children}</div>
             <Footer />
           </main>
