@@ -4,9 +4,9 @@ import { useNavbar } from "./hooks/useNavbar";
 import { NavbarProps } from "./types/navbar.types";
 import NavbarContainer from "./components/NavbarContainer";
 import ActionButtons from "./components/ActionButtons";
-import Logo from "./components/Logo";
 import SearchOverlay from "./components/SearchOverlay";
 import MenuOverlay from "./components/MenuOverlay";
+import Image from "next/image";
 
 export default function Navbar({ opacity = false }: NavbarProps) {
   const {
@@ -46,7 +46,13 @@ export default function Navbar({ opacity = false }: NavbarProps) {
           onToggleMenu={toggleMenu}
           isSearchOpen={isSearchOpen}
         />
-        <Logo />
+        <Image
+          src="/assets/nav-logo.svg"
+          alt="شعار المحكمة"
+          width={120}
+          height={0}
+          className=" w-[100px] sm:w-[200px] -ml-2"
+        />
       </NavbarContainer>
 
       {/* Search Overlay */}

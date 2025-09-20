@@ -65,7 +65,7 @@ export default function ReusableTabs({
           {tabs.map((tab) => (
             <TabsContent
               key={tab.value}
-              className={`mt-20 lg:mt-28 w-full ${tabContentClassName}`}
+              className={`mt-20 lg:mt-28 w-full min-h-screen ${tabContentClassName}`}
               value={tab.value}
             >
               {tab.heading && (

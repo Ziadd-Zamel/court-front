@@ -14,7 +14,7 @@ export default function ActionButtons({
   const router = useRouter();
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center -mr-3">
       {!isSearchOpen && (
         <Button
           onClick={onToggleMenu}

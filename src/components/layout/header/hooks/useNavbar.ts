@@ -23,15 +23,12 @@ export const useNavbar = () => {
 
   // Check if current page uses SecondaryHeading (pages that should have dark navbar)
   const shouldUseDarkBackground =
-    pathname.includes("/about-court/news") ||
     pathname.includes("/litigants-portal") ||
-    pathname.includes("/constitutional-court") ||
-    pathname.includes("/legal-principles") ||
-    pathname.includes("/supreme-court-library") ||
-    pathname.includes("/technical-office") ||
     // About court section paths with SecondaryHeading
+    pathname.includes("/about-court/news") ||
     pathname.includes("/about-court/counselors") ||
     pathname.includes("/about-court/courts-law") ||
+    pathname.includes("/about-court/structure-court") ||
     // Litigants portal paths with SecondaryHeading
     pathname.includes("/litigants-portal/important-notices") ||
     pathname.includes("/litigants-portal/litigation-services") ||

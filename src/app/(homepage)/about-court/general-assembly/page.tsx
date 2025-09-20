@@ -1,5 +1,5 @@
-import CounselorsPage from "./_components/counselors-page";
-import SecondaryHeading from "@/components/common/seondary-heading";
+import MainHeading from "@/components/common/main-heading";
+import GeneralAssemblyPage from "./_components/general-assembly-page";
 
 export default async function Page({
   searchParams,
@@ -18,10 +18,14 @@ export default async function Page({
   return (
     <>
       {/** Heading */}
-      <SecondaryHeading title="مستشارو المحكمة العليا" />
+      <MainHeading
+        title="الدائرة الدستورية"
+        description="القانون الليبي هو المرجع في الأعمال، لكن قدراً غير يسير منها يتوافق مع قوانين دول عربية لاسيما المصري، المصدر التاريخي للقانون الليبي ولكثير من القوانين العربية. تيسيراً للزائر في معرفة مدى تعلق العمل باهتمامه"
+        bgImage="/assets/bg-1.jpg"
+      />
 
       {/** Main page content */}
-      <CounselorsPage
+      <GeneralAssemblyPage
         pagination={{
           currentPage: mainPage,
           limit: mainLimit,
