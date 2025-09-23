@@ -28,7 +28,7 @@ export default async function LegalCasePage({
       <div className="min-h-screen lg:flex lg:flex-row">
         <PageContent article={article} />
         <div className="hidden min-h-screen w-[300px] lg:block min-[1250px]:w-[400px]">
-          <Sidebar />
+          <Sidebar article={article} />
         </div>
       </div>
     </>

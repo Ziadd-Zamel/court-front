@@ -41,24 +41,25 @@ export default function SecondaryTabs({
           <TabsTrigger
             key={tab.value}
             className={`
-              data-[state=active]:bg-transparent 
-              cursor-pointer 
-              border-b-3 
-              data-[state=active]:border-b-main 
-              data-[state=active]:shadow-none 
-              border-b-transparent 
-              rounded-none 
-              px-0 sm:px-5 
-              pb-3 sm:pb-6 
-              text-sm sm:text-2xl 
-              transition-all 
-              duration-300 
-              ease-in-out
-              hover:border-b-main/60
-              hover:text-main/80
-              data-[state=active]:hover:border-b-main
-              ${tabTriggerClassName}
-            `}
+    data-[state=active]:bg-transparent 
+    cursor-pointer 
+    border-b-2 
+    border-b-main 
+    rounded-none 
+    px-0 sm:px-3
+    pb-3 sm:pb-6 
+    text-sm sm:text-lg
+    transition-all 
+    duration-300 
+    ease-in-out
+    hover:border-b-main/60
+    hover:text-main/80
+    data-[state=active]:border-b-[4px] 
+    data-[state=active]:border-b-main 
+    data-[state=active]:shadow-none 
+    data-[state=active]:hover:border-b-main
+    ${tabTriggerClassName}
+  `}
             value={tab.value}
           >
             {tab.label}

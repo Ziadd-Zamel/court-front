@@ -16,7 +16,7 @@ export const ROUTES: RouteItem[] = [
     children: [
       {
         name: "الاستعلام عن طعن",
-        path: "/litigants-portal/important-notices",
+        path: "/litigants-portal/appeal-inquiry",
       },
       {
         name: "معلومات مهمة",

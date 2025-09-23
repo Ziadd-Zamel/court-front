@@ -54,25 +54,25 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             </p>
           </div>
           <Slash
-            size={45}
+            size={38}
             strokeWidth={1}
-            className="-rotate-12 hidden self-center lg:block mr-7"
+            className="-rotate-12 hidden self-center lg:block mr-3"
           />
         </div>
 
         <div className="w-full md:w-[75%]">
-          <AccordionTrigger className=" rounded-none flex w-full cursor-pointer flex-col items-start gap-5 border-b border-main text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
-            <div className="flex flex-col gap-[10px] text-start min-w-[150px]">
-              <p className="sm:text-lg md:text-xs">{article.sign}</p>
+          <AccordionTrigger className=" rounded-none justify-normal flex w-full cursor-pointer flex-col items-start gap-5 border-b border-main text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
+            <div className="flex flex-col gap-[10px] text-start min-w-[130px]">
               <p className="text-gray-500 sm:text-lg md:text-xs">
                 {article.sub_category}
               </p>
+              <p className="sm:text-lg md:text-xs">{article.author}</p>
             </div>
-            <div className="flex flex-col gap-2 text-start">
+            <div className="flex flex-col gap-2 text-start ">
               <p className="text-xl font-bold md:text-md lg:text-xl">
-                {article.sub_category}:{article.number}
+                {article.sub_category}:{article.number}:{article.sign}
               </p>
-              <p className="min-h-[30px] text-md md:text-xs lg:text-xl">
+              <p className="min-h-[30px] text-md md:text-xs lg:text-base">
                 {article.title}
               </p>
             </div>
@@ -84,23 +84,9 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             </h6>
             <div
               style={{ direction: "rtl" }}
-              className="mt-5 text-justify font-zain text-md text-gray-500"
+              className="mt-5 !text-justify !font-zain text-md text-gray-500"
               dangerouslySetInnerHTML={{ __html: article.rule.body_html }}
             />
-
-            {/* Tags */}
-            {article.tags.length > 0 && (
-              <div className="mt-4 flex flex-wrap gap-2 justify-end">
-                {article.tags.map((tag, tagIndex) => (
-                  <span
-                    key={tagIndex}
-                    className="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-zain"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
 
             <div className="mt-5 flex w-full items-end justify-end">
               <Link href={`/article/${article.uuid}`}>
