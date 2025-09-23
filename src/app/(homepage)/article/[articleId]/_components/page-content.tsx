@@ -1,11 +1,12 @@
+"use client";
 import SecondaryTabs, {
   SecondaryTabItem,
 } from "@/components/common/secondary-tabs";
+import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 
 export default function PageContent({ article }: { article: Article }) {
-  // Create tabs array with proper ordering
   const contentTabs: SecondaryTabItem[] = [];
-
+  console.log(article);
   // Always add rule tab first if it exists
   if (article.rule) {
     contentTabs.push({
@@ -13,9 +14,13 @@ export default function PageContent({ article }: { article: Article }) {
       value: "rule",
       component: (
         <div className="text-right">
-          <p className="text-gray-500 leading-relaxed text-lg text-justify">
-            {article.rule.body_text}
-          </p>
+          <div
+            className="text-gray-500 leading-relaxed text-lg text-justify font-normal "
+            style={{ direction: "rtl" }}
+            dangerouslySetInnerHTML={{
+              __html: cleanHtmlStyles(article.rule.body_html),
+            }}
+          />
         </div>
       ),
     });
@@ -74,10 +79,7 @@ export default function PageContent({ article }: { article: Article }) {
           <h3 className="text-right text-sm font-bold sm:text-4xl flex items-center gap-2">
             {article.title}:
             <span className="mt-0.5 text-sm sm:text-3xl block">
-              {article.number}:
-            </span>
-            <span className="mt-0.5 text-sm  sm:text-3xl block">
-              {article.sign}
+              {article.number}/{article.sign}
             </span>
           </h3>
           <div className="mt-5 flex items-center justify-end gap-5">

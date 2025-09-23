@@ -7,6 +7,7 @@ import {
 import { ChevronLeft, Slash } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 
 type ArticleCardProps = {
   article: Article;
@@ -38,7 +39,12 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
   };
 
   const { day, month, year } = formatDate(article.publish_date);
+
+  // Clean the HTML content before rendering
+  const cleanedBodyHtml = cleanHtmlStyles(article.rule.body_html);
+
   console.log(article);
+
   return (
     <AccordionItem
       key={article.uuid}
@@ -70,7 +76,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             </div>
             <div className="flex flex-col gap-2 text-start ">
               <p className="text-xl font-bold md:text-md lg:text-xl">
-                {article.sub_category}:{article.number}:{article.sign}
+                {article.sub_category}:{article.number}/{article.sign}
               </p>
               <p className="min-h-[30px] text-md md:text-xs lg:text-base">
                 {article.title}
@@ -85,7 +91,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             <div
               style={{ direction: "rtl" }}
               className="mt-5 !text-justify !font-zain text-md text-gray-500"
-              dangerouslySetInnerHTML={{ __html: article.rule.body_html }}
+              dangerouslySetInnerHTML={{ __html: cleanedBodyHtml }}
             />
 
             <div className="mt-5 flex w-full items-end justify-end">
