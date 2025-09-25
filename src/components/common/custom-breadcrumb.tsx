@@ -16,6 +16,7 @@ const routeNameMap: { [key: string]: string } = {
   "/": "Home",
   "/litigants-portal": "بوابة المتقاضين والقانونيين",
   "/litigants-portal/important-notices": "معلومات مهمة",
+  "/litigants-portal/appeal-inquiry": "الاستعلام عن الطعون",
   "/litigants-portal/litigation-services": "المحامون المقبولون",
   "/litigants-portal/court-releases": "إصدارات المحكمة و النشر",
   "/technical-office": "المكتب الفني",

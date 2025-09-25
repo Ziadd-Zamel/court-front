@@ -7,11 +7,13 @@ interface PageContentProps {
 }
 
 export default function MainTable({ caseData }: PageContentProps) {
-  console.log(caseData);
   return (
     <section className="">
       <table className="w-full border-collapse">
-        <tbody>
+        <h5 className="text-2xl sm:text-3xl font-medium text-right pb-5 w-full">
+          البيانات العامة
+        </h5>
+        <tbody className="rounded-md">
           <SimpleTableRow
             white={false}
             label="رقم الطعن"
@@ -38,7 +40,10 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* Appellant Information - بيانات الطاعن/الطاعنين */}
-      <table className="w-full border-collapse mt-10">
+      <h5 className="text-2xl sm:text-3xl font-medium pb-5 text-rightw-full mt-24">
+        بيانات الطاعن/الطاعنين
+      </h5>
+      <table className="w-full border-collapse">
         <tbody>
           <SimpleTableRow
             white={false}
@@ -57,7 +62,10 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* Respondent Information - بيانات المطعون ضده/ضدهم */}
-      <table className="w-full border-collapse mt-10">
+      <h5 className="text-2xl sm:text-3xl font-medium text-right pb-5 w-full mt-24">
+        بيانات المطعون ضده/ضدهم{" "}
+      </h5>
+      <table className="w-full border-collapse ">
         <tbody>
           <SimpleTableRow
             white={false}
@@ -74,7 +82,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* Urgent Section - الشق المستعجل */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-10">
+      <h5 className="text-2xl sm:text-3xl font-medium text-right pb-5 w-full mt-24">
         الشق المستعجل
       </h5>
       <table className="w-full border-collapse">
@@ -86,7 +94,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* Appeal Examination - فحص الطعن */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-10">
+      <h5 className="text-2xl sm:text-3xl font-medium text-right pb-5 w-full mt-24">
         فحص الطعن
       </h5>
       <table className="w-full border-collapse">
@@ -98,8 +106,8 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* Case Conclusion - نهاية النقض */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-10">
-        نهاية النقض
+      <h5 className="text-2xl sm:text-3xl font-medium text-right pb-5 w-full mt-24">
+        نيابة النقض
       </h5>
       <table className="w-full border-collapse">
         <tbody>
@@ -115,7 +123,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* Appeal Consideration - نظر الطعن */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-10">
+      <h5 className="text-2xl sm:text-3xl font-medium text-right pb-5 w-full mt-24">
         نظر الطعن
       </h5>
       <table className="w-full border-collapse">
@@ -126,7 +134,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* Previous Decision - الحكم السابق على الفصل في الطعن */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-10">
+      <h5 className="text-2xl sm:text-3xl font-medium text-right pb-5 w-full mt-24">
         الحكم السابق على الفصل في الطعن
       </h5>
       <table className="w-full border-collapse">
@@ -137,7 +145,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* Final Decision - الفصل في الطعن */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-10">
+      <h5 className="text-2xl sm:text-3xl font-medium text-right pb-5 w-full mt-24">
         الفصل في الطعن
       </h5>
       <table className="w-full border-collapse">

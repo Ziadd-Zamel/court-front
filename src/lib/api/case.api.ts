@@ -10,9 +10,7 @@ export const getCaseData = async (
   if (classId) params.append("classId", classId);
 
   // Use full URL for server-side calls
-  const baseUrl =
-    process.env.NEXTAUTH_URL || "https://court-front-one.vercel.app";
-  const response = await fetch(`${baseUrl}/api/case?${params.toString()}`, {
+  const response = await fetch(`/api/case?${params.toString()}`, {
     cache: "no-store",
   });
   console.log(response);

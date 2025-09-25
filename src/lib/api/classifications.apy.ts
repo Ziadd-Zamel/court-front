@@ -1,8 +1,6 @@
 export const getClassificationsData = async () => {
   // Use full URL for server-side calls
-  const baseUrl =
-    process.env.NEXTAUTH_URL || "https://court-front-one.vercel.app";
-  const response = await fetch(`${baseUrl}/api/classifications`, {
+  const response = await fetch(`/api/classifications`, {
     cache: "no-store",
   });
 

@@ -2,7 +2,7 @@
 import RtlInputField from "@/components/common/RtlInputField";
 import RtlSelectField from "@/components/common/RtlSelectField";
 import { useQueryState } from "nuqs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import MainTable from "./Main-Table";
 import { useQuery } from "@tanstack/react-query";
@@ -10,7 +10,12 @@ import { getClassificationsData } from "@/lib/api/classifications.apy";
 import { getCaseData } from "@/lib/api/case.api";
 import NoSearchResults from "@/components/custom/no-result";
 
-export default function PageContent() {
+export interface PageContentProps {
+  showstates: boolean;
+  setShowstates: (v: boolean) => void;
+}
+
+export default function PageContent({ setShowstates }: PageContentProps) {
   // Local state for form inputs
   const [appealNumber, setAppealNumber] = useState("");
   const [judicialYear, setJudicialYear] = useState("");
@@ -63,7 +68,27 @@ export default function PageContent() {
     ]);
     refetch();
   };
+  useEffect(() => {
+    // If we have a payload with real rows -> set parent state true
+    if (
+      caseData?.data &&
+      Array.isArray(caseData.data) &&
+      caseData.data.length > 0
+    ) {
+      setHasSearched(true); // optional: mark that real data arrived
+      setShowstates(true); // <--- your requested call
+      return;
+    }
 
+    // If a search was attempted and it's finished loading with no data, set false
+    if (
+      hasSearched &&
+      !isLoading &&
+      (!caseData?.data || caseData.data.length === 0)
+    ) {
+      setShowstates(false);
+    }
+  }, [caseData, isLoading, hasSearched, setShowstates]);
   // Determine what to show based on search state
   const renderContent = () => {
     // If no search has been performed yet, show instructions
@@ -161,11 +186,11 @@ export default function PageContent() {
           disabled={isSearchDisabled || isLoading}
           className="px-10 py-1 text-2xl"
         >
-          {isLoading ? "جاري البحث..." : "بحث"}
+          {isLoading ? " البحث جار" : "بحث"}
         </Button>
       </div>
 
-      <div className="min-h-[20vh] my-20">{renderContent()}</div>
+      <div className="min-h-[40vh]">{renderContent()}</div>
     </div>
   );
 }
