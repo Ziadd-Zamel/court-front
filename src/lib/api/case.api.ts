@@ -19,6 +19,9 @@ export const getCaseData = async (
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  const payload: APIResponse<CaseDataType> = await response.json();
+  const payload: APIResponse<CaseDataType[]> = await response.json();
+  if (!("data" in payload)) {
+    throw new Error("error in fetching");
+  }
   return payload;
 };

@@ -9,7 +9,7 @@ export default function SimpleTableRow({
     <tr>
       <td
         className={cn(
-          "border border-black h-12 font-semibold text-right w-1/3",
+          "border border-black h-12 font-medium text-sm sm:text-xl text-right w-1/3 px-3",
           white ? "bg-white" : "bg-secndary"
         )}
       >
@@ -17,7 +17,7 @@ export default function SimpleTableRow({
       </td>
       <td
         className={cn(
-          "border border-black h-12 w-2/3",
+          "border border-black h-12 w-2/3 px-3  text-sm sm:text-xl ",
           white ? "bg-white" : "bg-secndary"
         )}
       >

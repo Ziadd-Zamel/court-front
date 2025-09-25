@@ -1,26 +1,23 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import RtlInputField from "@/components/common/RtlInputField";
 import RtlSelectField from "@/components/common/RtlSelectField";
 import { useQueryState } from "nuqs";
-import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import MainTable from "./Main-Table";
+import { useQuery } from "@tanstack/react-query";
+import { getClassificationsData } from "@/lib/api/classifications.apy";
+import { getCaseData } from "@/lib/api/case.api";
+import NoSearchResults from "@/components/custom/no-result";
 
-interface PageContentProps {
-  caseData: CaseDataType | undefined;
-  error: string | null;
-}
-
-export default function PageContent({ caseData, error }: PageContentProps) {
-  const router = useRouter();
-  const pathname = usePathname();
-
+export default function PageContent() {
   // Local state for form inputs
   const [appealNumber, setAppealNumber] = useState("");
   const [judicialYear, setJudicialYear] = useState("");
-  const [appealType, setAppealType] = useState("");
+  const [appealTypeId, setAppealTypeId] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
 
-  // URL state management with nuqs (only updated on search)
+  // URL state management with nuqs
   const [urlAppealNumber, setUrlAppealNumber] = useQueryState("appealNumber", {
     defaultValue: "",
   });
@@ -32,38 +29,85 @@ export default function PageContent({ caseData, error }: PageContentProps) {
   const [urlAppealType, setUrlAppealType] = useQueryState("appealType", {
     defaultValue: "",
   });
-  console.log(caseData);
-  console.log(error);
-  const appealTypeOptions = [
-    "طعن أحوال شخصية",
-    "طعن إداري",
-    "طعن مدني",
-    "طعن جنائي",
-    "طعن دستوري",
-    "الدوائر مجتمعة",
-    "دعوى إدارية",
-    "التماس إعادة النظر",
-    "معارضة",
-    "تنازع اختصاص",
-  ];
 
-  const handleSearch = () => {
-    const params = new URLSearchParams();
+  // React Query for classifications
+  const { data: classificationsData, error: classificationsError } = useQuery({
+    queryKey: ["classifications"],
+    queryFn: getClassificationsData,
+    staleTime: 30 * 60 * 1000,
+  });
 
-    if (appealNumber) {
-      params.set("appealNumber", appealNumber);
+  const {
+    data: caseData,
+    error: caseError,
+    isLoading: isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["caseData", urlAppealNumber, urlJudicialYear, urlAppealType],
+    queryFn: () => getCaseData(urlAppealNumber, urlJudicialYear, urlAppealType),
+    enabled: false,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const isSearchDisabled =
+    !appealNumber.trim() || !judicialYear.trim() || !appealTypeId.trim();
+
+  const handleSearch = async () => {
+    if (isSearchDisabled) return;
+
+    setHasSearched(true);
+    await Promise.all([
+      setUrlAppealNumber(appealNumber),
+      setUrlJudicialYear(judicialYear),
+      setUrlAppealType(appealTypeId),
+    ]);
+    refetch();
+  };
+
+  // Determine what to show based on search state
+  const renderContent = () => {
+    // If no search has been performed yet, show instructions
+    if (!hasSearched && !caseData) {
+      return (
+        <div className="">
+          <h3 className=" text-2xl sm:text-3xl font-bold text-zinc-800 mb-2 text-right">
+            إضاءات:
+          </h3>
+          <div className="text-gray-500 text-base text-justify">
+            <p>
+              هذه بعض الملاحظات المهمة التي يمكن أن تعين الزائر في عملية البحث
+              وفي فهم إجراءات نظر الطعن. هذا النص قابل للتعديل والتحديث من لوحة
+              التحكم. هذه بعض الملاحظات المهمة التي يمكن أن تعين الزائر في عملية
+              البحث وفي فهم إجراءات نظر الطعن. هذا النص قابل للتعديل والتحديث من
+              لوحة التحكم. هذه بعض الملاحظات المهمة التي يمكن أن تعين الزائر في
+              عملية البحث وفي فهم إجراءات نظر الطعن.
+            </p>
+          </div>
+        </div>
+      );
     }
 
-    if (judicialYear) {
-      params.set("judicialYear", judicialYear);
+    // If search has been performed and there are results
+    if (hasSearched && caseData?.data) {
+      return (
+        <MainTable
+          caseData={caseData.data}
+          error={caseError?.message || null}
+        />
+      );
     }
 
-    if (appealType) {
-      params.set("appealType", appealType);
+    // If search has been performed but no results found (or search completed with no data)
+    if (hasSearched && !isLoading && !caseData?.data) {
+      return (
+        <NoSearchResults
+          box={false}
+          message="رسالة عدم توفر بيانات الطعن إلى الآن"
+        />
+      );
     }
 
-    const url = `${pathname}?${params.toString()}`;
-    router.push(url, { scroll: false });
+    return null;
   };
 
   return (
@@ -97,32 +141,31 @@ export default function PageContent({ caseData, error }: PageContentProps) {
         {/* Appeal Type Select */}
         <RtlSelectField
           label="نوع الطعن"
-          value={appealType}
-          onChange={setAppealType}
-          options={appealTypeOptions}
+          value={appealTypeId}
+          onChange={setAppealTypeId}
+          options={classificationsData?.data || []}
           placeholder="اختر نوع الطعن"
         />
+
+        {classificationsError && (
+          <div className="text-red-500 text-sm mt-1">
+            خطأ في تحميل أنواع الطعون: {classificationsError.message}
+          </div>
+        )}
       </div>
 
       {/* Search Button */}
       <div className="mt-8 flex justify-center">
-        <button
+        <Button
           onClick={handleSearch}
-          className="rounded-md bg-[#F3E5CA] px-8 py-0.5 text-xl font-semibold text-gray-800 hover:bg-[#E6C59A] sm:px-12 sm:py-1 lg:text-lg min-[1200px]:text-2xl"
+          disabled={isSearchDisabled || isLoading}
+          className="px-10 py-1 text-2xl"
         >
-          بحث
-        </button>
+          {isLoading ? "جاري البحث..." : "بحث"}
+        </Button>
       </div>
 
-      {/* Display Current Values */}
-      <div className="mt-8 p-4 bg-gray-100 rounded-md">
-        <h3 className="font-bold mb-2" style={{ direction: "rtl" }}>
-          القيم الحالية:
-        </h3>
-        <p style={{ direction: "rtl" }}>رقم الطعن: {appealNumber}</p>
-        <p style={{ direction: "rtl" }}>السنة القضائية: {judicialYear}</p>
-        <p style={{ direction: "rtl" }}>نوع الطعن: {appealType}</p>
-      </div>
+      <div className="min-h-[20vh] my-20">{renderContent()}</div>
     </div>
   );
 }
