@@ -13,7 +13,10 @@ export default function ReusableTabsSkeleton({
   tabsCount = 5,
 }: ReusableTabsSkeletonProps) {
   return (
-    <div dir={direction} className={`w-full ${className} mt-20 animate-pulse`}>
+    <div
+      dir={direction}
+      className={`w-full ${className} mt-20 animate-pulse box-container`}
+    >
       <div className="flex flex-col lg:flex-row md:items-start gap-20 w-full">
         {/* Tab list skeleton */}
         <div

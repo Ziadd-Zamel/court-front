@@ -1,9 +1,5 @@
 import SearchBar from "@/components/common/search-bar";
 import CounselorsContent from "./counselors-content";
-import { Separator } from "@radix-ui/react-select";
-import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
-import { User } from "lucide-react";
-import { AvatarImage } from "@/components/ui/avatar";
 
 type Props = {
   pagination: {

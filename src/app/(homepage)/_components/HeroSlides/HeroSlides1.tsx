@@ -15,7 +15,7 @@ const HeroSlides1 = () => {
         />
         <div className="flex w-full flex-col items-center justify-center">
           <motion.h1
-            className=" text-3xl sm:text-5xl font-medium lg:text-6xl"
+            className=" text-3xl sm:text-5xl font-bold lg:text-6xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}

@@ -18,7 +18,7 @@ import QuestionSkeleton from "./question-skeleton";
 import QuestionError from "./question-error";
 import SearchBar from "@/components/common/search-bar";
 import QuestionEmptyState from "./question-empty";
-import { stripHtmlTags } from "@/lib/stripHtml";
+import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 
 interface ImportantNoticesPageProps {
   TabsData: questionCategory[];
@@ -94,7 +94,7 @@ export default function ImportantNoticesPage({
       aria-labelledby="Important Notices Page"
       className="relative pt-10 w-full box-container flex flex-col "
     >
-      <p className=" pb-20 text-lg text-gray-500">
+      <p className=" pb-20 text-lg text-gray-500 text-center">
         <span className="text-xl"> تنبيه:</span> هذه المعلومات معدة لتيسير
         الإجراءات للمتقاضين والقانونيين، <br /> ولا تمثل بالضرورة حكم القانون في
         مسائلها.{" "}
@@ -152,19 +152,27 @@ export default function ImportantNoticesPage({
                       className="w-full space-y-2"
                       dir="rtl"
                     >
-                      {questionResponse.data.map((question: Iquestion) => (
-                        <AccordionItem
-                          key={question.uuid}
-                          value={`item-${question.uuid}`}
-                        >
-                          <AccordionTrigger className="py-5 pl-4 text-sm font-medium sm:text-xl text-right">
-                            <p style={{ direction: "rtl" }}>{question.title}</p>
-                          </AccordionTrigger>
-                          <AccordionContent className="text-lg text-gray-500">
-                            {stripHtmlTags(question.answer)}
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
+                      {questionResponse.data
+                        .reverse()
+                        .map((question: Iquestion) => (
+                          <AccordionItem
+                            key={question.uuid}
+                            value={`item-${question.uuid}`}
+                          >
+                            <AccordionTrigger className="py-5 pl-4 text-sm font-medium sm:text-xl text-right hover:no-underline hover:text-main transition-all duration-300">
+                              <p style={{ direction: "rtl" }}>
+                                {question.title}
+                              </p>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-lg text-gray-500">
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: cleanHtmlStyles(question.answer),
+                                }}
+                              ></div>
+                            </AccordionContent>
+                          </AccordionItem>
+                        ))}
                     </Accordion>
 
                     {/* Pagination - Only show if multiple pages exist */}

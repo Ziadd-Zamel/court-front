@@ -34,7 +34,7 @@ const HeroSlides2 = () => {
                 className="mt-2 text-start text-xs sm:text-lg lg:text-2xl"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2, delay: 0.6 }}
+                transition={{ duration: 0.4, delay: 0.8 }}
               >
                 ذائداً عن حوزة القانون الدّستوري
               </motion.p>
@@ -43,7 +43,7 @@ const HeroSlides2 = () => {
                 className="mt-2 text-start text-xs sm:text-lg lg:text-2xl"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2, delay: 0.8 }}
+                transition={{ duration: 0.4, delay: 1.2 }}
               >
                 ضامناً لبقاء الشرعيّة الدستوريّة في مدارجها العليا
               </motion.p>

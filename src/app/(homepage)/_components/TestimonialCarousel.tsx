@@ -119,9 +119,9 @@ const StaggeredNavigationCarousel: React.FC<CarouselProps> = ({
                     ...{item.text.substring(0, 50)}{" "}
                   </p>
                 </div>
-                <div className="flex h-[45px] w-[50px] flex-col items-center justify-center rounded-[1px] bg-main text-center text-sm text-white">
-                  <p className="">21</p>
-                  <p className="-mt-2 font-zain text-sm">فبر</p>
+                <div className="flex h-[60px] w-[70px] flex-col items-center justify-center rounded-[1px] bg-main text-center text-sm text-white">
+                  <p className="text-base">21</p>
+                  <p className="-mt-2 text-sm">ديسمبر</p>
                 </div>
               </div>
               <div className="my-4 ml-10 h-[.5px] w-full bg-[#d8d8d8]" />
@@ -135,7 +135,7 @@ const StaggeredNavigationCarousel: React.FC<CarouselProps> = ({
           <button
             key={index}
             className={`rounded-full transition-colors cursor-pointer ${
-              currentIndex === index ? "h-3 w-3 bg-main" : "h-4 w-4 bg-gray-400"
+              currentIndex === index ? "h-4 w-4 bg-main" : "h-3 w-3 bg-gray-400"
             }`}
             onClick={() => handleNavigation(index)}
             disabled={isTransitioning}

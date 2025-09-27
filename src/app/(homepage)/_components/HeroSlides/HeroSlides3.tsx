@@ -15,10 +15,13 @@ const HeroSlides3 = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-center text-2xl sm:text-5xl font-extrabold lg:text-6xl"
           >
-            بوابة المتقاضين والقانونيين
+            <div className="flex flex-col items-center justify-center gap-2">
+              <span className="mb-3">بوابة</span>
+              <span>المتقاضين والقانونيين</span>
+            </div>
           </motion.h1>
 
-          <div className="mt-5 flex w-full flex-col items-center justify-center">
+          <div className="mt-7 flex w-full flex-col items-center justify-center">
             <motion.p
               className="-mt-2 text-center text-xs sm:text-lg text-main lg:text-2xl"
               initial={{ opacity: 0, y: 50 }}

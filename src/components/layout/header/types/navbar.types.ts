@@ -38,4 +38,5 @@ export interface ActionButtonsProps {
   onToggleSearch: () => void;
   onToggleMenu: () => void;
   isSearchOpen: boolean;
+  isMenuOpen: boolean;
 }

@@ -13,7 +13,7 @@ export default function LitigationServicesPage({ circles, fields }: Props) {
       aria-labelledby="Litigation Services Page"
       className="relative pt-10 w-full box-container pb-40"
     >
-      <p className=" pb-20 text-lg text-gray-500">
+      <p className=" pb-20 text-lg text-gray-500 text-center">
         تنبيه: بيان مجال الترافع أمام المحكمة العليا مبني على إفادة المحامي أو
         النقابة، ولا يمثل رأي المحكمة العليا.
       </p>

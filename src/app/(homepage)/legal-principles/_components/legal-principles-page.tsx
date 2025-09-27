@@ -19,31 +19,6 @@ export default async function LegalPrinciplesPage({
   const data = await getLegalPrinciplesSub();
   const categoriesData = data?.data || [];
 
-  // Static tabs configuration
-  const staticTabs: TabItem[] = [
-    {
-      label: "عن الدائرة الدستورية",
-      value: "constitutional-court",
-      heading: "عن الدائرة الدستورية",
-      component: (
-        <p className="text-justify text-gray-500 md:text-xl">
-          حيث إن ما استند إليه المدعي في البرهنة على ملكية البائعة ما باعته إياه
-          من الأرض انحصر في عقد القسمة العرفي، فإن هذا لا يسعفُه ليؤتَى سؤلَه
-          بالصحة والنفاذ. فجدوى هذا العقد ههنا تتوقف على صلاحيته القانونية لنقل
-          الملكية إليها. وحيث إنه بذاته لا يصلح لذلك، بل يستوجب إما تسجيلَه في
-          السجل العقاري، وإما حكماً قضائياً بصحته ونفاذه وتسجيلَ هذا الحكم بذلك
-          السجل. لهذا، كان على المدعي التدليلُ على تحقق واحدٍ من هذين الشرطين.
-          فإن لم يكن، امتنع حسبان المدعى عليها مالكةً ما باعت، وانعدمت، من ثم،
-          قدرتها على نقل الملكية، ولم يبق أمام المدعي إلا أن يختصم أطرافَ عقد
-          القسمة جميعَهم ليطلبَ الحكمَ بصحته، توطئةً للحكم بصحة عقده ونفاذه.
-          فإذا ما أُجيب طلبُه وسجل الحكمَ الصادر بصحة العقدين انتقلت الملكية
-          إليه. فهذا وحدَه ما يوافق الأحكامَ المقررةَ في انتقال الملكية وأسباب
-          نقلها، ويضمنُ تسلسلَ أسباب اكتسابها من المالك إلى المدعي.
-        </p>
-      ),
-    },
-  ];
-
   // Dynamic tabs from categories (empty array if no data)
   const dynamicTabs: TabItem[] = categoriesData.map((category) => ({
     label: category.name,
@@ -60,9 +35,6 @@ export default async function LegalPrinciplesPage({
     ),
   }));
 
-  // Combine static and dynamic tabs
-  const allTabs: TabItem[] = [...staticTabs, ...dynamicTabs];
-
   return (
     <section
       id="ImportantNotices"
@@ -70,8 +42,8 @@ export default async function LegalPrinciplesPage({
       className="relative pt-10 w-full box-container mb-20"
     >
       <ReusableTabs
-        tabs={allTabs}
-        defaultValue="constitutional-court"
+        tabs={dynamicTabs}
+        defaultValue={categoriesData[0].uuid}
         tabContentClassName=" mt-32 lg:mt-[100px]"
       />
     </section>

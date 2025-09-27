@@ -1,34 +1,45 @@
+import { FaLocationDot } from "react-icons/fa6";
+import { FaPhone } from "react-icons/fa";
+
+import { MdOutlineMail } from "react-icons/md";
 const SecondeSectoin = () => {
   return (
-    <div className="w-full">
-      <div className="flex gap-5">
-        <h6 className="font-zain text-2xl font-bold text-main">
-          عن <br /> المحكمة <br />
-          العليا
-        </h6>
-        <p className="text-justify font-zain text-[14.3px] text-gray-500">
-          لم تُنشأ المحكمةُ العليا في ليبيا عقب استقلال البلاد بتاريخ
-          20-02-1952م، بالرغم من النص عليها في الدستور الذي أقرّته الجمعية
-          الوطنية الليبية بتاريخ 22-08-1951م، وإنما ظهرت إلى الوجود بعد إصدار
-          قانون المحكمة العليا الاتحادية بتاريخ 2 - 22 - 2551م
-        </p>
+    <div className="w-full flex flex-col items-center">
+      <div className="flex flex-col justify-start gap-5">
+        <h2 className="mb-5 text-4xl font-bold text-main text-right">
+          الاتصال
+        </h2>
+        <h4 className="text-main font-medium text-2xl">طرابلس</h4>
+        <div className="flex items-center gap-3">
+          <FaLocationDot className="text-main" />
+          <p className="text-xl">طرابلس – زاوية الدهماني</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <FaPhone className="text-main" />
+          <p style={{ direction: "ltr" }} className="text-xl mr-1.5">
+            +218-21-3403725/27
+          </p>
+        </div>
       </div>
-      <p className="text-justify font-zain text-[14.3px] text-gray-500">
-        الذي تم تعديله بالمرسوم الصادر بتاريخ 22-01-1954م. ومنذ ذلك التاريخ،
-        شرعت المحكمة في ممارسة اختصاصاتها كمحكمة دستورية، ومحكمة نقض في المسائل
-        المدنية والتجارية والأحوال الشرعية، ومحكمة للقضاء الإداري، ومحكمة خاصة
-        بالطعون الانتخابية، بالإضافة إلى دورها في الفتوى والتشريع، وذلك نظرًا
-        لحاجة البلاد آنذاك إلى جهة قانونية متخصصة وذات خبرة في تفسير القوانين
-        ومراجعتها قبل إصدارها من الحكومة الاتحادية وحكومات الولايات.
-      </p>
-      <p className="mt-[10px] text-justify font-zain text-xs text-gray-500">
-        أعاد المشرّع تنظيم المحكمة ـ بعد عام 1965م ـ بقرار صدر بتاريخ
-        22-05-1965م، ثم أصدر القانون رقم (6) لسنة 1980م بشأن إعادة تنظيم المحكمة
-        العليا، والذي تم تعديله بالقانون رقم (27) لسنة 1952م، وبالقانون رقم (8)
-        لسنة 2002م، ثم بالقانون رقم (11) لسنة 2010م. وهذا القانون وتعديلاته هو
-        الذي حدد اختصاصات المحكمة العليا حاليًا، ونظم أعمالها، وبيّن دورها على
-        رأس الهرم القضائي في البلاد.
-      </p>
+      <div className="flex flex-col justify-start mt-8 gap-5">
+        <h4 className="text-main font-medium text-2xl">بنغازي</h4>
+        <div className="flex items-center gap-3">
+          <FaLocationDot className="text-main" />
+          <p className="text-xl">شارع رفيق المهدوي</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <FaPhone className="text-main" />
+          <p style={{ direction: "ltr" }} className="text-xl mr-1.5">
+            +218-61-9090690{" "}
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <MdOutlineMail className="text-main" />
+          <p style={{ direction: "ltr" }} className="text-xl mr-1.5">
+            info@supremecourt.gov.ly{" "}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

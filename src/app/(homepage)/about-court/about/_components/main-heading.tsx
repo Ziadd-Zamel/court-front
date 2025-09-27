@@ -2,26 +2,16 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
-import CustomBreadcrumb from "./custom-breadcrumb";
 import { useRef } from "react";
+import CustomBreadcrumb from "@/components/common/custom-breadcrumb";
+import FootrLogo from "@/components/layout/Footer/component/FotterLogo";
 
 interface Props {
-  title: string;
   bgImage: string;
-  description?: string;
-  titleClassName?: string;
-  descriptionClassname?: string;
   overlay?: boolean;
 }
 
-export default function MainHeading({
-  bgImage,
-  overlay,
-  title,
-  titleClassName,
-  descriptionClassname,
-  description,
-}: Props) {
+export default function MainHeading({ bgImage, overlay }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -51,18 +41,17 @@ export default function MainHeading({
       {/**Content container */}
       <div className="relative flex flex-col box-container z-20 gap-8 mt-32">
         {/** Title with Breadcrumb */}
-        <div className="flex gap-10 sm:gap-0 sm:flex-row flex-col-reverse w-full max-w[80%] items-center justify-between">
-          <motion.h2
+        <div className="flex gap-10 sm:gap-0 sm:flex-row flex-col-reverse w-full max-w[80%] items-start justify-between">
+          <motion.div
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className={cn(
-              titleClassName,
               "text-3xl sm:text-5xl font-bold text-white self-start"
             )}
           >
-            {title}
-          </motion.h2>
+            <FootrLogo />
+          </motion.div>
           <motion.div
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
@@ -72,21 +61,6 @@ export default function MainHeading({
             <CustomBreadcrumb />
           </motion.div>
         </div>
-
-        {/**Description */}
-        {description && (
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className={cn(
-              descriptionClassname,
-              "font-normal leading-7 text-gray-300 text-sm sm:text-lg md:text-xl md:max-w-[80%]"
-            )}
-          >
-            {description}
-          </motion.p>
-        )}
       </div>
     </section>
   );

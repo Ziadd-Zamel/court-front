@@ -1,6 +1,7 @@
 import { Pin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface HighlightCardProps {
   section: string;
@@ -52,13 +53,15 @@ export default function HighlightCard({
         </p>
       )}
 
-      <Button
-        variant="ghost"
-        className="mt-5 text-left text-sm font-[500] text-main hover:text-main/80 p-0 h-auto"
-        onClick={onButtonClick}
-      >
-        {buttonText}
-      </Button>
+      <div className="flex justify-end w-full">
+        <Link
+          href={"#"}
+          className="mt-5 text-left text-base font-[500] text-main hover:text-main/80 px-3 py-1 h-auto"
+          onClick={onButtonClick}
+        >
+          المذيد
+        </Link>
+      </div>
     </div>
   );
 }

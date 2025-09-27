@@ -80,7 +80,7 @@ export default function PrintingPublishingService() {
         والنشر.
       </p>
 
-      <div className="mt-32">
+      <div className="mt-16">
         <div className=" w-full sm:max-w-fit">
           <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-4xl border-b border-gray-300 pb-5">
             طلب الطباعة والنشر

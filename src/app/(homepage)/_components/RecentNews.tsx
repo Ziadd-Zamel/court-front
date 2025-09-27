@@ -22,7 +22,7 @@ const RecentNews = () => {
   };
 
   return (
-    <section className="pt-12 mb-16">
+    <section className="pt-12 pb-16 bg-main/10">
       <AnimatedSectionHeader title="  أخبار المحكمة العليا" />
       <div className="mt-7 flex flex-col items-center justify-center lg:flex-row box-container ">
         <div className="flex w-full flex-col items-start text-right lg:w-[50%]">
@@ -41,7 +41,7 @@ const RecentNews = () => {
         </div>
         <div className="mb-20 w-full lg:mt-0 lg:w-[50%]">
           <motion.div
-            className="min-h-[380px] w-full border bg-white px-7 py-5 shadow-lg"
+            className=" w-full border h-[380px] bg-white px-7 py-5 shadow-lg"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
@@ -59,7 +59,7 @@ const RecentNews = () => {
                     {SelectedNew.text}:
                   </h6>
                 </div>
-                <p className="text-md text-gray-500">{SelectedNew.desc}</p>
+                <p className="text-md text-gray-500 mt-5">{SelectedNew.desc}</p>
               </motion.div>
             )}
           </motion.div>

@@ -45,6 +45,7 @@ export default function Header({ opacity = false }: NavbarProps) {
           onToggleSearch={toggleSearch}
           onToggleMenu={toggleMenu}
           isSearchOpen={isSearchOpen}
+          isMenuOpen={isMenuOpen}
         />
         <Image
           src="/assets/nav-logo.svg"
