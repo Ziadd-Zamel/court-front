@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 // hooks/useCountAnimation.ts
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface UseCountAnimationOptions {
   duration?: number;
@@ -28,7 +27,9 @@ export const useCountAnimation = (
       const progress = Math.min(elapsed / duration, 1);
 
       if (progress < 1) {
-        setCount(Math.floor(startValue + (endValue - startValue) * easing(progress)));
+        setCount(
+          Math.floor(startValue + (endValue - startValue) * easing(progress))
+        );
         animationFrame = requestAnimationFrame(animate);
       } else {
         setCount(endValue);
