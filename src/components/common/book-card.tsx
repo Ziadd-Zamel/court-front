@@ -119,7 +119,7 @@ export default function BookCard({
           )}
           {type === "ruling" && (
             <>
-              <p className="absolute top-[150px] left-[42%] -translate-1/2 text-white">
+              <p className="absolute top-[170px] left-[42%] -translate-1/2 text-white">
                 {book.category}
               </p>
               <p className="absolute bottom-10 left-[42%] -translate-1/2 text-white">
