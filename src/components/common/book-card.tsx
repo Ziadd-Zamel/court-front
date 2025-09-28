@@ -108,10 +108,14 @@ export default function BookCard({
             <Share2 size={16} className="text-gray-600 hover:text-green-500" />
           </button>
           {type === "magazine" && (
-            <p className="absolute top-[150px] right-[26px] text-white text-lg">
-              {" "}
-              {book.published_year}
-            </p>
+            <>
+              <p className="absolute top-[132px] right-[32px] text-white text-sm">
+                السنة
+              </p>
+              <p className="absolute top-[150px] right-[24px] text-white text-2xl">
+                {book.published_year}
+              </p>
+            </>
           )}
           {type === "ruling" && (
             <>
