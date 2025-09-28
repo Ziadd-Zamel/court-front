@@ -54,7 +54,7 @@ export default function SecondaryTabs({
     ease-in-out
     hover:border-b-main/60
     hover:text-main/80
-    data-[state=active]:border-b-[4px] 
+    data-[state=active]:border-b-[8px] 
     data-[state=active]:border-b-main 
     data-[state=active]:shadow-none 
     data-[state=active]:hover:border-b-main
