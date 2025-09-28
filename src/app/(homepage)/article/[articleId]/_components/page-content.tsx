@@ -16,7 +16,7 @@ export default function PageContent({ article }: { article: Article }) {
       component: (
         <div className="text-right">
           <div
-            className="text-gray-500 leading-relaxed text-lg text-justify font-normal "
+            className="text-gray-500 leading-relaxed text-base text-justify font-normal "
             style={{ direction: "rtl" }}
             dangerouslySetInnerHTML={{
               __html: cleanHtmlStyles(article.rule.body_html),
@@ -68,7 +68,7 @@ export default function PageContent({ article }: { article: Article }) {
                     {content.title}
                   </h4>
                   <div
-                    className={`text-gray-500 leading-relaxed text-lg text-justify font-normal ${
+                    className={`text-gray-500 leading-relaxed text-base text-justify font-normal ${
                       index < availableContents.length - 1 ? "mb-8" : ""
                     }`}
                     dangerouslySetInnerHTML={{
@@ -91,7 +91,7 @@ export default function PageContent({ article }: { article: Article }) {
       value: content.title.toLowerCase().replace(/\s+/g, "-"),
       component: (
         <div className="text-right">
-          <p className="text-gray-500 leading-relaxed text-lg text-justify">
+          <p className="text-gray-500 leading-relaxed text-base text-justify">
             {content.body_text}
           </p>
         </div>
@@ -115,7 +115,7 @@ export default function PageContent({ article }: { article: Article }) {
                 key={counselor.uuid || index}
                 className="flex items-center gap-4 justify-center"
               >
-                <div className="w-8 h-8 rounded-full aspect-auto bg-main flex items-center justify-center text-white font-bold text-lg">
+                <div className="w-8 h-8 rounded-full aspect-auto bg-main flex items-center justify-center text-white font-bold text-base">
                   {counselor.name.charAt(0)}
                 </div>
 
@@ -154,7 +154,7 @@ export default function PageContent({ article }: { article: Article }) {
 
         {/* Article brief */}
         <div
-          className="text-gray-500 leading-relaxed text-lg text-justify font-normal mt-16 mb-6"
+          className="text-gray-500 leading-relaxed text-base text-justify font-normal mt-16 mb-6"
           style={{ direction: "rtl" }}
           dangerouslySetInnerHTML={{
             __html: cleanHtmlStyles(article.brief_html),
