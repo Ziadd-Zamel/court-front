@@ -65,10 +65,10 @@ export default function BookCard({
   return (
     <Link
       href={`/books/${book.uuid}`}
-      className="cursor-pointer w-[120px] sm:w-[160px] relative"
+      className="cursor-pointer w-[120px] sm:w-[184px] relative"
     >
       <div
-        className="relative h-40 sm:h-52 w-full mb-2"
+        className="relative h-40 sm:h-60 w-full mb-2"
         onClick={handleBookClick}
       >
         <Image
@@ -108,7 +108,7 @@ export default function BookCard({
             <Share2 size={16} className="text-gray-600 hover:text-green-500" />
           </button>
           {type === "magazine" && (
-            <p className="absolute top-[130px] right-[22px] text-white">
+            <p className="absolute top-[150px] right-[26px] text-white text-lg">
               {" "}
               {book.published_year}
             </p>
