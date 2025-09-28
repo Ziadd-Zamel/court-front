@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useQueryState } from "nuqs";
@@ -14,7 +15,7 @@ const SearchBar = ({ className }: { className?: string }) => {
   const [searchQuery, setSearchQuery] = useQueryState("search", {
     defaultValue: "",
     clearOnDefault: true,
-    scroll: false, // Disable scroll on query change
+    scroll: false,
   });
 
   // Use searchQuery as input value directly
@@ -61,7 +62,7 @@ const SearchBar = ({ className }: { className?: string }) => {
           placeholder="ابحث في هذه الصفحة"
           className={
             (cn(
-              "w-full py-2 pl-8 pr-4 text-gray-800 placeholder-gray-400 outline-none"
+              "w-full placeholder:mr-2 h-full text-gray-800 placeholder-gray-400 outline-none"
             ),
             className)
           }

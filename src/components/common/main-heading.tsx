@@ -31,10 +31,7 @@ export default function MainHeading({
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
-    <section
-      ref={ref}
-      className="relative w-full h-fit pb-10 sm:pb-20 overflow-hidden"
-    >
+    <section ref={ref} className="relative w-full h-fit pb-10 overflow-hidden">
       {/* Background Image with parallax effect */}
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <Image
@@ -49,7 +46,7 @@ export default function MainHeading({
       {overlay && <div className="absolute inset-0 bg-black/50 z-10" />}
 
       {/**Content container */}
-      <div className="relative flex flex-col box-container z-20 gap-8 mt-32">
+      <div className="relative flex flex-col box-container z-20 gap-8 mt-28">
         {/** Title with Breadcrumb */}
         <div className="flex gap-10 sm:gap-0 sm:flex-row flex-col-reverse w-full max-w[80%] items-center justify-between">
           <motion.h2

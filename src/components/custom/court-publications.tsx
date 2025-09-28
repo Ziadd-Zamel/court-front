@@ -3,7 +3,7 @@ import SecondaryTabs, {
 } from "@/components/common/secondary-tabs";
 import SupremeCourtMagazine from "./supreme-court-magazine";
 import RulingsSet from "./rulings-set";
-import Other from "./other";
+// import Other from "./other";
 type Props = {
   pagination: {
     currentPage: number;
@@ -23,11 +23,11 @@ export default function CourtPublications({ pagination }: Props) {
       value: "rulings_set",
       component: <RulingsSet pagination={pagination} />,
     },
-    {
-      label: "اخري",
-      value: "other",
-      component: <Other pagination={pagination} />,
-    },
+    // {
+    //   label: "اخري",
+    //   value: "other",
+    //   component: <Other pagination={pagination} />,
+    // },
   ];
 
   return (

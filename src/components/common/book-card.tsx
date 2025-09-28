@@ -9,9 +9,15 @@ type BookCardProps = {
   book: BookData;
   hideIcons?: boolean;
   image?: string;
+  type?: string;
 };
 
-export default function BookCard({ book, hideIcons, image }: BookCardProps) {
+export default function BookCard({
+  book,
+  hideIcons,
+  image,
+  type,
+}: BookCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleBookClick = () => {
@@ -59,9 +65,8 @@ export default function BookCard({ book, hideIcons, image }: BookCardProps) {
   return (
     <Link
       href={`/books/${book.uuid}`}
-      className="cursor-pointer w-[120px] sm:w-[160px]"
+      className="cursor-pointer w-[120px] sm:w-[160px] relative"
     >
-      {/* Book Image */}
       <div
         className="relative h-40 sm:h-52 w-full mb-2"
         onClick={handleBookClick}
@@ -102,6 +107,22 @@ export default function BookCard({ book, hideIcons, image }: BookCardProps) {
           <button onClick={handleShare} className="p-1" title="مشاركة">
             <Share2 size={16} className="text-gray-600 hover:text-green-500" />
           </button>
+          {type === "magazine" && (
+            <p className="absolute top-[130px] right-[22px] text-white">
+              {" "}
+              {book.published_year}
+            </p>
+          )}
+          {type === "ruling" && (
+            <>
+              <p className="absolute top-[150px] left-[42%] -translate-1/2 text-white">
+                {book.category}
+              </p>
+              <p className="absolute bottom-10 left-[42%] -translate-1/2 text-white">
+                {book.published_year}
+              </p>
+            </>
+          )}
         </div>
       )}
     </Link>

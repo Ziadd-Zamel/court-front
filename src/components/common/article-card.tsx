@@ -53,17 +53,17 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
     >
       <div className="flex flex-col items-start py-2 md:flex-row gap-5">
         {/* Date block */}
-        <div className="flex items-center">
+        <div className="flex items-center mt-1.5">
           <div className="flex flex-col text-start shrink-0 px-2">
-            <p className="text-5xl text-main">{day}</p>
-            <p className="text-md md:text-xs mt-3">
+            <p className="text-5xl text-main mb-1.5">{day}</p>
+            <p className="text-md md:text-xs">
               {month}، {year}
             </p>
           </div>
           <Slash
             size={38}
             strokeWidth={1}
-            className="-rotate-12 hidden self-center lg:block -mr-4 mt-2 "
+            className="-rotate-12 hidden self-center lg:block -mx-2 mt-2 "
           />{" "}
         </div>
 
@@ -77,8 +77,10 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
               <p className="sm:text-lg md:text-xs">{article.author}</p>
             </div>
             <div className="flex flex-col gap-2 text-start lg:-mr-7">
-              <p className="text-xl font-bold md:text-md lg:text-xl">
-                {article.number}/{article.sign}{" "}
+              <p className="text-xl font-bold md:text-md lg:text-xl flex items-center gap-1">
+                <span>{article.number}</span>
+                <span className="-mx-1">/</span>
+                <span>{article.sign}</span>
               </p>
               <p className="min-h-[30px] text-md md:text-xs lg:text-base">
                 {article.title}
@@ -92,7 +94,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             </h6>
             <div
               style={{ direction: "rtl" }}
-              className="mt-5 !text-justify !font-zain text-md text-gray-500"
+              className="mt-5 !text-justify !font-zain font-normal text-md text-gray-500"
               dangerouslySetInnerHTML={{ __html: cleanedBodyHtml }}
             />
             <div className="mt-5 flex w-full items-end justify-end">

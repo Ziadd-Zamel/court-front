@@ -134,12 +134,14 @@ export default function PageContent({ article }: { article: Article }) {
     <>
       <section className="box-container !px-9 pt-20 w-full lg:w-2/3 pb-20">
         <div className="flex flex-col items-start">
-          <h3 className="text-right text-sm font-bold sm:text-4xl flex items-center gap-2">
-            {article.title}:
-            <span className="mt-0.5 text-sm sm:text-3xl block">
-              {article.number}/{article.sign}
-            </span>
+          <h3 className="text-xl font-bold md:text-md lg:text-2xl flex items-center gap-1">
+            <span>{article.number}</span>
+            <span className="-mx-1">/</span>
+            <span>{article.sign}</span>
           </h3>
+          <h4 className="text-right text-sm font-bold sm:text-3xl flex items-center gap-2">
+            {article.title}
+          </h4>
           <div className="mt-5 flex items-center justify-end gap-5">
             <div className="font-semibold text-main">
               {article.publish_date}
