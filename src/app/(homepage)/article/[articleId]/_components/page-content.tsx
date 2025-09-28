@@ -167,7 +167,7 @@ export default function PageContent({ article }: { article: Article }) {
           tabs={contentTabs}
           defaultValue={contentTabs[0]?.value || ""}
           className="w-full flex justify-center items-center mt-12 "
-          tabListClassName="mb-10 max-w-none flex-wrap"
+          tabListClassName="mb-7 max-w-none flex-wrap"
         />
       </section>
     </>
