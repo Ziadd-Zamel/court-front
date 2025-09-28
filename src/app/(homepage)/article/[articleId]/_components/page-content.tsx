@@ -134,12 +134,12 @@ export default function PageContent({ article }: { article: Article }) {
     <>
       <section className="box-container !px-9 pt-20 w-full lg:w-2/3 pb-20">
         <div className="flex flex-col items-start">
-          <h3 className="text-xl font-bold md:text-md lg:text-2xl flex items-center gap-1">
+          <h3 className="text-xl font-bold md:text-md lg:text-3xl mb-5 flex items-center gap-1">
             <span>{article.number}</span>
             <span className="-mx-1">/</span>
             <span>{article.sign}</span>
           </h3>
-          <h4 className="text-right text-sm font-bold sm:text-3xl flex items-center gap-2">
+          <h4 className="text-right text-sm font-bold sm:text-2xl flex items-center gap-2">
             {article.title}
           </h4>
           <div className="mt-5 flex items-center justify-end gap-5">
@@ -153,11 +153,13 @@ export default function PageContent({ article }: { article: Article }) {
         </div>
 
         {/* Article brief */}
-        <div className="mb-3 text-right mt-12">
-          <p className="text-sm font-medium text-gray-800 sm:text-md xl:text-xl">
-            {article.title}
-          </p>
-        </div>
+        <div
+          className="text-gray-500 leading-relaxed text-lg text-justify font-normal mt-16 mb-6"
+          style={{ direction: "rtl" }}
+          dangerouslySetInnerHTML={{
+            __html: cleanHtmlStyles(article.brief_html),
+          }}
+        />
 
         <hr className="mb-16 border-main" />
 

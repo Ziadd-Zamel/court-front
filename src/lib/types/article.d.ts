@@ -19,6 +19,7 @@ declare type Article = {
   title: string;
   brief: string;
   publish_date: string;
+  brief_html: string;
   author: string;
   number: string;
   sign: string;
