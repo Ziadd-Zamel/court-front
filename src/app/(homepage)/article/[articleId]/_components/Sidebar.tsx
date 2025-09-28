@@ -9,11 +9,11 @@ const Sidebar = ({ article }: { article: Article }) => {
         {/* Tags Section */}
         {article.tags && article.tags.length > 0 && (
           <div className="w-full mt-12">
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 w-full">
               {article.tags.reverse().map((tag, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center px-2.5 py-1 text-xs font-medium bg-white/60 text-gray-800 border border-gray-200 hover:bg-white/80 transition-colors cursor-pointer"
+                  className="inline-flex items-center px-1.5 py-1 text-xs font-medium bg-white/60 text-gray-800 border border-gray-200 hover:bg-white/80 transition-colors cursor-pointer"
                 >
                   {tag}
                 </span>

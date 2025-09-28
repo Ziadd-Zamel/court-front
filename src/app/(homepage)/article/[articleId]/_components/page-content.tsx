@@ -132,7 +132,7 @@ export default function PageContent({ article }: { article: Article }) {
 
   return (
     <>
-      <section className="box-container !px-9 pt-20 w-full lg:w-2/3 pb-20">
+      <section className="box-container !px-9 pt-20 w-full lg:w-2/3 pb-40">
         <div className="flex flex-col items-start">
           <h3 className="text-xl font-bold md:text-md lg:text-3xl mb-5 flex items-center gap-1">
             <span>{article.number}</span>
