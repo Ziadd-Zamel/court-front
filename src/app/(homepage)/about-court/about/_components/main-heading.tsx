@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useRef } from "react";
 import CustomBreadcrumb from "@/components/common/custom-breadcrumb";
-import FootrLogo from "@/components/layout/Footer/component/FotterLogo";
+import Logo from "./AboutLogo";
 
 interface Props {
   bgImage: string;
@@ -50,13 +50,13 @@ export default function MainHeading({ bgImage, overlay }: Props) {
               "text-3xl sm:text-5xl font-bold text-white self-start"
             )}
           >
-            <FootrLogo />
+            <Logo />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="self-end"
+            className="self-center"
           >
             <CustomBreadcrumb />
           </motion.div>

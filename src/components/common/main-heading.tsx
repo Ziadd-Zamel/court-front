@@ -81,7 +81,7 @@ export default function MainHeading({
             transition={{ duration: 1, delay: 0.6 }}
             className={cn(
               descriptionClassname,
-              "font-normal leading-7 text-gray-300 text-sm sm:text-lg md:text-xl md:max-w-[80%]"
+              "font-normal text-justify leading-7 -mt-3 text-gray-300 text-sm sm:text-lg md:text-xl md:max-w-[80%]"
             )}
           >
             {description}

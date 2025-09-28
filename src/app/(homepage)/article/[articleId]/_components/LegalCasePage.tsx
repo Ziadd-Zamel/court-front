@@ -23,7 +23,7 @@ export default async function LegalCasePage({
   const article = data?.data;
   return (
     <>
-      <SecondaryHeading title={article.title} />
+      <SecondaryHeading title={article.sub_category} />
 
       <div className="min-h-screen lg:flex lg:flex-row">
         <PageContent article={article} />

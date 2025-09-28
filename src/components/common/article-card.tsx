@@ -51,32 +51,34 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
       value={`item-${article.uuid}`}
       className="border-b-0"
     >
-      <div className="flex flex-col items-start py-2 md:flex-row">
-        <div className="flex w-full flex-1 justify-start gap-8">
-          <div className="flex flex-col text-start">
+      <div className="flex flex-col items-start py-2 md:flex-row gap-5">
+        {/* Date block */}
+        <div className="flex items-center">
+          <div className="flex flex-col text-start shrink-0 px-2">
             <p className="text-5xl text-main">{day}</p>
-            <p className=" text-md md:text-xs mt-3">
+            <p className="text-md md:text-xs mt-3">
               {month}، {year}
             </p>
           </div>
           <Slash
             size={38}
             strokeWidth={1}
-            className="-rotate-12 hidden self-center lg:block mr-3"
-          />
+            className="-rotate-12 hidden self-center lg:block -mr-4 mt-2 "
+          />{" "}
         </div>
 
-        <div className="w-full md:w-[75%]">
-          <AccordionTrigger className=" rounded-none justify-normal flex w-full cursor-pointer flex-col items-start gap-5 border-b border-main text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
+        {/* Content block */}
+        <div className="flex-1">
+          <AccordionTrigger className="rounded-none justify-normal flex w-full cursor-pointer flex-col items-start gap-5 border-b border-main text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
             <div className="flex flex-col gap-[10px] text-start min-w-[130px]">
               <p className="text-gray-500 sm:text-lg md:text-xs">
                 {article.sub_category}
               </p>
               <p className="sm:text-lg md:text-xs">{article.author}</p>
             </div>
-            <div className="flex flex-col gap-2 text-start ">
+            <div className="flex flex-col gap-2 text-start lg:-mr-7">
               <p className="text-xl font-bold md:text-md lg:text-xl">
-                {article.sub_category}:{article.number}/{article.sign}
+                {article.number}/{article.sign}{" "}
               </p>
               <p className="min-h-[30px] text-md md:text-xs lg:text-base">
                 {article.title}
@@ -93,7 +95,6 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
               className="mt-5 !text-justify !font-zain text-md text-gray-500"
               dangerouslySetInnerHTML={{ __html: cleanedBodyHtml }}
             />
-
             <div className="mt-5 flex w-full items-end justify-end">
               <Link href={`/article/${article.uuid}`}>
                 <Button className="text-lg py-1.5">

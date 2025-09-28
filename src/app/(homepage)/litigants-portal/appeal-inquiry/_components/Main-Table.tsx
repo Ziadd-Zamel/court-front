@@ -58,6 +58,10 @@ export default function MainTable({ caseData }: PageContentProps) {
           <CustomRow label="شخص طبيعي" value="" />
           <CustomRow label="مواطن أجنبي" value="" />
           <CustomRow label="شخص اعتباري عام" value="" />
+          <SimpleTableRow
+            label="المحامي/المحامون"
+            value={caseData?.[0]?.appellant || ""}
+          />
         </tbody>
       </table>
 
@@ -78,6 +82,10 @@ export default function MainTable({ caseData }: PageContentProps) {
           <CustomRow label="شخص اعتباري عام" value="" />
           <CustomRow label="شخص اعتباري خاص" value="" />
           <CustomRow label="المحامي/المحامون" value="" />
+          <SimpleTableRow
+            label="المحامي/المحامون"
+            value={caseData?.[0]?.appellant || ""}
+          />
         </tbody>
       </table>
 

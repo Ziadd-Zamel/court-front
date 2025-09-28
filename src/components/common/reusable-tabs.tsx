@@ -37,7 +37,7 @@ export default function ReusableTabs({
       className={`w-full ${className} mt-10`}
       defaultValue={defaultTab}
     >
-      <div className="flex flex-col lg:flex-row md:items-start gap-20 w-full">
+      <div className="flex flex-col lg:flex-row md:items-start gap-16 w-full">
         {/* Tab list */}
         <TabsList
           className={`flex flex-col relative items-center gap-1 md:max-w-[300px] w-full bg-transparent mt-40 ${tabListClassName}`}

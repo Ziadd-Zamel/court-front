@@ -61,7 +61,7 @@ export default async function ConstitutionalCourtPage({
   }));
 
   // Combine static and dynamic tabs
-  const allTabs: TabItem[] = [...staticTabs, ...dynamicTabs];
+  const allTabs: TabItem[] = [...dynamicTabs, ...staticTabs];
 
   return (
     <section

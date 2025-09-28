@@ -33,7 +33,7 @@ export default async function SupremeCourtMagazine({ pagination }: Props) {
       {/** Main content */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-5 gap-6 p-6">
         {data?.data.map((book) => (
-          <BookCard key={book.uuid} book={book} />
+          <BookCard image="/assets/mahazine.png" key={book.uuid} book={book} />
         ))}
       </div>
 

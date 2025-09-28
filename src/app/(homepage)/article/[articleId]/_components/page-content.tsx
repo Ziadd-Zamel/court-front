@@ -7,6 +7,7 @@ import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 export default function PageContent({ article }: { article: Article }) {
   const contentTabs: SecondaryTabItem[] = [];
   console.log(article);
+
   // Always add rule tab first if it exists
   if (article.rule) {
     contentTabs.push({
@@ -24,6 +25,63 @@ export default function PageContent({ article }: { article: Article }) {
         </div>
       ),
     });
+  }
+
+  // Add concatenated contents tab if concatenated_contents exists
+  if (article.concatenated_contents) {
+    const concatenatedContents = article.concatenated_contents;
+    const availableContents: Content[] = [];
+
+    // Check each property directly to avoid TypeScript index signature errors
+    const contentProperties = [
+      concatenatedContents.first,
+      concatenatedContents.second,
+      concatenatedContents.third,
+      concatenatedContents.fourth,
+      concatenatedContents.fifth,
+      concatenatedContents.sixth,
+      concatenatedContents.seventh,
+      concatenatedContents.eighth,
+    ];
+
+    contentProperties.forEach((content) => {
+      if (content && content.title && content.body_html) {
+        availableContents.push(content);
+      }
+    });
+
+    if (availableContents.length > 0) {
+      // Create concatenated title by joining all titles with " و "
+      const concatenatedTitle = availableContents
+        .map((content) => content.title)
+        .join(" و ");
+
+      contentTabs.push({
+        label: concatenatedTitle,
+        value: "concatenated-contents",
+        component: (
+          <div className="text-right">
+            <div style={{ direction: "rtl" }}>
+              {availableContents.map((content, index) => (
+                <div key={index}>
+                  <h4 className="text-xl font-semibold mb-4 text-gray-700">
+                    {content.title}
+                  </h4>
+                  <div
+                    className={`text-gray-500 leading-relaxed text-lg text-justify font-normal ${
+                      index < availableContents.length - 1 ? "mb-8" : ""
+                    }`}
+                    dangerouslySetInnerHTML={{
+                      __html: cleanHtmlStyles(content.body_html),
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ),
+      });
+    }
   }
 
   // Add content tabs in the middle

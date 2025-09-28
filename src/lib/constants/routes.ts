@@ -50,36 +50,36 @@ export const ROUTES: RouteItem[] = [
   },
   {
     name: "عن المحكمة",
-    path: "",
-    children: [
-      {
-        name: "نبذة عن المحكمة",
-        path: "/about-court/about",
-      },
-      {
-        name: "المستشارون بالمحكمة",
-        path: "/about-court/counselors",
-      },
-      {
-        name: "الجمعية العمومية",
-        path: "/about-court/general-assembly",
-      },
-      {
-        name: "الهيكل التنظيمي للمحكمة العليا",
-        path: "/about-court/structure-court",
-      },
-      {
-        name: "القوانين الخاصة بالمحكمة",
-        path: "/about-court/courts-law",
-      },
-      {
-        name: "معدلات الأداء",
-        path: "/about-court/performance-metrics",
-      },
-      {
-        name: "الأخبار",
-        path: "/about-court/news",
-      },
-    ],
+    path: "/about-court/about",
+    // children: [
+    //   {
+    //     name: "نبذة عن المحكمة",
+    //     path: "/about-court/about",
+    //   },
+    //   {
+    //     name: "المستشارون بالمحكمة",
+    //     path: "/about-court/counselors",
+    //   },
+    //   {
+    //     name: "الجمعية العمومية",
+    //     path: "/about-court/general-assembly",
+    //   },
+    //   {
+    //     name: "الهيكل التنظيمي للمحكمة العليا",
+    //     path: "/about-court/structure-court",
+    //   },
+    //   {
+    //     name: "القوانين الخاصة بالمحكمة",
+    //     path: "/about-court/courts-law",
+    //   },
+    //   {
+    //     name: "معدلات الأداء",
+    //     path: "/about-court/performance-metrics",
+    //   },
+    //   {
+    //     name: "الأخبار",
+    //     path: "/about-court/news",
+    //   },
+    // ],
   },
 ];

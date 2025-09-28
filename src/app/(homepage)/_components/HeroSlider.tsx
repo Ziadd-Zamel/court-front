@@ -17,6 +17,7 @@ interface SlideData {
 interface SliderState {
   currentIndex: number;
   isTransitioning: boolean;
+  autoPlayEnabled: boolean; // Added state for auto-play control
 }
 
 // Custom hook for slider logic
@@ -24,50 +25,77 @@ const useSlider = (slides: SlideData[], autoPlayInterval: number = 5000) => {
   const [state, setState] = useState<SliderState>({
     currentIndex: 0,
     isTransitioning: false,
+    autoPlayEnabled: true, // Initialize auto-play as enabled
   });
 
   const goToSlide = useCallback(
     (index: number) => {
-      if (index === state.currentIndex || state.isTransitioning) return;
+      if (index === state.currentIndex) return;
 
-      setState((prev) => ({ ...prev, isTransitioning: true }));
-      setState((prev) => ({ ...prev, currentIndex: index }));
+      setState((prev) => ({
+        ...prev,
+        isTransitioning: true,
+        currentIndex: index,
+      }));
 
-      // Reset transition state after animation
+      // Reset transition state after a shorter duration
       setTimeout(() => {
         setState((prev) => ({ ...prev, isTransitioning: false }));
-      }, 5000);
+      }, 300); // Much shorter transition lock
     },
-    [state.currentIndex, state.isTransitioning]
+    [state.currentIndex]
   );
+
+  // Function to stop auto-play
+  const stopAutoPlay = useCallback(() => {
+    setState((prev) => ({ ...prev, autoPlayEnabled: false }));
+  }, []);
 
   const goToNext = useCallback(() => {
     const nextIndex = (state.currentIndex + 1) % slides.length;
     goToSlide(nextIndex);
   }, [state.currentIndex, slides.length, goToSlide]);
 
+  const goToNextUser = useCallback(() => {
+    stopAutoPlay();
+    const nextIndex = (state.currentIndex + 1) % slides.length;
+    goToSlide(nextIndex);
+  }, [state.currentIndex, slides.length, goToSlide, stopAutoPlay]);
+
   const goToPrevious = useCallback(() => {
     const prevIndex = (state.currentIndex - 1 + slides.length) % slides.length;
+    stopAutoPlay(); // Stop auto-play when user clicks previous
     goToSlide(prevIndex);
-  }, [state.currentIndex, slides.length, goToSlide]);
+  }, [state.currentIndex, slides.length, goToSlide, stopAutoPlay]);
 
-  // Auto-play effect
+  // Auto-play effect - only runs when autoPlayEnabled is true
   useEffect(() => {
+    if (!state.autoPlayEnabled) return; // Exit early if auto-play is disabled
+
     const interval = setInterval(goToNext, autoPlayInterval);
     return () => clearInterval(interval);
-  }, [goToNext, autoPlayInterval]);
+  }, [goToNext, autoPlayInterval, state.autoPlayEnabled]);
 
   return {
     currentIndex: state.currentIndex,
     isTransitioning: state.isTransitioning,
+    autoPlayEnabled: state.autoPlayEnabled,
     goToNext,
+    goToNextUser,
     goToPrevious,
     goToSlide,
+    stopAutoPlay,
   };
 };
 
-// Slide content component
-const SlideContent = ({ slide }: { slide: SlideData }) => {
+// Slide content component with key-based remounting for animations
+const SlideContent = ({
+  slide,
+  slideKey,
+}: {
+  slide: SlideData;
+  slideKey: string;
+}) => {
   const contentComponents = useMemo(
     () => ({
       HeroSlides1,
@@ -83,7 +111,8 @@ const SlideContent = ({ slide }: { slide: SlideData }) => {
 
   if (!Component) return null;
 
-  return <Component />;
+  // Force remount with unique key to restart animations
+  return <Component key={slideKey} />;
 };
 
 // Background component
@@ -120,16 +149,13 @@ const SlideBackground = ({
 const NavigationArrows = ({
   onPrevious,
   onNext,
-  isTransitioning,
 }: {
   onPrevious: () => void;
   onNext: () => void;
-  isTransitioning: boolean;
 }) => (
   <>
     <button
       onClick={onPrevious}
-      disabled={isTransitioning}
       className="group absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 transform cursor-pointer sm:block disabled:opacity-50"
       aria-label="Previous slide"
     >
@@ -140,7 +166,6 @@ const NavigationArrows = ({
 
     <button
       onClick={onNext}
-      disabled={isTransitioning}
       className="group absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 transform cursor-pointer sm:block disabled:opacity-50"
       aria-label="Next slide"
     >
@@ -151,17 +176,15 @@ const NavigationArrows = ({
   </>
 );
 
-// Dots navigation component
+// Dots navigation component - removed disabled state
 const DotsNavigation = ({
   totalSlides,
   currentIndex,
   onDotClick,
-  isTransitioning,
 }: {
   totalSlides: number;
   currentIndex: number;
   onDotClick: (index: number) => void;
-  isTransitioning: boolean;
 }) => (
   <div
     style={{ direction: "ltr" }}
@@ -172,8 +195,7 @@ const DotsNavigation = ({
         <button
           key={index}
           onClick={() => onDotClick(index)}
-          disabled={isTransitioning}
-          className={`size-[9px] rotate-45 transform transition-all hover:scale-125 disabled:opacity-50 ${
+          className={`size-[9px] rotate-45 transform transition-all hover:scale-125 ${
             currentIndex === index
               ? "scale-125 bg-main opacity-75"
               : "bg-main opacity-50 hover:opacity-75"
@@ -187,15 +209,32 @@ const DotsNavigation = ({
 
 // Main slider component
 const HeroSlider = () => {
-  const { currentIndex, isTransitioning, goToNext, goToPrevious, goToSlide } =
-    useSlider(slides, 5000);
+  const { currentIndex, goToNextUser, goToPrevious, goToSlide } = useSlider(
+    slides,
+    5000
+  );
+
+  // Create unique key for each slide to force component remount and restart animations
+  const [slideChangeCounter, setSlideChangeCounter] = useState(0);
+
+  // Increment counter whenever slide changes to force remount
+  useEffect(() => {
+    setSlideChangeCounter((prev) => prev + 1);
+  }, [currentIndex]);
+
+  const handleDotClick = useCallback(
+    (index: number) => {
+      goToSlide(index);
+    },
+    [goToSlide]
+  );
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
-          key={`${slide.content}-${index}`}
+          key={`slide-${index}`}
           className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
             currentIndex === index ? "z-10 opacity-100" : "z-0 opacity-0"
           }`}
@@ -206,23 +245,22 @@ const HeroSlider = () => {
           />
 
           <div className="absolute inset-0 text-white">
-            <SlideContent slide={slide} />
+            {/* Pass unique key to force remount and restart animations */}
+            <SlideContent
+              slide={slide}
+              slideKey={`${slide.content}-${index}-${slideChangeCounter}`}
+            />
           </div>
         </div>
       ))}
 
       {/* Navigation */}
-      <NavigationArrows
-        onPrevious={goToPrevious}
-        onNext={goToNext}
-        isTransitioning={isTransitioning}
-      />
+      <NavigationArrows onPrevious={goToPrevious} onNext={goToNextUser} />
 
       <DotsNavigation
         totalSlides={slides.length}
         currentIndex={currentIndex}
-        onDotClick={goToSlide}
-        isTransitioning={isTransitioning}
+        onDotClick={handleDotClick}
       />
     </div>
   );

@@ -118,10 +118,10 @@ const RightSection = ({
           ([caseName, percentage]) => (
             <div key={caseName} className="space-y-3">
               <div className="flex flex-row-reverse items-center justify-between text-black">
-                <span className="text-sm font-medium">{caseName}</span>
                 <span className="text-[14px] font-bold text-main">
                   <AnimatedValue value={Math.round(percentage)} />%
                 </span>
+                <span className="text-sm font-medium">{caseName}</span>
               </div>
               <Progress
                 value={Math.round(percentage)}

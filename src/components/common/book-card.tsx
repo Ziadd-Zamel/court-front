@@ -8,9 +8,10 @@ import Link from "next/link";
 type BookCardProps = {
   book: BookData;
   hideIcons?: boolean;
+  image?: string;
 };
 
-export default function BookCard({ book, hideIcons }: BookCardProps) {
+export default function BookCard({ book, hideIcons, image }: BookCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleBookClick = () => {
@@ -66,7 +67,7 @@ export default function BookCard({ book, hideIcons }: BookCardProps) {
         onClick={handleBookClick}
       >
         <Image
-          src={book.book_image}
+          src={image ? image : book.book_image}
           alt={book.title}
           fill
           className="object-cover "

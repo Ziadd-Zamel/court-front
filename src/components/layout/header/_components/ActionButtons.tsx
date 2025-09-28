@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Search, FolderOpen, Minus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ActionButtonsProps } from "../types/navbar.types";
-import { RxHamburgerMenu } from "react-icons/rx";
 import { cn } from "@/lib/utils";
 
 export default function ActionButtons({
@@ -22,21 +21,21 @@ export default function ActionButtons({
           onClick={onToggleMenu}
           variant="ghost"
           size="icon"
-          className="size-8 sm:size-12 hover:bg-transparent focus:outline-none"
+          className="size-8 sm:size-12 hover:bg-transparent focus:outline-none mt-1 ml-3"
           aria-label="فتح القائمة"
         >
           <div className="flex flex-col relative z-[110]">
             <Minus
-              strokeWidth={1}
-              size={50}
+              strokeWidth={0.7}
+              size={80}
               className={cn("text-white", isMenuOpen && "rotate-45")}
             />
             <Minus
-              strokeWidth={1}
-              size={50}
+              strokeWidth={0.7}
+              size={80}
               className={cn(
-                "text-white -mt-9",
-                isMenuOpen && "-rotate-45 -mt-11"
+                "text-white -mt-[70px]",
+                isMenuOpen && "-rotate-45 -mt-[79px]"
               )}
             />
           </div>
@@ -57,10 +56,13 @@ export default function ActionButtons({
         onClick={() => router.push("/favorit")}
         variant="ghost"
         size="icon"
-        className="size-8 sm:size-12 hover:bg-transparent focus:outline-none"
+        className="size-8 sm:size-12 hover:bg-transparent focus:outline-none relative"
         aria-label="المفضلة"
       >
         <FolderOpen className="size-4 sm:size-6 text-white transition-colors hover:text-main" />
+        <div className="rounded-full bg-red-500 flex-center absolute size-4 text-white top-1 left-1 aspect-square">
+          3
+        </div>
       </Button>
     </div>
   );

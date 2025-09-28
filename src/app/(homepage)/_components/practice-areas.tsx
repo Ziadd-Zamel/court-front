@@ -44,23 +44,24 @@ const PracticeAreasv3 = ({ areas }: PracticeAreasv3Props) => {
             textClassName="text-white"
           />
         </div>
-
-        <motion.div
-          className="flex w-full flex-wrap justify-center gap-5 pt-10"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {areas.map((area, index) => (
-            <PracticeCard
-              key={index}
-              title={area.title}
-              description={area.description}
-              Icon={area.icon}
-            />
-          ))}
-        </motion.div>
+        <div className="flex w-full justify-center">
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-5 pt-10"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            {areas.map((area, index) => (
+              <PracticeCard
+                key={index}
+                title={area.title}
+                description={area.description}
+                Icon={area.icon}
+              />
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -127,7 +128,7 @@ const PracticeCard = ({ title, description, Icon }: PracticeCardProps) => {
       }}
     >
       <div
-        className={`service-card group relative h-36 cursor-pointer overflow-hidden p-2 transition-all duration-500 sm:h-40 sm:max-w-[350px] sm:p-4 xl:max-w-[320px] ${
+        className={`service-card group relative h-36 cursor-pointer overflow-hidden p-2 transition-all duration-500 sm:h-40 sm:p-4 ${
           isHovered ? "bg-transparent" : "bg-[#bfb0854c]"
         }`}
       >
