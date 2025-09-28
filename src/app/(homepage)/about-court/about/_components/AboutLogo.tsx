@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     <div className="flex items-center gap-5">
       <Image
-        className="w-[120px]"
+        className="w-[150px]"
         src="/assets/shortLogoY.png"
         alt="شعار ليبرو"
         width={400}
@@ -15,7 +15,7 @@ const Logo = () => {
         alt="شعار ليبرو"
         width={300}
         height={0}
-        className="w-[250px]"
+        className="w-[300px]"
       />
     </div>
   );

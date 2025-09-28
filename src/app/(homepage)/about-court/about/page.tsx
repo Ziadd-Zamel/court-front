@@ -6,7 +6,7 @@ export default function AboutCourtPage() {
   return (
     <>
       <MainHeading bgImage="/assets/bg-1.jpg" overlay />
-      <div className="  bg-main/10  w-full">
+      <div className="  bg-main/30  w-full">
         <AboutSection />
       </div>
       <ServicesGrid />

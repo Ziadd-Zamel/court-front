@@ -5,7 +5,7 @@ export default function AboutSection() {
     <section className="py-20 flex items-start lg:flex-row flex-col justify-between gap-20 box-container ">
       <div className="border-1 border-main w-full md:w-1/2 lg:w-[35%] h-[250px] sm:h-[350px] md:h-[600px] p-2 sm:p-4 self-center">
         <Image
-          src={"/assets/bg-1.jpg"}
+          src={"/assets/aboute.jpg"}
           alt="abpute image"
           width={500}
           height={500}
@@ -13,8 +13,8 @@ export default function AboutSection() {
         />
       </div>
       <div className="flex flex-col w-full lg:w-1/2 -mt-3">
-        <h2 className="text-main text-5xl mb-5">عن المحكمة</h2>
-        <div className="flex flex-col gap-5">
+        <h2 className="text-main text-5xl mb-5">نبذة عن المحكمة</h2>
+        <div className="flex flex-col gap-5 mt-2">
           <p className="text-base font-medium text-justify">
             تعتلي المحكمة العليا قمة هرم السلطة القضائية في ليبيا، وتتمحور
             وظيفتها الرئيسة حول عملين اثنين: ضمان الشرعية الدستورية، ورقابة
@@ -46,12 +46,12 @@ export default function AboutSection() {
           <div className="w-fit">
             <div className="relative">
               <p className="text-[200px] font-majalla -mt-16 -mb-28">73</p>
-              <span className="absolute top-[170px] text-lg -left-10">
+              <span className="absolute top-[170px] text-xl font-bold -left-10 text-main">
                 عاماً
               </span>
             </div>
           </div>
-          <p className="text-lg font-medium text-justify">
+          <p className="text-3xl  font-semibold text-main mr-2">
             منذ التأسيس ونشأة الدائرة الدستورية
           </p>
         </div>
