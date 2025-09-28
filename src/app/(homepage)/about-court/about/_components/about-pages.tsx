@@ -67,7 +67,7 @@ const ServicesGrid = () => {
   ];
 
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen py-40">
       <div className="box-container">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service) => (
