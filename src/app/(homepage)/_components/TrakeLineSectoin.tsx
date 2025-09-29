@@ -22,7 +22,7 @@ const TrakeLineSectoin = ({
         className="relative flex items-center justify-between"
       >
         <button
-          className="absolute -left-8 text-gray-400 transition-colors hover:text-gray-300"
+          className="absolute cursor-pointer -left-8 text-gray-400 transition-colors hover:text-gray-300"
           onClick={() => {
             const currentIndex = years.findIndex(
               (item) => item.year === selectedYear
@@ -57,7 +57,7 @@ const TrakeLineSectoin = ({
             <button
               key={item.year}
               onClick={() => setSelectedYear(item.year)}
-              className="group relative w-fit"
+              className="group relative w-fit cursor-pointer "
             >
               <div
                 className={`h-1 w-1 rounded-full transition-all duration-300 sm:h-2 sm:w-2 ${
@@ -74,7 +74,7 @@ const TrakeLineSectoin = ({
         </div>
 
         <button
-          className="absolute -right-8 text-gray-400 transition-colors hover:text-gray-300"
+          className="absolute -right-8 text-gray-400 transition-colors hover:text-gray-300 cursor-pointer "
           onClick={() => {
             const currentIndex = years.findIndex(
               (item) => item.year === selectedYear

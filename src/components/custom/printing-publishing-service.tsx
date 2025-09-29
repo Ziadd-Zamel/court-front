@@ -60,7 +60,7 @@ export default function PrintingPublishingService() {
   };
 
   return (
-    <div className="w-full mt-28">
+    <div className="w-full">
       <div className=" w-full sm:max-w-fit">
         <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-4xl border-b border-gray-300 pb-5">
           خدمة الطباعة والنشر

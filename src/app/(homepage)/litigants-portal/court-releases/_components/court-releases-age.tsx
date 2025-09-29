@@ -49,7 +49,11 @@ export default function CourtReleasesPage({ pagination }: Props) {
       aria-labelledby="Important Notices Page"
       className="relative pt-10 w-full box-container mb-20"
     >
-      <ReusableTabs tabs={courtReleaseTabs} defaultValue="printing" />
+      <ReusableTabs
+        tabs={courtReleaseTabs}
+        defaultValue="printing"
+        tabContentClassName="lg:mt-[100px]"
+      />
     </section>
   );
 }

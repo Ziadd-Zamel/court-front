@@ -1,6 +1,5 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { Home } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,6 +9,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 // Route name mapping - customize these based on your actual routes
 const routeNameMap: { [key: string]: string } = {
@@ -63,12 +63,19 @@ export default function CustomBreadcrumb({
       >
         {/* Home item with icon */}
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" className="flex items-center gap-1">
-            <Home className="h-4 w-4" />
+          <BreadcrumbLink href="/" className="flex items-center ">
+            <Image
+              src={"/assets/HomePage.svg"}
+              alt="Home Icon"
+              width={20}
+              height={0}
+            />
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        {pathSegments.length > 0 && <BreadcrumbSeparator />}
+        {pathSegments.length > 0 && (
+          <BreadcrumbSeparator className="-ml-1 -mr-2" />
+        )}
 
         {pathSegments.map((segment, index) => {
           const href = "/" + pathSegments.slice(0, index + 1).join("/");
@@ -90,7 +97,7 @@ export default function CustomBreadcrumb({
                   <BreadcrumbLink href={href}>{displayName}</BreadcrumbLink>
                 )}
               </BreadcrumbItem>
-              {!isLast && <BreadcrumbSeparator />}
+              {!isLast && <BreadcrumbSeparator className="-ml-1 " />}
             </div>
           );
         })}

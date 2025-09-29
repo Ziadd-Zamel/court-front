@@ -71,9 +71,9 @@ export default async function ConstitutionalCourtPage({
     >
       <ReusableTabs
         tabs={allTabs}
-        defaultValue="constitutional-court"
+        defaultValue={categoriesData[0].uuid}
         className="lg:-mt-12"
-        tabContentClassName=" mt-32 lg:mt-[200px]"
+        tabContentClassName=" mt-32 lg:mt-[150px]"
       />
     </section>
   );

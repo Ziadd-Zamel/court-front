@@ -129,7 +129,7 @@ export default function ImportantNoticesPage({
           <div className="w-full">
             {TabsData.map((tab) => (
               <TabsContent
-                className=" mt-52 lg:-mt-16 w-full relative "
+                className=" mt-52 lg:mt-0 w-full relative "
                 key={tab.uuid}
                 value={tab.uuid}
               >

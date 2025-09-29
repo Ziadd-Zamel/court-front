@@ -53,7 +53,7 @@ const SearchBar = ({ className }: { className?: string }) => {
     <div className={cn("w-full")}>
       <form
         onSubmit={handleSearch}
-        className="flex w-full items-center justify-between gap-1 rounded-2xl border border-gray-200 bg-white py-1 shadow-sm focus-within:ring-1 focus-within:ring-main"
+        className="flex w-full pr-4 items-center justify-between gap-1 rounded-2xl border border-gray-200 bg-white py-1 shadow-sm focus-within:ring-1 focus-within:ring-main"
       >
         <input
           type="text"
