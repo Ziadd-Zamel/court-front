@@ -1,6 +1,6 @@
 import React from "react";
-import { Briefcase, Plane, Layers } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const ServicesGrid = () => {
   const services = [
@@ -9,9 +9,8 @@ const ServicesGrid = () => {
       title: "المستشارون بالمحكمة",
       description:
         "هيكل من القوانين الأساسية يحمل المحكمة الأهلية مع تمويض أعمري من قوانين المرافعات أمري من قبل ذلك المرافعات",
-      icon: (
-        <Briefcase className="w-8 h-8 text-main group-hover:scale-125 duration-300 transition-all" />
-      ),
+      image: "/assets/free_icon_1.svg",
+
       route: "/about-court/counselors",
     },
     {
@@ -19,9 +18,7 @@ const ServicesGrid = () => {
       title: "الجمعية العمومية",
       description:
         "هيكل من القوانين الأساسية يحمل المحكمة الأهلية مع تمويض أعمري من قوانين المرافعات أمري من قبل ذلك المرافعات",
-      icon: (
-        <Plane className="w-8 h-8 text-main group-hover:scale-125 duration-300 transition-all" />
-      ),
+      image: "/assets/free_icon_1 (4).svg",
       route: "/about-court/general-assembly",
     },
     {
@@ -29,9 +26,8 @@ const ServicesGrid = () => {
       title: "الهيكل التنظيمي للمحكمة",
       description:
         "هيكل من القوانين الأساسية يحمل المحكمة الأهلية مع تمويض أعمري من قوانين المرافعات أمري من قبل ذلك المرافعات",
-      icon: (
-        <Layers className="w-8 h-8 text-main group-hover:scale-125 duration-300 transition-all" />
-      ),
+      image: "/assets/free_icon_1 (1).svg",
+
       route: "/about-court/structure-court",
     },
     {
@@ -39,9 +35,8 @@ const ServicesGrid = () => {
       title: "أخبار المحكمة العليا",
       description:
         "هيكل من القوانين الأساسية يحمل المحكمة الأهلية مع تمويض أعمري من قوانين المرافعات أمري من قبل ذلك المرافعات",
-      icon: (
-        <Briefcase className="w-8 h-8 text-main group-hover:scale-125 duration-300 transition-all" />
-      ),
+      image: "/assets/free_icon_1 (8).svg",
+
       route: "/about-court/news",
     },
     {
@@ -49,9 +44,8 @@ const ServicesGrid = () => {
       title: "معدلات الأداء",
       description:
         "هيكل من القوانين الأساسية يحمل المحكمة الأهلية مع تمويض أعمري من قوانين المرافعات أمري من قبل ذلك المرافعات",
-      icon: (
-        <Plane className="w-8 h-8 text-main group-hover:scale-125 duration-300 transition-all" />
-      ),
+      image: "/assets/free_icon_1 (7).svg",
+
       route: "/about-court/performance-metrics",
     },
     {
@@ -59,9 +53,7 @@ const ServicesGrid = () => {
       title: "قوانين المحكمة العليا",
       description:
         "هيكل من القوانين الأساسية يحمل المحكمة الأهلية مع تمويض أعمري من قوانين المرافعات أمري من قبل ذلك المرافعات",
-      icon: (
-        <Layers className="w-8 h-8 text-main group-hover:scale-125 duration-300 transition-all" />
-      ),
+      image: "/assets/free_icon_1 (5).svg",
       route: "/about-court/courts-law",
     },
   ];
@@ -78,7 +70,12 @@ const ServicesGrid = () => {
             >
               <div className="p-8 text-center">
                 <div className="w-40 h-40 border-input border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-main/10 transition-colors duration-300">
-                  {service.icon}
+                  <Image
+                    src={service.image}
+                    alt="Image"
+                    width={40}
+                    height={40}
+                  />
                 </div>
 
                 {/* Title */}
