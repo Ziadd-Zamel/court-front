@@ -33,7 +33,7 @@ const FirstSectoin = () => {
                 }}
               >
                 <span className="font-Alkalami bg-clip-text text-[140px] font-bold text-transparent">
-                  71
+                  73
                 </span>
                 <span className="mt-[20px]">ﻋﺎﻣﺎً،</span>
               </h2>

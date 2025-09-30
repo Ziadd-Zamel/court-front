@@ -12,7 +12,7 @@ export default function Arabic71Component() {
             color: "transparent",
           }}
         >
-          71
+          73
         </p>
         <p className="mt-4 text-right text-[11px] font-semibold leading-tight text-gray-300 sm:mt-6 sm:text-lg lg:text-2xl">
           عاماً

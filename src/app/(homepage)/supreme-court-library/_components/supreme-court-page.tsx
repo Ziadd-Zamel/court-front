@@ -3,6 +3,7 @@ import ComingSoon from "@/components/custom/coming-soon";
 import CourtPublications from "@/components/custom/court-publications";
 import BooksContent from "./books-content";
 import SearchBooks from "./search-books";
+import VistorServices from "./vistor-services";
 type Props = {
   pagination: {
     currentPage: number;
@@ -42,9 +43,8 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
     },
     {
       label: "خدمات الرواد",
-      value: "available-publications",
-      heading: " خدمات الرواد ",
-      component: <ComingSoon />,
+      value: "vistor-services",
+      component: <VistorServices />,
     },
   ];
   return (

@@ -1,10 +1,8 @@
-import ArticlesList from "@/components/custom/articlesL-list";
 import CourtPagination from "@/components/custom/court-pagination";
 import ErrorState from "@/components/custom/error-state";
 import NoDataState from "@/components/custom/no-data-state";
 import NoSearchResults from "@/components/custom/no-result";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getArticlesByCategory } from "@/lib/api/articles";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getAllCounselors } from "@/lib/api/counselors.api";
 import catchError from "@/lib/utils/catch-error";
 import { Separator } from "@radix-ui/react-select";
@@ -36,6 +34,7 @@ export default async function CounselorsContent({
     // Otherwise, show NoDataState for general no data scenario
     return <NoDataState />;
   }
+  console.log(CounselorsData.data);
   return (
     <>
       <div className="flex items-center justify-center w-full mt-16">
@@ -79,9 +78,11 @@ export default async function CounselorsContent({
                   <User />
                 </AvatarFallback>
               </Avatar>
-              <h3 className="text-lg font-bold">{counselor.name}</h3>
+              <h3 className="text-lg font-bold min-h-[65px]">
+                {counselor.name}
+              </h3>
 
-              <div className="flex flex-col items-start">
+              <div className="flex flex-col items-start text-start justify-center min-h-[100px]">
                 <p className="text-sm text-gray-800">{counselor.birth_date}</p>
                 <p className="text-sm text-gray-800">
                   {counselor.qualification}

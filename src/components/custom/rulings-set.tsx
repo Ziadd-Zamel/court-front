@@ -14,7 +14,7 @@ type Props = {
 
 export default async function RulingsSet({ pagination }: Props) {
   const [data, error] = await catchError(() =>
-    getBooksByType(pagination.currentPage, 10, "rulings_set")
+    getBooksByType(pagination.currentPage, 20, "rulings_set")
   );
   if (!data || data.data.length === 0) {
     return <NoDataState />;
@@ -25,7 +25,7 @@ export default async function RulingsSet({ pagination }: Props) {
 
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 mt-10">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16 mt-10">
         {data?.data.map((book) => (
           <BookCard
             image="/assets/ruling-image.png"
@@ -35,7 +35,7 @@ export default async function RulingsSet({ pagination }: Props) {
           />
         ))}
       </div>
-      {data.data.length > 30 && (
+      {data.data.length >= 20 && (
         <div className="flex justify-center mt-8">
           <CourtPagination
             pagination={pagination}
