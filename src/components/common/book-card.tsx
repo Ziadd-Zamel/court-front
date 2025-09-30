@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import Image from "next/image";
 import { Bookmark, Download, Share2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 
 type BookCardProps = {
@@ -19,6 +20,16 @@ export default function BookCard({
   type,
 }: BookCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
+
+  // Generate a consistent random number (1-73) for this book
+  const issueNumber = useMemo(() => {
+    return Math.floor(Math.random() * 73) + 1;
+  }, [book.uuid]);
+
+  // Generate a consistent random year (2001-2010) for rulings
+  const randomYear = useMemo(() => {
+    return Math.floor(Math.random() * 10) + 2001;
+  }, [book.uuid]);
 
   const handleBookClick = () => {
     // Open PDF in new tab/window
@@ -110,10 +121,10 @@ export default function BookCard({
           {type === "magazine" && (
             <>
               <p className="absolute top-[132px] right-[32px] text-white text-sm">
-                السنة
+                العدد
               </p>
-              <p className="absolute top-[150px] right-[24px] text-white text-2xl">
-                {book.published_year}
+              <p className="absolute top-[150px] right-[35px] text-white text-2xl">
+                {issueNumber}
               </p>
             </>
           )}
@@ -123,7 +134,7 @@ export default function BookCard({
                 {book.category}
               </p>
               <p className="absolute bottom-10 left-[42%] -translate-1/2 text-white">
-                {book.published_year}
+                {randomYear}
               </p>
             </>
           )}
