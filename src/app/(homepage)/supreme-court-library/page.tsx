@@ -1,5 +1,6 @@
 import MainHeading from "@/components/common/main-heading";
 import SupermeCourtPage from "./_components/supreme-court-page";
+import ContactSection from "@/components/custom/contact-section";
 
 export default async function Page({
   searchParams,
@@ -48,6 +49,7 @@ export default async function Page({
           text: textQuery,
         }}
       />
+      <ContactSection />
     </>
   );
 }

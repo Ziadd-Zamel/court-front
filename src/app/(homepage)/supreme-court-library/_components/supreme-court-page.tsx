@@ -56,7 +56,7 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
       <ReusableTabs
         tabs={courtReleaseTabs}
         defaultValue="all-books"
-        tabContentClassName="lg:mt-[130px]"
+        tabContentClassName="lg:mt-[100px]"
       />
     </section>
   );

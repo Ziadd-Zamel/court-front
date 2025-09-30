@@ -27,12 +27,12 @@ export default function PageContent({ article }: { article: Article }) {
     });
   }
 
-  // Add concatenated contents tab if concatenated_contents exists
+  // --- replace your current "Add concatenated contents tab" block with this ---
   if (article.concatenated_contents) {
     const concatenatedContents = article.concatenated_contents;
     const availableContents: Content[] = [];
 
-    // Check each property directly to avoid TypeScript index signature errors
+    // Collect present content items (avoid index signature issues)
     const contentProperties = [
       concatenatedContents.first,
       concatenatedContents.second,
@@ -50,26 +50,28 @@ export default function PageContent({ article }: { article: Article }) {
       }
     });
 
-    if (availableContents.length > 0) {
-      // Create concatenated title by joining all titles with " و "
-      const concatenatedTitle = availableContents
-        .map((content) => content.title)
-        .join(" و ");
+    // Chunk into pairs and create a tab for each pair
+    const chunkSize = 2;
+    for (let i = 0; i < availableContents.length; i += chunkSize) {
+      const pair = availableContents.slice(i, i + chunkSize); // length 1 or 2
+
+      // Create a label from the titles in the pair joined by " و "
+      const pairTitle = pair.map((c) => c.title).join(" و ");
 
       contentTabs.push({
-        label: concatenatedTitle,
-        value: "concatenated-contents",
+        label: pairTitle,
+        value: `concatenated-contents-${i / chunkSize}`, // unique value per pair
         component: (
           <div className="text-right">
             <div style={{ direction: "rtl" }}>
-              {availableContents.map((content, index) => (
-                <div key={index}>
+              {pair.map((content, idx) => (
+                <div key={idx}>
                   <h4 className="text-xl font-semibold mb-4 text-gray-700">
                     {content.title}
                   </h4>
                   <div
                     className={`text-gray-500 leading-relaxed text-base text-justify font-normal ${
-                      index < availableContents.length - 1 ? "mb-8" : ""
+                      idx < pair.length - 1 ? "mb-8" : ""
                     }`}
                     dangerouslySetInnerHTML={{
                       __html: cleanHtmlStyles(content.body_html),
@@ -83,6 +85,7 @@ export default function PageContent({ article }: { article: Article }) {
       });
     }
   }
+  // --- end replacement ---
 
   // Add content tabs in the middle
   const articleContentTabs: SecondaryTabItem[] = article.contents.map(

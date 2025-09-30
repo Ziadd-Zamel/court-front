@@ -4,6 +4,8 @@ import "./globals.css";
 import Providers from "@/components/providers";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/header";
+import AccessibilityWrapper from "@/components/custom/accessibility-wrapper";
+import ScrollToTopButton from "@/components/custom/scroll-to-top-button";
 
 const zain = Zain({
   subsets: ["arabic"],
@@ -49,6 +51,10 @@ export default function RootLayout({
             <div className="flex-1">{children}</div>
             <Footer />
           </main>
+          {/* Accessibility Button - Left side, resets on every page navigation */}
+          <AccessibilityWrapper />
+          {/* Scroll to Top Button - Right side */}
+          <ScrollToTopButton />
         </Providers>
       </body>
     </html>

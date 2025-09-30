@@ -32,7 +32,7 @@ export default async function SearchContent({ searchQueries }: Props) {
     return <ErrorState />;
   }
   return (
-    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 p-6 justify-items-center">
+    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 justify-items-center">
       {data?.data.map((book) => (
         <BookCard hideIcons key={book.uuid} book={book} />
       ))}
