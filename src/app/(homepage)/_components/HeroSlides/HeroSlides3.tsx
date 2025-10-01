@@ -39,7 +39,7 @@ const HeroSlides3 = () => {
             >
               <Button
                 className="py-1 sm:py-2 px-10 mt-5"
-                onClick={() => router.push("/litigants-lawyers-portal")}
+                onClick={() => router.push("/litigants-portal")}
               >
                 دخول
               </Button>

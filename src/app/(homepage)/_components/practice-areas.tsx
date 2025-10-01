@@ -28,13 +28,13 @@ const PracticeAreasv3 = ({ areas }: PracticeAreasv3Props) => {
     <section
       className="w-full pb-16 pt-12 relative"
       style={{
-        backgroundImage: `url('/assets/1.675d21b24af6dbaafa5a.jpg')`,
+        backgroundImage: `url('/assets/home-1.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="absolute inset-0 bg-[#151a30a6]" />
+      <div className="absolute inset-0 bg-black/50" />
 
       <div className=" box-container">
         <div className="mb-5">

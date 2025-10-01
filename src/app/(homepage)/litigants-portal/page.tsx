@@ -7,7 +7,8 @@ export default function Page() {
       <MainHeading
         title="بوابة المتقاضين والقانونيين"
         description="القانون الليبي هو المرجع في الأعمال، لكن قدراً غير يسير منها يتوافق مع قوانين دول عربية لاسيما المصري، المصدر التاريخي للقانون الليبي ولكثير من القوانين العربية. تيسيراً للزائر في معرفة مدى تعلق العمل باهتمامه،"
-        bgImage="/assets/bg-1.jpg"
+        bgImage="/assets/litigants-portal.jpg"
+        overlay
       />
 
       {/**Main content */}

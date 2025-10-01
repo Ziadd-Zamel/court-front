@@ -153,18 +153,18 @@ export const yearlyData: YearlyData = {
 export const slides: SlideData[] = [
   {
     content: "HeroSlides1",
-    backgroundImage: "/assets/bg-1.jpg",
+    backgroundImage: "/assets/slide-1.jpg",
   },
   {
     content: "HeroSlides3",
-    backgroundImage: "/assets/bg-3.jpg",
+    backgroundImage: "/assets/slide-2.jpg",
   },
   {
     content: "HeroSlides2",
-    backgroundImage: "/assets/bg-2.jpg",
+    backgroundImage: "/assets/slide-3.jpg",
   },
   {
     content: "HeroSlides4",
-    backgroundImage: "/assets/bg-3.jpg",
+    backgroundImage: "/assets/slide-4.jpg",
   },
 ];

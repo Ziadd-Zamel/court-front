@@ -5,8 +5,8 @@ import FootrLogo from "./component/FotterLogo";
 
 const Footer = () => {
   return (
-    <footer className="relative h-fit w-full border-t-[3px] border-solid border-main bg-[url('/assets/h-main-new-slide-3.jpg')] bg-cover bg-center bg-no-repeat text-white">
-      <div className="absolute inset-0 h-[100%] bg-black/90" />
+    <footer className="relative h-fit w-full border-t-[3px] border-solid border-main bg-[url('/assets/footer.jpg')] bg-cover bg-center bg-no-repeat text-white">
+      <div className="absolute inset-0 h-[100%] bg-black/80" />
       <div className="relative z-10 flex min-h-screen flex-col ">
         <div className="box-container py-10">
           <FootrLogo />
