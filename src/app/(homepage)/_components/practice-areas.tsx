@@ -34,7 +34,7 @@ const PracticeAreasv3 = ({ areas }: PracticeAreasv3Props) => {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/80" />
 
       <div className=" box-container">
         <div className="mb-5">
