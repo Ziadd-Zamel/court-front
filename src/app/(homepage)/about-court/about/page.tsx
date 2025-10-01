@@ -5,7 +5,7 @@ import MainHeading from "./_components/main-heading";
 export default function AboutCourtPage() {
   return (
     <>
-      <MainHeading bgImage="/assets/about.png" overlay />
+      <MainHeading bgImage="/assets/about.png" />
       <div className="  bg-main/30  w-full">
         <AboutSection />
       </div>
