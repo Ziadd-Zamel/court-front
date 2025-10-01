@@ -110,7 +110,7 @@ export default function PageContent({ article }: { article: Article }) {
       label: "المستشارون",
       value: "counselors",
       component: (
-        <div className="text-right -mt-10 ">
+        <div className="text-right ">
           <h4 className="text-2xl font-medium mb-12">هيئة الحكم</h4>
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {article.counselors.map((counselor, index) => (

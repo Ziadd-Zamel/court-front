@@ -3,6 +3,7 @@ declare type BookData = {
   title: string;
   category: string;
   author: string;
+  book_number: nuumber;
   publisher: string;
   published_year: string;
   book_image: string;

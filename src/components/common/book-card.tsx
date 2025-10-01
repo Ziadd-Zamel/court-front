@@ -11,6 +11,7 @@ type BookCardProps = {
   hideIcons?: boolean;
   image?: string;
   type?: string;
+  issueNumber?: number;
 };
 
 export default function BookCard({
@@ -72,7 +73,7 @@ export default function BookCard({
       alert("رابط الكتاب تم نسخه!");
     }
   };
-
+  console.log(book);
   return (
     <Link
       href={`/books/${book.uuid}`}
@@ -124,7 +125,7 @@ export default function BookCard({
                 العدد
               </p>
               <p className="absolute top-[150px] right-[35px] text-white text-2xl">
-                {issueNumber}
+                {book.book_number ? book.book_number : issueNumber}
               </p>
             </>
           )}

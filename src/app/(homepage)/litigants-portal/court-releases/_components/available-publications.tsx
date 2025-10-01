@@ -32,26 +32,27 @@ export default async function AvailablePublications({ pagination }: Props) {
     <>
       {/** Main content */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16 mt-10">
-        {data?.data.map((book) => (
+        {data?.data.map((book, index) => (
           <BookCard
             image="/assets/mahazine.png"
             type={"magazine"}
             hideIcons
             key={book.uuid}
             book={book}
+            issueNumber={index + 1}
           />
         ))}
       </div>
 
       {/**Pagination ( show only if the data is biger than 30) */}
-      {data.data.length >= 20 && (
+      {/* {data.data.length >= 20 && (
         <div className="flex justify-center mt-8">
           <CourtPagination
             pagination={pagination}
             totalPages={data.meta.last_page}
           />
         </div>
-      )}
+      )} */}
     </>
   );
 }
