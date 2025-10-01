@@ -1,8 +1,8 @@
 type CaseTypes = {
-  'دوائر النقض المدني': number;
-  'دوائر النقض الجنائي': number;
-  'دوائر النقض الإداري': number;
-  'دوائر نقض الأحوال الشخصية': number;
+  "دوائر النقض المدني": number;
+  "دوائر النقض الجنائي": number;
+  "دوائر النقض الإداري": number;
+  "دوائر نقض الأحوال الشخصية": number;
 };
 
 export type YearlyData = Record<number, { amount: number; cases: CaseTypes }>;
@@ -17,4 +17,5 @@ export interface AnimatedSectionHeaderProps {
 export interface SlideData {
   content: string;
   backgroundImage: string;
+  showoverlay?: boolean;
 }

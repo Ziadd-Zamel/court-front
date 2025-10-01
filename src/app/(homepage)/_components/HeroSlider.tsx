@@ -119,9 +119,11 @@ const SlideContent = ({
 const SlideBackground = ({
   backgroundImage,
   isActive,
+  showoverlay,
 }: {
   backgroundImage: string;
   isActive: boolean;
+  showoverlay?: boolean;
 }) => (
   <div
     className="absolute inset-0 h-full w-full overflow-hidden"
@@ -141,7 +143,7 @@ const SlideBackground = ({
         backgroundPosition: "center",
       }}
     />
-    <div className="absolute inset-0 bg-black/50" />
+    {showoverlay && <div className="absolute inset-0 bg-black/50" />}
   </div>
 );
 
@@ -242,6 +244,7 @@ const HeroSlider = () => {
           <SlideBackground
             backgroundImage={slide.backgroundImage}
             isActive={currentIndex === index}
+            showoverlay={slide.showoverlay}
           />
 
           <div className="absolute inset-0 text-white">

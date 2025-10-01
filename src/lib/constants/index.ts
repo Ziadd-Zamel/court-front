@@ -154,17 +154,21 @@ export const slides: SlideData[] = [
   {
     content: "HeroSlides1",
     backgroundImage: "/assets/slide-1.jpg",
+    showoverlay: true,
   },
   {
     content: "HeroSlides3",
-    backgroundImage: "/assets/slide-2.jpg",
+    backgroundImage: "/assets/slide-4.png",
+    showoverlay: false,
   },
   {
     content: "HeroSlides2",
     backgroundImage: "/assets/slide-3.jpg",
+    showoverlay: true,
   },
   {
     content: "HeroSlides4",
     backgroundImage: "/assets/slide-4.jpg",
+    showoverlay: true,
   },
 ];

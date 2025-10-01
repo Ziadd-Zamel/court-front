@@ -81,7 +81,7 @@ export default function ContactSection() {
     <>
       <section
         className="relative h-full bg-cover bg-center pb-32 pt-[55px]"
-        style={{ backgroundImage: 'url("/assets/bg-2.jpg")' }}
+        style={{ backgroundImage: 'url("/assets/contact.png")' }}
       >
         <div className="pb-10  box-container">
           <AnimatedSectionHeader title="" />
