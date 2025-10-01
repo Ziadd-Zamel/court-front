@@ -6,7 +6,7 @@ const FirstSectoin = () => {
       <div
         className="relative h-[550px] w-full max-w-[300px]"
         style={{
-          backgroundImage: "url('/assets/bg-1.jpg')",
+          backgroundImage: "url('/assets/orbd.jpg')",
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
