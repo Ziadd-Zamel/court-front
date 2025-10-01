@@ -34,8 +34,7 @@ export default async function Page({
       <MainHeading
         title=" مكتبة المحكمة العليا"
         description="قسم يضم كل ما تحويه المكتبة من مطبوعات: الكتب، وإصدارات المحكمة العليا، والمواد العلمية الأخرى. يتيح هذا القسم للزائر البحث عن كتاب أو مؤلف أو موضوع، والوصول إلى المصادر القانونية سريعًا وبسهولة، بأسلوب يحاكي تجربة الكتاب الواقعية، ليكون متاحًا للجميع الغوص في ثراء المعرفة القانونية بطريقة مرنة وعملية"
-        bgImage="/assets/supreme-court-library.jpg"
-        overlay
+        bgImage="/assets/supreme-court-library.png"
       />
 
       {/** Main page content */}
