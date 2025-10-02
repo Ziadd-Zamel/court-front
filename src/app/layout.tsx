@@ -1,16 +1,22 @@
-import { Zain } from "next/font/google";
+import { Zain, Merriweather } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "@/components/providers";
-import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/header";
 import AccessibilityWrapper from "@/components/custom/accessibility-wrapper";
 import ScrollToTopButton from "@/components/custom/scroll-to-top-button";
+import Footer from "@/components/layout/Footer";
 
 const zain = Zain({
   subsets: ["arabic"],
   variable: "--font-zain",
   weight: ["200", "300", "400", "700", "800", "900"],
+});
+
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  variable: "--font-merriweather",
+  weight: ["300", "400", "700", "900"],
 });
 
 const majalla = localFont({
@@ -42,7 +48,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${zain.variable} ${majalla.variable}`}
+      className={`${zain.variable} ${merriweather.variable} ${majalla.variable}`}
     >
       <body className="font-zain antialiased bg-background">
         <Providers>

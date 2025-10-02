@@ -36,7 +36,7 @@ const SecondeSectoin = () => {
         <div className="flex items-center gap-3 mt-[80px]">
           <MdOutlineMail className="text-main" />
           <p style={{ direction: "ltr" }} className="text-xl mr-1.5">
-            info@supremecourt.gov.ly{" "}
+            seen@alolya.gov.ly{" "}
           </p>
         </div>
       </div>

@@ -24,7 +24,7 @@ const FirstSectoin = () => {
           <div className="absolute bottom-16 right-5">
             <div className="relative">
               <h2
-                className="-mb-10 flex items-center bg-clip-text text-2xl font-bold text-transparent"
+                className=" flex items-center bg-clip-text text-2xl font-bold text-transparent"
                 style={{
                   backgroundImage: "url('/assets/bg-1.jpg')",
                   backgroundPosition: "center",
@@ -32,13 +32,13 @@ const FirstSectoin = () => {
                   WebkitBackgroundClip: "text",
                 }}
               >
-                <span className="font-Alkalami bg-clip-text text-[140px] font-bold text-transparent">
+                <span className="font-merriweather font-extrabold bg-clip-text text-[140px]  text-transparent">
                   73
                 </span>
-                <span className="mt-[20px]">ﻋﺎﻣﺎً،</span>
+                <span className="mt-[85px]">ﻋﺎﻣﺎً،</span>
               </h2>
             </div>
-            <p className=" text-md text-black">
+            <p className=" text-md text-black -mb-10">
               رقيبا علي التطبيق الصحيح للقانون
             </p>
           </div>
