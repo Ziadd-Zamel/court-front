@@ -32,6 +32,17 @@ export default function BookCard({
     return Math.floor(Math.random() * 10) + 2001;
   }, [book.uuid]);
 
+  // Generate a consistent random book image number (1-12)
+  const randomBookImageNumber = useMemo(() => {
+    return Math.floor(Math.random() * 12) + 1;
+  }, [book.uuid]);
+
+  const bookImage = useMemo(() => {
+    if (image) return image;
+    if (type === "book") return `/assets/book-${randomBookImageNumber}.jpg`;
+    return book.book_image;
+  }, [image, type, randomBookImageNumber, book.book_image]);
+
   const handleBookClick = () => {
     // Open PDF in new tab/window
     if (book.pdf_url) {
@@ -73,7 +84,6 @@ export default function BookCard({
       alert("رابط الكتاب تم نسخه!");
     }
   };
-  console.log(book);
   return (
     <Link
       href={`/books/${book.uuid}`}
@@ -84,7 +94,7 @@ export default function BookCard({
         onClick={handleBookClick}
       >
         <Image
-          src={image ? image : book.book_image}
+          src={bookImage}
           alt={book.title}
           fill
           className="object-cover "

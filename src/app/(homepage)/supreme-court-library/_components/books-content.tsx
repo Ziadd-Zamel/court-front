@@ -27,7 +27,7 @@ export default async function BooksContent({ pagination }: Props) {
     <>
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16 mt-10">
         {data?.data.map((book) => (
-          <BookCard key={book.uuid} book={book} />
+          <BookCard type="book" key={book.uuid} book={book} />
         ))}
       </div>
       {data.data.length >= 20 && (
