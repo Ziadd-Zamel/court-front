@@ -2,9 +2,12 @@
 "use client";
 
 import Image from "next/image";
-import { Bookmark, Download, Share2 } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
+import { BookmarkButton } from "./bookmark-button";
+import { DownloadButton } from "./download-button";
+import { PrintButton } from "./print-button";
+import { ShareButton } from "./share-button";
 
 type BookCardProps = {
   book: BookData;
@@ -20,8 +23,6 @@ export default function BookCard({
   image,
   type,
 }: BookCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
-
   // Generate a consistent random number (1-73) for this book
   const issueNumber = useMemo(() => {
     return Math.floor(Math.random() * 73) + 1;
@@ -43,56 +44,12 @@ export default function BookCard({
     return book.book_image;
   }, [image, type, randomBookImageNumber, book.book_image]);
 
-  const handleBookClick = () => {
-    // Open PDF in new tab/window
-    if (book.pdf_url) {
-      window.open(book.pdf_url, "_blank");
-    }
-  };
-
-  const handleFavorite = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    setIsFavorite(!isFavorite);
-    // Add your favorite logic here
-    console.log("Toggle favorite for:", book.uuid);
-  };
-
-  const handleDownload = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    if (book.pdf_url) {
-      const link = document.createElement("a");
-      link.href = book.pdf_url;
-      link.download = `${book.title}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-    console.log("Download:", book.title);
-  };
-
-  const handleShare = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    if (navigator.share) {
-      navigator.share({
-        title: book.title,
-        text: `Check out this book: ${book.title}`,
-        url: window.location.href,
-      });
-    } else {
-      // Fallback - copy to clipboard
-      navigator.clipboard.writeText(`${book.title} - ${window.location.href}`);
-      alert("رابط الكتاب تم نسخه!");
-    }
-  };
   return (
     <Link
       href={`/books/${book.uuid}`}
       className="cursor-pointer w-[120px] sm:w-[184px] relative"
     >
-      <div
-        className="relative h-40 sm:h-60 w-full mb-2"
-        onClick={handleBookClick}
-      >
+      <div className="relative h-40 sm:h-60 w-full mb-2">
         <Image
           src={bookImage}
           alt={book.title}
@@ -103,32 +60,14 @@ export default function BookCard({
       {!hideIcons && (
         <div className="flex justify-start gap-1">
           {/* Favorite */}
-          <button
-            onClick={handleFavorite}
-            className="p-1"
-            title="إضافة إلى المفضلة"
-          >
-            <Bookmark
-              size={16}
-              className={`${
-                isFavorite ? "text-main fill-main" : "text-gray-600"
-              } hover:text-main`}
-            />
-          </button>
+          <BookmarkButton item={book} type="book" />
 
           {/* Download PDF */}
-          <button
-            onClick={handleDownload}
-            className="p-1"
-            title="تنزيل بي دي أف"
-          >
-            <Download size={16} className="text-gray-600 hover:text-blue-500" />
-          </button>
+          <DownloadButton url={book.pdf_url} />
 
+          <PrintButton url={book.pdf_url} />
           {/* Share */}
-          <button onClick={handleShare} className="p-1" title="مشاركة">
-            <Share2 size={16} className="text-gray-600 hover:text-green-500" />
-          </button>
+          <ShareButton item={book} type="book" />
           {type === "magazine" && (
             <>
               <p className="absolute top-[132px] right-[32px] text-white text-sm">

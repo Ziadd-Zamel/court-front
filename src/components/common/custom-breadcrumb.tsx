@@ -31,8 +31,12 @@ const routeNameMap: { [key: string]: string } = {
   "/about-court/courts-law": "القوانين الخاصة بالمحكمة",
   "/about-court/performance-metrics": "معدلات الأداء",
   "/about-court/news": "الأخبار",
+  "/favorite": "المفضّلة",
+  "/favorite/articles": "المقالات المفضّلة",
+  "/favorite/books": "الكتب المفضّلة",
+  "/favorite/news": "الأخبار المفضّلة",
+  "/favorite/questions": "الأسئلة المفضّلة",
 };
-
 interface CustomBreadcrumbProps {
   className?: string;
   black?: boolean;

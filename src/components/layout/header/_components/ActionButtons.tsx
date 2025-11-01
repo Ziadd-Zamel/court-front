@@ -53,7 +53,7 @@ export default function ActionButtons({
       </Button>
 
       <Button
-        onClick={() => router.push("/favorit")}
+        onClick={() => router.push("/favorite")}
         variant="ghost"
         size="icon"
         className="size-8 sm:size-12 hover:bg-transparent focus:outline-none relative"

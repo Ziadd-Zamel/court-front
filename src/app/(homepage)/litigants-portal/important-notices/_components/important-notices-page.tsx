@@ -19,6 +19,8 @@ import QuestionError from "./question-error";
 import SearchBar from "@/components/common/search-bar";
 import QuestionEmptyState from "./question-empty";
 import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
+import { BookmarkButton } from "@/components/common/bookmark-button";
+import { ShareButton } from "@/components/common/share-button";
 
 interface ImportantNoticesPageProps {
   TabsData: questionCategory[];
@@ -171,6 +173,10 @@ export default function ImportantNoticesPage({
                                 }}
                               ></div>
                             </AccordionContent>
+                            <div className="flex justify-end items-center gap-3 mb-5">
+                              <BookmarkButton item={question} type="question" />
+                              <ShareButton item={question} type="question" />
+                            </div>
                           </AccordionItem>
                         ))}
                     </Accordion>

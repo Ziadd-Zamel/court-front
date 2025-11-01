@@ -8,6 +8,8 @@ import { ChevronLeft, Slash } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
+import { BookmarkButton } from "./bookmark-button";
+import { ShareButton } from "./share-button";
 
 type ArticleCardProps = {
   article: Article;
@@ -68,8 +70,8 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
         </div>
 
         {/* Content block */}
-        <div className="flex-1">
-          <AccordionTrigger className="rounded-none justify-normal flex w-full cursor-pointer flex-col items-start gap-5 border-b border-main text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
+        <div className="flex-1 border-b border-main">
+          <AccordionTrigger className="rounded-none justify-normal flex w-full cursor-pointer flex-col items-start gap-5  text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
             <div className="flex flex-col gap-[10px] text-start min-w-[130px]">
               <p className="text-gray-500 sm:text-lg md:text-xs">
                 {article.sub_category}
@@ -88,7 +90,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             </div>
           </AccordionTrigger>
 
-          <AccordionContent className="border-b border-main pb-10">
+          <AccordionContent className="pb-10">
             <h6 className="mt-5 text-center font-zain text-xl font-bold text-main">
               {`[${article.rule.title}]`}
             </h6>
@@ -106,6 +108,10 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
               </Link>
             </div>
           </AccordionContent>
+          <div className="flex justify-end items-center gap-3 mb-5">
+            <BookmarkButton item={article} type="article" />
+            <ShareButton item={article} type="article" />
+          </div>
         </div>
       </div>
     </AccordionItem>

@@ -29,6 +29,12 @@ export const useNavbar = () => {
     pathname.includes("/about-court/counselors") ||
     pathname.includes("/about-court/courts-law") ||
     pathname.includes("/about-court/structure-court") ||
+    // Favorite section paths with SecondaryHeading
+    pathname.includes("/favorite") ||
+    pathname.includes("/favorite/articles") ||
+    pathname.includes("/favorite/books") ||
+    pathname.includes("/favorite/news") ||
+    pathname.includes("/favorite/questions") ||
     // Litigants portal paths with SecondaryHeading
     pathname.includes("/litigants-portal/important-notices") ||
     pathname.includes("/litigants-portal/litigation-services") ||
