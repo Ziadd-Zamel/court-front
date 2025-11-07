@@ -24,10 +24,10 @@ export default function FavoriteNewsPage() {
 
   return (
     <>
-      <SecondaryHeading title="الأخبار المفضلة" breadcrumb />
+      <SecondaryHeading title="أخبار المحكمة المفضلة" breadcrumb />
 
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 box-container ">
+        <div className="max-w-5xl mx-auto">
           {news.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -64,7 +64,7 @@ export default function FavoriteNewsPage() {
                 className="mb-8"
               >
                 <p className="text-lg text-gray-600 dark:text-gray-400">
-                  لديك {news.length} خبر محفوظ
+                  {news.length} من {"أخبار المحكمة المفضلة"}
                 </p>
               </motion.div>
 

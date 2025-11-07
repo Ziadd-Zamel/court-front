@@ -31,11 +31,13 @@ const routeNameMap: { [key: string]: string } = {
   "/about-court/courts-law": "القوانين الخاصة بالمحكمة",
   "/about-court/performance-metrics": "معدلات الأداء",
   "/about-court/news": "الأخبار",
-  "/favorite": "المفضّلة",
-  "/favorite/articles": "المقالات المفضّلة",
-  "/favorite/books": "الكتب المفضّلة",
-  "/favorite/news": "الأخبار المفضّلة",
-  "/favorite/questions": "الأسئلة المفضّلة",
+  "/favorite": "مجلدي",
+  "/favorite/articles": "المبادئ القانونية المفضلة",
+  "/favorite/books": "الكتب والإصدارات المفضلة",
+  "/favorite/news": "أخبار المحكمة المفضلة",
+  "/favorite/research": "البحوث والأوراق العلمية المفضلة",
+  "/favorite/law": " القوانين المفضلة",
+  "/favorite/questions": "المعلومات المهمة المفضلة",
 };
 interface CustomBreadcrumbProps {
   className?: string;

@@ -32,7 +32,7 @@ export default function FavoriteQuestionsPage() {
 
   return (
     <>
-      <SecondaryHeading title="الأسئلة المفضلة" breadcrumb />
+      <SecondaryHeading title="المعلومات المهمة المفضلة" breadcrumb />
 
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -72,7 +72,7 @@ export default function FavoriteQuestionsPage() {
                 className="mb-8"
               >
                 <p className="text-lg text-gray-600 dark:text-gray-400">
-                  لديك {questions.length} سؤال محفوظ
+                  {"المعلومات المهمة المفضلة"} {questions.length} من
                 </p>
               </motion.div>
 

@@ -10,14 +10,24 @@ import {
   isNewsBookmarked,
   toggleQuestionBookmark,
   isQuestionBookmarked,
+  toggleResearchBookmark,
+  isResearchBookmarked,
+  toggleLawBookmark,
+  isLawBookmarked,
 } from "@/lib/utils/localstorage";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-type BookmarkType = "article" | "book" | "news" | "question";
+type BookmarkType =
+  | "article"
+  | "book"
+  | "news"
+  | "question"
+  | "research"
+  | "law";
 
 interface BookmarkButtonProps {
-  item: Article | BookData | NewsArticle | Iquestion;
+  item: Article | BookData | NewsArticle | Iquestion | Law;
   type: BookmarkType;
   size?: number;
   className?: string;
@@ -46,6 +56,12 @@ export function BookmarkButton({
           break;
         case "question":
           setIsSaved(isQuestionBookmarked(item.uuid));
+          break;
+        case "research":
+          setIsSaved(isResearchBookmarked(item.uuid));
+          break;
+        case "law":
+          setIsSaved(isLawBookmarked(item.uuid));
           break;
       }
     };
@@ -76,6 +92,12 @@ export function BookmarkButton({
         break;
       case "question":
         success = toggleQuestionBookmark(item as Iquestion);
+        break;
+      case "research":
+        success = toggleResearchBookmark(item as Article);
+        break;
+      case "law":
+        success = toggleLawBookmark(item as Law);
         break;
     }
 

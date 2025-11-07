@@ -1,5 +1,5 @@
 // ============================================
-// ARTICLES BOOKMARKS
+// ARTICLES BOOKMARKS (المبادئ القانونية - Court Rulings)
 // ============================================
 const ARTICLES_BOOKMARK_KEY = "bookmarked_articles";
 
@@ -53,7 +53,7 @@ export const isArticleBookmarked = (uuid: string): boolean =>
   getBookmarkedArticles().some((b) => b.uuid === uuid);
 
 // ============================================
-// BOOKS BOOKMARKS
+// BOOKS BOOKMARKS (الكتب والإصدارات)
 // ============================================
 const BOOKS_BOOKMARK_KEY = "bookmarked_books";
 
@@ -107,7 +107,7 @@ export const isBookBookmarked = (uuid: string): boolean =>
   getBookmarkedBooks().some((b) => b.uuid === uuid);
 
 // ============================================
-// NEWS BOOKMARKS
+// NEWS BOOKMARKS (أخبار المحكمة)
 // ============================================
 const NEWS_BOOKMARK_KEY = "bookmarked_news";
 
@@ -161,7 +161,7 @@ export const isNewsBookmarked = (uuid: string): boolean =>
   getBookmarkedNews().some((b) => b.uuid === uuid);
 
 // ============================================
-// QUESTIONS BOOKMARKS
+// QUESTIONS BOOKMARKS (المعلومات المهمة)
 // ============================================
 const QUESTIONS_BOOKMARK_KEY = "bookmarked_questions";
 
@@ -215,6 +215,114 @@ export const isQuestionBookmarked = (uuid: string): boolean =>
   getBookmarkedQuestions().some((b) => b.uuid === uuid);
 
 // ============================================
+// RESEARCH PAPERS BOOKMARKS (البحوث والأوراق العلمية)
+// ============================================
+const RESEARCH_BOOKMARK_KEY = "bookmarked_research";
+
+export const addResearchBookmark = (research: Article): boolean => {
+  try {
+    const bookmarks = getBookmarkedResearch();
+    if (bookmarks.some((b) => b.uuid === research.uuid)) return false;
+
+    const updated = [...bookmarks, research];
+    localStorage.setItem(RESEARCH_BOOKMARK_KEY, JSON.stringify(updated));
+    window.dispatchEvent(new Event("bookmarks-changed"));
+    return true;
+  } catch (error) {
+    console.error("Error adding research bookmark:", error);
+    return false;
+  }
+};
+
+export const removeResearchBookmark = (uuid: string): boolean => {
+  try {
+    const bookmarks = getBookmarkedResearch();
+    const filtered = bookmarks.filter((b) => b.uuid !== uuid);
+    localStorage.setItem(RESEARCH_BOOKMARK_KEY, JSON.stringify(filtered));
+    window.dispatchEvent(new Event("bookmarks-changed"));
+    return true;
+  } catch (error) {
+    console.error("Error removing research bookmark:", error);
+    return false;
+  }
+};
+
+export const toggleResearchBookmark = (research: Article): boolean => {
+  const isBookmarked = isResearchBookmarked(research.uuid);
+  if (isBookmarked) {
+    return removeResearchBookmark(research.uuid);
+  } else {
+    return addResearchBookmark(research);
+  }
+};
+
+export const getBookmarkedResearch = (): Article[] => {
+  try {
+    const stored = localStorage.getItem(RESEARCH_BOOKMARK_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+};
+
+export const isResearchBookmarked = (uuid: string): boolean =>
+  getBookmarkedResearch().some((b) => b.uuid === uuid);
+
+// ============================================
+// LAWS BOOKMARKS (القوانين)
+// ============================================
+const LAWS_BOOKMARK_KEY = "bookmarked_laws";
+
+export const addLawBookmark = (law: Law): boolean => {
+  try {
+    const bookmarks = getBookmarkedLaws();
+    if (bookmarks.some((b) => b.uuid === law.uuid)) return false;
+
+    const updated = [...bookmarks, law];
+    localStorage.setItem(LAWS_BOOKMARK_KEY, JSON.stringify(updated));
+    window.dispatchEvent(new Event("bookmarks-changed"));
+    return true;
+  } catch (error) {
+    console.error("Error adding law bookmark:", error);
+    return false;
+  }
+};
+
+export const removeLawBookmark = (uuid: string): boolean => {
+  try {
+    const bookmarks = getBookmarkedLaws();
+    const filtered = bookmarks.filter((b) => b.uuid !== uuid);
+    localStorage.setItem(LAWS_BOOKMARK_KEY, JSON.stringify(filtered));
+    window.dispatchEvent(new Event("bookmarks-changed"));
+    return true;
+  } catch (error) {
+    console.error("Error removing law bookmark:", error);
+    return false;
+  }
+};
+
+export const toggleLawBookmark = (law: Law): boolean => {
+  const isBookmarked = isLawBookmarked(law.uuid);
+  if (isBookmarked) {
+    return removeLawBookmark(law.uuid);
+  } else {
+    return addLawBookmark(law);
+  }
+};
+
+export const getBookmarkedLaws = (): Law[] => {
+  try {
+    const stored = localStorage.getItem(LAWS_BOOKMARK_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+};
+
+export const isLawBookmarked = (uuid: string): boolean =>
+  getBookmarkedLaws().some((b) => b.uuid === uuid);
+
+// ============================================
 // EXPORT ALL KEYS
 // ============================================
 export {
@@ -222,4 +330,6 @@ export {
   BOOKS_BOOKMARK_KEY,
   NEWS_BOOKMARK_KEY,
   QUESTIONS_BOOKMARK_KEY,
+  RESEARCH_BOOKMARK_KEY,
+  LAWS_BOOKMARK_KEY,
 };

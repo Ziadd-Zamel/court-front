@@ -1,34 +1,35 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getBookmarkedBooks } from "@/lib/utils/localstorage";
-import BookCard from "@/components/common/book-card";
+import { getBookmarkedResearch } from "@/lib/utils/localstorage";
+import { Accordion } from "@/components/ui/accordion";
+import ArticleCard from "@/components/common/article-card";
 import { motion } from "framer-motion";
 import SecondaryHeading from "@/components/common/seondary-heading";
 
-export default function FavoriteBooksPage() {
-  const [books, setBooks] = useState<BookData[]>([]);
+export default function FavoriteReaserchPage() {
+  const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
-    const loadBooks = () => {
-      const bookmarked = getBookmarkedBooks();
-      setBooks(bookmarked);
+    const loadArticles = () => {
+      const bookmarked = getBookmarkedResearch();
+      setArticles(bookmarked);
     };
 
-    loadBooks();
+    loadArticles();
 
     // Listen for changes
-    window.addEventListener("bookmarks-changed", loadBooks);
-    return () => window.removeEventListener("bookmarks-changed", loadBooks);
+    window.addEventListener("bookmarks-changed", loadArticles);
+    return () => window.removeEventListener("bookmarks-changed", loadArticles);
   }, []);
 
   return (
     <>
-      <SecondaryHeading title="الكتب والإصدارات المفضلة" breadcrumb />
+      <SecondaryHeading title="البحوث والأوراق العلمية المفضلة" breadcrumb />
 
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 box-container ">
         <div className="max-w-5xl mx-auto">
-          {books.length === 0 ? (
+          {articles.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -45,15 +46,15 @@ export default function FavoriteBooksPage() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
                   />
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                لا توجد كتب محفوظة
+                لا توجد بحوث محفوظة
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                قم بإضافة كتب إلى المفضلة لتظهر هنا
+                قم بإضافة بحوث إلى المفضلة لتظهر هنا
               </p>
             </motion.div>
           ) : (
@@ -64,22 +65,22 @@ export default function FavoriteBooksPage() {
                 className="mb-8"
               >
                 <p className="text-lg text-gray-600 dark:text-gray-400">
-                  {books.length} من {"الكتب والإصدارات المفضلة"}
+                  {articles.length} من {"البحوث والأوراق العلمية"}
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                {books.map((book, index) => (
+              <Accordion type="single" collapsible className="w-full" dir="rtl">
+                {articles.map((article, index) => (
                   <motion.div
-                    key={book.uuid}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.05 }}
+                    key={article.uuid}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
                   >
-                    <BookCard type="book" book={book} />
+                    <ArticleCard article={article} index={index} />
                   </motion.div>
                 ))}
-              </div>
+              </Accordion>
             </>
           )}
         </div>

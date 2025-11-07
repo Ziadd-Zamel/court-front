@@ -108,7 +108,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
               </Link>
             </div>
           </AccordionContent>
-          <div className="flex justify-end items-center gap-3 mb-5">
+          <div className="flex justify-start items-center gap-3 mb-5">
             <BookmarkButton item={article} type="article" />
             <ShareButton item={article} type="article" />
           </div>
