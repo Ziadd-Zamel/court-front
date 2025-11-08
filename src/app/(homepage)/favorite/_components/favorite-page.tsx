@@ -1,6 +1,7 @@
 "use client";
 
 import SecondaryHeading from "@/components/common/seondary-heading";
+import Image from "next/image";
 import Link from "next/link";
 import {
   FaGavel,
@@ -18,6 +19,7 @@ export default function FavoritesPage() {
       title: "المبادئ القانونية",
       description: "مختاراتك من أحكام المحكمة العليا من مختلف دوائرها",
       icon: FaGavel,
+      image: "/assets/articles.svg",
       route: "/favorite/articles",
     },
     {
@@ -26,6 +28,7 @@ export default function FavoritesPage() {
       description: "مفضلتك من كتب المكتبة وإصدارات المحكمة العليا",
       icon: FaBook,
       route: "/favorite/books",
+      image: "/assets/booksPup.svg",
     },
     {
       id: 3,
@@ -33,6 +36,7 @@ export default function FavoritesPage() {
       description: "أهم الأسئلة التي تهمك عن مختلف أعمال المحكمة العليا",
       icon: FaQuestionCircle,
       route: "/favorite/questions",
+      image: "/assets/important-notices.png",
     },
     {
       id: 4,
@@ -41,6 +45,7 @@ export default function FavoritesPage() {
         "الوصول السريع لتفضيلاتك من البحوث والمقالات المنشورة على الموقع",
       icon: FaFileAlt,
       route: "/favorite/research",
+      image: "/assets/research.svg",
     },
     {
       id: 5,
@@ -49,6 +54,7 @@ export default function FavoritesPage() {
         "مجموعة القوانين والقرارات واللوائح المنتقاة لسهولة الرجوع إليها",
       icon: FaBalanceScale,
       route: "/favorite/law",
+      image: "/assets/free_icon_1 (5).svg",
     },
     {
       id: 6,
@@ -56,6 +62,7 @@ export default function FavoritesPage() {
       description: "حزمة الأحداث وقرارات الجمعية العمومية المختارة",
       icon: FaNewspaper,
       route: "/favorite/news",
+      image: "/assets/free_icon_1 (8).svg",
     },
   ];
 
@@ -67,7 +74,6 @@ export default function FavoritesPage() {
         <div className="box-container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {favoriteTypes.map((service) => {
-              const Icon = service.icon;
               return (
                 <Link
                   href={`${service.route}`}
@@ -76,7 +82,12 @@ export default function FavoritesPage() {
                 >
                   <div className="p-8 text-center">
                     <div className="w-40 h-40 border-input border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-main/10 transition-colors duration-300">
-                      <Icon className="text-6xl text-main" />
+                      <Image
+                        src={service.image}
+                        alt="Image"
+                        width={60}
+                        height={60}
+                      />
                     </div>
 
                     {/* Title */}
