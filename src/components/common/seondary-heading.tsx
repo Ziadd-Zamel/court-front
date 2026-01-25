@@ -14,7 +14,7 @@ export default function SecondaryHeading({
   IconSecyion,
 }: Props) {
   return (
-    <div className="relative h-[220px] w-full overflow-hidden bg-main pt-16">
+    <div className="relative h-[220px] w-full bg-main pt-16">
       {/* Main content container */}
       <div className="relative z-20 flex h-full items-center justify-between">
         {/*First Part */}
@@ -24,7 +24,7 @@ export default function SecondaryHeading({
           transition={{ duration: 0.8 }}
           className="w-1/2 lg:w-1/3 pr-16"
         >
-          <h2 className=" font-bold text-white text-lg sm:text-2xl lg:text-4xl">
+          <h2 className=" font-bold text-white text-lg sm:text-2xl lg:text-3xl">
             {title}
           </h2>
         </motion.div>

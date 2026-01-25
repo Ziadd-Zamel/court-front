@@ -48,7 +48,7 @@ export default function SecondaryTabs({
     rounded-none 
     px-0 sm:px-3
     pb-3 sm:pb-6 
-    text-sm sm:text-lg
+    text-sm sm:text-base
     transition-all 
     duration-300 
     ease-in-out

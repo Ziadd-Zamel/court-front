@@ -55,7 +55,7 @@ export default function MainHeading({
             transition={{ duration: 0.8 }}
             className={cn(
               titleClassName,
-              "text-3xl sm:text-5xl font-bold text-white self-start"
+              "text-3xl sm:text-3xl font-bold text-white self-start",
             )}
           >
             {title}
@@ -78,7 +78,7 @@ export default function MainHeading({
             transition={{ duration: 1, delay: 0.6 }}
             className={cn(
               descriptionClassname,
-              "font-normal text-justify leading-7 -mt-3 text-gray-300 text-sm sm:text-lg md:text-xl md:max-w-[80%]"
+              "font-normal text-justify leading-7 -mt-3 text-gray-300 text-sm sm:text-base md:max-w-[80%]",
             )}
           >
             {description}

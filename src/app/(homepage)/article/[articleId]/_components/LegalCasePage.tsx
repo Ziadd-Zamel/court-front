@@ -5,6 +5,10 @@ import NoDataState from "@/components/custom/no-data-state";
 import ErrorState from "@/components/custom/error-state";
 import SecondaryHeading from "@/components/common/seondary-heading";
 import Sidebar from "./Sidebar";
+import { BookmarkButton } from "@/components/common/bookmark-button";
+import { ShareButton } from "@/components/common/share-button";
+import { CopyButton } from "@/components/common/copy-button";
+import { DownloadButton } from "@/components/common/download-button";
 
 export default async function LegalCasePage({
   id,
@@ -23,7 +27,17 @@ export default async function LegalCasePage({
   const article = data?.data;
   return (
     <>
-      <SecondaryHeading title={article.sub_category} />
+      <SecondaryHeading
+        IconSecyion={
+          <div className="flex items-center gap-3 w-full h-full">
+            <BookmarkButton item={article} type="article" />
+            <ShareButton item={article} type="article" variant="light" />
+            <CopyButton text={article.rule.body_text} />
+            {article.pdf_file && <DownloadButton url={article.pdf_file} />}
+          </div>
+        }
+        title={article.sub_category}
+      />
 
       <div className="min-h-screen lg:flex lg:flex-row">
         <PageContent article={article} />

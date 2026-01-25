@@ -69,7 +69,7 @@ export default function ReusableTabs({
               value={tab.value}
             >
               {tab.heading && (
-                <h3 className="text-2xl mt-3 font-bold text-main sm:mb-8 sm:text-4xl">
+                <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-3xl">
                   {tab.heading}
                 </h3>
               )}

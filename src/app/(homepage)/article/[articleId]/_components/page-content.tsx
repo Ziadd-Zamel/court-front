@@ -6,7 +6,15 @@ import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 
 export default function PageContent({ article }: { article: Article }) {
   const contentTabs: SecondaryTabItem[] = [];
-  console.log(article);
+
+  // Format the date
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   // Always add rule tab first if it exists
   if (article.rule) {
@@ -16,7 +24,7 @@ export default function PageContent({ article }: { article: Article }) {
       component: (
         <div className="text-right">
           <div
-            className="text-gray-500 leading-relaxed text-base text-justify font-normal "
+            className="text-gray-500 leading-relaxed text-sm text-justify font-normal "
             style={{ direction: "rtl" }}
             dangerouslySetInnerHTML={{
               __html: cleanHtmlStyles(article.rule.body_html),
@@ -70,7 +78,7 @@ export default function PageContent({ article }: { article: Article }) {
                     {content.title}
                   </h4>
                   <div
-                    className={`text-gray-500 leading-relaxed text-base text-justify font-normal ${
+                    className={`text-gray-500 leading-relaxed text-sm text-justify font-normal ${
                       idx < pair.length - 1 ? "mb-8" : ""
                     }`}
                     dangerouslySetInnerHTML={{
@@ -94,12 +102,12 @@ export default function PageContent({ article }: { article: Article }) {
       value: content.title.toLowerCase().replace(/\s+/g, "-"),
       component: (
         <div className="text-right">
-          <p className="text-gray-500 leading-relaxed text-base text-justify">
+          <p className="text-gray-500 leading-relaxed text-sm text-justify">
             {content.body_text}
           </p>
         </div>
       ),
-    })
+    }),
   );
 
   contentTabs.push(...articleContentTabs);
@@ -134,45 +142,56 @@ export default function PageContent({ article }: { article: Article }) {
   }
 
   return (
-    <>
-      <section className="box-container !px-9 pt-20 w-full lg:w-2/3 pb-40">
-        <div className="flex flex-col items-start">
-          <h3 className="text-xl font-bold md:text-md lg:text-3xl mb-5 flex items-center gap-1">
-            <span>{article.number}</span>
+    <section className="box-container !px-9 pt-20 w-full lg:w-2/3 pb-40">
+      <div className="flex flex-col items-start">
+        <h3 className="text-xl font-semibold md:text-md lg:text-2xl mb-5 flex items-center gap-1">
+          <div className="flex items-center flex-row-reverse gap-1">
+            <span>{article.principle_year}</span>
             <span className="-mx-1">/</span>
-            <span>{article.sign}</span>
-          </h3>
-          <h4 className="text-right text-sm font-bold sm:text-2xl flex items-center gap-2">
-            {article.title}
-          </h4>
-          <div className="mt-5 flex items-center justify-end gap-5">
-            <div className="font-semibold text-main">
-              {article.publish_date}
-            </div>
-            <div className="text-right text-sm font-semibold text-main sm:text-base">
-              {article.author}
+            <span>{article.principle_number}</span>
+          </div>
+          <span className="font-semibold text-xl">
+            {article.principle_type}
+          </span>
+          <div className="flex items-center text-sm">
+            (<span>{article.ruling_type}</span>
+            <div className="flex items-center ms-1">
+              <span>{article.number}</span>
+              <span className="mx-1">/</span>
+              <span>{article.sign}</span>)
             </div>
           </div>
+        </h3>
+        <h4 className="text-right text-sm font-bold sm:text-xl flex items-center gap-2">
+          {article.title}
+        </h4>
+        <div className="mt-5 flex items-center justify-end gap-5">
+          <div className="font-semibold text-main text-sm">
+            {formatDate(article.publish_date)}
+          </div>
+          <div className="text-right text-sm font-semibold text-main">
+            {article.author}
+          </div>
         </div>
+      </div>
 
-        {/* Article brief */}
-        <div
-          className="text-gray-500 leading-relaxed text-base text-justify font-normal mt-16 mb-6"
-          style={{ direction: "rtl" }}
-          dangerouslySetInnerHTML={{
-            __html: cleanHtmlStyles(article.brief_html),
-          }}
-        />
+      {/* Article brief */}
+      <div
+        className="text-gray-500 leading-relaxed text-base text-justify font-normal mt-16 mb-6"
+        style={{ direction: "rtl" }}
+        dangerouslySetInnerHTML={{
+          __html: cleanHtmlStyles(article.brief_html),
+        }}
+      />
 
-        <hr className=" border-main" />
+      <hr className=" border-main" />
 
-        <SecondaryTabs
-          tabs={contentTabs}
-          defaultValue={contentTabs[0]?.value || ""}
-          className="w-full flex justify-center items-center mt-16 "
-          tabListClassName="mb-7 max-w-none flex-wrap"
-        />
-      </section>
-    </>
+      <SecondaryTabs
+        tabs={contentTabs}
+        defaultValue={contentTabs[0]?.value || ""}
+        className="w-full flex justify-center items-center mt-16 "
+        tabListClassName="mb-7 max-w-none flex-wrap"
+      />
+    </section>
   );
 }

@@ -15,6 +15,7 @@ interface ShareButtonProps {
   type: ShareType;
   size?: number;
   className?: string;
+  variant?: "default" | "light";
 }
 
 export function ShareButton({
@@ -22,6 +23,7 @@ export function ShareButton({
   type,
   size = 16,
   className = "p-1",
+  variant = "default",
 }: ShareButtonProps) {
   const [showShareDropdown, setShowShareDropdown] = useState(false);
 
@@ -66,7 +68,7 @@ export function ShareButton({
   };
 
   const handleShare = (
-    platform: "facebook" | "messenger" | "twitter" | "whatsapp"
+    platform: "facebook" | "messenger" | "twitter" | "whatsapp",
   ) => {
     const { url, title, description } = getItemDetails();
     const cleanDescription = description.replace(/<[^>]*>/g, "").trim();
@@ -82,7 +84,7 @@ export function ShareButton({
           const facebookWindow = window.open(
             facebookShareUrl,
             "facebook-share-dialog",
-            "width=626,height=436,resizable=yes,scrollbars=yes"
+            "width=626,height=436,resizable=yes,scrollbars=yes",
           );
 
           if (!facebookWindow) {
@@ -93,19 +95,19 @@ export function ShareButton({
         case "messenger":
           const messengerText = `${title}\n\n${cleanDescription}\n\n${url}`;
           const messengerUrl = `https://m.me/?text=${encodeURIComponent(
-            messengerText
+            messengerText,
           )}`;
 
           const messengerWindow = window.open(
             messengerUrl,
             "_blank",
-            "width=500,height=600"
+            "width=500,height=600",
           );
 
           if (!messengerWindow) {
             if (navigator.userAgent.includes("Mobile")) {
               window.location.href = `fb-messenger://share?link=${encodeURIComponent(
-                url
+                url,
               )}`;
             } else {
               handleFallbackShare(url, title, cleanDescription);
@@ -126,7 +128,7 @@ export function ShareButton({
         case "whatsapp":
           const whatsappText = `*${title}*\n\n${cleanDescription}\n\n${url}`;
           const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
-            whatsappText
+            whatsappText,
           )}`;
 
           window.open(whatsappUrl, "_blank");
@@ -143,7 +145,7 @@ export function ShareButton({
   const handleFallbackShare = (
     url: string,
     title: string,
-    description: string
+    description: string,
   ) => {
     const fallbackText = `${title}\n\n${description}\n\n${url}`;
 
@@ -156,76 +158,82 @@ export function ShareButton({
     }
   };
 
+  const buttonStyles =
+    variant === "light"
+      ? "bg-white/90 backdrop-blur-sm hover:bg-white border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow"
+      : "bg-white/80 backdrop-blur-sm hover:bg-white border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
+
+  const iconStyles = variant === "light" ? "text-main" : "text-gray-700";
+
   return (
     <div
-      className="relative inline-block"
+      className="inline-block relative"
+      style={{ zIndex: 9999 }}
       onMouseEnter={() => setShowShareDropdown(true)}
       onMouseLeave={() => setShowShareDropdown(false)}
     >
       <button
-        className={`${className} flex cursor-pointer items-center justify-center rounded-full w-6 h-6 transition-all duration-200 bg-gray-100 group hover:bg-main border border-gray-300 hover:border-main`}
+        className={`${className} flex cursor-pointer items-center justify-center rounded-full w-8 h-8 transition-all duration-200 border ${buttonStyles}`}
         title="مشاركة"
       >
-        <Share2
-          size={size}
-          className="text-gray-600 group-hover:text-white transition-colors "
-        />
+        <Share2 size={size} className={`transition-colors ${iconStyles}`} />
       </button>
 
       <AnimatePresence>
         {showShareDropdown && (
           <motion.div
-            className="absolute top-full left-1/2 -translate-x-1/2 mt-1 flex flex-col bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-600 rounded overflow-hidden z-50"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 flex flex-col bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden backdrop-blur-sm"
+            style={{ zIndex: 99999 }}
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
           >
             {/* Facebook */}
             <div
-              className="flex w-10 h-10 cursor-pointer items-center justify-center border-b border-gray-200 dark:border-gray-600 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              className="flex w-12 h-12 cursor-pointer items-center justify-center border-b border-gray-200 dark:border-gray-600 transition-all hover:bg-blue-50 dark:hover:bg-gray-700 group"
               onClick={() => handleShare("facebook")}
               title="مشاركة على فيسبوك"
             >
               <FaFacebookF
-                size={16}
-                className="text-gray-600 dark:text-gray-300 group-hover:text-blue-600 transition-colors"
+                size={18}
+                className="text-gray-600 dark:text-gray-300 group-hover:text-blue-600 group-hover:scale-110 transition-all"
               />
             </div>
 
             {/* Messenger */}
             <div
-              className="flex w-10 h-10 cursor-pointer items-center justify-center border-b border-gray-200 dark:border-gray-600 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              className="flex w-12 h-12 cursor-pointer items-center justify-center border-b border-gray-200 dark:border-gray-600 transition-all hover:bg-blue-50 dark:hover:bg-gray-700 group"
               onClick={() => handleShare("messenger")}
               title="مشاركة على ماسنجر"
             >
               <SiMessenger
-                size={16}
-                className="text-gray-600 dark:text-gray-300 group-hover:text-blue-500 transition-colors"
+                size={18}
+                className="text-gray-600 dark:text-gray-300 group-hover:text-blue-500 group-hover:scale-110 transition-all"
               />
             </div>
 
             {/* Twitter */}
             <div
-              className="flex w-10 h-10 cursor-pointer items-center justify-center border-b border-gray-200 dark:border-gray-600 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              className="flex w-12 h-12 cursor-pointer items-center justify-center border-b border-gray-200 dark:border-gray-600 transition-all hover:bg-gray-100 dark:hover:bg-gray-700 group"
               onClick={() => handleShare("twitter")}
               title="مشاركة على تويتر"
             >
               <BsTwitterX
-                size={16}
-                className="text-gray-600 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors"
+                size={18}
+                className="text-gray-600 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white group-hover:scale-110 transition-all"
               />
             </div>
 
             {/* WhatsApp */}
             <div
-              className="flex w-10 h-10 cursor-pointer items-center justify-center transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              className="flex w-12 h-12 cursor-pointer items-center justify-center transition-all hover:bg-green-50 dark:hover:bg-gray-700 group"
               onClick={() => handleShare("whatsapp")}
               title="مشاركة على واتساب"
             >
               <FaWhatsapp
-                size={16}
-                className="text-gray-600 dark:text-gray-300 group-hover:text-green-500 transition-colors"
+                size={18}
+                className="text-gray-600 dark:text-gray-300 group-hover:text-green-500 group-hover:scale-110 transition-all"
               />
             </div>
           </motion.div>

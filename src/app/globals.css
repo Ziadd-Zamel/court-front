@@ -138,5 +138,5 @@
   @apply mx-auto w-full min-[1700px]:max-w-[70%] px-5 md:px-10 lg:px-16;
 }
 @utility main-tab {
-  @apply bg-white  hover:bg-main hover:text-white data-[state=active]:bg-main data-[state=active]:text-white transition duration-300 rounded-none cursor-pointer text-xl font-normal w-full py-5 border border-gray-300 shadow-none flex items-center justify-between;
+  @apply bg-white  hover:bg-main hover:text-white data-[state=active]:bg-main data-[state=active]:text-white transition duration-300 rounded-none cursor-pointer text-base font-normal w-full py-5 border border-gray-300 shadow-none flex items-center justify-between;
 }

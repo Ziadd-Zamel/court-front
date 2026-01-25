@@ -19,21 +19,24 @@ export default async function ArticlePage({
   search,
   pagination,
 }: ArticlePageProps) {
+  // Get Articles
   const [articlesData, articlesError] = await catchError(() =>
-    getArticlesByCategory(pagination.currentPage, 5, uuid, search)
+    getArticlesByCategory(pagination.currentPage, 5, uuid, search),
   );
 
+  // Error state
   if (articlesError) return <ErrorState />;
 
+  // Empty State
   if (!articlesData || articlesData?.data.length === 0) {
     // If there's a search query but no results, show NoSearchResults
     if (search && search.trim() !== "") {
       return <NoSearchResults />;
     }
+
     // Otherwise, show NoDataState for general no data scenario
     return <NoDataState />;
   }
-
   return (
     <ArticlesList
       articles={articlesData.data}
