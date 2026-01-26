@@ -50,7 +50,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
         {/* Content block */}
         <div className="flex-1 border-b border-main">
           <AccordionTrigger className="rounded-none justify-normal flex w-full cursor-pointer flex-col items-start gap-5  text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
-            <div className="flex flex-col gap-5 text-start min-w-[130px]">
+            <div className="flex flex-col gap-2 text-start min-w-[130px]">
               <p className="text-gray-500 sm:text-lg md:text-xs flex items-center gap-1">
                 <Calendar size={14} className="text-main -mt-1" />
                 <span>

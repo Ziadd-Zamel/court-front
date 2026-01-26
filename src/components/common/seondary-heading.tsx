@@ -24,7 +24,7 @@ export default function SecondaryHeading({
           transition={{ duration: 0.8 }}
           className="w-1/2 lg:w-1/4 ps-13"
         >
-          <h2 className=" font-bold text-white text-lg sm:text-2xl lg:text-3xl">
+          <h2 className=" font-bold text-white whitespace-nowrap text-lg sm:text-2xl lg:text-3xl">
             {title}
           </h2>
         </motion.div>

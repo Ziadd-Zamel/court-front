@@ -120,17 +120,17 @@ export default function PageContent({ article }: { article: Article }) {
       component: (
         <div className="text-right ">
           <h4 className="text-2xl font-medium mb-12">هيئة الحكم</h4>
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
             {article.counselors.map((counselor, index) => (
               <div
                 key={counselor.uuid || index}
                 className="flex items-center gap-4 justify-center"
               >
-                <div className="w-8 h-8 rounded-full aspect-auto bg-main flex items-center justify-center text-white font-bold text-base">
+                <div className="w-6 h-6 aspect-square rounded-full bg-main flex items-center justify-center text-white font-bold text-base">
                   {counselor.name.charAt(0)}
                 </div>
 
-                <h5 className="text-main text-base font-medium">
+                <h5 className="text-main text-sm font-medium whitespace-nowrap">
                   {counselor.name}
                 </h5>
               </div>

@@ -1,5 +1,4 @@
 "use client";
-
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import {
   toggleArticleBookmark,
@@ -112,30 +111,23 @@ export function BookmarkButton({
     }
   };
 
-  // Better styling system
+  // Button always has the same style
   const buttonStyles =
     variant === "light"
       ? "bg-white/90 backdrop-blur-sm hover:bg-white border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow"
       : "bg-white/80 backdrop-blur-sm hover:bg-white border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
 
-  const iconStyles = variant === "light" ? "text-main" : "text-gray-700";
-
-  const savedStyles =
-    "bg-main hover:bg-main/90 border-main shadow-md hover:shadow-lg scale-105";
-
   return (
     <button
       onClick={handleToggle}
-      className={`${className} flex cursor-pointer items-center justify-center rounded-full w-8 h-8 transition-all duration-200 ${
-        isSaved ? savedStyles : buttonStyles
-      }`}
+      className={`${className} flex cursor-pointer items-center justify-center rounded-full w-8 h-8 transition-all duration-200 ${buttonStyles}`}
       aria-label="Toggle bookmark"
       title={isSaved ? "إزالة من المفضلة" : "إضافة للمفضلة"}
     >
       {isSaved ? (
-        <FaBookmark size={size} className="text-white" />
+        <FaBookmark size={size} className="text-main" />
       ) : (
-        <FaRegBookmark size={size} className={iconStyles} />
+        <FaRegBookmark size={size} className="text-gray-700" />
       )}
     </button>
   );
