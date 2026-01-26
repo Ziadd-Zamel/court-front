@@ -6,7 +6,6 @@ import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 
 export default function PageContent({ article }: { article: Article }) {
   const contentTabs: SecondaryTabItem[] = [];
-
   // Format the date
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -23,6 +22,9 @@ export default function PageContent({ article }: { article: Article }) {
       value: "rule",
       component: (
         <div className="text-right">
+          <h4 className="text-xl text-center font-semibold mb-10 text-gray-700">
+            المبادئ القانونية{" "}
+          </h4>
           <div
             className="text-gray-500 leading-relaxed text-sm text-justify font-normal "
             style={{ direction: "rtl" }}
@@ -64,16 +66,19 @@ export default function PageContent({ article }: { article: Article }) {
       const pair = availableContents.slice(i, i + chunkSize); // length 1 or 2
 
       // Create a label from the titles in the pair joined by " و "
-      const pairTitle = pair.map((c) => c.title).join(" و ");
+      const pairTitle = pair.map((c) => c.title).join(" و");
 
       contentTabs.push({
         label: pairTitle,
-        value: `concatenated-contents-${i / chunkSize}`, // unique value per pair
+        value: `concatenated-contents-${i / chunkSize}`,
         component: (
-          <div className="text-right">
-            <div style={{ direction: "rtl" }}>
+          <div className="text-right mt-10">
+            <div style={{ direction: "rtl" }} className="">
               {pair.map((content, idx) => (
-                <div key={idx}>
+                <div
+                  key={idx}
+                  className="first:border-b-main first:border-b first:mb-10"
+                >
                   <h4 className="text-xl text-center font-semibold mb-4 text-gray-700">
                     {content.title}
                   </h4>
@@ -101,7 +106,7 @@ export default function PageContent({ article }: { article: Article }) {
       label: content.title,
       value: content.title.toLowerCase().replace(/\s+/g, "-"),
       component: (
-        <div className="text-right">
+        <div className="text-right mt-10">
           <p className="text-gray-500 leading-relaxed text-sm text-justify">
             {content.body_text}
           </p>
@@ -115,22 +120,24 @@ export default function PageContent({ article }: { article: Article }) {
   // Always add counselors tab last if it exists
   if (article.counselors && article.counselors.length > 0) {
     contentTabs.push({
-      label: "المستشارون",
+      label: "هيئة الحكم",
       value: "counselors",
       component: (
-        <div className="text-right ">
-          <h4 className="text-2xl font-medium mb-12">هيئة الحكم</h4>
+        <div className="text-right mt-10">
+          <h4 className="text-xl text-center font-semibold mb-10 text-gray-700">
+            هيئة الحكم
+          </h4>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
             {article.counselors.map((counselor, index) => (
               <div
                 key={counselor.uuid || index}
                 className="flex items-center gap-4 justify-center"
               >
-                <div className="w-6 h-6 aspect-square rounded-full bg-main flex items-center justify-center text-white font-bold text-base">
+                <div className="size-8 font-sans! aspect-square rounded-full bg-main flex items-center justify-center text-white font-bold text-base">
                   {counselor.name.charAt(0)}
                 </div>
 
-                <h5 className="text-main text-sm font-medium whitespace-nowrap">
+                <h5 className="text-black text-sm font-medium whitespace-nowrap">
                   {counselor.name}
                 </h5>
               </div>
@@ -142,7 +149,7 @@ export default function PageContent({ article }: { article: Article }) {
   }
 
   return (
-    <section className=" pt-20 w-full lg:w-3/4 md:px-10 px-5 lg:px-13! pb-40">
+    <section className=" pt-20 w-full lg:w-3/4 md:px-10 px-5 lg:px-13! pb-40 ">
       <div className="flex flex-col items-start">
         <h3 className="text-xl font-semibold md:text-md lg:text-2xl mb-5 flex items-center gap-1">
           <div className="flex items-center flex-row-reverse gap-1">

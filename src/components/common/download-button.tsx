@@ -61,8 +61,8 @@ export function DownloadButton({
 
   const buttonStyles =
     variant === "light"
-      ? "bg-white/90 backdrop-blur-sm hover:bg-white border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow"
-      : "bg-white/80 backdrop-blur-sm hover:bg-white border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
+      ? "bg-white backdrop-blur-sm hover:bg-white/80  border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow"
+      : "bg-white backdrop-blur-sm hover:bg-white/80  border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
 
   const iconStyles = variant === "light" ? "text-main" : "text-gray-700";
 

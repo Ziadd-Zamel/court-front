@@ -90,7 +90,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             </div>
           </AccordionContent>
 
-          <div className="flex justify-end items-center gap-3 mb-5 -mt-2  data-[state=open]:me-11">
+          <div className="flex justify-end items-center gap-3 mb-5 -mt-2 me-11">
             <BookmarkButton item={article} type="article" />
             <ShareButton item={article} type="article" />
             <CopyButton text={article.rule.body_text} />
