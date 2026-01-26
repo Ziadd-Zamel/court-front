@@ -31,7 +31,7 @@ export default async function LegalCasePage({
         IconSecyion={
           <div className="flex items-center gap-3 w-full h-full">
             <BookmarkButton item={article} type="article" />
-            <ShareButton item={article} type="article" variant="light" />
+            <ShareButton item={article} type="article" />
             <CopyButton text={article.rule.body_text} />
             {article.pdf_file && <DownloadButton url={article.pdf_file} />}
           </div>
@@ -41,7 +41,7 @@ export default async function LegalCasePage({
 
       <div className="min-h-screen lg:flex lg:flex-row">
         <PageContent article={article} />
-        <div className="hidden min-h-screen w-[300px] lg:block min-[1250px]:w-[400px]">
+        <div className="hidden min-h-screen lg:block w-1/4">
           <Sidebar article={article} />
         </div>
       </div>

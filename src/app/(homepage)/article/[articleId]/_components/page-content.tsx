@@ -13,7 +13,7 @@ export default function PageContent({ article }: { article: Article }) {
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    return `${year}-${month}-${day}`;
   };
 
   // Always add rule tab first if it exists
@@ -74,7 +74,7 @@ export default function PageContent({ article }: { article: Article }) {
             <div style={{ direction: "rtl" }}>
               {pair.map((content, idx) => (
                 <div key={idx}>
-                  <h4 className="text-xl font-semibold mb-4 text-gray-700">
+                  <h4 className="text-xl text-center font-semibold mb-4 text-gray-700">
                     {content.title}
                   </h4>
                   <div
@@ -142,7 +142,7 @@ export default function PageContent({ article }: { article: Article }) {
   }
 
   return (
-    <section className="box-container !px-9 pt-20 w-full lg:w-2/3 pb-40">
+    <section className=" pt-20 w-full lg:w-3/4 md:px-10 px-5 lg:px-13! pb-40">
       <div className="flex flex-col items-start">
         <h3 className="text-xl font-semibold md:text-md lg:text-2xl mb-5 flex items-center gap-1">
           <div className="flex items-center flex-row-reverse gap-1">
@@ -157,7 +157,7 @@ export default function PageContent({ article }: { article: Article }) {
             (<span>{article.ruling_type}</span>
             <div className="flex items-center ms-1">
               <span>{article.number}</span>
-              <span className="mx-1">/</span>
+              <span className="">/</span>
               <span>{article.sign}</span>)
             </div>
           </div>

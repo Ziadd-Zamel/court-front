@@ -22,7 +22,7 @@ export default function SecondaryHeading({
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-1/2 lg:w-1/3 pr-16"
+          className="w-1/2 lg:w-1/4 ps-13"
         >
           <h2 className=" font-bold text-white text-lg sm:text-2xl lg:text-3xl">
             {title}
@@ -30,7 +30,7 @@ export default function SecondaryHeading({
         </motion.div>
 
         {/*Seconde Part */}
-        <div className="w-1/2 lg:w-1/3 pr-16">
+        <div className="w-1/2 lg:w-1/2 pr-16">
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ export default function SecondaryHeading({
         </div>
 
         {/*Third Part */}
-        <div className="hidden h-full w-[300px] lg:flex min-[1250px]:w-[400px] bg-main pr-8">
+        <div className="hidden h-full  lg:flex w-1/4 bg-main pr-8">
           <motion.div
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}

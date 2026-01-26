@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ChevronLeft, Slash, Calendar } from "lucide-react";
+import { ChevronLeft, Calendar } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
@@ -38,32 +38,23 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
       value={`item-${article.uuid}`}
       className="border-b-0"
     >
-      <div className="flex flex-col items-start py-2 md:flex-row gap-5">
+      <div className="flex flex-col items-start md:flex-row gap-5">
         {/* Date block */}
-        <div className="flex items-center">
-          <div className="flex flex-col text-center shrink-0 px-2">
-            <p className="text-5xl text-main mb-1.5">
-              {article.principle_number}
-            </p>
-            <p className="text-md md:text-xs">
-              {article.principle_type}، {article.principle_year}
-            </p>
-          </div>
-          <Slash
-            size={38}
-            strokeWidth={1}
-            className="-rotate-12 hidden self-center lg:block -mx-2 mt-2 "
-          />{" "}
+        <div className="flex flex-col text-center shrink-0 px-3">
+          <p className="text-5xl text-main mb-2">{article.principle_number}</p>
+          <p className="text-md md:text-xs">
+            {article.principle_year} {article.principle_type}
+          </p>
         </div>
 
         {/* Content block */}
         <div className="flex-1 border-b border-main">
           <AccordionTrigger className="rounded-none justify-normal flex w-full cursor-pointer flex-col items-start gap-5  text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
-            <div className="flex flex-col gap-[10px] text-start min-w-[130px]">
+            <div className="flex flex-col gap-5 text-start min-w-[130px]">
               <p className="text-gray-500 sm:text-lg md:text-xs flex items-center gap-1">
                 <Calendar size={14} className="text-main -mt-1" />
                 <span>
-                  {day} / {month} / {year}
+                  {day} - {month} - {year}
                 </span>
               </p>
               <p className="sm:text-lg md:text-xs">{article.author}</p>
@@ -74,7 +65,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
                 <span className="-mx-1">/</span>
                 <span>{article.sign}</span>
               </p>
-              <p className="min-h-[30px] text-md md:text-xs lg:text-sm">
+              <p className="min-h-[30px] text-md md:text-xs lg:text-sm leading-6">
                 {article.title}
               </p>
             </div>
@@ -86,12 +77,12 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             </h6>
             <div
               style={{ direction: "rtl" }}
-              className="mt-5 !text-justify !font-zain font-normal !text-sm text-gray-500"
+              className="mt-5 !text-justify !font-zain !font-normal !text-sm text-gray-500"
               dangerouslySetInnerHTML={{ __html: cleanedBodyHtml }}
             />
             <div className="mt-5 flex w-full items-end justify-end">
               <Link href={`/article/${article.uuid}`}>
-                <Button className="text-lg py-1.5">
+                <Button className="text-lg py-1">
                   المزيد
                   <ChevronLeft />
                 </Button>
@@ -99,7 +90,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             </div>
           </AccordionContent>
 
-          <div className="flex justify-end items-center gap-3 mb-5 -mt-2">
+          <div className="flex justify-end items-center gap-3 mb-5 -mt-2  data-[state=open]:me-11">
             <BookmarkButton item={article} type="article" />
             <ShareButton item={article} type="article" />
             <CopyButton text={article.rule.body_text} />

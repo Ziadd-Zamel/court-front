@@ -1,8 +1,9 @@
 "use client";
 
-import { FaDownload, FaCheck } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "sonner";
+import { FileText } from "lucide-react";
 
 interface DownloadButtonProps {
   url: string;
@@ -81,7 +82,7 @@ export function DownloadButton({
       {downloading ? (
         <FaCheck size={size} className="text-white" />
       ) : (
-        <FaDownload size={size} className={`transition-colors ${iconStyles}`} />
+        <FileText size={size} className={`transition-colors ${iconStyles}`} />
       )}
     </button>
   );

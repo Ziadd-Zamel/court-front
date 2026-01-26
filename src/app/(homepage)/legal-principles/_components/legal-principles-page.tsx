@@ -44,7 +44,7 @@ export default async function LegalPrinciplesPage({
       <ReusableTabs
         tabs={dynamicTabs}
         defaultValue={categoriesData[0].uuid}
-        tabContentClassName=" mt-32 lg:mt-[115px]"
+        tabContentClassName=" mt-32 lg:mt-0 gap-2"
       />
     </section>
   );

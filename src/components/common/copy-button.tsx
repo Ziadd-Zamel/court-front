@@ -1,9 +1,9 @@
 "use client";
 
-import { FaCheck, FaCopy } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "sonner";
-
+import { Files } from "lucide-react";
 interface CopyButtonProps {
   text: string;
   size?: number;
@@ -64,7 +64,7 @@ export function CopyButton({
       {copied ? (
         <FaCheck size={size} className="text-white" />
       ) : (
-        <FaCopy size={size} className={`transition-colors ${iconStyles}`} />
+        <Files size={size} className={`transition-colors ${iconStyles}`} />
       )}
     </button>
   );
