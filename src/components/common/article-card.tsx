@@ -40,7 +40,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
     >
       <div className="flex flex-col items-start md:flex-row gap-5">
         {/* Date block */}
-        <div className="flex flex-col text-center shrink-0 px-3">
+        <div className="flex flex-col text-center shrink-0 px-3 mt-3">
           <p className="text-5xl text-main mb-2">{article.principle_number}</p>
           <p className="text-md md:text-xs">
             {article.principle_year} {article.principle_type}
@@ -90,7 +90,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
             </div>
           </AccordionContent>
 
-          <div className="flex justify-end items-center gap-3 mb-5 -mt-2 me-11">
+          <div className="flex justify-end items-center gap-3 mb-2.5 -mt-2 me-11">
             <BookmarkButton item={article} type="article" />
             <ShareButton item={article} type="article" />
             <CopyButton text={article.rule.body_text} />
