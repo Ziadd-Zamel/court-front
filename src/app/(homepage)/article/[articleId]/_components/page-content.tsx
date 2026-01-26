@@ -21,7 +21,7 @@ export default function PageContent({ article }: { article: Article }) {
       label: article.rule.title,
       value: "rule",
       component: (
-        <div className="text-right">
+        <div className="text-right mt-10">
           <h4 className="text-xl text-center font-semibold mb-10 text-gray-700">
             المبادئ القانونية{" "}
           </h4>
@@ -127,11 +127,11 @@ export default function PageContent({ article }: { article: Article }) {
           <h4 className="text-xl text-center font-semibold mb-10 text-gray-700">
             هيئة الحكم
           </h4>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {article.counselors.map((counselor, index) => (
               <div
                 key={counselor.uuid || index}
-                className="flex items-center gap-4 justify-center"
+                className="flex items-start gap-4 justify-start"
               >
                 <div className="size-8 font-sans! aspect-square rounded-full bg-main flex items-center justify-center text-white font-bold text-base">
                   {counselor.name.charAt(0)}
