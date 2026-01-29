@@ -37,7 +37,7 @@ const areas: Area[] = [
 
 const SiteHighlights: FC = () => {
   return (
-    <section className="pt-12 bg-white">
+    <section className="pt-16 bg-white">
       <div className="m-auto">
         <div className=" bg-white">
           <AnimatedSectionHeader title="مختارات من فروع الموقع" />

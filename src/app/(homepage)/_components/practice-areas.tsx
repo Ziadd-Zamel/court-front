@@ -26,7 +26,7 @@ const PracticeAreasv3 = ({ areas }: PracticeAreasv3Props) => {
 
   return (
     <section
-      className="w-full pb-16 pt-12 relative"
+      className="w-full py-16 relative"
       style={{
         backgroundImage: `url('/assets/home-1.jpg')`,
         backgroundSize: "cover",

@@ -22,8 +22,11 @@ const RecentNews = () => {
   };
 
   return (
-    <section className="pt-12 pb-16 bg-main/10">
-      <AnimatedSectionHeader title="  أخبار المحكمة العليا" />
+    <section className="py-16 bg-main/10">
+      <AnimatedSectionHeader
+        title="أنشطة المحكمة العليا"
+        textClassName="text-black!"
+      />
       <div className="mt-7 flex flex-col items-center justify-center lg:flex-row box-container ">
         <div className="flex w-full flex-col items-start text-right lg:w-[50%]">
           <div className="flex w-full text-right">
@@ -36,7 +39,7 @@ const RecentNews = () => {
             </motion.div>
           </div>
           <p className=" cursor-pointer pl-[15px] text-left text-lg font-bold text-main">
-            اطلع على كل الأخبار
+            اطلع على كل الأنشطة
           </p>
         </div>
         <div className="mb-20 w-full lg:mt-0 lg:w-[50%]">
@@ -54,12 +57,12 @@ const RecentNews = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
-                <div className="flex flex-row items-end gap-2">
-                  <h6 className=" text-main md:text-[20px] lg:text-xl">
-                    {SelectedNew.text}:
-                  </h6>
+                <div className="flex flex-row items-end gap-2 pt-3">
+                  <h6 className=" text-main">{SelectedNew.text}:</h6>
                 </div>
-                <p className="text-md text-gray-500 mt-5">{SelectedNew.desc}</p>
+                <p className="text-sm indent-5 text-justify leading-7 text-gray-500 mt-5">
+                  {SelectedNew.desc}
+                </p>
               </motion.div>
             )}
           </motion.div>

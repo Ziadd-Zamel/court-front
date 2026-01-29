@@ -13,7 +13,7 @@ const HeroSlides3 = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-center text-2xl sm:text-5xl font-extrabold lg:text-6xl"
+            className="text-center text-2xl sm:text-4xl font-extrabold lg:text-5xl"
           >
             <div className="flex flex-col items-center justify-center gap-2">
               <span className="mb-3">بوابة</span>
@@ -23,7 +23,7 @@ const HeroSlides3 = () => {
 
           <div className="mt-7 flex w-full flex-col items-center justify-center">
             <motion.p
-              className="-mt-2 text-center text-xs sm:text-lg text-main lg:text-2xl"
+              className="-mt-2 text-center text-xs sm:text-lg text-main lg:text-xl"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: 0.6 }}

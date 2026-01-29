@@ -115,7 +115,7 @@ const StaggeredNavigationCarousel: React.FC<CarouselProps> = ({
                   <h3 className="font-zain text-md font-bold text-main md:text-[20px] lg:text-xl">
                     {item.title}{" "}
                   </h3>
-                  <p className="-mt-1 min-h-[30px] font-zain text-sm text-[#8989A1] md:text-base lg:text-md">
+                  <p className="mt-2 min-h-[30px] font-zain text-sm text-[#8989A1] md:text-base lg:text-md">
                     ...{item.text.substring(0, 50)}{" "}
                   </p>
                 </div>

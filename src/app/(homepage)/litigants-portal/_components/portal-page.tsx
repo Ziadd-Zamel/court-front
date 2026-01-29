@@ -43,17 +43,17 @@ export default function LitigantsPortalPage() {
     <section
       id="litigants-portal"
       aria-labelledby="litigants-portal Page"
-      className="relative py-40 box-container"
+      className="relative py-30 box-container"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {services.map((service) => (
           <Link
             href={`${service.route}`}
             key={service.id}
             className="transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
           >
-            <div className="p-8 text-center">
-              <div className="w-40 h-40 border-input border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-main/10 transition-colors duration-300">
+            <div className="p-3 text-center">
+              <div className="w-40 h-40 border-input border-2 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-main/10 transition-colors duration-300">
                 <Image src={service.image} alt="Image" width={60} height={60} />
               </div>
 

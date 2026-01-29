@@ -94,7 +94,7 @@ export default function PageContent({ setShowstates }: PageContentProps) {
     // If no search has been performed yet, show instructions
     if (!hasSearched && !caseData) {
       return (
-        <div className="">
+        <div className="pt-20 pb-40">
           <h3 className=" text-2xl sm:text-3xl font-bold text-zinc-800 mb-2 text-right">
             إضاءات:
           </h3>
@@ -137,14 +137,11 @@ export default function PageContent({ setShowstates }: PageContentProps) {
 
   return (
     <div className="min-h-screen flex-1 py-6 pl-2 pr-2 md:pl-10 md:pr-10 lg:pr-20">
-      <h2
-        className="mb-4 mt-5 text-right font-zain text-3xl font-bold text-gray-800 sm:text-4xl"
-        style={{ direction: "rtl" }}
-      >
-        البحث عن قضية:
+      <h2 className="mb-4 mt-5 text-right text-xl font-bold text-gray-800 sm:text-3xl">
+        تتبّع قضيتك{" "}
       </h2>
 
-      <hr className="mb-12 mt-2 border-orange-400" />
+      <hr className="mb-12 mt-2 border-main" />
 
       <div className="space-y-4">
         {/* Appeal Number Input */}

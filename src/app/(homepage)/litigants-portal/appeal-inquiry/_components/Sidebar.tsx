@@ -46,31 +46,34 @@ const Sidebar = ({ showstates }: { showstates: boolean }) => {
       });
 
       // Animate circular progress after all bars are done
-      setTimeout(() => {
-        let current = 0;
-        const target = 85;
-        const increment = target / 30; // 30 steps for smooth animation
+      setTimeout(
+        () => {
+          let current = 0;
+          const target = 85;
+          const increment = target / 30; // 30 steps for smooth animation
 
-        const animateCircle = () => {
-          current += increment;
-          if (current <= target) {
-            setCircularProgress(Math.min(current, target));
-            requestAnimationFrame(animateCircle);
-          } else {
-            setCircularProgress(target);
-          }
-        };
+          const animateCircle = () => {
+            current += increment;
+            if (current <= target) {
+              setCircularProgress(Math.min(current, target));
+              requestAnimationFrame(animateCircle);
+            } else {
+              setCircularProgress(target);
+            }
+          };
 
-        animateCircle();
-      }, fakeProgress.length * 200 + 300); // Start after progress bars + 300ms delay
+          animateCircle();
+        },
+        fakeProgress.length * 200 + 300,
+      ); // Start after progress bars + 300ms delay
     }
   }, [showstates]);
 
   return (
-    <div className="flex flex-col h-full text-right border-gray-300 pt-10 bg-[#F1E2CE] pl-16 pr-7">
+    <div className="flex flex-col h-full text-right border-gray-300 pt-21 bg-[#F1E2CE] pl-16 pr-7">
       {!showstates ? (
         <>
-          <h3 className="text-xl text-gray-800 font-semibold mb-6">
+          <h3 className="text-base text-gray-800 font-semibold mb-6">
             مراحل الطعن أمام المحكمة العليا
           </h3>
           <ul className="space-y-4">
@@ -79,8 +82,8 @@ const Sidebar = ({ showstates }: { showstates: boolean }) => {
                 key={index}
                 className="flex items-center justify-start text-gray-700"
               >
-                <span className="text-xl">•</span>
-                <span className="mr-4 -mt-1">{stage}</span>
+                <span className="text-sm">•</span>
+                <span className="mr-4 -mt-1 text-sm">{stage}</span>
               </li>
             ))}
           </ul>

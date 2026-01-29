@@ -42,7 +42,7 @@ export default function MenuOverlay({
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 100, damping: 20 }}
             >
-              <ul className="flex flex-col items-center space-y-4">
+              <ul className="flex flex-col items-center justify-center space-y-6">
                 {ROUTES.map((item, index) => (
                   <motion.li
                     key={item.name}
@@ -63,7 +63,7 @@ export default function MenuOverlay({
                   >
                     <div className="flex items-center justify-center gap-2">
                       <p
-                        className="font-arabic text-[30px] font-[600] transition-colors hover:text-main"
+                        className="font-normal text-3xl transition-colors hover:text-main"
                         onClick={(e) => {
                           if (item.children) {
                             e.preventDefault();

@@ -9,7 +9,7 @@ const ThirdSectoin = () => {
   return (
     <div className="w-full">
       <div className="mb-6 text-right">
-        <h2 className="mb-3 text-2xl font-bold text-main">
+        <h2 className="mb-8 text-2xl font-bold text-main">
           اشترك في نشرة أخبار الموقع
         </h2>
         <p className="text-md leading-relaxed text-gray-300">

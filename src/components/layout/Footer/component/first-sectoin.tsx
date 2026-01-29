@@ -19,27 +19,21 @@ const FirstSectoin = () => {
             alt="qrcode"
             width={200}
             height={200}
-            className="absolute left-1/2 h-[250px] w-[90%] -translate-x-1/2 transform"
+            className="absolute left-1/2 top-5 h-[200px] w-[200px] -translate-x-1/2 transform"
           />
-          <div className="absolute bottom-16 right-5">
-            <div className="relative">
-              <h2
-                className=" flex items-center bg-clip-text text-2xl font-bold text-transparent"
-                style={{
-                  backgroundImage: "url('/assets/bg-1.jpg')",
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  WebkitBackgroundClip: "text",
-                }}
-              >
-                <span className="font-merriweather font-extrabold bg-clip-text text-[140px]  text-transparent">
+          <div className="absolute bottom-14 right-5">
+            <div className="w-fit">
+              <div className="relative">
+                <p className="text-[140px] text-black font-merriweather font-extrabold -mt-5">
                   73
+                </p>
+                <span className="absolute top-[135px] text-xl font-bold -left-10 text-black">
+                  عاماً
                 </span>
-                <span className="mt-[85px]">ﻋﺎﻣﺎً،</span>
-              </h2>
+              </div>
             </div>
             <p className=" text-md text-black -mb-10">
-              رقيبا علي التطبيق الصحيح للقانون
+              رقيباً علي التطبيق الصحيح للقانون
             </p>
           </div>
         </div>

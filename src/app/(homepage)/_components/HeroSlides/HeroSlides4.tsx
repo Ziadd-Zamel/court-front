@@ -10,7 +10,7 @@ const HeroSlides4 = () => {
       <div className="flex w-full flex-col items-center justify-center">
         <div className="flex w-full flex-col items-center justify-center">
           <motion.h1
-            className="text-2xl sm:text-5xl font-extrabold lg:text-6xl"
+            className="text-2xl sm:text-4xl font-extrabold lg:text-5xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -26,7 +26,7 @@ const HeroSlides4 = () => {
           />
           <div className="mt-5 flex w-full flex-col items-center justify-center">
             <motion.p
-              className="-mt-2 text-center text-xs sm:text-lg text-white lg:text-2xl"
+              className="-mt-2 text-center text-xs sm:text-lg text-white lg:text-xl"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: 0.8 }}
@@ -34,7 +34,7 @@ const HeroSlides4 = () => {
               قواعد أرستها المحكمة العليا في قضايا{" "}
             </motion.p>
             <motion.p
-              className="mt-2 text-center text-xs sm:text-lg text-main lg:text-2xl"
+              className="mt-2 text-center text-xs sm:text-lg text-main lg:text-xl"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: 1.0 }}

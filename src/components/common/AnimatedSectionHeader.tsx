@@ -22,7 +22,7 @@ const AnimatedSectionHeader: React.FC<AnimatedSectionHeaderProps> = ({
 }) => {
   return (
     <div className="relative text-center">
-      <div className="flex items-center justify-center space-x-2">
+      <div className="flex items-center justify-center space-x-2 mb-6">
         {/* Right line (motion) */}
         <motion.span
           aria-hidden
@@ -54,7 +54,7 @@ const AnimatedSectionHeader: React.FC<AnimatedSectionHeaderProps> = ({
 
       <div className="mt-2">
         <motion.h2
-          className={`-mt-1 font-zain text-2xl font-bold text-main sm:text-[44px] ${textClassName}`}
+          className={`-mt-1 font-zain text-2xl font-bold text-main sm:text-4xl ${textClassName}`}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}

@@ -30,7 +30,7 @@ export default function SecondaryHeading({
         </motion.div>
 
         {/*Seconde Part */}
-        <div className="w-1/2 lg:w-1/2 pr-16">
+        <div className="w-1/2 lg:w-1/2 flex justify-end -ms-16">
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}

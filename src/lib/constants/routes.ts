@@ -12,25 +12,7 @@ export const ROUTES: RouteItem[] = [
 
   {
     name: "بوابة المتقاضين والقانونيين",
-    path: "",
-    children: [
-      {
-        name: "الاستعلام عن طعن",
-        path: "/litigants-portal/appeal-inquiry",
-      },
-      {
-        name: "معلومات مهمة",
-        path: "/litigants-portal/important-notices",
-      },
-      {
-        name: " المحامون المقبولون",
-        path: "/litigants-portal/litigation-services",
-      },
-      {
-        name: " إصدارات المحكمة و النشر",
-        path: "/litigants-portal/court-releases",
-      },
-    ],
+    path: "/litigants-portal",
   },
   {
     name: "الدائرة الدستورية",

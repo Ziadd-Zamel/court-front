@@ -52,7 +52,7 @@ export default function Header({ opacity = false }: NavbarProps) {
           alt="شعار المحكمة"
           width={120}
           height={0}
-          className=" w-[100px] sm:w-[200px] -ml-2"
+          className=" w-[100px] sm:w-[250px] -ml-2"
         />
       </NavbarContainer>
 

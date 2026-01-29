@@ -1,5 +1,4 @@
 import { Pin } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -20,35 +19,27 @@ export default function HighlightCard({
   title,
   firstDescription,
   secondDescription,
-  buttonText = "اقرأ المزيد",
   onButtonClick,
 }: HighlightCardProps) {
   return (
     <div className={cn("flex w-full flex-col pb-20 pt-20 bg-transparent")}>
       <div className="flex flex-col items-center justify-center gap-3">
         <Pin className="size-7 text-main" />
-        <h3 className="text-center text-xl font-[700] text-main">{section}</h3>
+        <h3 className="text-center text-lg font-bold my-5 text-main">
+          {section}
+        </h3>
       </div>
 
-      <h4
-        className="my-3 text-right text-md font-[500] text-black lg:text-xl"
-        style={{ direction: "rtl" }}
-      >
+      <h4 className="my-3 text-right text-md font-medium text-black lg:text-base">
         <span className="font-[600] text-main">{goldenTitle}</span> {title}
       </h4>
 
-      <p
-        style={{ direction: "rtl" }}
-        className="min-h-[100px] text-justify text-md text-gray-500"
-      >
+      <p className="min-h-[100px] text-justify text-sm text-gray-500">
         {firstDescription}
       </p>
 
       {secondDescription && (
-        <p
-          style={{ direction: "rtl" }}
-          className="mt-3 min-h-[100px] text-justify text-md text-gray-500"
-        >
+        <p className="mt-3 min-h-[100px] text-justify text-sm text-gray-500">
           {secondDescription}
         </p>
       )}
@@ -59,7 +50,7 @@ export default function HighlightCard({
           className="mt-5 text-left text-base font-[500] text-main hover:text-main/80 px-3 py-1 h-auto"
           onClick={onButtonClick}
         >
-          المذيد
+          المزيد
         </Link>
       </div>
     </div>

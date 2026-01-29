@@ -23,7 +23,7 @@ const HeroSlides2 = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-center text-2xl font-extrabold sm:text-5xl lg:text-6xl"
+            className="text-center text-2xl font-extrabold sm:text-5xl lg:text-5xl"
           >
             الدائرة الدستوريّة بالمحكمة العليا
           </motion.h1>
@@ -31,7 +31,7 @@ const HeroSlides2 = () => {
           <div className="mt-4 flex w-full flex-col items-center justify-center lg:mt-8">
             <div className="mr-28">
               <motion.p
-                className="mt-2 text-start text-xs sm:text-lg lg:text-2xl"
+                className="mt-2 text-start text-xs sm:text-lg lg:text-xl"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.8 }}
@@ -40,7 +40,7 @@ const HeroSlides2 = () => {
               </motion.p>
 
               <motion.p
-                className="mt-2 text-start text-xs sm:text-lg lg:text-2xl"
+                className="mt-2 text-start text-xs sm:text-lg lg:text-xl"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 1.2 }}
