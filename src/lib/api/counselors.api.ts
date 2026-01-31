@@ -1,7 +1,7 @@
 export const getAllCounselors = async (
   page: number = 1,
   perPage: number = 10,
-  search?: string
+  search?: string,
 ) => {
   const params = new URLSearchParams({
     page: page.toString(),
@@ -21,5 +21,20 @@ export const getAllCounselors = async (
   }
 
   const payload: APIResponse<Counselor[]> = await response.json();
+  return payload;
+};
+
+export const getCounselorByID = async (CounselorId: string) => {
+  const url = `${process.env.API}counselors/${CounselorId}`;
+
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: APIResponse<Counselor> = await response.json();
   return payload;
 };

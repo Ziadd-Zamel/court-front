@@ -17,6 +17,7 @@ declare type BookData = {
     uuid: string;
     image_path: string;
   }[];
+  release_type_value: boolean;
 };
 declare type PendingBook = {
   title: string;

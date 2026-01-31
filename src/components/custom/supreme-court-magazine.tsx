@@ -15,7 +15,7 @@ type Props = {
 export default async function SupremeCourtMagazine({ pagination }: Props) {
   // Get all the data
   const [data, error] = await catchError(() =>
-    getBooksByType(pagination.currentPage, 20, "supreme_court")
+    getBooksByType(pagination.currentPage, 20, "supreme_court"),
   );
 
   // Empty data State
@@ -27,7 +27,6 @@ export default async function SupremeCourtMagazine({ pagination }: Props) {
   if (error) {
     return <ErrorState />;
   }
-  console.log(data.data);
 
   return (
     <>
@@ -44,14 +43,14 @@ export default async function SupremeCourtMagazine({ pagination }: Props) {
         ))}
       </div>
 
-      {/* {data.data.length >= 20 && (
+      {data.data.length >= 20 && (
         <div className="flex justify-center mt-8">
           <CourtPagination
             pagination={pagination}
             totalPages={data.meta.last_page}
           />
         </div>
-      )} */}
+      )}
     </>
   );
 }

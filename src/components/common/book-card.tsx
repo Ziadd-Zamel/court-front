@@ -23,16 +23,6 @@ export default function BookCard({
   image,
   type,
 }: BookCardProps) {
-  // Generate a consistent random number (1-73) for this book
-  const issueNumber = useMemo(() => {
-    return Math.floor(Math.random() * 73) + 1;
-  }, [book.uuid]);
-
-  // Generate a consistent random year (2001-2010) for rulings
-  const randomYear = useMemo(() => {
-    return Math.floor(Math.random() * 10) + 2001;
-  }, [book.uuid]);
-
   // Generate a consistent random book image number (1-12)
   const randomBookImageNumber = useMemo(() => {
     return Math.floor(Math.random() * 12) + 1;
@@ -68,27 +58,38 @@ export default function BookCard({
           <PrintButton url={book.pdf_url} />
           {/* Share */}
           <ShareButton item={book} type="book" />
-          {type === "magazine" && (
-            <>
-              <p className="absolute top-[132px] right-[32px] text-white text-sm">
-                العدد
-              </p>
-              <p className="absolute top-[150px] right-[35px] text-white text-2xl">
-                {book.book_number ? book.book_number : issueNumber}
-              </p>
-            </>
-          )}
-          {type === "ruling" && (
-            <>
-              <p className="absolute top-[170px] left-[42%] -translate-1/2 text-white">
-                {book.category}
-              </p>
-              <p className="absolute bottom-10 left-[42%] -translate-1/2 text-white">
-                {randomYear}
-              </p>
-            </>
-          )}
         </div>
+      )}
+      {type === "magazine" && (
+        <>
+          <p className="absolute top-[130px] right-3 text-white text-xs">
+            السنة
+          </p>
+          <p className="absolute top-[150px] right-3 text-white text-base">
+            {book.published_year || 0}
+          </p>
+          <p className="absolute bottom-20 right-3 text-white text-xs">العدد</p>
+          <p className="absolute bottom-12 right-3 text-white text-base">
+            {book.book_number || 0}
+          </p>
+        </>
+      )}
+      {type === "ruling" && (
+        <>
+          <p className="absolute top-[160px] left-[43%] -translate-1/2 text-white text-[10px]">
+            {book.category}
+          </p>
+          <div className="flex flex-col items-center gap-2 absolute bottom-16 left-[43%] -translate-1/2">
+            <p className=" text-white text-[10px]">السنة</p>
+            <p className=" text-white text-sm">{book.published_year || 0}</p>
+          </div>
+          <div className="flex flex-col items-center gap-2 absolute bottom-5 left-[43%] -translate-1/2">
+            <p className=" text-white text-[10px]">الجزء</p>
+            <p className=" text-white text-sm">
+              {book.release_type_value || 0}
+            </p>
+          </div>
+        </>
       )}
     </Link>
   );

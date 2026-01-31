@@ -1,6 +1,5 @@
 import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
 import AvailablePublications from "./available-publications";
-import PublicationsInPrint from "./publications-in-print";
 import ComingSoon from "@/components/custom/coming-soon";
 import PrintingPublishingService from "@/components/custom/printing-publishing-service";
 import CourtPublications from "@/components/custom/court-publications";
@@ -36,12 +35,12 @@ export default function CourtReleasesPage({ pagination }: Props) {
       heading: "الإصدارات المتوفرة",
       component: <AvailablePublications pagination={pagination} />,
     },
-    {
-      label: "إصدارات قيد الطباعة",
-      value: "publications-in-print",
-      heading: "إصدارات قيد الطباعة",
-      component: <PublicationsInPrint pagination={pagination} />,
-    },
+    // {
+    //   label: "إصدارات قيد الطباعة",
+    //   value: "publications-in-print",
+    //   heading: "إصدارات قيد الطباعة",
+    //   component: <PublicationsInPrint pagination={pagination} />,
+    // },
   ];
   return (
     <section
@@ -52,7 +51,7 @@ export default function CourtReleasesPage({ pagination }: Props) {
       <ReusableTabs
         tabs={courtReleaseTabs}
         defaultValue="printing"
-        tabContentClassName="lg:mt-[100px]"
+        tabContentClassName=""
       />
     </section>
   );

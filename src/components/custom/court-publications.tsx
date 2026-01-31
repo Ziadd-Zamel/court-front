@@ -3,6 +3,7 @@ import SecondaryTabs, {
 } from "@/components/common/secondary-tabs";
 import SupremeCourtMagazine from "./supreme-court-magazine";
 import RulingsSet from "./rulings-set";
+import PublicationsInPrint from "@/app/(homepage)/litigants-portal/court-releases/_components/publications-in-print";
 // import Other from "./other";
 type Props = {
   pagination: {
@@ -23,6 +24,11 @@ export default function CourtPublications({ pagination }: Props) {
       value: "rulings_set",
       component: <RulingsSet pagination={pagination} />,
     },
+    {
+      label: "إصدارات قيد الطباعة",
+      value: "publications-in-print",
+      component: <PublicationsInPrint pagination={pagination} />,
+    },
     // {
     //   label: "اخري",
     //   value: "other",
@@ -32,7 +38,7 @@ export default function CourtPublications({ pagination }: Props) {
 
   return (
     <SecondaryTabs
-      tabListClassName={"pt-20 lg:pt-0"}
+      tabListClassName={"pt-20 lg:pt-0 lg:mt-[-35px]"}
       tabs={courtPublicationTabs}
       defaultValue="supreme_court"
     />
