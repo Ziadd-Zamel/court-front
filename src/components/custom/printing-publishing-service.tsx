@@ -60,13 +60,13 @@ export default function PrintingPublishingService() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full -mt-13">
       <div className=" w-full sm:max-w-fit">
-        <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-4xl border-b border-gray-300 pb-5">
+        <h3 className="text-2xl font-medium text-main sm:mb-8 sm:text-3xl border-b border-gray-300 pb-2.5">
           خدمة الطباعة والنشر
         </h3>
       </div>
-      <p className="mt-3 text-md text-gray-500">
+      <p className="mt-3 text-sm text-gray-500 text-justify">
         تتضمن خدمة الطباعة والنشر التي تقدمها المحكمة للقانونيين والمهتمين
         بالمسائل القانونية إنتاج المواد المطبوعة مثل الكتب والبحوث القانونية
         والرسائل الجامعية. تشمل الخدمات قبل الطباعة مثل التصميم والتحرير
@@ -74,7 +74,7 @@ export default function PrintingPublishingService() {
         بعد الطباعة مثل التغليف (للكتب)، والتوزيع، والنشر، سواء بشكل ورقي أو
         إلكتروني عبر موقع المحكمة العليا.
       </p>
-      <p className="mt-1 text-md text-gray-500">
+      <p className="mt-1 text-sm text-gray-500 text-justify">
         يتم تقييم المواد العلمية المقدمة من قبل لجنة علمية في المكتب الفني
         بالمحكمة لتحديد جاهزيتها وقيمتها العلمية ومشروعيتها، وصالحيتها للطباعة
         والنشر.
@@ -82,11 +82,11 @@ export default function PrintingPublishingService() {
 
       <div className="mt-16">
         <div className=" w-full sm:max-w-fit">
-          <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-4xl border-b border-gray-300 pb-5">
+          <h3 className="text-2xl font-medium text-main sm:mb-8 sm:text-3xl border-b border-gray-300 pb-2.5">
             طلب الطباعة والنشر
           </h3>
         </div>
-        <p className="mt-12 text-md text-gray-500">
+        <p className="mt-4 text-sm text-gray-500 text-justify">
           تبدأ إجراءات طلب الطباعة والنشر بإرسال النموذج التالي بعد تعبئة جميع
           الحقول المطلوبة. ستتلقى رسالة تلقائية تؤكد استلام طلبك. بعد مراجعته من
           قبل المكتب المختص في المحكمة العليا، سيتم إشعارك — بإذن الله — بنتيجة
@@ -244,14 +244,14 @@ export default function PrintingPublishingService() {
 
           <div>
             <div className="flex sm:flex-row flex-col sm:items-start gap-5">
-              <label className="w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] px-3 py-2 text-right font-zain text-[10px] font-semibold text-gray-700 sm:py-[14px] sm:text-xl lg:text-lg min-[1200px]:text-xl">
+              <label className=" w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] px-3 py-2 text-xs font-semibold text-gray-700 sm:py-[14px] sm:text-xs lg:text-sm">
                 ملخص الموضوع
               </label>
               <textarea
                 value={form.watch("summary")}
                 onChange={(e) => form.setValue("summary", e.target.value)}
                 placeholder="أدخل ملخص الكتاب/المقال في فقرة من 130 – 170 كلمة توجز فيها موضوعه، وتبيّ ن مواطن قيمته العلمية."
-                className="w-full sm:w-3/4 rounded-md bg-[#FBF3E0] px-3 py-2 text-right placeholder:text-[10px] placeholder:text-gray-500 sm:py-4 sm:placeholder:text-sm"
+                className="w-full sm:w-3/4 rounded-md bg-[#FBF3E0] px-3 py-2 placeholder:text-xs placeholder:text-gray-400 sm:py-[12px] sm:placeholder:text-xs sm:text-xs lg:text-sm text-right placeholder:text-[10px] "
                 rows={5}
               />
             </div>

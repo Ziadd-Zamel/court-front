@@ -18,7 +18,7 @@ const RtlInputField: React.FC<RtlInputFieldProps> = ({
 }) => {
   return (
     <div className="flex sm:flex-row flex-col sm:items-center gap-5">
-      <label className=" w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] px-3 py-2 text-xs font-semibold text-gray-700 sm:py-[14px] sm:text-xl lg:text-lg min-[1200px]:text-xl">
+      <label className=" w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] px-3 py-2 text-xs font-semibold text-gray-700 sm:py-[14px] sm:text-xs lg:text-sm">
         {label}
       </label>
       <div className="sm:w-3/4">
@@ -27,7 +27,7 @@ const RtlInputField: React.FC<RtlInputFieldProps> = ({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className="w-full rounded-md bg-[#FBF3E0] px-3 py-1 placeholder:text-xs placeholder:text-gray-500 sm:py-4 sm:placeholder:text-sm"
+          className="w-full rounded-md bg-[#FBF3E0] px-3 py-1 placeholder:text-xs placeholder:text-gray-400 sm:py-[12px] sm:placeholder:text-xs sm:text-xs lg:text-sm"
         />
       </div>
     </div>

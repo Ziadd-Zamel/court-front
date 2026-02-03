@@ -1,7 +1,9 @@
+import { buildQueryParams } from "../utils/build-query-params";
+
 export const getBooksByType = async (
   page: number = 1,
   perPage: number = 10,
-  type?: "rulings_set" | "supreme_court" | "other"
+  type?: "rulings_set" | "supreme_court" | "other",
 ) => {
   const params = new URLSearchParams({
     page: page.toString(),
@@ -18,7 +20,6 @@ export const getBooksByType = async (
   const response = await fetch(url, {
     next: { revalidate: 600 },
   });
-  console.log(getBooksByType);
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
@@ -30,7 +31,7 @@ export const getBooksByType = async (
 export const getBooksSeach = async (
   title?: string,
   author?: string,
-  index_content?: string
+  index_content?: string,
 ) => {
   const params = new URLSearchParams();
 
@@ -59,7 +60,7 @@ export const getBooksSeach = async (
 
 export const getPendingBooks = async (
   page: number = 1,
-  perPage: number = 10
+  perPage: number = 10,
 ) => {
   const params = new URLSearchParams({
     page: page.toString(),
@@ -85,10 +86,54 @@ export const getBookByID = async (uuid: string) => {
   const response = await fetch(url, {
     next: { revalidate: 600 },
   });
+
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
   const payload: APIResponse<BookData> = await response.json();
+  return payload;
+};
+
+// Gets Books Categories
+export const getBookCategories = async () => {
+  const response = await fetch(
+    `${process.env.API}books/book-categories?per_page=10`,
+    {
+      next: { revalidate: 600 },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  const payload: APIResponse<{ uuid: string; name: string }[]> =
+    await response.json();
+  return payload;
+};
+
+export const getBooksByCategory = async (
+  page: number = 1,
+  perPage: number = 10,
+  category_uuid: string,
+) => {
+  const queryString = buildQueryParams({
+    category_uuid: category_uuid,
+    page,
+    per_page: perPage,
+  });
+
+  const url = `${process.env.API}books/by-category?${queryString}`;
+
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  console.log(response);
+  const payload: APIResponse<BookData[]> = await response.json();
+
   return payload;
 };

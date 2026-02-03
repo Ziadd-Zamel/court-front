@@ -41,7 +41,9 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
       <div className="flex flex-col items-start md:flex-row gap-5">
         {/* Date block */}
         <div className="flex flex-col text-center shrink-0 px-3 mt-3">
-          <p className="text-5xl text-main mb-2">{article.principle_number}</p>
+          <p className="text-[40px] text-main mb-2 font-bold">
+            {article.principle_number}
+          </p>
           <p className="text-md md:text-xs">
             {article.principle_year} {article.principle_type}
           </p>
@@ -63,6 +65,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
               <p className="text-xl font-bold md:text-md lg:text-xl flex items-center gap-1">
                 <span>{article.number}</span>
                 <span className="-mx-1">/</span>
+                <span className="-me-1">{article.judicial_year}</span>
                 <span>{article.sign}</span>
               </p>
               <p className="min-h-[30px] text-md md:text-xs lg:text-sm leading-6">

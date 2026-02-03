@@ -39,7 +39,9 @@ export const useNavbar = () => {
     pathname.includes("/litigants-portal/important-notices") ||
     pathname.includes("/litigants-portal/litigation-services") ||
     pathname.includes("/litigants-portal/court-releases") ||
-    (pathname.startsWith("/article/") && pathname.length > "/article/".length);
+    (pathname.startsWith("/article/") &&
+      pathname.length > "/article/".length) ||
+    (pathname.startsWith("/books/") && pathname.length > "/books/".length);
 
   // Handle body overflow when modals are open
   useEffect(() => {

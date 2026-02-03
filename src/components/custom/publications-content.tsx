@@ -1,8 +1,8 @@
 import catchError from "@/lib/utils/catch-error";
+import CourtPagination from "./court-pagination";
+import BookCard from "@/components/common/book-card";
 import ErrorState from "@/components/custom/error-state";
 import NoDataState from "@/components/custom/no-data-state";
-import CourtPagination from "@/components/custom/court-pagination";
-import PendingBookCard from "@/components/common/pending-book-card";
 import { getPublicationByCategory } from "@/lib/api/publication.api";
 
 type Props = {
@@ -12,35 +12,42 @@ type Props = {
   };
 };
 
-export default async function PublicationsInPrint({ pagination }: Props) {
+export default async function PublicationsContent({
+  pagination,
+  categoryUuid,
+}: {
+  categoryUuid: string;
+  pagination: Props["pagination"];
+}) {
   // Get all the data
   const [data, error] = await catchError(() =>
-    getPublicationByCategory(
-      pagination.currentPage,
-      20,
-      "928ad31a-78bb-4202-b56b-abf7dd2356f9",
-    ),
+    getPublicationByCategory(pagination.currentPage, 20, categoryUuid),
   );
-  // Error State
-  if (error) {
-    return <ErrorState />;
-  }
-
   // Empty data State
   if (!data || data.data.length === 0) {
     return <NoDataState />;
   }
 
+  // Error State
+  if (error) {
+    return <ErrorState />;
+  }
+  console.log(data);
   return (
     <>
       {/** Main content */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16 mt-10">
-        {data?.data.map((book) => (
-          <PendingBookCard key={book.title} book={book} />
+        {data?.data.map((book, index) => (
+          <BookCard
+            type={"magazine"}
+            image="/assets/mahazine.png"
+            key={book.uuid}
+            book={book}
+            issueNumber={index + 1}
+          />
         ))}
       </div>
 
-      {/**Pagination ( show only if the data is biger than 30) */}
       {data.data.length >= 20 && (
         <div className="flex justify-center mt-8">
           <CourtPagination

@@ -1,9 +1,9 @@
-import { getBooksByType } from "@/lib/api/books";
 import catchError from "@/lib/utils/catch-error";
 import CourtPagination from "./court-pagination";
 import BookCard from "@/components/common/book-card";
 import ErrorState from "@/components/custom/error-state";
 import NoDataState from "@/components/custom/no-data-state";
+import { getPublicationByCategory } from "@/lib/api/publication.api";
 
 type Props = {
   pagination: {
@@ -15,9 +15,13 @@ type Props = {
 export default async function SupremeCourtMagazine({ pagination }: Props) {
   // Get all the data
   const [data, error] = await catchError(() =>
-    getBooksByType(pagination.currentPage, 20, "supreme_court"),
+    getPublicationByCategory(
+      pagination.currentPage,
+      20,
+      "928ad31a-78bb-4202-b56b-abf7dd2356f9",
+    ),
   );
-
+  console.log(data);
   // Empty data State
   if (!data || data.data.length === 0) {
     return <NoDataState />;
@@ -27,7 +31,7 @@ export default async function SupremeCourtMagazine({ pagination }: Props) {
   if (error) {
     return <ErrorState />;
   }
-
+  console.log(data);
   return (
     <>
       {/** Main content */}

@@ -62,13 +62,13 @@ export default function BookCard({
       )}
       {type === "magazine" && (
         <>
-          <p className="absolute top-[130px] right-3 text-white text-xs">
+          <p className="absolute top-[130px] right-3 text-main text-xs">
             السنة
           </p>
           <p className="absolute top-[150px] right-3 text-white text-base">
             {book.published_year || 0}
           </p>
-          <p className="absolute bottom-20 right-3 text-white text-xs">العدد</p>
+          <p className="absolute bottom-20 right-3 text-main text-xs">العدد</p>
           <p className="absolute bottom-12 right-3 text-white text-base">
             {book.book_number || 0}
           </p>
@@ -80,11 +80,11 @@ export default function BookCard({
             {book.category}
           </p>
           <div className="flex flex-col items-center gap-2 absolute bottom-16 left-[43%] -translate-1/2">
-            <p className=" text-white text-[10px]">السنة</p>
+            <p className=" text-main text-[10px]">السنة</p>
             <p className=" text-white text-sm">{book.published_year || 0}</p>
           </div>
           <div className="flex flex-col items-center gap-2 absolute bottom-5 left-[43%] -translate-1/2">
-            <p className=" text-white text-[10px]">الجزء</p>
+            <p className=" text-main text-[10px]">الجزء</p>
             <p className=" text-white text-sm">
               {book.release_type_value || 0}
             </p>

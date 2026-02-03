@@ -172,3 +172,9 @@ export const slides: SlideData[] = [
     showoverlay: true,
   },
 ];
+
+export const PublicationCategories = [
+  { uuid: "928ad31a-78bb-4202-b56b-abf7dd2356f9", name: "إصدارات قيد الطباعة" },
+  { uuid: "cd487385-e034-4a38-8a5d-ee88094897d1", name: "موسوعة المبادئ" },
+  { uuid: "09868704-f6b7-40dc-8e80-79d1ff194898", name: "مجلة المحكمة العليا" },
+];
