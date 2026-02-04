@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@source "../node_modules/react-pdf-flipbook-viewer/**/*.{js,ts,jsx,tsx}";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -139,4 +140,16 @@
 }
 @utility main-tab {
   @apply bg-white  hover:bg-main hover:text-white data-[state=active]:bg-main data-[state=active]:text-white transition duration-300 rounded-none cursor-pointer text-base font-normal w-full py-5.5 border border-gray-300 shadow-none flex items-center justify-between;
+}
+
+.page {
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page canvas {
+  width: 100%;
+  height: auto;
 }

@@ -8,6 +8,7 @@ import { BookmarkButton } from "@/components/common/bookmark-button";
 import { ShareButton } from "@/components/common/share-button";
 import { DownloadButton } from "@/components/common/download-button";
 import { PrintButton } from "@/components/common/print-button";
+import BookFlip from "./book-flip";
 
 export default async function BookPage({ id }: { id: string }) {
   const [data, error] = await catchError(() => getBookByID(id));
@@ -35,6 +36,9 @@ export default async function BookPage({ id }: { id: string }) {
 
       <div className="min-h-screen lg:flex lg:flex-row">
         <PageContent Book={Book} />
+      </div>
+      <div className="bg-main box-container max-w-4xl p-10 rounded-lg mb-20 px-20">
+        <BookFlip />
       </div>
     </>
   );
