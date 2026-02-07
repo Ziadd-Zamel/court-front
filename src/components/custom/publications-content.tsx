@@ -32,20 +32,21 @@ export default async function PublicationsContent({
   if (error) {
     return <ErrorState />;
   }
-  console.log(data);
   return (
     <>
       {/** Main content */}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16 mt-10">
-        {data?.data.map((book, index) => (
-          <BookCard
-            type={"magazine"}
-            image="/assets/mahazine.png"
-            key={book.uuid}
-            book={book}
-            issueNumber={index + 1}
-          />
-        ))}
+      <div className="flex w-full justify-center lg:justify-start">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-2 min-[1230]:grid-cols-3! min-[1300]:grid-cols-4! gap-y-16 mt-10">
+          {data?.data.map((book, index) => (
+            <BookCard
+              type={"magazine"}
+              image="/assets/mahazine.png"
+              key={book.uuid}
+              book={book}
+              issueNumber={index + 1}
+            />
+          ))}
+        </div>
       </div>
 
       {data.data.length >= 20 && (

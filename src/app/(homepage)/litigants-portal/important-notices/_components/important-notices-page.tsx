@@ -96,8 +96,8 @@ export default function ImportantNoticesPage({
       aria-labelledby="Important Notices Page"
       className="relative pt-10 w-full box-container flex flex-col "
     >
-      <p className=" pb-20 text-lg text-gray-500 text-center">
-        <span className="text-xl"> تنبيه:</span> هذه المعلومات معدة لتيسير
+      <p className=" pb-10 text-base text-gray-500 text-center">
+        <span className="text-lg"> تنبيه:</span> هذه المعلومات معدة لتيسير
         الإجراءات للمتقاضين والقانونيين، <br /> ولا تمثل بالضرورة حكم القانون في
         مسائلها.{" "}
       </p>
@@ -108,16 +108,16 @@ export default function ImportantNoticesPage({
         className="w-full"
       >
         {/* Tab list and content container */}
-        <div className="flex flex-col lg:flex-row items-start gap-20 w-full mt-40 mb-80">
+        <div className="flex flex-col lg:flex-row items-start gap-12 w-full mt-32 mb-80">
           {/* Tab list - vertical navigation */}
-          <TabsList className="flex flex-col items-center gap-1 md:max-w-[300px] w-full bg-transparent mt-24 relative">
+          <TabsList className="flex flex-col items-center gap-1  md:max-w-[300px] lg:max-w-[330px] w-full bg-transparent mt-24 relative">
             <div className="w-full mb-12">
               <SearchBar />
             </div>
 
             {TabsData.map((tab) => (
               <TabsTrigger
-                className="bg-white  hover:bg-main hover:text-white data-[state=active]:bg-main data-[state=active]:text-white transition duration-300 rounded-none cursor-pointer text-xl font-normal w-full py-5 border border-gray-300 shadow-none flex items-center justify-between"
+                className="!main-tab"
                 key={tab.uuid}
                 value={tab.uuid}
               >
@@ -131,11 +131,11 @@ export default function ImportantNoticesPage({
           <div className="w-full">
             {TabsData.map((tab) => (
               <TabsContent
-                className=" mt-52 lg:mt-0 w-full relative "
+                className=" mt-52 lg:-mt-22 w-full relative "
                 key={tab.uuid}
                 value={tab.uuid}
               >
-                <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-4xl">
+                <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-3xl">
                   {tab.title}
                 </h3>
 
@@ -161,12 +161,12 @@ export default function ImportantNoticesPage({
                             key={question.uuid}
                             value={`item-${question.uuid}`}
                           >
-                            <AccordionTrigger className="py-5 pl-4 text-sm font-medium sm:text-xl text-right hover:no-underline hover:text-main transition-all duration-300">
+                            <AccordionTrigger className="py-1 text-sm font-medium sm:text-base text-right hover:no-underline hover:text-main transition-all duration-300">
                               <p style={{ direction: "rtl" }}>
                                 {question.title}
                               </p>
                             </AccordionTrigger>
-                            <AccordionContent className="text-lg text-gray-500">
+                            <AccordionContent className="text-sm mt-5 text-gray-500">
                               <div
                                 dangerouslySetInnerHTML={{
                                   __html: cleanHtmlStyles(question.answer),

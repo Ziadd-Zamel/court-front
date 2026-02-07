@@ -75,7 +75,7 @@ export function PrintButton({
     <button
       onClick={handlePrint}
       disabled={printing}
-      className={`${className} flex cursor-pointer items-center justify-center rounded-full w-8 h-8 transition-all duration-200 border ${
+      className={`${className} flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 border ${
         printing ? printingStyles : buttonStyles
       } disabled:cursor-not-allowed disabled:opacity-70`}
       aria-label="Print PDF"

@@ -6,7 +6,7 @@ export default function QuestionError({ onRetry }: { onRetry: () => void }) {
       {/* Error Icon */}
       <div className="mb-6">
         <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
-          <AlertCircle className="w-8 h-8 text-red-600" />
+          <AlertCircle className="size-5 md:size-8 text-red-600" />
         </div>
       </div>
 

@@ -18,7 +18,7 @@ export default function QuestionEmptyState({
         {/* Search Icon */}
         <div className="mb-6">
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
-            <Search className="w-8 h-8 text-gray-400" />
+            <Search className="size-5 md:size-8 text-gray-400" />
           </div>
         </div>
 
@@ -61,7 +61,7 @@ export default function QuestionEmptyState({
       {/* Empty Icon */}
       <div className="mb-6">
         <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
-          <FileQuestion className="w-8 h-8 text-gray-400" />
+          <FileQuestion className="size-5 md:size-8 text-gray-400" />
         </div>
       </div>
 

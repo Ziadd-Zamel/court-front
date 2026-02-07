@@ -35,12 +35,6 @@ export default function CourtReleasesPage({ pagination }: Props) {
       heading: "الإصدارات المتوفرة",
       component: <AvailablePublications pagination={pagination} />,
     },
-    // {
-    //   label: "إصدارات قيد الطباعة",
-    //   value: "publications-in-print",
-    //   heading: "إصدارات قيد الطباعة",
-    //   component: <PublicationsInPrint pagination={pagination} />,
-    // },
   ];
   return (
     <section

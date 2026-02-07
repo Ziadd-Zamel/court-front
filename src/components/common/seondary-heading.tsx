@@ -22,15 +22,15 @@ export default function SecondaryHeading({
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-1/2 lg:w-1/4 ps-13"
+          className="w-1/2 lg:w-1/4 ps-5 lg:ps-13"
         >
-          <h2 className=" font-bold text-white whitespace-nowrap text-lg sm:text-2xl lg:text-3xl">
+          <h2 className=" font-bold text-white md:whitespace-nowrap text-sm sm:text-2xl lg:text-3xl">
             {title}
           </h2>
         </motion.div>
 
         {/*Seconde Part */}
-        <div className="w-1/2 lg:w-1/2 flex justify-end -ms-16">
+        <div className="w-1/2 lg:w-1/2 flex justify-start pr-10 lg:pr-52">
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -48,16 +48,7 @@ export default function SecondaryHeading({
             transition={{ duration: 0.8 }}
             className="w-full h-full "
           >
-            {IconSecyion ? (
-              IconSecyion
-            ) : (
-              <div className="flex items-center gap-3 w-full h-full ">
-                <div className="size-7 rounded-full bg-white" />
-                <div className="size-7 rounded-full bg-white" />
-                <div className="size-7 rounded-full bg-white" />
-                <div className="size-7 rounded-full bg-white" />
-              </div>
-            )}
+            {IconSecyion ?? IconSecyion}
           </motion.div>
         </div>
       </div>

@@ -64,7 +64,7 @@ export default function CustomBreadcrumb({
         className={cn(
           black
             ? "text-black hover:text-black/50"
-            : "text-main hover:text-main/50"
+            : "text-main hover:text-main/50",
         )}
       >
         {/* Home item with icon */}
@@ -75,6 +75,7 @@ export default function CustomBreadcrumb({
               alt="Home Icon"
               width={20}
               height={0}
+              className="md:size-5 size-4"
             />
           </BreadcrumbLink>
         </BreadcrumbItem>

@@ -55,7 +55,7 @@ export function CopyButton({
   return (
     <button
       onClick={handleCopy}
-      className={`${className} flex cursor-pointer items-center justify-center rounded-full w-8 h-8 transition-all duration-200 border ${
+      className={`${className} flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 border ${
         copied ? copiedStyles : buttonStyles
       }`}
       aria-label="Copy text"

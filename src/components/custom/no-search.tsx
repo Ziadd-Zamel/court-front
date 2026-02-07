@@ -25,7 +25,7 @@ export default function NoSearchQuery() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-4xl w-full">
         <div className="bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
           <div className="bg-main/10 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-            <BookOpen className="w-8 h-8 text-main/70" />
+            <BookOpen className="size-5 md:size-8 text-main/70" />
           </div>
           <h3 className="font-semibold text-gray-800 mb-2">البحث عن كتاب</h3>
           <p className="text-sm text-gray-600">ابحث في مكتبة الكتب القانونية</p>
@@ -33,7 +33,7 @@ export default function NoSearchQuery() {
 
         <div className="bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
           <div className="bg-main/10 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-            <Users className="w-8 h-8 text-main/70" />
+            <Users className="size-5 md:size-8 text-main/70" />
           </div>
           <h3 className="font-semibold text-gray-800 mb-2">البحث عن مؤلف</h3>
           <p className="text-sm text-gray-600">ابحث عن المؤلفين والكتّاب</p>
@@ -41,7 +41,7 @@ export default function NoSearchQuery() {
 
         <div className="bg-white border border-gray-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
           <div className="bg-main/10 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-            <FileText className="w-8 h-8 text-main/70" />
+            <FileText className="size-5 md:size-8 text-main/70" />
           </div>
           <h3 className="font-semibold text-gray-800 mb-2">البحث في النصوص</h3>
           <p className="text-sm text-gray-600">ابحث داخل محتوى النصوص</p>

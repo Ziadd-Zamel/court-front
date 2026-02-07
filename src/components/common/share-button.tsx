@@ -173,7 +173,7 @@ export function ShareButton({
       onMouseLeave={() => setShowShareDropdown(false)}
     >
       <button
-        className={`${className} flex cursor-pointer items-center justify-center rounded-full w-8 h-8 transition-all duration-200 border ${buttonStyles}`}
+        className={`${className} flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 border ${buttonStyles}`}
         title="مشاركة"
       >
         <Share2 size={size} className={`transition-colors ${iconStyles}`} />

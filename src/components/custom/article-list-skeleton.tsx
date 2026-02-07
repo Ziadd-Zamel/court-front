@@ -31,7 +31,7 @@ export default function ArticleListSkeleton() {
                 {/* Meta info skeleton */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+                    <div className="size-5 md:size-8 bg-gray-200 rounded-full"></div>
                     <div className="space-y-1">
                       <div className="h-3 bg-gray-200 rounded w-20"></div>
                       <div className="h-3 bg-gray-200 rounded w-16"></div>

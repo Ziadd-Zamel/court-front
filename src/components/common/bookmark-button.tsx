@@ -120,7 +120,7 @@ export function BookmarkButton({
   return (
     <button
       onClick={handleToggle}
-      className={`${className} flex cursor-pointer items-center justify-center rounded-full w-8 h-8 transition-all duration-200 ${buttonStyles}`}
+      className={`${className} flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 ${buttonStyles}`}
       aria-label="Toggle bookmark"
       title={isSaved ? "إزالة من المفضلة" : "إضافة للمفضلة"}
     >

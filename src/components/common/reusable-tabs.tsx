@@ -40,7 +40,7 @@ export default function ReusableTabs({
       <div className="flex flex-col lg:flex-row md:items-start gap-16 w-full">
         {/* Tab list */}
         <TabsList
-          className={`flex flex-col relative items-center gap-1 md:max-w-[300px] lg:max-w-[330px] w-full bg-transparent mt-40 ${tabListClassName}`}
+          className={`flex flex-col relative items-center gap-1 md:px-20 lg:px-0 lg:max-w-[330px] w-full bg-transparent mt-40 ${tabListClassName}`}
         >
           {showSearch && (
             <div className="w-full mb-12">
@@ -65,7 +65,7 @@ export default function ReusableTabs({
           {tabs.map((tab) => (
             <TabsContent
               key={tab.value}
-              className={`mt-20 lg:mt-28 w-full min-h-screen  flex flex-col${tabContentClassName}`}
+              className={`mt-32 w-full min-h-screen flex flex-col${tabContentClassName}`}
               value={tab.value}
             >
               {tab.heading && (
