@@ -4,6 +4,7 @@ import CourtPublications from "@/components/custom/court-publications";
 import BooksContent from "./books-content";
 import SearchBooks from "./search-books";
 import VistorServices from "./vistor-services";
+import PersonalStatus from "./personal-status";
 type Props = {
   pagination: {
     currentPage: number;
@@ -46,6 +47,11 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
       value: "vistor-services",
       component: <VistorServices />,
     },
+    {
+      label: "احوال شعصية",
+      value: "personal-status",
+      component: <PersonalStatus />,
+    },
   ];
   return (
     <section
@@ -53,7 +59,11 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
       aria-labelledby="Important Notices Page"
       className="relative pt-10 w-full box-container mb-20"
     >
-      <ReusableTabs tabs={courtReleaseTabs} defaultValue="all-books" />
+      <ReusableTabs
+        tabs={courtReleaseTabs}
+        defaultValue="all-books"
+        tabContentClassName="lg:mt-14!"
+      />
     </section>
   );
 }
