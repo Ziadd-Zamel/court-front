@@ -14,6 +14,7 @@ interface ReusableTabsProps {
   tabs: TabItem[];
   defaultValue?: string;
   showSearch?: boolean;
+  showHeading?: boolean;
   direction?: "ltr" | "rtl";
   className?: string;
   tabListClassName?: string;
@@ -24,6 +25,7 @@ export default function ReusableTabs({
   tabs,
   defaultValue,
   showSearch = true,
+  showHeading = true,
   direction = "rtl",
   className = "",
   tabListClassName = "",
@@ -68,11 +70,12 @@ export default function ReusableTabs({
               className={`mt-32 w-full min-h-screen flex flex-col ${tabContentClassName}`}
               value={tab.value}
             >
-              {tab.heading && (
-                <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-3xl">
-                  {tab.heading}
-                </h3>
-              )}
+              {showHeading &&
+                tab.heading && ( // Add showHeading check here
+                  <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-3xl">
+                    {tab.heading}
+                  </h3>
+                )}
               <div className="mt-6">{tab.component}</div>
             </TabsContent>
           ))}

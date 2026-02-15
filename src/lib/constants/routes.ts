@@ -23,6 +23,10 @@ export const ROUTES: RouteItem[] = [
     path: "/legal-principles",
   },
   {
+    name: "المبادئ ",
+    path: "/principle",
+  },
+  {
     name: "مكتبة المحكمة العليا",
     path: "/supreme-court-library",
   },

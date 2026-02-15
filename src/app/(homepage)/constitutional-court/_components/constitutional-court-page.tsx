@@ -1,6 +1,7 @@
 import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
 import ArticleListSkeleton from "@/components/custom/article-list-skeleton";
 import ArticlePage from "@/components/custom/article-page";
+import NoDataState from "@/components/custom/no-data-state";
 import { getConstitutionSub } from "@/lib/api/subcategories";
 import { Suspense } from "react";
 
@@ -18,7 +19,9 @@ export default async function ConstitutionalCourtPage({
 }: Props) {
   const data = await getConstitutionSub();
   const categoriesData = data?.data || [];
-
+  if (categoriesData.length === 0) {
+    return <NoDataState />;
+  }
   // Static tabs configuration
   const staticTabs: TabItem[] = [
     {

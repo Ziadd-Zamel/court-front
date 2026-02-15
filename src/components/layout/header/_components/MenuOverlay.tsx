@@ -63,7 +63,7 @@ export default function MenuOverlay({
                   >
                     <div className="flex items-center justify-center gap-2">
                       <p
-                        className="font-normal text-3xl transition-colors hover:text-main"
+                        className="font-normal text-2xl transition-colors hover:text-main"
                         onClick={(e) => {
                           if (item.children) {
                             e.preventDefault();
