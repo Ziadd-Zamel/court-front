@@ -4,8 +4,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Calendar } from "lucide-react";
+import { Calendar, Share2 } from "lucide-react";
 import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
+import { CopyButton } from "@/components/common/copy-button";
+import { FaRegBookmark } from "react-icons/fa6";
 
 type ArticleCardProps = {
   principle: Principle;
@@ -13,18 +15,6 @@ type ArticleCardProps = {
 };
 
 export default function PrincipleCard({ principle }: ArticleCardProps) {
-  // Format the date
-  const formatDate = (dateString: string | null) => {
-    if (!dateString) return { day: "------", month: "------", year: "------" };
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return { day, month, year };
-  };
-
-  const { day, month, year } = formatDate(principle.session_date);
-
   // Clean the HTML content before rendering
   const cleanedBodyHtml = cleanHtmlStyles(principle.content || "");
 
@@ -45,7 +35,7 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
         {/* Date block */}
         <div className="flex flex-col text-center shrink-0 px-3 mt-3">
           <p className="text-[40px] text-main mb-2 font-bold">
-            {principle.number || "------"}
+            {principle.serial_number || "------"}
           </p>
           <p className="text-md md:text-xs">
             {principle.gregorian_year || "------"}{" "}
@@ -59,9 +49,8 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
             <div className="flex flex-col gap-2 text-start min-w-[130px]">
               <p className="text-gray-500 sm:text-lg md:text-xs flex items-center gap-1">
                 <Calendar size={14} className="text-main -mt-1" />
-                <span>
-                  {day} - {month} - {year}
-                </span>
+
+                {principle.session_date.split(" - ")}
               </p>
               <p className="sm:text-lg md:text-xs">
                 {principle.ruling_type || "------"}
@@ -69,7 +58,7 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
             </div>
             <div className="flex flex-col gap-2 text-start">
               <p className="text-xl font-bold md:text-md lg:text-xl flex items-center gap-1">
-                <span>{principle.serial_number || "------"}</span>
+                <span>{principle.number || "------"}</span>
                 <span className="-mx-1">/</span>
                 <span className="-me-1">
                   {principle.judicial_year || "------"}
@@ -84,22 +73,38 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
 
           <AccordionContent className="pb-10">
             <h6 className="mt-5 text-center font-zain text-xl font-bold text-main">
-              {principle.brief || "------"}
+              المبدأ القانوني
             </h6>
             <div
               style={{ direction: "rtl" }}
               className="mt-5 !text-justify !font-zain !font-normal !text-sm text-gray-500"
               dangerouslySetInnerHTML={{ __html: cleanedBodyHtml }}
             />
-            <div className="mt-5 flex w-full items-end justify-end">
+            <div className="mt-5 flex w-full">
               <button
                 onClick={handlePdfClick}
-                className="text-main hover:underline text-sm"
+                className="text-main hover:underline text-sm cursor-pointer"
               >
                 مجلة المحكمة العليا: السنة 33 - العدد 1 - ص 231
               </button>
             </div>
           </AccordionContent>
+          <div className="flex justify-end items-center gap-3 mb-2.5 -mt-2 me-11">
+            <button
+              className={` flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 bg-white backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow`}
+              aria-label="Toggle bookmark"
+              title={"إضافة للمفضلة"}
+            >
+              <FaRegBookmark className="text-gray-700" />
+            </button>{" "}
+            <button
+              className={`flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 border bg-white backdrop-blur-sm hover:bg-white/80  border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow`}
+              title="مشاركة"
+            >
+              <Share2 className={`transition-colors text-gray-700`} size={16} />
+            </button>
+            <CopyButton text={principle.brief} />
+          </div>
         </div>
       </div>
     </AccordionItem>

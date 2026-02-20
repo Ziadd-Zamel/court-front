@@ -23,6 +23,7 @@ declare type Principle = {
   page_number: number;
   principle_type: string | null;
   principle_type_uuid: string | null;
+  session_date: string;
   publish_on_website: boolean;
   ruling_type: string | null;
   ruling_type_uuid: string | null;

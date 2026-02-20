@@ -50,7 +50,7 @@ export default function PrincipleSearch() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full -mt-8">
       {/* Title */}
       <div className="mb-10 text-right">
         <h2 className="text-2xl font-bold text-main">
@@ -61,8 +61,10 @@ export default function PrincipleSearch() {
 
       <div className="space-y-8">
         {/* ROW 1 - Include Terms & Exclude Terms */}
-        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4 lg:gap-6">
-          <div className="text-right text-lg font-semibold">كلمة أو أكثر:</div>
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2">
+            كلمة أو أكثر:
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SearchInput
@@ -81,8 +83,10 @@ export default function PrincipleSearch() {
         </div>
 
         {/* ROW 2 - Any Terms */}
-        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4 lg:gap-6">
-          <div className="text-right text-lg font-semibold">أي من الكلمات:</div>
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2">
+            أي من الكلمات:
+          </div>
 
           <SearchInput
             value={anyTerms ?? ""}
@@ -93,8 +97,10 @@ export default function PrincipleSearch() {
         </div>
 
         {/* ROW 3 - Exact Phrase */}
-        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4 lg:gap-6">
-          <div className="text-right text-lg font-semibold">جملة مطابقة:</div>
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2">
+            جملة مطابقة:
+          </div>
 
           <SearchInput
             value={exactPhrase ?? ""}
@@ -105,8 +111,10 @@ export default function PrincipleSearch() {
         </div>
 
         {/* ROW 4 - Similar Phrase */}
-        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4 lg:gap-6">
-          <div className="text-right text-lg font-semibold">جملة مشابهة:</div>
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2">
+            جملة مشابهة:
+          </div>
 
           <SearchInput
             value={similarPhrase ?? ""}
@@ -117,37 +125,41 @@ export default function PrincipleSearch() {
         </div>
 
         {/* ROW 5 - Appeal Number */}
-        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4 lg:gap-6">
-          <div className="text-right text-lg font-semibold">رقم الطعن:</div>
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2">
+            رقم الطعن:
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <SearchInput
-              value={appealYear ?? ""}
-              onChange={setAppealYear}
-              placeholder="أدرج السنة القضائية. مثال: 73"
-            />
             <SearchInput
               value={appealNumber ?? ""}
               onChange={setAppealNumber}
               placeholder="أدرج الرقم دون السنة. مثال: 1234"
             />
+            <SearchInput
+              value={appealYear ?? ""}
+              onChange={setAppealYear}
+              placeholder="أدرج السنة القضائية. مثال: 73"
+            />
           </div>
         </div>
 
         {/* ROW 6 - Principle Number */}
-        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4 lg:gap-6">
-          <div className="text-right text-lg font-semibold">رقم المبدأ:</div>
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2">
+            رقم المبدأ:
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <SearchInput
-              value={principleYear ?? ""}
-              onChange={setPrincipleYear}
-              placeholder="أدرج السنة الميلادية. مثال: 2025"
-            />
             <SearchInput
               value={principleNumber ?? ""}
               onChange={setPrincipleNumber}
               placeholder="أدرج الرقم دون السنة. مثال: 12"
+            />
+            <SearchInput
+              value={principleYear ?? ""}
+              onChange={setPrincipleYear}
+              placeholder="أدرج السنة الميلادية. مثال: 2025"
             />
           </div>
         </div>

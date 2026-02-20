@@ -4,6 +4,7 @@ import NoDataState from "@/components/custom/no-data-state";
 import { getPrincipleTypes } from "@/lib/api/principle.api";
 import catchError from "@/lib/utils/catch-error";
 import PrinciplesContent from "./principles-content";
+import ContactSection from "@/components/custom/contact-section";
 
 type Props = {
   pagination: {
@@ -48,20 +49,24 @@ export default async function PrinciplePage({
         uuid={category.uuid}
         pagination={pagination}
         searchParams={searchParams}
+        totalItems={payload.meta.total || 0}
       />
     ),
   }));
 
   return (
-    <section className="relative pt-32 w-full box-container mb-20">
-      <ReusableTabs
-        tabs={dynamicTabs}
-        defaultValue={dynamicTabs[0].value}
-        className="lg:mt-0"
-        showSearch={false}
-        showHeading={false}
-        tabContentClassName="lg:mt-0"
-      />
-    </section>
+    <>
+      <section className="relative pt-32 w-full box-container mb-20">
+        <ReusableTabs
+          tabs={dynamicTabs}
+          defaultValue={dynamicTabs[0].value}
+          className="lg:mt-0"
+          showSearch={false}
+          showHeading={false}
+          tabContentClassName="lg:mt-0"
+        />
+      </section>
+      <ContactSection title="شارك بملاحظاتك من أجل تطوير منظومة البحث" />
+    </>
   );
 }

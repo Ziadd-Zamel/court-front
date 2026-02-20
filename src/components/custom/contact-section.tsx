@@ -35,7 +35,11 @@ import AnimatedSectionHeader from "../common/AnimatedSectionHeader";
 import { ContactFormData, contactFormSchema } from "@/lib/schemas/validations";
 import { submitContactForm } from "@/lib/actions/contact";
 
-export default function ContactSection() {
+export default function ContactSection({
+  title = "اطرح استفهاماً أو اقتراحاً",
+}: {
+  title?: string;
+}) {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
 
@@ -89,9 +93,7 @@ export default function ContactSection() {
         <div className=" box-container flex flex-col items-stretch justify-between gap-10 text-gray-400 md:flex-row">
           {/* Info Text */}
           <div className="w-full md:w-1/2">
-            <h2 className="pb-12 text-3xl font-bold text-white">
-              اطرح استفهاماً أو اقتراحاً{" "}
-            </h2>
+            <h2 className="pb-12 text-3xl font-bold text-white">{title} </h2>
             <p className="mb-5 font-zain leading-relaxed text-gray-400">
               إذا لم تجد ضالتك في قوائم أصناف الأسئلة، لك أن ترسل استفهامك. لك
               أيضاً أن تقترح إضافات مفيدة.

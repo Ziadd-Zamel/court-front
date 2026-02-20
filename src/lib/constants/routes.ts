@@ -19,11 +19,11 @@ export const ROUTES: RouteItem[] = [
     path: "/constitutional-court",
   },
   {
-    name: "المبادئ القانونية",
+    name: "قضاء النقض",
     path: "/legal-principles",
   },
   {
-    name: "المبادئ ",
+    name: "المبادئ القانونية",
     path: "/principle",
   },
   {

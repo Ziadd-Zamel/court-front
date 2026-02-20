@@ -13,6 +13,7 @@ type Props = {
     currentPage: number;
     limit: number;
   };
+  totalItems: number;
   searchParams: {
     search?: string;
     exact_phrase?: string;
@@ -30,6 +31,7 @@ export default async function PrinciplesContent({
   uuid,
   pagination,
   searchParams,
+  totalItems,
 }: Props) {
   const hasSearchParams = Boolean(
     searchParams.exact_phrase ||
@@ -77,7 +79,14 @@ export default async function PrinciplesContent({
       </>
     );
   }
-  console.log(payload);
+  if (!hasSearchParams) {
+    return (
+      <>
+        <PrincipleSearch />
+        <NoSearchQuery />
+      </>
+    );
+  }
   // Has search params and has results
   return (
     <>
@@ -86,6 +95,7 @@ export default async function PrinciplesContent({
         articles={payload.data}
         title={`المقالات - ${uuid}`}
         pagination={pagination}
+        totalItems={payload.meta.total}
         totalPages={payload.meta.last_page}
       />{" "}
     </>

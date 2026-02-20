@@ -7,7 +7,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { HelpCircle } from "lucide-react";
 
 interface Props {
   title: string;
@@ -21,9 +20,9 @@ export function HelpDialog({ title, body }: Props) {
         <button
           type="button"
           aria-label="مساعدة"
-          className="text-muted-foreground hover:text-primary"
+          className=" cursor-pointer aspect-square text-xs size-4 flex-center font-bold rounded-full border-2 border-black"
         >
-          <HelpCircle size={18} />
+          <span className="mt-1">؟</span>
         </button>
       </DialogTrigger>
 

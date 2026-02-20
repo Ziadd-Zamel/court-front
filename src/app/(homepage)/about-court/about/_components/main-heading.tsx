@@ -47,7 +47,7 @@ export default function MainHeading({ bgImage, overlay }: Props) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className={cn(
-              "text-3xl sm:text-5xl font-bold text-white self-start"
+              "text-3xl sm:text-2xl font-bold text-white self-start",
             )}
           >
             <Logo />
