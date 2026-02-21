@@ -6,15 +6,10 @@ import NoSearchResults from "@/components/custom/no-result";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { getAllCounselors } from "@/lib/api/counselors.api";
 import catchError from "@/lib/utils/catch-error";
-import { Separator } from "@radix-ui/react-select";
-import { User } from "lucide-react";
 import Link from "next/link";
 
 type ArticlePageProps = {
-  pagination: {
-    currentPage: number;
-    limit: number;
-  };
+  pagination: { currentPage: number; limit: number };
   search?: string;
 };
 
@@ -27,59 +22,99 @@ export default async function CounselorsContent({
   );
 
   if (error) return <ErrorState />;
-
   if (!CounselorsData || CounselorsData?.data.length === 0) {
-    // If there's a search query but no results, show NoSearchResults
-    if (search && search.trim() !== "") {
-      return <NoSearchResults />;
-    }
-    // Otherwise, show NoDataState for general no data scenario
+    if (search && search.trim() !== "") return <NoSearchResults />;
     return <NoDataState />;
   }
-  console.log(CounselorsData.data);
+
   return (
     <>
-      <div className="flex items-center justify-center w-full mt-16">
-        <div className="border p-5 pt-10 flex flex-col gap-2 items-center shadow-sm w-full  max-w-[300px]">
-          <Avatar className="size-16">
-            <AvatarFallback className="">
-              <User />
-            </AvatarFallback>
-          </Avatar>
-          <h3 className="text-lg font-bold">عبدالله محمد أبوزريزة</h3>
+      {/* Featured president card */}
+      <div className="box-container mt-16 mb-4" dir="rtl">
+        <div className="relative overflow-hidden bg-white border border-gray-100 shadow-md">
+          {/* Subtle dot pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.03] pointer-events-none"
+            style={{
+              backgroundImage: `radial-gradient(circle, #000 1px, transparent 1px)`,
+              backgroundSize: "24px 24px",
+            }}
+          />
 
-          <div className="flex flex-col items-start">
-            <p className="text-sm text-gray-800">1971</p>
-            <p className="text-sm text-gray-800">
-              دكتوراه في القانون الدولي والشريعة
-            </p>
-            <p className="text-sm text-gray-800">24 عاماً في العمل القضائي</p>
-            <p className="text-sm text-gray-800">
-              2022 مستشاراً في المحكمة العليا
-            </p>
+          <div className="relative flex flex-col sm:flex-row items-center gap-8 p-8 sm:p-10">
+            {/* Avatar */}
+            <div className="shrink-0 flex flex-col items-center gap-3">
+              <Avatar className="size-24 sm:size-28 border-4 border-main/20 shadow-md">
+                <AvatarFallback className="bg-main/5 text-main text-3xl font-bold">
+                  ع
+                </AvatarFallback>
+              </Avatar>
+              <span className="text-xs font-medium text-main bg-main/8 border border-main/20 px-3 py-1 rounded-full whitespace-nowrap">
+                رئيس المحكمة العليا
+              </span>
+            </div>
+
+            {/* Vertical divider */}
+            <div className="hidden sm:block w-px self-stretch bg-gradient-to-b from-transparent via-gray-200 to-transparent mx-2" />
+
+            {/* Info */}
+            <div className="flex flex-col gap-5 flex-1 text-center sm:text-right">
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                عبدالله محمد أبوزريزة
+              </h3>
+
+              <ol className="flex flex-col gap-2">
+                {[
+                  "1971",
+                  "دكتوراه في القانون الدولي والشريعة",
+                  "24 عاماً في العمل القضائي",
+                  "2022 مستشاراً في المحكمة العليا",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    className="text-gray-600 text-sm flex items-center gap-2 justify-center sm:justify-start"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-main shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ol>
+
+              <div className="h-px bg-gradient-to-l from-transparent via-gray-200 to-transparent" />
+
+              {/* Roles */}
+              <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+                {[
+                  "رئيس المحكمة العليا",
+                  "رئيس الدائرة الدستورية",
+                  "رئيس الدوائر مجتمعة",
+                  "رئيس دائرة النقض الجنائي",
+                ].map((role) => (
+                  <span
+                    key={role}
+                    className="text-xs font-medium bg-main/5 border border-main/20 text-main px-3 py-1.5 rounded-full"
+                  >
+                    {role}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
-          <Separator className="w-full h-px bg-gray-200 mt-3 mb-5" />
-          <ul className="flex flex-col text-sm text-main text-center">
-            <li>رئيس المحكمة العليا</li>
-            <li>رئيس الدائرة الدستورية</li>
-            <li>رئيس الدوائر مجتمعة</li>
-            <li>رئيس دائرة النقض الجنائي</li>
-          </ul>
         </div>
       </div>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 py-20 box-container">
-        {CounselorsData.data.map((counselor) => {
-          console.log(counselor);
-          return (
-            <Link
-              href={`/about-court/counselors/${counselor.uuid}`}
-              key={counselor.uuid}
-            >
-              <CounselorCard counselor={counselor} />
-            </Link>
-          );
-        })}
+
+      {/* Grid */}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 py-16 box-container">
+        {CounselorsData.data.map((counselor) => (
+          <Link
+            href={`/about-court/counselors/${counselor.uuid}`}
+            key={counselor.uuid}
+          >
+            <CounselorCard counselor={counselor} />
+          </Link>
+        ))}
       </div>
+
       {CounselorsData.meta.last_page > 1 && (
         <CourtPagination
           pagination={pagination}

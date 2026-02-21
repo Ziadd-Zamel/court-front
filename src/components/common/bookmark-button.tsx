@@ -13,6 +13,8 @@ import {
   isResearchBookmarked,
   toggleLawBookmark,
   isLawBookmarked,
+  togglePrincipleBookmark,
+  isPrincipleBookmarked,
 } from "@/lib/utils/localstorage";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -23,10 +25,11 @@ type BookmarkType =
   | "news"
   | "question"
   | "research"
-  | "law";
+  | "law"
+  | "principle";
 
 interface BookmarkButtonProps {
-  item: Article | BookData | NewsArticle | Iquestion | Law;
+  item: Article | BookData | NewsArticle | Iquestion | Law | Principle;
   type: BookmarkType;
   size?: number;
   className?: string;
@@ -42,7 +45,6 @@ export function BookmarkButton({
 }: BookmarkButtonProps) {
   const [isSaved, setIsSaved] = useState(false);
 
-  // Check if bookmarked
   useEffect(() => {
     const checkBookmark = () => {
       switch (type) {
@@ -64,12 +66,13 @@ export function BookmarkButton({
         case "law":
           setIsSaved(isLawBookmarked(item.uuid));
           break;
+        case "principle":
+          setIsSaved(isPrincipleBookmarked(item.uuid));
+          break;
       }
     };
 
     checkBookmark();
-
-    // Listen for changes
     window.addEventListener("bookmarks-changed", checkBookmark);
     return () => window.removeEventListener("bookmarks-changed", checkBookmark);
   }, [item.uuid, type]);
@@ -100,18 +103,20 @@ export function BookmarkButton({
       case "law":
         success = toggleLawBookmark(item as Law);
         break;
+      case "principle":
+        success = togglePrincipleBookmark(item as Principle);
+        break;
     }
 
     if (success) {
-      if (wasBookmarked) {
-        toast.success("تم إزالة العلامة المرجعية");
-      } else {
-        toast.success("تمت الإضافة إلى العلامات المرجعية");
-      }
+      toast.success(
+        wasBookmarked
+          ? "تم إزالة العلامة المرجعية"
+          : "تمت الإضافة إلى العلامات المرجعية",
+      );
     }
   };
 
-  // Button always has the same style
   const buttonStyles =
     variant === "light"
       ? "bg-white backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow"

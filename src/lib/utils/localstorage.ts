@@ -325,6 +325,62 @@ export const isLawBookmarked = (uuid: string): boolean =>
 // ============================================
 // EXPORT ALL KEYS
 // ============================================
+// ============================================
+// PRINCIPLES BOOKMARKS (المبادئ القانونية)
+// ============================================
+const PRINCIPLES_BOOKMARK_KEY = "bookmarked_principles";
+
+export const addPrincipleBookmark = (principle: Principle): boolean => {
+  try {
+    const bookmarks = getBookmarkedPrinciples();
+    if (bookmarks.some((b) => b.uuid === principle.uuid)) return false;
+
+    const updated = [...bookmarks, principle];
+    localStorage.setItem(PRINCIPLES_BOOKMARK_KEY, JSON.stringify(updated));
+    window.dispatchEvent(new Event("bookmarks-changed"));
+    return true;
+  } catch (error) {
+    console.error("Error adding principle bookmark:", error);
+    return false;
+  }
+};
+
+export const removePrincipleBookmark = (uuid: string): boolean => {
+  try {
+    const bookmarks = getBookmarkedPrinciples();
+    const filtered = bookmarks.filter((b) => b.uuid !== uuid);
+    localStorage.setItem(PRINCIPLES_BOOKMARK_KEY, JSON.stringify(filtered));
+    window.dispatchEvent(new Event("bookmarks-changed"));
+    return true;
+  } catch (error) {
+    console.error("Error removing principle bookmark:", error);
+    return false;
+  }
+};
+
+export const togglePrincipleBookmark = (principle: Principle): boolean => {
+  const isBookmarked = isPrincipleBookmarked(principle.uuid);
+  if (isBookmarked) {
+    return removePrincipleBookmark(principle.uuid);
+  } else {
+    return addPrincipleBookmark(principle);
+  }
+};
+
+export const getBookmarkedPrinciples = (): Principle[] => {
+  try {
+    const stored = localStorage.getItem(PRINCIPLES_BOOKMARK_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+};
+
+export const isPrincipleBookmarked = (uuid: string): boolean =>
+  getBookmarkedPrinciples().some((b) => b.uuid === uuid);
+
+export { PRINCIPLES_BOOKMARK_KEY };
+
 export {
   ARTICLES_BOOKMARK_KEY,
   BOOKS_BOOKMARK_KEY,

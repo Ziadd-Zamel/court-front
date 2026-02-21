@@ -11,7 +11,6 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-// Route name mapping - customize these based on your actual routes
 const routeNameMap: { [key: string]: string } = {
   "/": "Home",
   "/litigants-portal": "بوابة المتقاضين والقانونيين",
@@ -38,6 +37,8 @@ const routeNameMap: { [key: string]: string } = {
   "/favorite/research": "البحوث والأوراق العلمية المفضلة",
   "/favorite/law": " القوانين المفضلة",
   "/favorite/questions": "المعلومات المهمة المفضلة",
+  "/favorite/principles": "المبادئ المفضلة",
+  "/principle": "المبادئ القانونية",
 };
 interface CustomBreadcrumbProps {
   className?: string;

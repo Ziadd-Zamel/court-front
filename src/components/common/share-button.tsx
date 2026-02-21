@@ -8,10 +8,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Share2 } from "lucide-react";
 import { toast } from "sonner";
 
-type ShareType = "article" | "book" | "news" | "question";
+type ShareType = "article" | "book" | "news" | "question" | "principle";
 
 interface ShareButtonProps {
-  item: Article | BookData | NewsArticle | Iquestion;
+  item: Article | BookData | NewsArticle | Iquestion | Principle;
   type: ShareType;
   size?: number;
   className?: string;
@@ -62,6 +62,15 @@ export function ShareButton({
         return {
           title: question.title,
           description: question.answer?.substring(0, 200) + "..." || "",
+          url: window.location.href,
+        };
+      case "principle":
+        const principle = item as Principle;
+        return {
+          title: `مبدأ قانوني رقم ${principle.number || "------"} / ${principle.judicial_year || "------"}`,
+          description:
+            principle.brief?.replace(/<[^>]*>/g, "").substring(0, 200) +
+              "..." || "",
           url: window.location.href,
         };
     }
@@ -168,7 +177,6 @@ export function ShareButton({
   return (
     <div
       className="inline-block relative"
-      style={{ zIndex: 9999 }}
       onMouseEnter={() => setShowShareDropdown(true)}
       onMouseLeave={() => setShowShareDropdown(false)}
     >

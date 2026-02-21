@@ -10,6 +10,7 @@ import {
   FaFileAlt,
   FaBalanceScale,
   FaNewspaper,
+  FaScroll,
 } from "react-icons/fa";
 
 export default function FavoritesPage() {
@@ -64,6 +65,14 @@ export default function FavoritesPage() {
       route: "/favorite/news",
       image: "/assets/free_icon_1 (8).svg",
     },
+    {
+      id: 7,
+      title: "المبادئ",
+      description: "مختاراتك من المبادئ القانونية المحفوظة لسهولة الرجوع إليها",
+      icon: FaScroll,
+      route: "/favorite/principles",
+      image: "/assets/articles.svg",
+    },
   ];
 
   return (
@@ -89,13 +98,9 @@ export default function FavoritesPage() {
                         height={60}
                       />
                     </div>
-
-                    {/* Title */}
                     <h3 className="text-xl font-bold text-gray-800 mb-4 group-hover:text-main transition-colors duration-300">
                       {service.title}
                     </h3>
-
-                    {/* Description */}
                     <p className="text-gray-600 leading-relaxed text-sm">
                       {service.description}
                     </p>

@@ -4,10 +4,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Calendar, Share2 } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 import { CopyButton } from "@/components/common/copy-button";
-import { FaRegBookmark } from "react-icons/fa6";
+import { BookmarkButton } from "@/components/common/bookmark-button";
+import { ShareButton } from "@/components/common/share-button";
 
 type ArticleCardProps = {
   principle: Principle;
@@ -49,8 +50,10 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
             <div className="flex flex-col gap-2 text-start min-w-[130px]">
               <p className="text-gray-500 sm:text-lg md:text-xs flex items-center gap-1">
                 <Calendar size={14} className="text-main -mt-1" />
-
-                {principle.session_date.split(" - ")}
+                {principle.session_date
+                  .split(" - ")
+                  .map((date) => date.split("-").reverse().join("-"))
+                  .join(" - ")}{" "}
               </p>
               <p className="sm:text-lg md:text-xs">
                 {principle.ruling_type || "------"}
@@ -90,19 +93,8 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
             </div>
           </AccordionContent>
           <div className="flex justify-end items-center gap-3 mb-2.5 -mt-2 me-11">
-            <button
-              className={` flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 bg-white backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow`}
-              aria-label="Toggle bookmark"
-              title={"إضافة للمفضلة"}
-            >
-              <FaRegBookmark className="text-gray-700" />
-            </button>{" "}
-            <button
-              className={`flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 border bg-white backdrop-blur-sm hover:bg-white/80  border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow`}
-              title="مشاركة"
-            >
-              <Share2 className={`transition-colors text-gray-700`} size={16} />
-            </button>
+            <BookmarkButton item={principle} type="principle" />
+            <ShareButton item={principle} type="principle" />
             <CopyButton text={principle.brief} />
           </div>
         </div>
