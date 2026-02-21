@@ -8,10 +8,26 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Share2 } from "lucide-react";
 import { toast } from "sonner";
 
-type ShareType = "article" | "book" | "news" | "question" | "principle";
+type Assembly = {
+  uuid: string;
+  category: string;
+  title: string;
+  date: string;
+  brief: string;
+  body_html: string;
+  body_text: string;
+};
+
+type ShareType =
+  | "article"
+  | "book"
+  | "news"
+  | "question"
+  | "principle"
+  | "assembly";
 
 interface ShareButtonProps {
-  item: Article | BookData | NewsArticle | Iquestion | Principle;
+  item: Article | BookData | NewsArticle | Iquestion | Principle | Assembly;
   type: ShareType;
   size?: number;
   className?: string;
@@ -71,6 +87,15 @@ export function ShareButton({
           description:
             principle.brief?.replace(/<[^>]*>/g, "").substring(0, 200) +
               "..." || "",
+          url: window.location.href,
+        };
+      case "assembly":
+        const assembly = item as Assembly;
+        return {
+          title: assembly.title,
+          description:
+            assembly.brief?.replace(/<[^>]*>/g, "").substring(0, 200) + "..." ||
+            "",
           url: window.location.href,
         };
     }

@@ -44,7 +44,8 @@ export default async function GeneralAssemblyPage({
       <ReusableTabs
         tabs={dynamicTabs}
         defaultValue={categoriesData[0].uuid}
-        className="lg:mt-12"
+        className="lg:mt-0"
+        tabContentClassName="lg:mt-20"
       />
     </section>
   );

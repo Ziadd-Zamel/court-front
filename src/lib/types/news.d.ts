@@ -7,6 +7,9 @@ declare type NewsArticle = {
   image: string;
   video: string | null;
   created_at: string;
+  images: string[];
+  main_image: string;
+  publish_date: string;
 };
 
 declare type NewsResponse = {

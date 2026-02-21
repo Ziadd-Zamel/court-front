@@ -13,7 +13,7 @@ export default async function Page({
   const mainPage = Math.max(1, Number(resolvedSearchParams.page) || 1);
   const mainLimit = Math.max(
     1,
-    Math.min(50, Number(resolvedSearchParams.limit) || 10)
+    Math.min(50, Number(resolvedSearchParams.limit) || 10),
   );
   return (
     <>
@@ -21,7 +21,8 @@ export default async function Page({
       <MainHeading
         title="الدائرة الدستورية"
         description="القانون الليبي هو المرجع في الأعمال، لكن قدراً غير يسير منها يتوافق مع قوانين دول عربية لاسيما المصري، المصدر التاريخي للقانون الليبي ولكثير من القوانين العربية. تيسيراً للزائر في معرفة مدى تعلق العمل باهتمامه"
-        bgImage="/assets/bg-1.jpg"
+        bgImage="/assets/home-1.jpg"
+        overlay
       />
 
       {/** Main page content */}
