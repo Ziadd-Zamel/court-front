@@ -15,16 +15,16 @@ export const ROUTES: RouteItem[] = [
     path: "/litigants-portal",
   },
   {
+    name: "منظومة المبادئ",
+    path: "/principle",
+  },
+  {
     name: "الدائرة الدستورية",
     path: "/constitutional-court",
   },
   {
     name: "قضاء النقض",
     path: "/legal-principles",
-  },
-  {
-    name: "المبادئ القانونية",
-    path: "/principle",
   },
   {
     name: "مكتبة المحكمة العليا",
