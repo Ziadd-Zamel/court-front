@@ -60,11 +60,13 @@ export default function BookCard({
           <p className="absolute top-[130px] right-3 text-main text-xs">
             السنة
           </p>
-          <p className="absolute top-[150px] right-3 text-white text-sm">
+          <p className="absolute top-[145px] right-3 text-white text-base">
             {book.judicial_year || 0}
           </p>
-          <p className="absolute bottom-18 right-3 text-main text-xs">العدد</p>
-          <p className="absolute bottom-12 right-3 text-white text-sm">
+          <p className="absolute bottom-17.5 right-3 text-main text-xs">
+            العدد
+          </p>
+          <p className="absolute bottom-12 right-3 text-white text-base">
             {book.number || 0}
           </p>
         </>
