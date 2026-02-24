@@ -18,6 +18,7 @@ export default async function Page({
     appeal_year?: string;
     principle_number?: string;
     principle_year?: string;
+    session_date?: string;
   }>;
 }) {
   // Get the page and the limit from search params

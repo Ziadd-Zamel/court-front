@@ -40,6 +40,19 @@ const routeNameMap: { [key: string]: string } = {
   "/favorite/principles": "المبادئ المفضلة",
   "/principle": "المبادئ القانونية",
 };
+
+// UUID pattern — matches any segment that looks like a UUID or long ID
+const UUID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+// Map of parent path → detail label
+const dynamicSegmentMap: { [key: string]: string } = {
+  "/about-court/news": "تفاصيل الخبر",
+  "/legal-principles": "تفاصيل المبدأ",
+  "/litigants-portal/important-notices": "تفاصيل الإشعار",
+  "/litigants-portal/court-releases": "تفاصيل الإصدار",
+};
+
 interface CustomBreadcrumbProps {
   className?: string;
   black?: boolean;
@@ -51,13 +64,9 @@ export default function CustomBreadcrumb({
 }: CustomBreadcrumbProps) {
   const pathname = usePathname();
 
-  // Split pathname into segments and filter out empty strings
   const pathSegments = pathname.split("/").filter((segment) => segment !== "");
 
-  // If we're on the home page, don't show breadcrumb
-  if (pathname === "/") {
-    return null;
-  }
+  if (pathname === "/") return null;
 
   return (
     <Breadcrumb className={className}>
@@ -68,9 +77,9 @@ export default function CustomBreadcrumb({
             : "text-main hover:text-main/50",
         )}
       >
-        {/* Home item with icon */}
+        {/* Home */}
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" className="flex items-center ">
+          <BreadcrumbLink href="/" className="flex items-center">
             <Image
               src={"/assets/HomePage.svg"}
               alt="Home Icon"
@@ -88,11 +97,17 @@ export default function CustomBreadcrumb({
         {pathSegments.map((segment, index) => {
           const href = "/" + pathSegments.slice(0, index + 1).join("/");
           const isLast = index === pathSegments.length - 1;
+          const parentHref = "/" + pathSegments.slice(0, index).join("/");
 
-          const displayName =
-            routeNameMap[href] ||
-            segment.charAt(0).toUpperCase() +
-              segment.slice(1).replace(/-/g, " ");
+          // If segment looks like a UUID/ID, resolve a friendly label
+          const isId =
+            UUID_REGEX.test(segment) ||
+            (segment.length > 20 && !segment.includes(" "));
+          const displayName = isId
+            ? dynamicSegmentMap[parentHref] || "التفاصيل"
+            : routeNameMap[href] ||
+              segment.charAt(0).toUpperCase() +
+                segment.slice(1).replace(/-/g, " ");
 
           return (
             <div key={href} className="flex items-center">
@@ -105,7 +120,7 @@ export default function CustomBreadcrumb({
                   <BreadcrumbLink href={href}>{displayName}</BreadcrumbLink>
                 )}
               </BreadcrumbItem>
-              {!isLast && <BreadcrumbSeparator className="-ml-1 " />}
+              {!isLast && <BreadcrumbSeparator className="-ml-1" />}
             </div>
           );
         })}

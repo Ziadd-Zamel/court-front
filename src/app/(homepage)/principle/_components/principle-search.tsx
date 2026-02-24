@@ -11,6 +11,8 @@ import {
   OR_KEYWORD_HELP,
 } from "@/lib/constants/personal.constnat";
 import { SearchInput } from "../../supreme-court-library/_components/search-Input";
+import DateRangePicker from "@/components/common/date-range-picker";
+import DatePicker from "@/components/common/date-picker";
 
 export default function PrincipleSearch() {
   const router = useRouter();
@@ -162,6 +164,13 @@ export default function PrincipleSearch() {
               placeholder="أدرج السنة الميلادية. مثال: 2025"
             />
           </div>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2">
+            تاريخ الجلسة:
+          </div>
+
+          <DatePicker />
         </div>
       </div>
 

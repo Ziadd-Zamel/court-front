@@ -13,7 +13,7 @@ export default async function NewsPageRoute({
   const mainPage = Math.max(1, Number(resolvedSearchParams.page) || 1);
   const mainLimit = Math.max(
     1,
-    Math.min(50, Number(resolvedSearchParams.limit) || 15)
+    Math.min(50, Number(resolvedSearchParams.limit) || 15),
   );
 
   return (
@@ -21,8 +21,9 @@ export default async function NewsPageRoute({
       {/* Main Heading */}
       <MainHeading
         title="الأخبار"
-        bgImage="/assets/bg-2.jpg"
+        bgImage="/assets/aboute.jpg"
         description="أحدث الأخبار والتحديثات من المحكمة العليا"
+        overlay
       />
 
       {/* Main page content */}

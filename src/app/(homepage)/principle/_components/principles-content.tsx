@@ -25,6 +25,7 @@ type Props = {
     appeal_year?: string;
     principle_number?: string;
     principle_year?: string;
+    session_date?: string;
   };
 };
 export default async function PrinciplesContent({
@@ -42,7 +43,8 @@ export default async function PrinciplesContent({
     searchParams.appeal_number ||
     searchParams.appeal_year ||
     searchParams.principle_number ||
-    searchParams.principle_year,
+    searchParams.principle_year ||
+    searchParams.session_date,
   );
 
   const [payload, error] = await catchError(() =>
@@ -58,6 +60,7 @@ export default async function PrinciplesContent({
       appealYear: searchParams.appeal_year,
       principleNumber: searchParams.principle_number,
       principleYear: searchParams.principle_year,
+      session_date: searchParams.session_date,
     }),
   );
 

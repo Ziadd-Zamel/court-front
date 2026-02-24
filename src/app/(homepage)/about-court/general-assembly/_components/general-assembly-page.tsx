@@ -1,7 +1,5 @@
 import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
-import ArticleListSkeleton from "@/components/custom/article-list-skeleton";
 import { getAssemblySub } from "@/lib/api/subcategories";
-import { Suspense } from "react";
 import AssemblyContent from "./assembly-page";
 
 type Props = {
@@ -19,21 +17,33 @@ export default async function GeneralAssemblyPage({
   const data = await getAssemblySub();
   const categoriesData = data?.data || [];
 
+  // Static tab
+  const staticTab: TabItem = {
+    label: "عن الجمعية",
+    value: "about-assembly",
+    heading: "عن الجمعية",
+    component: (
+      <p className="text-justify text-gray-600 md:text-sm indent-7 leading-6">
+        نص عن الجمعية يمكن تعديله لاحقاً
+      </p>
+    ),
+  };
+
   // Dynamic tabs from categories
   const dynamicTabs: TabItem[] = categoriesData.map((category) => ({
     label: category.name,
     value: category.uuid,
     heading: category.name,
     component: (
-      <Suspense fallback={<ArticleListSkeleton />}>
-        <AssemblyContent
-          search={search}
-          uuid={category.uuid}
-          pagination={pagination}
-        />
-      </Suspense>
+      <AssemblyContent
+        search={search}
+        uuid={category.uuid}
+        pagination={pagination}
+      />
     ),
   }));
+
+  const tabs = [...dynamicTabs, staticTab];
 
   return (
     <section
@@ -42,8 +52,8 @@ export default async function GeneralAssemblyPage({
       className="relative pt-10 w-full box-container mb-80"
     >
       <ReusableTabs
-        tabs={dynamicTabs}
-        defaultValue={categoriesData[0].uuid}
+        tabs={tabs}
+        defaultValue={staticTab.value}
         className="lg:mt-0"
         tabContentClassName="lg:mt-20"
       />

@@ -12,6 +12,7 @@ interface AdvancedSearchParams {
   appealYear?: string;
   principleNumber?: string;
   principleYear?: string;
+  session_date?: string;
 }
 
 export const getPrincipleTypes = async (
@@ -55,6 +56,7 @@ export const getPrincipleBySearch = async (
     appealYear,
     principleNumber,
     principleYear,
+    session_date,
   } = params;
 
   // Queries
@@ -70,6 +72,7 @@ export const getPrincipleBySearch = async (
     appeal_year: appealYear,
     principle_number: principleNumber,
     principle_year: principleYear,
+    session_date: session_date,
   });
 
   // url

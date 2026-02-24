@@ -1,4 +1,4 @@
-import { getNewsArticles } from "@/lib/api/news";
+import { getArticlesNewsByCategory } from "@/lib/api/news";
 import catchError from "@/lib/utils/catch-error";
 import NewsCard from "@/components/common/news-card";
 import CourtPagination from "@/components/custom/court-pagination";
@@ -6,21 +6,28 @@ import ErrorState from "@/components/custom/error-state";
 import NoDataState from "@/components/custom/no-data-state";
 import NoSearchResults from "@/components/custom/no-result";
 
-interface NewsTabProps {
+interface NewsByCategoryProps {
   pagination: {
     currentPage: number;
     limit: number;
   };
   searchQuery?: string;
+  id: string;
 }
 
-export default async function NewsTab({
+export default async function NewsByCategory({
   pagination,
   searchQuery,
-}: NewsTabProps) {
+  id,
+}: NewsByCategoryProps) {
   // Get all the data
   const [data, error] = await catchError(() =>
-    getNewsArticles(pagination.currentPage, pagination.limit, searchQuery),
+    getArticlesNewsByCategory(
+      id,
+      searchQuery,
+      pagination.currentPage,
+      pagination.limit,
+    ),
   );
 
   // Empty data State

@@ -22,6 +22,7 @@ type Props = {
     appeal_year?: string;
     principle_number?: string;
     principle_year?: string;
+    session_date?: string;
   };
 };
 
@@ -64,6 +65,11 @@ export default async function PrinciplePage({
           showSearch={false}
           showHeading={false}
           tabContentClassName="lg:mt-0"
+          tablistUpContent={
+            <p className="text-start self-start mb-5 text-gray-600 font-medium text-lg">
+              اختر مجالا او اكثر للبحث
+            </p>
+          }
         />
       </section>
       <ContactSection title="شارك بملاحظاتك من أجل تطوير منظومة البحث" />

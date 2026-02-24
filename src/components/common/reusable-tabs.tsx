@@ -19,6 +19,7 @@ interface ReusableTabsProps {
   className?: string;
   tabListClassName?: string;
   tabContentClassName?: string;
+  tablistUpContent?: ReactNode;
 }
 
 export default function ReusableTabs({
@@ -30,6 +31,7 @@ export default function ReusableTabs({
   className = "",
   tabListClassName = "",
   tabContentClassName = "",
+  tablistUpContent,
 }: ReusableTabsProps) {
   const defaultTab = defaultValue || tabs[0]?.value || "";
 
@@ -44,6 +46,8 @@ export default function ReusableTabs({
         <TabsList
           className={`flex flex-col relative items-center gap-1 md:px-20 lg:px-0 lg:max-w-[330px] w-full bg-transparent mt-40 ${tabListClassName}`}
         >
+          {tablistUpContent && tablistUpContent}
+
           {showSearch && (
             <div className="w-full mb-12">
               <SearchBar />

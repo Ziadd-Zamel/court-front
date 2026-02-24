@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,23 +10,44 @@ interface NewsCardProps {
 }
 
 export default function NewsCard({ article }: NewsCardProps) {
-  console.log(article);
+  // Fallback Image
+  const fallbackImage =
+    "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=300&fit=crop&crop=center";
+
+  // Vraiables
+  const hasVideo = !!article.main_video;
+
+  // main
+  const imageUrl =
+    article.main_image && !article.main_image.includes("default-article")
+      ? article.main_image
+      : article.images?.[0] || fallbackImage;
+
   return (
     <div className="bg-white overflow-hidden">
-      {/* Image */}
+      {/* Media: Video or Image */}
       <div className="relative h-48 w-full">
-        <Image
-          src={article.main_image || article.images[0]}
-          alt={article.title}
-          fill
-          className="object-cover"
-          onError={(e) => {
-            // Fallback to placeholder if image fails to load
-            const target = e.target as HTMLImageElement;
-            target.src =
-              "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=300&fit=crop&crop=center";
-          }}
-        />
+        {hasVideo ? (
+          <video
+            src={article.main_video!}
+            className="w-full h-full object-cover"
+            controls
+            preload="metadata"
+          />
+        ) : (
+          <Image
+            src={
+              "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=300&fit=crop&crop=center"
+            }
+            alt={article.title}
+            fill
+            className="object-cover"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = fallbackImage;
+            }}
+          />
+        )}
       </div>
 
       {/* Content */}
@@ -38,7 +60,7 @@ export default function NewsCard({ article }: NewsCardProps) {
           <span className="text-black text-xs">{article.publish_date}</span>
         </div>
 
-        {/* Title - 2 lines max */}
+        {/* Title */}
         <h3 className="text-sm font-medium text-gray-800 mb-3 line-clamp-2 leading-tight mt-5 min-h-[80px]">
           {article.title}
         </h3>
@@ -52,7 +74,6 @@ export default function NewsCard({ article }: NewsCardProps) {
             <ShareButton item={article} type="news" />
           </div>
 
-          {/* More Button - Always show as link */}
           <Link
             href={`/about-court/news/${article.uuid}`}
             className="flex items-center gap-1 text-main hover:text-main/80 transition-colors"

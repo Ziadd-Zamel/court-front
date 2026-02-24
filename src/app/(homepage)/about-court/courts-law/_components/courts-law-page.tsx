@@ -22,7 +22,7 @@ export default async function CourtLawsPage({}: Props) {
   if (!data || data?.data.length === 0) {
     return <NoDataState />;
   }
-
+  console.log(data);
   // Tabs data configuration
   const courtReleaseTabs: TabItem[] =
     data?.data?.map((law: Law) => ({
