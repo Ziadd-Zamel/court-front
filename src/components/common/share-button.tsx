@@ -68,9 +68,7 @@ export function ShareButton({
         return {
           title: news.title,
           description:
-            news["content-text"]?.substring(0, 200) + "..." ||
-            news.category ||
-            "",
+            news.content_text?.substring(0, 200) + "..." || news.category || "",
           url: window.location.href,
         };
       case "question":
