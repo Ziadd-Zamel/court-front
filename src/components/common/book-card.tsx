@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useMemo } from "react";
 import Link from "next/link";
 import { BookmarkButton } from "./bookmark-button";
-import { DownloadButton } from "./download-button";
 import { PrintButton } from "./print-button";
 import { ShareButton } from "./share-button";
 
@@ -37,9 +36,9 @@ export default function BookCard({
   return (
     <Link
       href={`/books/${book.uuid}`}
-      className="cursor-pointer w-[120px] sm:w-[184px] relative"
+      className="cursor-pointer w-[120px] sm:w-[160px] relative"
     >
-      <div className="relative h-40 sm:h-60 w-full mb-2">
+      <div className="relative h-40 sm:h-50 w-full mb-2">
         <Image
           src={bookImage}
           alt={book.title}
@@ -51,10 +50,6 @@ export default function BookCard({
         <div className="flex justify-start gap-1">
           {/* Favorite */}
           <BookmarkButton item={book} type="book" />
-
-          {/* Download PDF */}
-          <DownloadButton url={book.pdf_url} />
-
           <PrintButton url={book.pdf_url} />
           {/* Share */}
           <ShareButton item={book} type="book" />
@@ -65,12 +60,12 @@ export default function BookCard({
           <p className="absolute top-[130px] right-3 text-main text-xs">
             السنة
           </p>
-          <p className="absolute top-[150px] right-3 text-white text-base">
-            {book.published_year || 0}
+          <p className="absolute top-[150px] right-3 text-white text-sm">
+            {book.judicial_year || 0}
           </p>
-          <p className="absolute bottom-20 right-3 text-main text-xs">العدد</p>
-          <p className="absolute bottom-12 right-3 text-white text-base">
-            {book.book_number || 0}
+          <p className="absolute bottom-18 right-3 text-main text-xs">العدد</p>
+          <p className="absolute bottom-12 right-3 text-white text-sm">
+            {book.number || 0}
           </p>
         </>
       )}
@@ -81,11 +76,11 @@ export default function BookCard({
           </p>
           <div className="flex flex-col items-center gap-2 absolute bottom-16 left-[43%] -translate-1/2">
             <p className=" text-main text-[10px]">السنة</p>
-            <p className=" text-white text-sm">{book.published_year || 0}</p>
+            <p className=" text-white text-xs">{book.published_year || 0}</p>
           </div>
           <div className="flex flex-col items-center gap-2 absolute bottom-5 left-[43%] -translate-1/2">
             <p className=" text-main text-[10px]">الجزء</p>
-            <p className=" text-white text-sm">
+            <p className=" text-white text-xs">
               {book.release_type_value || 0}
             </p>
           </div>

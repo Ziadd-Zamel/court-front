@@ -2,6 +2,7 @@
 import { useState } from "react";
 import PageContent from "./page-content";
 import Sidebar from "./Sidebar";
+import ContactSection from "@/components/custom/contact-section";
 
 export default function AppealInquiryPage() {
   const [showstates, setShowstates] = useState<boolean>(false);
@@ -14,6 +15,7 @@ export default function AppealInquiryPage() {
           <Sidebar showstates={showstates} />
         </div>
       </div>
+      <ContactSection />
     </>
   );
 }

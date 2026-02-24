@@ -19,7 +19,7 @@ export default async function CategoryBooks({
   pagination: Props["pagination"];
 }) {
   const [data, error] = await catchError(() =>
-    getBooksByCategory(pagination.currentPage, 20, categoryUuid),
+    getBooksByCategory(pagination.currentPage, 40, categoryUuid),
   );
 
   if (!data || data.data.length === 0) {

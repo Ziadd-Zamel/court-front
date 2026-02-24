@@ -7,4 +7,8 @@ declare type Assembly = {
   body_html: string;
   body_text: string;
   pdf: null | string;
+  items: {
+    body: string;
+    title: string;
+  }[];
 };

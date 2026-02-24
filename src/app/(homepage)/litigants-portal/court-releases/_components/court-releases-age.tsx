@@ -1,6 +1,5 @@
 import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
 import AvailablePublications from "./available-publications";
-import ComingSoon from "@/components/custom/coming-soon";
 import PrintingPublishingService from "@/components/custom/printing-publishing-service";
 import CourtPublications from "@/components/custom/court-publications";
 type Props = {
@@ -23,12 +22,7 @@ export default function CourtReleasesPage({ pagination }: Props) {
       value: "court-publications",
       component: <CourtPublications pagination={pagination} />,
     },
-    {
-      label: "البحث في الإصدارات",
-      value: "search-publications",
-      heading: "البحث في الإصدارات",
-      component: <ComingSoon />,
-    },
+
     {
       label: "الإصدارات المتوفرة",
       value: "available-publications",

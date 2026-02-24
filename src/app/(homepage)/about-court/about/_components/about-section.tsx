@@ -13,7 +13,7 @@ export default function AboutSection() {
         />
       </div>
       <div className="flex flex-col w-full lg:w-2/3 -mt-3">
-        <h2 className="text-main text-4xl mb-5">نبذة عن المحكمة</h2>
+        <h2 className="text-main text-4xl mb-5">عن المحكمة العليا</h2>
         <div className="flex flex-col gap-5 mt-2">
           <p className="font-medium text-justify text-sm">
             تعتلي المحكمة العليا قمة هرم السلطة القضائية في ليبيا. تتمحور

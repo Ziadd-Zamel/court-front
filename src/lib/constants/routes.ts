@@ -35,11 +35,11 @@ export const ROUTES: RouteItem[] = [
     path: "/technical-office",
   },
   {
-    name: "عن المحكمة",
+    name: "التنظيم وشؤون المحكمة",
     path: "/about-court/about",
     // children: [
     //   {
-    //     name: "نبذة عن المحكمة",
+    //     name: "عن المحكمة العليا",
     //     path: "/about-court/about",
     //   },
     //   {

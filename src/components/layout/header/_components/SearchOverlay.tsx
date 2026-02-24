@@ -42,8 +42,8 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
               <input
                 dir="rtl"
                 type="text"
-                placeholder="بحث"
-                className="w-full bg-transparent pl-12 pr-4 text-right text-4xl text-white placeholder:text-right placeholder:text-white focus:outline-none"
+                placeholder="ابحث في الموقع"
+                className="w-full bg-transparent pl-12 pr-4 text-right text-lg text-white placeholder:text-right placeholder:text-lg placeholder:text-gray-100/50 focus:outline-none"
                 autoFocus
               />
               <Search className="absolute left-0 top-1/2 h-8 w-8 -translate-y-1/2 text-white" />

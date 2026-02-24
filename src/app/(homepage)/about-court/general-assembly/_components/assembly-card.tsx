@@ -38,7 +38,7 @@ const AssemblyCard = ({ assembly }: AssemblyCardProps) => {
   };
 
   const { day, month, year } = formatDate(assembly.date);
-  const hasBrief = !!assembly.brief;
+  const hasBrief = !!assembly.items[0].body;
 
   return (
     <AccordionItem
@@ -70,12 +70,14 @@ const AssemblyCard = ({ assembly }: AssemblyCardProps) => {
               </AccordionTrigger>
 
               <AccordionContent>
-                <p className="text-gray-600 text-sm">{assembly.brief}</p>
+                <p className="text-gray-600 text-sm">
+                  {assembly.items[0].body}
+                </p>
               </AccordionContent>
 
               <div className="flex justify-end items-center gap-3 mb-2.5 me-11">
                 <ShareButton item={assembly} type="assembly" />
-                <CopyButton text={assembly.brief} />
+                <CopyButton text={assembly.items[0].body} />
               </div>
             </>
           ) : (

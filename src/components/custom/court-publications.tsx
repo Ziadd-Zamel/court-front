@@ -48,7 +48,7 @@ export default async function CourtPublications({
     <SecondaryTabs
       tabListClassName={"pt-20 lg:pt-0 lg:mt-[-45px]"}
       tabs={categoryTabs}
-      defaultValue="supreme_court"
+      defaultValue={categoriesData.data[0].uuid}
     />
   );
 }

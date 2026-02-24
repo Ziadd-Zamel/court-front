@@ -60,7 +60,7 @@ export default function ImportantNoticesPage({
   } = useQuery({
     queryKey: ["questions", activeTab, currentPage, searchQuery],
     queryFn: () =>
-      getAllQuestion(activeTab, 10, currentPage, searchQuery || ""),
+      getAllQuestion(activeTab, 15, currentPage, searchQuery || ""),
   });
 
   //Handles tab change event
@@ -131,13 +131,16 @@ export default function ImportantNoticesPage({
           <div className="w-full">
             {TabsData.map((tab) => (
               <TabsContent
-                className=" mt-52 lg:-mt-22 w-full relative "
+                className=" -mt-7 w-full relative"
                 key={tab.uuid}
                 value={tab.uuid}
               >
-                <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-3xl">
-                  {tab.title}
-                </h3>
+                <div className="mb-10 text-right">
+                  <h3 className="text-2xl font-bold text-main lg:text-3xl">
+                    {tab.title}
+                  </h3>
+                  <div className="mt-2 h-[2px] w-56 bg-main" />
+                </div>
 
                 {/* Loading state */}
                 {questionsLoading ? (
@@ -173,7 +176,7 @@ export default function ImportantNoticesPage({
                                 }}
                               ></div>
                             </AccordionContent>
-                            <div className="flex justify-end items-center gap-3 mb-5">
+                            <div className="flex justify-end items-center gap-3 mb-5 me-10">
                               <BookmarkButton item={question} type="question" />
                               <ShareButton item={question} type="question" />
                             </div>

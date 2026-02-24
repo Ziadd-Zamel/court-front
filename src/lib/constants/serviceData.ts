@@ -37,7 +37,7 @@ export const AboutCourt = [
     path: "/about-court/judges",
   },
   {
-    title: "نبذة عن المحكمة",
+    title: "عن المحكمة العليا",
     description:
       "حزمة من القوانين الخاصة بعمل المحكمة العليا مع نصوص أخرى من قانون المرافعات",
     icon: BarChart,

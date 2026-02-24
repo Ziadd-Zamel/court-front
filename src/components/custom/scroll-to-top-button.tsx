@@ -44,8 +44,8 @@ export default function ScrollToTopButton({
         <button
           onClick={scrollToTop}
           className={cn(
-            "fixed bottom-3 right-3 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#B5975C] text-white shadow-lg transition-all duration-300 hover:bg-[#C4A66A] hover:scale-110 focus:outline-none focus:ring-4 focus:ring-[#B5975C] focus:ring-opacity-50",
-            className
+            "fixed bottom-3 cursor-pointer right-3 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-main text-white shadow-lg transition-all duration-300 hover:bg-main/80  hover:scale-110 focus:outline-none focus:ring-4 focus:ring-[#B5975C] focus:ring-opacity-50",
+            className,
           )}
           aria-label="العودة إلى أعلى الصفحة"
         >

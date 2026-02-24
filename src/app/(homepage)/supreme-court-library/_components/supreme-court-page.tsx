@@ -1,10 +1,8 @@
 import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
-import ComingSoon from "@/components/custom/coming-soon";
 import CourtPublications from "@/components/custom/court-publications";
 import BooksContent from "./books-content";
 import SearchBooks from "./search-books";
 import VistorServices from "./vistor-services";
-import PersonalStatus from "./personal-status";
 type Props = {
   pagination: {
     currentPage: number;
@@ -36,21 +34,11 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
       value: "court-publications",
       component: <CourtPublications pagination={pagination} />,
     },
-    {
-      label: "البحث في الإصدارات",
-      value: "search-publications",
-      heading: "البحث في الإصدارات",
-      component: <ComingSoon />,
-    },
+
     {
       label: "خدمات الرواد",
       value: "vistor-services",
       component: <VistorServices />,
-    },
-    {
-      label: "احوال شعصية",
-      value: "personal-status",
-      component: <PersonalStatus />,
     },
   ];
   return (

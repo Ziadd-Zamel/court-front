@@ -15,7 +15,7 @@ const HeroSlides4 = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            المبادئ القانونية
+            منصة المبادئ القانونية
           </motion.h1>
 
           <motion.div
@@ -31,7 +31,7 @@ const HeroSlides4 = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: 0.8 }}
             >
-              قواعد أرستها المحكمة العليا في قضايا{" "}
+              منظومة بحث في كل المبادئ التي أرستها المحكمة العليا في قضايا
             </motion.p>
             <motion.p
               className="mt-2 text-center text-xs sm:text-lg text-main lg:text-xl"
@@ -39,8 +39,8 @@ const HeroSlides4 = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: 1.0 }}
             >
-              الأحوال الشخصية – النقض الإداري – النقض المدني – النقض الجنائي-
-              الدوائر مجتمعة{" "}
+              الأحوال الشخصية – الإداري – المدني – الجنائي – الدستوري – الدوائر
+              مجتمعة{" "}
             </motion.p>
 
             <motion.div

@@ -5,6 +5,8 @@ declare type BookData = {
   author: string;
   book_number: nuumber;
   publisher: string;
+  judicial_year: string;
+  number: string;
   published_year: string;
   book_image: string;
   pdf_url: string;
