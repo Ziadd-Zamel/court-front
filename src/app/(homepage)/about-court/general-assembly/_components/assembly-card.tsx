@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 import { Slash } from "lucide-react";
 
 type AssemblyCardProps = {
@@ -38,7 +39,7 @@ const AssemblyCard = ({ assembly }: AssemblyCardProps) => {
   };
 
   const { day, month, year } = formatDate(assembly.date);
-  const hasBrief = !!assembly.items[0].body;
+  const hasBrief = !!assembly?.items[0]?.body;
 
   return (
     <AccordionItem
@@ -70,9 +71,22 @@ const AssemblyCard = ({ assembly }: AssemblyCardProps) => {
               </AccordionTrigger>
 
               <AccordionContent>
-                <p className="text-gray-600 text-sm">
-                  {assembly.items[0].body}
-                </p>
+                {assembly.items.map((item, index) => {
+                  const cleanedBodyHtml = cleanHtmlStyles(item.body);
+
+                  return (
+                    <div key={index} className="space-y-3">
+                      <h6 className="mt-5 text-center font-zain text-xl font-bold text-main">
+                        {item.title}{" "}
+                      </h6>
+                      <div
+                        style={{ direction: "rtl" }}
+                        className="!text-justify !font-zain !font-normal !text-sm text-gray-500"
+                        dangerouslySetInnerHTML={{ __html: cleanedBodyHtml }}
+                      />{" "}
+                    </div>
+                  );
+                })}
               </AccordionContent>
 
               <div className="flex justify-end items-center gap-3 mb-2.5 me-11">

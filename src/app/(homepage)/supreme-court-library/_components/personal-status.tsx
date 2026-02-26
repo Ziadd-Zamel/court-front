@@ -103,7 +103,7 @@ export default function PersonalStatus() {
             <SearchInput
               value={principleYear ?? ""}
               onChange={setPrincipleYear}
-              placeholder="أدرج السنة الميلادية. مثال: 2025"
+              placeholder="أدرج السنة الميلادية. مثال: 2026"
             />
             <SearchInput
               value={principleNumber ?? ""}

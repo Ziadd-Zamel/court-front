@@ -21,10 +21,10 @@ const FirstSectoin = () => {
             height={200}
             className="absolute left-1/2 top-5 h-[200px] w-[200px] -translate-x-1/2 transform"
           />
-          <div className="absolute bottom-14 right-5">
-            <div className="w-fit">
+          <div className="absolute bottom-12 right-5">
+            <div className="w-fit -mb-6">
               <div className="relative">
-                <p className="text-[140px] text-black font-merriweather font-extrabold -mt-5">
+                <p className="text-[140px] text-black font-merriweather font-extrabold -mt-0">
                   73
                 </p>
                 <span className="absolute top-[135px] text-xl font-bold -left-10 text-black">

@@ -15,7 +15,7 @@ export const ROUTES: RouteItem[] = [
     path: "/litigants-portal",
   },
   {
-    name: "منظومة المبادئ",
+    name: "منصة المبادئ القانونية",
     path: "/principle",
   },
   {

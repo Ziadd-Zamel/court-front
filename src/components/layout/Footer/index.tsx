@@ -33,7 +33,7 @@ const Footer = () => {
             <p className="font-zain">
               ﺟﻤﻴﻊ الحقوق ﻣﺤﻔﻮﻇﺔ،{" "}
               <span className="font-semibold text-white">المحكمة العليا</span>،
-              2025
+              2026
             </p>
           </div>
         </div>

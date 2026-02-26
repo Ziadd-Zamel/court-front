@@ -21,7 +21,7 @@ const SecondeSectoin = () => {
           </p>
         </div>
       </div>
-      <div className="flex flex-col justify-start mt-8 gap-5">
+      <div className="flex flex-col justify-start mt-8 gap-5 -mr-6">
         <h4 className="text-main font-medium text-lg">بنغازي</h4>
         <div className="flex items-center gap-3">
           <FaLocationDot className="text-main" />

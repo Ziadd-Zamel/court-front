@@ -161,7 +161,7 @@ export default function PrincipleSearch() {
             <SearchInput
               value={principleYear ?? ""}
               onChange={setPrincipleYear}
-              placeholder="أدرج السنة الميلادية. مثال: 2025"
+              placeholder="أدرج السنة الميلادية. مثال: 2026"
             />
           </div>
         </div>

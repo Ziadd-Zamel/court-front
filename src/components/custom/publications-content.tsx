@@ -37,7 +37,7 @@ export default async function PublicationsContent({
   return (
     <>
       {/** Main content */}
-      <div className="flex w-full justify-center lg:justify-start">
+      <div className="flex w-full justify-center lg:justify-start mt-10">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-2 min-[1230]:grid-cols-3! min-[1300]:grid-cols-5! gap-y-16 mt-10">
           {data?.data.map((book, index) => (
             <BookCard

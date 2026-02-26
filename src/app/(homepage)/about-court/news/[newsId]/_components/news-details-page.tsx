@@ -43,7 +43,7 @@ export default async function NewsPageDetails({ id }: { id: string }) {
 
         {/* Body text */}
         <div
-          className="prose prose-lg max-w-none text-gray-700 leading-relaxed text-right mb-12"
+          className="prose prose-lg max-w-none text-gray-700 text-sm leading-relaxed text-right mb-12"
           dangerouslySetInnerHTML={{ __html: data.data.content_html }}
         />
 
