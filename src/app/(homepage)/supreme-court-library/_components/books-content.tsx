@@ -42,7 +42,7 @@ export default async function BooksContent({ pagination }: Props) {
     <section
       id="BooksCategories"
       aria-labelledby="Books Categories Page"
-      className="relative pt-10 w-full box-container mb-20"
+      className="relative pt-10 w-full mb-20"
     >
       <SecondaryTabs
         tabs={categoryTabs}

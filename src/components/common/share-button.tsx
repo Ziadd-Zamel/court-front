@@ -24,10 +24,18 @@ type ShareType =
   | "news"
   | "question"
   | "principle"
-  | "assembly";
+  | "assembly"
+  | "law";
 
 interface ShareButtonProps {
-  item: Article | BookData | NewsArticle | Iquestion | Principle | Assembly;
+  item:
+    | Article
+    | BookData
+    | NewsArticle
+    | Iquestion
+    | Principle
+    | Assembly
+    | { uuid: string; title: string | null };
   type: ShareType;
   size?: number;
   className?: string;
@@ -94,6 +102,13 @@ export function ShareButton({
           description:
             assembly.brief?.replace(/<[^>]*>/g, "").substring(0, 200) + "..." ||
             "",
+          url: window.location.href,
+        };
+      case "law":
+        const law = item as { uuid: string; title: string | null };
+        return {
+          title: law.title || "قانون",
+          description: "",
           url: window.location.href,
         };
     }

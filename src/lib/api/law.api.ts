@@ -11,3 +11,31 @@ export const getAllLaws = async () => {
   const payload: APIResponse<Law[]> = await response.json();
   return payload;
 };
+
+export const getLawByType = async (type: LawTypeSlug) => {
+  const url = `${process.env.API}laws/${type}`;
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: APIResponse<Law> = await response.json();
+  return payload;
+};
+
+export const getOtherLaws = async () => {
+  const url = `${process.env.API}laws/other`;
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: APIResponse<Law[]> = await response.json();
+  return payload;
+};

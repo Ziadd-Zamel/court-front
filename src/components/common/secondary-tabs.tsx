@@ -34,38 +34,42 @@ export default function SecondaryTabs({
       defaultValue={defaultTab}
       className={`w-full ${className}`}
     >
-      <TabsList
-        className={`bg-transparent  max-w-[400px] justify-between sm:justify-start gap-2 sm:gap-5 w-full pt-20 lg:pt-0 ${tabListClassName}`}
-      >
-        {tabs.map((tab) => (
-          <TabsTrigger
-            key={tab.value}
-            className={`
-    data-[state=active]:bg-transparent 
-    cursor-pointer 
-    border-b-2 
-    border-b-main 
-    rounded-none 
-    px-0 sm:px-3
-    pb-3 sm:pb-6 
-    text-sm sm:text-base
-    transition-all 
-    duration-300 
-    ease-in-out
-    hover:border-b-main/60
-    hover:text-main/80
-    data-[state=active]:border-b-[8px] 
-    data-[state=active]:border-b-main 
-    data-[state=active]:shadow-none 
-    data-[state=active]:hover:border-b-main
-    ${tabTriggerClassName}
-  `}
-            value={tab.value}
+      <div className="flex items-center justify-start w-full">
+        <div className="max-w-[880px] w-full overflow-x-auto scrollbar-tabs pb-1">
+          <TabsList
+            className={`bg-transparent justify-between sm:justify-start gap-2 sm:gap-5 w-full pt-20 lg:pt-0 ${tabListClassName}`}
           >
-            {tab.label}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+            {tabs.map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                className={`
+              data-[state=active]:bg-transparent 
+            cursor-pointer 
+            border-b-2 
+            border-b-main 
+            rounded-none 
+            px-0 sm:px-3
+            pb-3 sm:pb-6 
+            text-sm sm:text-base
+            transition-all 
+            duration-300 
+            ease-in-out
+            hover:border-b-main/60
+            hover:text-main/80
+            data-[state=active]:border-b-[8px] 
+            data-[state=active]:border-b-main 
+            data-[state=active]:shadow-none 
+            data-[state=active]:hover:border-b-main
+            ${tabTriggerClassName}
+            `}
+                value={tab.value}
+              >
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+      </div>
 
       {tabs.map((tab) => (
         <TabsContent

@@ -36,11 +36,11 @@ export const ROUTES: RouteItem[] = [
   },
   {
     name: "التنظيم وشؤون المحكمة",
-    path: "/about-court/about",
+    path: "/about-court",
     // children: [
     //   {
     //     name: "عن المحكمة العليا",
-    //     path: "/about-court/about",
+    //     path: "/about-court",
     //   },
     //   {
     //     name: "المستشارون بالمحكمة",

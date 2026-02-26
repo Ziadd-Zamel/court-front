@@ -36,7 +36,7 @@ export default function BookCard({
   return (
     <Link
       href={`/books/${book.uuid}`}
-      className="cursor-pointer w-[120px] sm:w-[160px] relative"
+      className="cursor-pointer w-[120px] sm:w-[160px] relative block transition-shadow duration-300 hover:shadow-[0_0_12px_2px_rgba(0,0,0,0.85)]  hover:border-black border-transparent border-1"
     >
       <div className="relative h-40 sm:h-50 w-full mb-2">
         <Image

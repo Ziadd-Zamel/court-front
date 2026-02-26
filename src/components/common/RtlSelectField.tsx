@@ -43,19 +43,19 @@ export default function RtlSelectField({
   const getDisplayName = () => {
     if (!value) return placeholder;
     const selectedOption = options.find(
-      (option) => option.id.toString() === value
+      (option) => option.id.toString() === value,
     );
     return selectedOption?.classname || placeholder;
   };
 
   return (
     <div className="flex sm:flex-row flex-col sm:items-center gap-5">
-      <label className=" w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] px-3 py-2 text-xs font-semibold text-gray-700 sm:py-[14px] sm:text-xl lg:text-lg min-[1200px]:text-xl">
+      <label className=" w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] px-3 py-2 text-xs font-semibold text-gray-700 sm:py-[14px] sm:text-xs lg:text-sm">
         {label}
       </label>
       <div className="relative sm:w-3/4" ref={dropdownRef}>
         <div
-          className="flex cursor-pointer items-center justify-between rounded-md bg-[#FBF3E0] px-3 py-1 sm:py-4"
+          className="flex items-center justify-between cursor-pointer w-full rounded-md bg-[#FBF3E0] px-3 py-1 placeholder:text-xs placeholder:text-gray-400 sm:py-[12px] sm:placeholder:text-xs sm:text-xs lg:text-sm"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
           <span
