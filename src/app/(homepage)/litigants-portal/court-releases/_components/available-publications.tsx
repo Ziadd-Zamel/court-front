@@ -1,4 +1,4 @@
-import { getBooksByType } from "@/lib/api/books";
+import { getAvailableBooks } from "@/lib/api/books";
 import catchError from "@/lib/utils/catch-error";
 import BookCard from "@/components/common/book-card";
 import ErrorState from "@/components/custom/error-state";
@@ -15,7 +15,7 @@ type Props = {
 export default async function AvailablePublications({ pagination }: Props) {
   // Get all the data
   const [data, error] = await catchError(() =>
-    getBooksByType(pagination.currentPage, 20)
+    getAvailableBooks(pagination.currentPage, 20),
   );
 
   // Empty data State
@@ -31,28 +31,28 @@ export default async function AvailablePublications({ pagination }: Props) {
   return (
     <>
       {/** Main content */}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16 mt-10">
-        {data?.data.map((book, index) => (
-          <BookCard
-            image="/assets/mahazine.png"
-            type={"magazine"}
-            hideIcons
-            key={book.uuid}
-            book={book}
-            issueNumber={index + 1}
-          />
-        ))}
+      <div className="flex w-full justify-center lg:justify-start mt-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-2 min-[1230]:grid-cols-3! min-[1300]:grid-cols-5! gap-y-16 mt-10">
+          {data?.data.map((book, index) => (
+            <BookCard
+              type={"magazine"}
+              image="/assets/mahazine.png"
+              key={book.uuid}
+              book={book}
+              issueNumber={index + 1}
+            />
+          ))}
+        </div>
       </div>
 
-      {/**Pagination ( show only if the data is biger than 30) */}
-      {/* {data.data.length >= 20 && (
+      {data.data.length >= 20 && (
         <div className="flex justify-center mt-8">
           <CourtPagination
             pagination={pagination}
             totalPages={data.meta.last_page}
           />
         </div>
-      )} */}
+      )}
     </>
   );
 }

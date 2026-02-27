@@ -1,11 +1,14 @@
-import { getOtherLaws } from "@/lib/api/law.api";
+import { getOtherLawCategories, OtherLawCategory } from "@/lib/api/law.api";
 import catchError from "@/lib/utils/catch-error";
 import ErrorState from "@/components/custom/error-state";
 import NoDataState from "@/components/custom/no-data-state";
-import OtherLawCard from "./other-law-card";
+import SecondaryTabs, {
+  SecondaryTabItem,
+} from "@/components/common/secondary-tabs";
+import OtherLawsByCategory from "./other-laws-by-category";
 
 export default async function OtherLawsContent() {
-  const [data, error] = await catchError(() => getOtherLaws());
+  const [data, error] = await catchError(() => getOtherLawCategories());
 
   if (error) return <ErrorState />;
 
@@ -13,11 +16,20 @@ export default async function OtherLawsContent() {
     return <NoDataState />;
   }
 
+  const tabs: SecondaryTabItem[] = data.data.map(
+    (category: OtherLawCategory) => ({
+      label: category.name,
+      value: category.uuid,
+      component: <OtherLawsByCategory categoryUuid={category.uuid} />,
+    }),
+  );
+
   return (
-    <div className="flex flex-col">
-      {data.data.map((law) => (
-        <OtherLawCard key={law.uuid} law={law} />
-      ))}
-    </div>
+    <SecondaryTabs
+      tabs={tabs}
+      direction="rtl"
+      tabListClassName="pt-0"
+      tabContentClassName="mt-10"
+    />
   );
 }

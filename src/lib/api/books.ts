@@ -28,6 +28,7 @@ export const getBooksByType = async (
   const payload: APIResponse<BookData[]> = await response.json();
   return payload;
 };
+
 export const getBooksSeach = async (
   title?: string,
   author?: string,
@@ -77,6 +78,28 @@ export const getPendingBooks = async (
   }
 
   const payload: APIResponse<PendingBook[]> = await response.json();
+  return payload;
+};
+
+export const getAvailableBooks = async (
+  page: number = 1,
+  perPage: number = 10,
+) => {
+  const params = new URLSearchParams({
+    page: page.toString(),
+    per_page: perPage.toString(),
+  });
+
+  const url = `${process.env.API}publications/available?${params.toString()}`;
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: APIResponse<BookData[]> = await response.json();
   return payload;
 };
 
