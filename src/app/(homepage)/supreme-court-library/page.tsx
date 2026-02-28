@@ -8,9 +8,8 @@ export default async function Page({
   searchParams: Promise<{
     page?: string;
     limit?: string;
-    book?: string;
-    author?: string;
-    text?: string;
+    search?: string;
+    search_type?: string;
   }>;
 }) {
   // Get the page and the limit form search params
@@ -23,10 +22,8 @@ export default async function Page({
     Math.min(50, Number(resolvedSearchParams.limit) || 15),
   );
 
-  // Extract search queries
-  const bookQuery = resolvedSearchParams.book;
-  const authorQuery = resolvedSearchParams.author;
-  const textQuery = resolvedSearchParams.text;
+  const searchQuery = resolvedSearchParams.search;
+  const searchType = resolvedSearchParams.search_type;
 
   return (
     <>
@@ -44,9 +41,8 @@ export default async function Page({
           limit: mainLimit,
         }}
         searchQueries={{
-          book: bookQuery,
-          author: authorQuery,
-          text: textQuery,
+          search: searchQuery,
+          search_type: searchType,
         }}
       />
       <ContactSection />

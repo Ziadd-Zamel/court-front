@@ -9,9 +9,8 @@ type Props = {
     limit: number;
   };
   searchQueries: {
-    book?: string;
-    author?: string;
-    text?: string;
+    search?: string;
+    search_type?: string;
   };
 };
 
@@ -27,7 +26,12 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
     {
       label: "البحث في الكتب",
       value: "search-books",
-      component: <SearchBooks searchQueries={searchQueries} />,
+      component: (
+        <SearchBooks
+          searchQueries={searchQueries}
+          pagination={pagination}
+        />
+      ),
     },
     {
       label: "إصدارات المحكمة",

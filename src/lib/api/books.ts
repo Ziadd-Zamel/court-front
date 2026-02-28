@@ -29,22 +29,20 @@ export const getBooksByType = async (
   return payload;
 };
 
-export const getBooksSeach = async (
-  title?: string,
-  author?: string,
-  index_content?: string,
-) => {
-  const params = new URLSearchParams();
+export type BookSearchType = "by_title" | "by_author" | "by_index" | "all";
 
-  if (title) {
-    params.append("title", title);
-  }
-  if (author) {
-    params.append("author", author);
-  }
-  if (index_content) {
-    params.append("index_content", index_content);
-  }
+export const getBooksSearch = async (
+  search: string,
+  search_type: BookSearchType = "all",
+  page: number = 1,
+  perPage: number = 15,
+) => {
+  const params = new URLSearchParams({
+    search: search.trim(),
+    search_type,
+    page: page.toString(),
+    per_page: perPage.toString(),
+  });
 
   const url = `${process.env.API}books/search?${params.toString()}`;
   const response = await fetch(url, {

@@ -14,6 +14,7 @@ type BookCardProps = {
   image?: string;
   type?: string;
   issueNumber?: number;
+  openInNewTab?: boolean;
 };
 
 export default function BookCard({
@@ -21,6 +22,7 @@ export default function BookCard({
   hideIcons,
   image,
   type,
+  openInNewTab,
 }: BookCardProps) {
   // Generate a consistent random book image number (1-12)
   const randomBookImageNumber = useMemo(() => {
@@ -33,10 +35,15 @@ export default function BookCard({
     return book.book_image;
   }, [image, type, randomBookImageNumber, book.book_image]);
 
+  const linkProps = openInNewTab
+    ? { target: "_blank", rel: "noopener noreferrer" as const }
+    : {};
+
   return (
     <Link
       href={`/books/${book.uuid}`}
       className="cursor-pointer w-[120px] sm:w-[160px] relative block "
+      {...linkProps}
     >
       <div className="relative h-40 sm:h-50 w-full mb-2 transition-shadow duration-300 hover:shadow-[0_0_6px_4px_rgba(0,0,0,0.85)]  hover:border-black border-transparent border-1">
         <Image
