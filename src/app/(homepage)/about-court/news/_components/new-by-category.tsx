@@ -29,6 +29,7 @@ export default async function NewsByCategory({
       pagination.limit,
     ),
   );
+  console.log(data);
 
   // Empty data State
   if (!data || data.data.length === 0) {

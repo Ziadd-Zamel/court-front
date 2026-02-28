@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,9 +35,7 @@ export default function NewsCard({ article }: NewsCardProps) {
           />
         ) : (
           <Image
-            src={
-              "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=300&fit=crop&crop=center"
-            }
+            src={imageUrl}
             alt={article.title}
             fill
             className="object-cover"
