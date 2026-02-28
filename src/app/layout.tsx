@@ -25,11 +25,15 @@ const majalla = localFont({
   display: "swap",
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata = {
   title: "المحكمة العليا الليبية",
   description: "الموقع الرسمي للمحكمة العليا الليبية",
   keywords: "ليبيا, المحكمة العليا, القضاء, قانون",
-  viewport: "width=device-width, initial-scale=1.0",
   charset: "utf-8",
   icons: {
     icon: "/favicon.ico",

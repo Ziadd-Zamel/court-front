@@ -2,10 +2,10 @@
 import { Pin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
+import { cleanHtmlStylesServer } from "@/lib/utils/clean-html-styles-server";
 
 export default function HighlightCard({ article }: { article: Article }) {
-  const cleanedBodyHtml = cleanHtmlStyles(article.rule.body_html);
+  const cleanedBodyHtml = cleanHtmlStylesServer(article.rule.body_html);
 
   return (
     <div className={cn("flex w-full flex-col pb-20 pt-20 bg-transparent")}>
