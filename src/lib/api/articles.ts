@@ -38,3 +38,18 @@ export const getArticleByID = async (uuid: string) => {
   const payload: APIResponse<Article> = await response.json();
   return payload;
 };
+
+export const getConstitutionalRulingsFavourites = async () => {
+  const url = `${process.env.API}constitutional-rulings/favourites`;
+
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: APIResponse<Article[]> = await response.json();
+  return payload;
+};

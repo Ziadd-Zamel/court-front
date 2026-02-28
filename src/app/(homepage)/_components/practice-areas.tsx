@@ -2,18 +2,9 @@
 import AnimatedSectionHeader from "@/components/common/AnimatedSectionHeader";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { areas } from "@/lib/constants";
 
-interface Area {
-  title: string;
-  description: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
-
-interface PracticeAreasv3Props {
-  areas: Area[];
-}
-
-const PracticeAreasv3 = ({ areas }: PracticeAreasv3Props) => {
+const PracticeAreasv3 = () => {
   const container = {
     hidden: { opacity: 0 },
     show: {
