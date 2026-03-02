@@ -26,6 +26,9 @@ type Props = {
     principle_number?: string;
     principle_year?: string;
     session_date?: string;
+    strict_alef?: string;
+    strict_ya?: string;
+    strict_ta?: string;
   };
 };
 export default async function PrinciplesContent({
@@ -61,6 +64,9 @@ export default async function PrinciplesContent({
       principleNumber: searchParams.principle_number,
       principleYear: searchParams.principle_year,
       session_date: searchParams.session_date,
+      strict_alef: searchParams.strict_alef,
+      strict_ya: searchParams.strict_ya,
+      strict_ta: searchParams.strict_ta,
     }),
   );
 

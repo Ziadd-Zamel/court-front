@@ -19,6 +19,9 @@ export default async function Page({
     principle_number?: string;
     principle_year?: string;
     session_date?: string;
+    strict_alef?: string;
+    strict_ya?: string;
+    strict_ta?: string;
   }>;
 }) {
   // Get the page and the limit from search params

@@ -31,6 +31,9 @@ export default function PrincipleSearch() {
   const [principleYear, setPrincipleYear] = useQueryState("principle_year");
 
   const [page, setPage] = useQueryState("page");
+  const [strictAlef] = useQueryState("strict_alef", { defaultValue: "0" });
+  const [strictYa] = useQueryState("strict_ya", { defaultValue: "0" });
+  const [strictTa] = useQueryState("strict_ta", { defaultValue: "0" });
 
   const handleSearch = () => {
     // Build the URL manually with all current values
@@ -46,6 +49,9 @@ export default function PrincipleSearch() {
     if (appealYear) params.set("appeal_year", appealYear);
     if (principleNumber) params.set("principle_number", principleNumber);
     if (principleYear) params.set("principle_year", principleYear);
+    params.set("strict_alef", strictAlef ?? "0");
+    params.set("strict_ya", strictYa ?? "0");
+    params.set("strict_ta", strictTa ?? "0");
 
     // Push the URL with all params
     router.push(`?${params.toString()}`, { scroll: false });
@@ -99,7 +105,7 @@ export default function PrincipleSearch() {
         </div>
 
         {/* ROW 3 - Exact Phrase */}
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
           <div className="text-right text-lg font-semibold mt-2">
             جملة مطابقة:
           </div>
@@ -110,7 +116,7 @@ export default function PrincipleSearch() {
             placeholder="ابحث في المبادئ بجملة مطابقة لهذه الجملة"
             help={EXCLUDE_KEYWORD_HELP}
           />
-        </div>
+        </div> */}
 
         {/* ROW 4 - Similar Phrase */}
         <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">

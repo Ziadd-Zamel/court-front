@@ -20,6 +20,7 @@ interface ReusableTabsProps {
   tabListClassName?: string;
   tabContentClassName?: string;
   tablistUpContent?: ReactNode;
+  tablistDownContent?: ReactNode;
 }
 
 export default function ReusableTabs({
@@ -32,6 +33,7 @@ export default function ReusableTabs({
   tabListClassName = "",
   tabContentClassName = "",
   tablistUpContent,
+  tablistDownContent,
 }: ReusableTabsProps) {
   const defaultTab = defaultValue || tabs[0]?.value || "";
 
@@ -64,6 +66,10 @@ export default function ReusableTabs({
               <ChevronLeft />
             </TabsTrigger>
           ))}
+
+          {tablistDownContent && (
+            <div className="w-full">{tablistDownContent}</div>
+          )}
         </TabsList>
 
         {/* Tab content */}

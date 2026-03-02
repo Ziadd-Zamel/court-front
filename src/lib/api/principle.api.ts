@@ -13,6 +13,9 @@ interface AdvancedSearchParams {
   principleNumber?: string;
   principleYear?: string;
   session_date?: string;
+  strict_alef?: string; // 0=تطبيع، 1=مطابق
+  strict_ya?: string; // 0=تطبيع، 1=مطابق
+  strict_ta?: string; // 0=تطبيع، 1=مطابق
 }
 
 export const getPrincipleTypes = async (
@@ -57,6 +60,9 @@ export const getPrincipleBySearch = async (
     principleNumber,
     principleYear,
     session_date,
+    strict_alef,
+    strict_ya,
+    strict_ta,
   } = params;
 
   // Queries
@@ -73,6 +79,9 @@ export const getPrincipleBySearch = async (
     principle_number: principleNumber,
     principle_year: principleYear,
     session_date: session_date,
+    strict_alef,
+    strict_ya,
+    strict_ta,
   });
 
   // url

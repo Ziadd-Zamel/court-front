@@ -3,6 +3,7 @@ import SecondaryTabs, {
   SecondaryTabItem,
 } from "@/components/common/secondary-tabs";
 import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
+import CustomAudioPlayer from "@/components/custom/custom-audio-player";
 
 export default function PageContent({ article }: { article: Article }) {
   const contentTabs: SecondaryTabItem[] = [];
@@ -14,8 +15,7 @@ export default function PageContent({ article }: { article: Article }) {
     const year = date.getFullYear();
     return `${year}-${month}-${day}`;
   };
-
-  // Always add rule tab first if it exists
+  // Always add rule tab first
   if (article.rule) {
     contentTabs.push({
       label: article.rule.title,
@@ -181,6 +181,12 @@ export default function PageContent({ article }: { article: Article }) {
           </div>
         </div>
       </div>
+
+      {article.audio_file && (
+        <div className="mt-6 flex justify-center">
+          <CustomAudioPlayer audioUrl={article.audio_file} className="max-w-xl" />
+        </div>
+      )}
 
       {/* Article brief */}
       <div

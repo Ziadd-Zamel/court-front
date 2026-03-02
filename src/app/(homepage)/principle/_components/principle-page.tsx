@@ -5,6 +5,7 @@ import { getPrincipleTypes } from "@/lib/api/principle.api";
 import catchError from "@/lib/utils/catch-error";
 import PrinciplesContent from "./principles-content";
 import ContactSection from "@/components/custom/contact-section";
+import PrincipleStrictSwitches from "./principle-strict-switches";
 
 type Props = {
   pagination: {
@@ -23,6 +24,9 @@ type Props = {
     principle_number?: string;
     principle_year?: string;
     session_date?: string;
+    strict_alef?: string;
+    strict_ya?: string;
+    strict_ta?: string;
   };
 };
 
@@ -66,10 +70,11 @@ export default async function PrinciplePage({
           showHeading={false}
           tabContentClassName="lg:mt-0"
           tablistUpContent={
-            <p className="text-start self-start mb-5 text-gray-600 font-medium text-lg">
+            <p className="text-start self-start mb-5 mt-20 text-gray-600 font-medium text-lg">
               اختر مجالا او اكثر للبحث
             </p>
           }
+          tablistDownContent={<PrincipleStrictSwitches />}
         />
       </section>
       <ContactSection title="شارك بملاحظاتك من أجل تطوير منظومة البحث" />

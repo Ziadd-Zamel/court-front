@@ -153,3 +153,29 @@
   width: 100%;
   height: auto;
 }
+
+/* Audio player range - thumb uses main color */
+.audio-progress-slider {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.audio-progress-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-main);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
+}
+.audio-progress-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-main);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
+}

@@ -9,6 +9,7 @@ declare type BookData = {
   number: string;
   published_year: string;
   book_image: string;
+  page_count: string;
   pdf_url: string;
   court_release: boolean;
   court_release_available: boolean;

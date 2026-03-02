@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 export default function PageContent({ Book }: { Book: BookData }) {
+  console.log(Book);
   return (
     <>
       <section className="box-container h-full w-full py-20">
@@ -24,7 +25,7 @@ export default function PageContent({ Book }: { Book: BookData }) {
             <Info label="الناشر" value={Book.publisher} />
             <Info label="عام النشر" value={Book.published_year} />
             <Info label="التصنيف" value={Book.category} />
-            <Info label="عدد الصفحات" value={Book.book_number} />
+            <Info label="عدد الصفحات" value={Book.page_count} />
           </div>
         </div>
       </section>
