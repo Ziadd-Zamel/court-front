@@ -53,7 +53,7 @@ export default function PrincipleStrictSwitches({
   };
 
   return (
-    <div className={cn("flex flex-col gap-8 w-full pt-10", className)}>
+    <div className={cn("flex flex-col gap-4 w-full pt-5", className)}>
       {SWITCHES.map(({ key, label }) => (
         <div
           key={key}

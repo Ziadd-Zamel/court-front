@@ -4,6 +4,7 @@ import SecondaryTabs, {
 } from "@/components/common/secondary-tabs";
 import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 import CustomAudioPlayer from "@/components/custom/custom-audio-player";
+import Link from "next/link";
 
 export default function PageContent({ article }: { article: Article }) {
   const contentTabs: SecondaryTabItem[] = [];
@@ -129,25 +130,26 @@ export default function PageContent({ article }: { article: Article }) {
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {article.counselors.map((counselor, index) => (
-              <div
+              <Link
                 key={counselor.uuid || index}
-                className="flex items-center gap-4 justify-start"
+                href={`/about-court/counselors/${counselor.uuid}`}
+                className="flex items-center gap-4 justify-start group"
               >
                 <div className="size-6 font-sans! aspect-square rounded-full bg-main flex items-center justify-center text-white font-bold text-xs">
                   {counselor.name.charAt(0)}
                 </div>
 
-                <h5 className="text-black text-xs font-medium whitespace-nowrap">
+                <h5 className="text-black text-xs font-medium whitespace-nowrap group-hover:text-main transition-colors">
                   {counselor.name}
                 </h5>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       ),
     });
   }
-
+  console.log(article);
   return (
     <section className=" pt-20 w-full lg:w-3/4 md:px-10 px-5 lg:px-13! pb-40 ">
       <div className="flex flex-col items-start">
@@ -165,6 +167,7 @@ export default function PageContent({ article }: { article: Article }) {
             <div className="flex items-center ms-1">
               <span>{article.number}</span>
               <span className="">/</span>
+              <span className="">{article.judicial_year}</span>
               <span>{article.sign}</span>)
             </div>
           </div>
@@ -184,7 +187,10 @@ export default function PageContent({ article }: { article: Article }) {
 
       {article.audio_file && (
         <div className="mt-6 flex justify-center">
-          <CustomAudioPlayer audioUrl={article.audio_file} className="max-w-xl" />
+          <CustomAudioPlayer
+            audioUrl={article.audio_file}
+            className="max-w-xl"
+          />
         </div>
       )}
 

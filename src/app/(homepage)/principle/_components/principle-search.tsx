@@ -31,29 +31,33 @@ export default function PrincipleSearch() {
   const [principleYear, setPrincipleYear] = useQueryState("principle_year");
 
   const [page, setPage] = useQueryState("page");
+
+  // Mutual exclusion: only one of the three text-search rows can be active
+  const hasIncludeExclude = !!(includeTerms || excludeTerms);
+  const hasAnyTerms = !!anyTerms;
+  const hasSimilarPhrase = !!similarPhrase;
   const [strictAlef] = useQueryState("strict_alef", { defaultValue: "0" });
   const [strictYa] = useQueryState("strict_ya", { defaultValue: "0" });
   const [strictTa] = useQueryState("strict_ta", { defaultValue: "0" });
 
   const handleSearch = () => {
-    // Build the URL manually with all current values
-    const params = new URLSearchParams();
+    // Start from current URL to preserve ruling_type_uuid
+    const params = new URLSearchParams(window.location.search);
 
     params.set("page", "1");
-    if (exactPhrase) params.set("exact_phrase", exactPhrase);
-    if (similarPhrase) params.set("similar_phrase", similarPhrase);
-    if (includeTerms) params.set("include_terms", includeTerms);
-    if (excludeTerms) params.set("exclude_terms", excludeTerms);
-    if (anyTerms) params.set("any_terms", anyTerms);
-    if (appealNumber) params.set("appeal_number", appealNumber);
-    if (appealYear) params.set("appeal_year", appealYear);
-    if (principleNumber) params.set("principle_number", principleNumber);
-    if (principleYear) params.set("principle_year", principleYear);
+    if (exactPhrase) params.set("exact_phrase", exactPhrase); else params.delete("exact_phrase");
+    if (similarPhrase) params.set("similar_phrase", similarPhrase); else params.delete("similar_phrase");
+    if (includeTerms) params.set("include_terms", includeTerms); else params.delete("include_terms");
+    if (excludeTerms) params.set("exclude_terms", excludeTerms); else params.delete("exclude_terms");
+    if (anyTerms) params.set("any_terms", anyTerms); else params.delete("any_terms");
+    if (appealNumber) params.set("appeal_number", appealNumber); else params.delete("appeal_number");
+    if (appealYear) params.set("appeal_year", appealYear); else params.delete("appeal_year");
+    if (principleNumber) params.set("principle_number", principleNumber); else params.delete("principle_number");
+    if (principleYear) params.set("principle_year", principleYear); else params.delete("principle_year");
     params.set("strict_alef", strictAlef ?? "0");
     params.set("strict_ya", strictYa ?? "0");
     params.set("strict_ta", strictTa ?? "0");
 
-    // Push the URL with all params
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
@@ -80,12 +84,14 @@ export default function PrincipleSearch() {
               onChange={setIncludeTerms}
               placeholder="في المبادئ"
               help={KEYWORD_HELP}
+              disabled={hasAnyTerms || hasSimilarPhrase}
             />
             <SearchInput
               value={excludeTerms ?? ""}
               onChange={setExcludeTerms}
               placeholder="استبعاد كلمات"
               help={MULTI_KEYWORD_HELP}
+              disabled={hasAnyTerms || hasSimilarPhrase}
             />
           </div>
         </div>
@@ -101,6 +107,7 @@ export default function PrincipleSearch() {
             onChange={setAnyTerms}
             placeholder="ابحث عن أي من هذه الكلمات"
             help={OR_KEYWORD_HELP}
+            disabled={hasIncludeExclude || hasSimilarPhrase}
           />
         </div>
 
@@ -129,6 +136,7 @@ export default function PrincipleSearch() {
             onChange={setSimilarPhrase}
             placeholder="ابحث في المبادئ بجملة مشابهة لهذه الجملة"
             help={OR_KEYWORD_HELP}
+            disabled={hasIncludeExclude || hasAnyTerms}
           />
         </div>
 

@@ -8,13 +8,14 @@ import NoDataState from "@/components/custom/no-data-state";
 import NoSearchQuery from "@/components/custom/no-search";
 
 type Props = {
-  uuid: string;
+  rulingTypeUuids: string[];
   pagination: {
     currentPage: number;
     limit: number;
   };
   totalItems: number;
   searchParams: {
+    ruling_type_uuid?: string | string[];
     search?: string;
     exact_phrase?: string;
     similar_phrase?: string;
@@ -31,8 +32,9 @@ type Props = {
     strict_ta?: string;
   };
 };
+
 export default async function PrinciplesContent({
-  uuid,
+  rulingTypeUuids,
   pagination,
   searchParams,
   totalItems,
@@ -54,6 +56,7 @@ export default async function PrinciplesContent({
     getPrincipleBySearch({
       page: pagination.currentPage,
       perPage: pagination.limit,
+      rulingTypeUuids: rulingTypeUuids.length > 0 ? rulingTypeUuids : undefined,
       exactPhrase: searchParams.exact_phrase,
       similarPhrase: searchParams.similar_phrase,
       includeTerms: searchParams.include_terms,
@@ -79,6 +82,15 @@ export default async function PrinciplesContent({
     );
   }
 
+  if (!hasSearchParams) {
+    return (
+      <>
+        <PrincipleSearch />
+        <NoSearchQuery />
+      </>
+    );
+  }
+
   // Has search params but no results
   if (!payload || !payload.data || payload.data.length === 0) {
     return (
@@ -88,25 +100,17 @@ export default async function PrinciplesContent({
       </>
     );
   }
-  if (!hasSearchParams) {
-    return (
-      <>
-        <PrincipleSearch />
-        <NoSearchQuery />
-      </>
-    );
-  }
-  // Has search params and has results
+
   return (
     <>
       <PrincipleSearch />
       <PrincipleList
         articles={payload.data}
-        title={`المقالات - ${uuid}`}
+        title="المقالات"
         pagination={pagination}
         totalItems={payload.meta.total}
         totalPages={payload.meta.last_page}
-      />{" "}
+      />
     </>
   );
 }

@@ -1,4 +1,3 @@
-import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
 import ErrorState from "@/components/custom/error-state";
 import NoDataState from "@/components/custom/no-data-state";
 import { getPrincipleTypes } from "@/lib/api/principle.api";
@@ -6,6 +5,7 @@ import catchError from "@/lib/utils/catch-error";
 import PrinciplesContent from "./principles-content";
 import ContactSection from "@/components/custom/contact-section";
 import PrincipleStrictSwitches from "./principle-strict-switches";
+import PrincipleTypeMultiSelect from "./principle-type-multi-select";
 
 type Props = {
   pagination: {
@@ -13,6 +13,7 @@ type Props = {
     limit: number;
   };
   searchParams: {
+    ruling_type_uuid?: string | string[];
     search?: string;
     exact_phrase?: string;
     similar_phrase?: string;
@@ -30,6 +31,12 @@ type Props = {
   };
 };
 
+function normalizeRulingTypeUuids(value?: string | string[]): string[] {
+  if (!value) return [];
+  if (Array.isArray(value)) return value;
+  return value.split(",").filter(Boolean);
+}
+
 export default async function PrinciplePage({
   pagination,
   searchParams,
@@ -44,30 +51,15 @@ export default async function PrinciplePage({
     return <NoDataState />;
   }
 
-  const dynamicTabs: TabItem[] = payload?.data.map((category) => ({
-    label: category.name,
-    value: category.uuid,
-    heading: category.name,
-
-    component: (
-      <PrinciplesContent
-        uuid={category.uuid}
-        pagination={pagination}
-        searchParams={searchParams}
-        totalItems={payload.meta.total || 0}
-      />
-    ),
-  }));
+  const options = payload.data.map((c) => ({ label: c.name, value: c.uuid }));
+  const rulingTypeUuids = normalizeRulingTypeUuids(searchParams.ruling_type_uuid);
 
   return (
     <>
       <section className="relative pt-32 w-full box-container mb-20">
-        <ReusableTabs
-          tabs={dynamicTabs}
-          defaultValue={dynamicTabs[0].value}
+        <PrincipleTypeMultiSelect
+          options={options}
           className="lg:mt-0"
-          showSearch={false}
-          showHeading={false}
           tabContentClassName="lg:mt-0"
           tablistUpContent={
             <p className="text-start self-start mb-5 mt-20 text-gray-600 font-medium text-lg">
@@ -75,7 +67,14 @@ export default async function PrinciplePage({
             </p>
           }
           tablistDownContent={<PrincipleStrictSwitches />}
-        />
+        >
+          <PrinciplesContent
+            rulingTypeUuids={rulingTypeUuids}
+            pagination={pagination}
+            searchParams={searchParams}
+            totalItems={payload.meta.total || 0}
+          />
+        </PrincipleTypeMultiSelect>
       </section>
       <ContactSection title="شارك بملاحظاتك من أجل تطوير منظومة البحث" />
     </>

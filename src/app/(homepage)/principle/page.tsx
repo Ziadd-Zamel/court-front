@@ -8,6 +8,7 @@ export default async function Page({
   searchParams: Promise<{
     page?: string;
     limit?: string;
+    ruling_type_uuid?: string | string[];
     search?: string;
     exact_phrase?: string;
     similar_phrase?: string;

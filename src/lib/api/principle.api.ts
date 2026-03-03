@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { buildQueryParams } from "../utils/build-query-params";
+
 interface AdvancedSearchParams {
   page?: number;
   perPage?: number;
+  rulingTypeUuids?: string[];
   exactPhrase?: string;
   similarPhrase?: string;
   includeTerms?: string;
@@ -22,13 +24,11 @@ export const getPrincipleTypes = async (
   page: number = 1,
   perPage: number = 10,
 ) => {
-  // Queries
   const queryString = buildQueryParams({
     page,
     per_page: perPage,
   });
 
-  // url
   const url = `${process.env.API}principle-types?${queryString}`;
 
   const response = await fetch(url, {
@@ -50,6 +50,7 @@ export const getPrincipleBySearch = async (
   const {
     page = 1,
     perPage = 10,
+    rulingTypeUuids,
     exactPhrase,
     similarPhrase,
     includeTerms,
@@ -65,10 +66,10 @@ export const getPrincipleBySearch = async (
     strict_ta,
   } = params;
 
-  // Queries
   const queryString = buildQueryParams({
     page,
     per_page: perPage,
+    principle_type_uuid: rulingTypeUuids,
     exact_phrase: exactPhrase,
     similar_phrase: similarPhrase,
     include_terms: includeTerms,
@@ -84,17 +85,19 @@ export const getPrincipleBySearch = async (
     strict_ta,
   });
 
-  // url
   const url = `${process.env.API}principles/advanced-search?${queryString}`;
 
   const response = await fetch(url, {
     next: { revalidate: 600 },
   });
 
+  const payload: APIResponse<any[]> = await response.json();
+
+  console.log("responseresponseresponse", payload);
+  console.log("responseresponseresponse", response);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  const payload: APIResponse<any[]> = await response.json();
   return payload;
 };

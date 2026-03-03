@@ -51,9 +51,11 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
               <p className="text-gray-500 sm:text-lg md:text-xs flex items-center gap-1">
                 <Calendar size={14} className="text-main -mt-1" />
                 {principle.session_date
-                  .split(" - ")
-                  .map((date) => date.split("-").reverse().join("-"))
-                  .join(" - ")}{" "}
+                  ? principle.session_date
+                      .split(" - ")
+                      .map((date) => date.split("-").reverse().join("-"))
+                      .join(" - ")
+                  : "------"}{" "}
               </p>
               <p className="sm:text-lg md:text-xs">
                 {principle.ruling_type || "------"}
