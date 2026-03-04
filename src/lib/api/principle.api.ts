@@ -69,7 +69,7 @@ export const getPrincipleBySearch = async (
   const queryString = buildQueryParams({
     page,
     per_page: perPage,
-    principle_type_uuids: rulingTypeUuids,
+    principle_type_uuids: rulingTypeUuids?.join(","),
     exact_phrase: exactPhrase,
     similar_phrase: similarPhrase,
     include_terms: includeTerms,

@@ -52,7 +52,9 @@ export default async function PrinciplePage({
   }
 
   const options = payload.data.map((c) => ({ label: c.name, value: c.uuid }));
-  const rulingTypeUuids = normalizeRulingTypeUuids(searchParams.ruling_type_uuid);
+  const rulingTypeUuids = normalizeRulingTypeUuids(
+    searchParams.ruling_type_uuid,
+  );
 
   return (
     <>

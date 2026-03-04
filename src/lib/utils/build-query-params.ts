@@ -7,9 +7,7 @@ export function buildQueryParams(params: Record<string, any>) {
     if (value === undefined || value === null || value === "") return;
 
     if (Array.isArray(value)) {
-      value.forEach((v) => {
-        query.append(`${key}[]`, String(v));
-      });
+      query.append(key, value.join(","));
     } else {
       query.append(key, String(value));
     }

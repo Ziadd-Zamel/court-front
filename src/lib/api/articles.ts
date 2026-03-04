@@ -2,7 +2,7 @@ export const getArticlesByCategory = async (
   page: number = 1,
   perPage: number = 10,
   uuid: string,
-  search?: string
+  search?: string,
 ) => {
   const params = new URLSearchParams({
     subcategory_uuid: uuid,
@@ -40,7 +40,7 @@ export const getArticleByID = async (uuid: string) => {
 };
 
 export const getConstitutionalRulingsFavourites = async () => {
-  const url = `${process.env.API}constitutional-rulings/favourites`;
+  const url = `${process.env.API}rulings/favourites`;
 
   const response = await fetch(url, {
     next: { revalidate: 600 },
