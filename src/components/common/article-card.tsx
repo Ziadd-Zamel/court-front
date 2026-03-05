@@ -11,6 +11,7 @@ import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 import { BookmarkButton } from "./bookmark-button";
 import { ShareButton } from "./share-button";
 import { CopyButton } from "./copy-button";
+import CustomAudioPlayer from "@/components/custom/custom-audio-player";
 
 type ArticleCardProps = {
   article: Article;
@@ -75,6 +76,14 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
           </AccordionTrigger>
 
           <AccordionContent className="pb-10">
+            {article.audio_file && (
+              <div className="mt-6 flex justify-center">
+                <CustomAudioPlayer
+                  audioUrl={article.audio_file}
+                  className="max-w-xl"
+                />
+              </div>
+            )}
             <h6 className="mt-5 text-center font-zain text-xl font-bold text-main">
               {article.rule.title}
             </h6>

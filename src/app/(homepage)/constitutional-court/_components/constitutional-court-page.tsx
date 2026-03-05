@@ -1,9 +1,8 @@
 import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
-import ArticleListSkeleton from "@/components/custom/article-list-skeleton";
+import ImportantInfo from "./important-info";
+import ConstitutionalCourtSessions from "./constitutional-court-sessions";
+import AboutConstitutionalCourt from "./about-constitutional-court";
 import ArticlePage from "@/components/custom/article-page";
-import NoDataState from "@/components/custom/no-data-state";
-import { getConstitutionSub } from "@/lib/api/subcategories";
-import { Suspense } from "react";
 
 type Props = {
   pagination: {
@@ -13,88 +12,51 @@ type Props = {
   search?: string;
 };
 
-export default async function ConstitutionalCourtPage({
-  pagination,
-  search,
-}: Props) {
-  const data = await getConstitutionSub();
-  const categoriesData = data?.data || [];
-  if (categoriesData.length === 0) {
-    return <NoDataState />;
-  }
-  // Static tabs configuration
-  const staticTabs: TabItem[] = [
+export default function ConstitutionalCourtPage({ pagination, search }: Props) {
+  const tabs: TabItem[] = [
+    {
+      label: "القضاء الدستوري",
+      value: "590da7e0-a113-4bcf-a599-a859c89f7ff3",
+      heading: "القضاء الدستوري",
+      component: (
+        <ArticlePage
+          pagination={pagination}
+          uuid="590da7e0-a113-4bcf-a599-a859c89f7ff3"
+          search={search}
+        />
+      ),
+    },
+    {
+      label: "معلومات مهمة",
+      value: "important-info",
+      heading: "معلومات مهمة",
+      component: <ImportantInfo pagination={pagination} />,
+    },
+    {
+      label: "جلسات الدائرة الدستورية",
+      value: "constitutional-court-sessions",
+      heading: "جلسات الدائرة الدستورية",
+      component: <ConstitutionalCourtSessions pagination={pagination} />,
+    },
     {
       label: "عن الدائرة الدستورية",
-      value: "constitutional-court",
+      value: "about-constitutional-court",
       heading: "عن الدائرة الدستورية",
-      component: (
-        <div className="space-y-4">
-          <p className="text-justify text-gray-600 md:text-sm indent-7 leading-6">
-            حيث إن ما استند إليه المدعي في البرهنة على ملكية البائعة ما باعته
-            إياه من الأرض انحصر في عقد القسمة العرفي، فإن هذا لا يسعفُه ليؤتَى
-            سؤلَه بالصحة والنفاذ. فجدوى هذا العقد ههنا تتوقف على صلاحيته
-            القانونية لنقل الملكية إليها. وحيث إنه بذاته لا يصلح لذلك، بل يستوجب
-            إما تسجيلَه في السجل العقاري، وإما حكماً قضائياً بصحته ونفاذه
-            وتسجيلَ هذا الحكم بذلك السجل. لهذا، كان على المدعي التدليلُ على تحقق
-            واحدٍ من هذين الشرطين. فإن لم يكن، امتنع حسبان المدعى عليها مالكةً
-            ما باعت، وانعدمت، من ثم، قدرتها على نقل الملكية، ولم يبق أمام المدعي
-            إلا أن يختصم أطرافَ عقد القسمة جميعَهم ليطلبَ الحكمَ بصحته، توطئةً
-            للحكم بصحة عقده ونفاذه. فإذا ما أُجيب طلبُه وسجل الحكمَ الصادر بصحة
-            العقدين انتقلت الملكية إليه. فهذا وحدَه ما يوافق الأحكامَ المقررةَ
-            في انتقال الملكية وأسباب نقلها، ويضمنُ تسلسلَ أسباب اكتسابها من
-            المالك إلى المدعي.
-          </p>
-          <p className="text-justify text-gray-600 md:text-sm indent-7 leading-6">
-            حيث إن ما استند إليه المدعي في البرهنة على ملكية البائعة ما باعته
-            إياه من الأرض انحصر في عقد القسمة العرفي، فإن هذا لا يسعفُه ليؤتَى
-            سؤلَه بالصحة والنفاذ. فجدوى هذا العقد ههنا تتوقف على صلاحيته
-            القانونية لنقل الملكية إليها. وحيث إنه بذاته لا يصلح لذلك، بل يستوجب
-            إما تسجيلَه في السجل العقاري، وإما حكماً قضائياً بصحته ونفاذه
-            وتسجيلَ هذا الحكم بذلك السجل. لهذا، كان على المدعي التدليلُ على تحقق
-            واحدٍ من هذين الشرطين. فإن لم يكن، امتنع حسبان المدعى عليها مالكةً
-            ما باعت، وانعدمت، من ثم، قدرتها على نقل الملكية، ولم يبق أمام المدعي
-            إلا أن يختصم أطرافَ عقد القسمة جميعَهم ليطلبَ الحكمَ بصحته، توطئةً
-            للحكم بصحة عقده ونفاذه. فإذا ما أُجيب طلبُه وسجل الحكمَ الصادر بصحة
-            العقدين انتقلت الملكية إليه. فهذا وحدَه ما يوافق الأحكامَ المقررةَ
-            في انتقال الملكية وأسباب نقلها، ويضمنُ تسلسلَ أسباب اكتسابها من
-            المالك إلى المدعي.
-          </p>
-        </div>
-      ),
+      component: <AboutConstitutionalCourt />,
     },
   ];
 
-  // Dynamic tabs from categories (empty array if no data)
-  const dynamicTabs: TabItem[] = categoriesData.map((category) => ({
-    label: category.name,
-    value: category.uuid,
-    heading: category.name,
-    component: (
-      <Suspense fallback={<ArticleListSkeleton />}>
-        <ArticlePage
-          search={search}
-          uuid={category.uuid}
-          pagination={pagination}
-        />
-      </Suspense>
-    ),
-  }));
-
-  // Combine static and dynamic tabs
-  const allTabs: TabItem[] = [...dynamicTabs, ...staticTabs];
-
   return (
     <section
-      id="ImportantNotices"
-      aria-labelledby="Important Notices Page"
+      id="ConstitutionalCourt"
+      aria-labelledby="Constitutional Court Page"
       className="relative pt-32 w-full box-container mb-20"
     >
       <ReusableTabs
-        tabs={allTabs}
-        defaultValue={categoriesData[0].uuid}
+        tabs={tabs}
+        defaultValue="590da7e0-a113-4bcf-a599-a859c89f7ff3"
         className="lg:-mt-12"
-        tabContentClassName=" mt-32 lg:mt-[150px]"
+        tabContentClassName="mt-32 lg:mt-[150px]"
       />
     </section>
   );
