@@ -157,31 +157,27 @@ export default function ImportantNoticesPage({
                       className="w-full space-y-2"
                       dir="rtl"
                     >
-                      {questionResponse.data
-                        .reverse()
-                        .map((question: Iquestion) => (
-                          <AccordionItem
-                            key={question.uuid}
-                            value={`item-${question.uuid}`}
-                          >
-                            <AccordionTrigger className="py-1 text-sm font-medium sm:text-base text-right hover:no-underline hover:text-main transition-all duration-300">
-                              <p style={{ direction: "rtl" }}>
-                                {question.title}
-                              </p>
-                            </AccordionTrigger>
-                            <AccordionContent className="text-sm mt-5 text-gray-500">
-                              <div
-                                dangerouslySetInnerHTML={{
-                                  __html: cleanHtmlStyles(question.answer),
-                                }}
-                              ></div>
-                            </AccordionContent>
-                            <div className="flex justify-end items-center gap-3 mb-5 me-10">
-                              <BookmarkButton item={question} type="question" />
-                              <ShareButton item={question} type="question" />
-                            </div>
-                          </AccordionItem>
-                        ))}
+                      {questionResponse.data.map((question: Iquestion) => (
+                        <AccordionItem
+                          key={question.uuid}
+                          value={`item-${question.uuid}`}
+                        >
+                          <AccordionTrigger className="py-1 text-sm font-medium sm:text-base text-right hover:no-underline hover:text-main transition-all duration-300">
+                            <p style={{ direction: "rtl" }}>{question.title}</p>
+                          </AccordionTrigger>
+                          <AccordionContent className="text-sm mt-5 text-gray-500">
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: cleanHtmlStyles(question.answer),
+                              }}
+                            ></div>
+                          </AccordionContent>
+                          <div className="flex justify-end items-center gap-3 mb-5 me-10">
+                            <BookmarkButton item={question} type="question" />
+                            <ShareButton item={question} type="question" />
+                          </div>
+                        </AccordionItem>
+                      ))}
                     </Accordion>
 
                     {/* Pagination - Only show if multiple pages exist */}
