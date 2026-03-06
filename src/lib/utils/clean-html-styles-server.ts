@@ -13,6 +13,16 @@ const FONT_PROPERTIES = [
   "font-style",
   "font-variant",
   "mso-fareast-font-family",
+  "margin",
+  "margin-top",
+  "margin-bottom",
+  "margin-left",
+  "margin-right",
+  "padding",
+  "padding-top",
+  "padding-bottom",
+  "padding-left",
+  "padding-right",
 ];
 
 function isFontProperty(property: string): boolean {
@@ -21,7 +31,9 @@ function isFontProperty(property: string): boolean {
     return (
       prop === fontProp ||
       prop.startsWith(fontProp + "-") ||
-      (fontProp === "font" && prop.startsWith("font"))
+      (fontProp === "font" && prop.startsWith("font")) ||
+      (fontProp === "margin" && prop.startsWith("margin")) ||
+      (fontProp === "padding" && prop.startsWith("padding"))
     );
   });
 }

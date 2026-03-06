@@ -39,7 +39,7 @@ export default async function SupremeCourtMagazine({ pagination }: Props) {
         {data?.data.map((book, index) => (
           <BookCard
             type={"magazine"}
-            image="/assets/mahazine.png"
+            image="/assets/mahazine.jpeg"
             key={book.uuid}
             book={book}
             issueNumber={index + 1}

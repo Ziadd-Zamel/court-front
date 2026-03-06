@@ -4,6 +4,7 @@ import ErrorState from "./error-state";
 import NoDataState from "./no-data-state";
 import { TabItem } from "../common/reusable-tabs";
 import PublicationsContent from "./publications-content";
+import PendingPublicationsContent from "./pending-publications-content";
 import { getPublicationCategories } from "@/lib/api/publication.api";
 type Props = {
   pagination: {
@@ -44,10 +45,18 @@ export default async function CourtPublications({
       ),
     }));
 
+  const pendingTab: TabItem = {
+    label: "اصدارات قيد الطباعة",
+    value: "pending-publications",
+    component: <PendingPublicationsContent pagination={pagination} />,
+  };
+
+  const allTabs = [...categoryTabs, pendingTab];
+
   return (
     <SecondaryTabs
       tabListClassName={"pt-20 lg:pt-0 lg:mt-[-45px]"}
-      tabs={categoryTabs}
+      tabs={allTabs}
       defaultValue={categoriesData.data[0].uuid}
     />
   );

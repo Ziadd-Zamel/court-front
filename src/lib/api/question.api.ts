@@ -24,6 +24,33 @@ export const getQuestionCategories = async () => {
     throw error;
   }
 };
+export const getQuestionsByCategory = async (
+  category_id: string,
+  page: number = 1,
+  perPage: number = 15,
+  search?: string,
+) => {
+  const params = new URLSearchParams({
+    category_id,
+    page: page.toString(),
+    per_page: perPage.toString(),
+  });
+
+  if (search) params.append("search", search);
+
+  const response = await fetch(
+    `${process.env.API}questions?${params.toString()}`,
+    { next: { revalidate: 0 } },
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: questionResponseType = await response.json();
+  return payload;
+};
+
 export const getAllQuestion = async (
   category_id?: string,
   per_page?: number,

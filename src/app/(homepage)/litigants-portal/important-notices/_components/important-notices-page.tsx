@@ -1,211 +1,61 @@
-"use client";
-// Third-party imports
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronLeft } from "lucide-react";
-import { useQueryState } from "nuqs";
-import { useQuery } from "@tanstack/react-query";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import catchError from "@/lib/utils/catch-error";
+import { getQuestionCategories } from "@/lib/api/question.api";
+import ErrorState from "@/components/custom/error-state";
+import NoDataState from "@/components/custom/no-data-state";
+import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
+import QuestionsContent from "./questions-content";
 
-// Local imports
-import PaginationComp from "@/components/common/pagination-comp";
-import { getAllQuestion } from "@/lib/api/question.api";
-import QuestionSkeleton from "./question-skeleton";
-import QuestionError from "./question-error";
-import SearchBar from "@/components/common/search-bar";
-import QuestionEmptyState from "./question-empty";
-import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
-import { BookmarkButton } from "@/components/common/bookmark-button";
-import { ShareButton } from "@/components/common/share-button";
-
-interface ImportantNoticesPageProps {
-  TabsData: questionCategory[];
-}
-
-export default function ImportantNoticesPage({
-  TabsData,
-}: ImportantNoticesPageProps) {
-  // URL state management for active tab with nuqs
-  const [activeTab, setActiveTab] = useQueryState("tab", {
-    defaultValue: TabsData[0]?.uuid || "",
-    parse: (value) => {
-      // Validate that the tab exists in TabsData, fallback to first tab if not
-      const tabExists = TabsData.some((tab) => tab.uuid === value);
-      return tabExists ? value : TabsData[0]?.uuid || "";
-    },
-  });
-
-  // URL state management for pagination with nuqs
-  const [currentPage, setCurrentPage] = useQueryState("page", {
-    defaultValue: 1,
-    parse: (value) => {
-      const parsed = parseInt(value);
-      return isNaN(parsed) || parsed < 1 ? 1 : parsed;
-    },
-    serialize: (value) => value.toString(),
-  });
-
-  const [searchQuery, setSearchQuery] = useQueryState("search");
-
-  // Data fetching for questions based on active tab, current page, AND search query
-  const {
-    data: questionResponse,
-    isLoading: questionsLoading,
-    error: questionsError,
-    refetch: refetchQuestions,
-  } = useQuery({
-    queryKey: ["questions", activeTab, currentPage, searchQuery],
-    queryFn: () =>
-      getAllQuestion(activeTab, 15, currentPage, searchQuery || ""),
-  });
-
-  //Handles tab change event
-  const handleTabChange = (value: string) => {
-    setActiveTab(value);
-    setCurrentPage(1);
-    setSearchQuery("");
+type Props = {
+  pagination: {
+    currentPage: number;
+    limit: number;
   };
+  search?: string;
+};
 
-  //Handles page change event for pagination
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+export default async function ImportantNoticesPage({
+  pagination,
+  search,
+}: Props) {
+  const [categoriesData, categoriesError] = await catchError(() =>
+    getQuestionCategories(),
+  );
 
-  // Handles retry action when question fetching fails
-  const handleRetry = () => {
-    refetchQuestions();
-  };
+  if (categoriesError) return <ErrorState />;
 
-  //Handles clearing search results
-  const handleClearSearch = () => {
-    setSearchQuery("");
-    setCurrentPage(1);
-  };
+  if (!categoriesData?.data || !categoriesData.data.length)
+    return <NoDataState />;
 
-  // Determines if the current state shows no results due to search
-  const isEmptySearchResults =
-    searchQuery && questionResponse?.data?.length === 0;
+  const tabs: TabItem[] = categoriesData.data.map((category) => ({
+    label: category.title,
+    value: category.uuid,
+    heading: category.title,
+    component: (
+      <QuestionsContent
+        categoryId={category.uuid}
+        pagination={pagination}
+        search={search}
+      />
+    ),
+  }));
 
   return (
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container flex flex-col "
+      className="relative pt-10 w-full box-container flex flex-col mb-20"
     >
-      <p className=" pb-10 text-base text-gray-500 text-center">
+      <p className="pb-10 text-base text-gray-500 text-center">
         <span className="text-lg"> تنبيه:</span> هذه المعلومات معدة لتيسير
         الإجراءات للمتقاضين والقانونيين، <br /> ولا تمثل بالضرورة حكم القانون في
-        مسائلها.{" "}
+        مسائلها.
       </p>
-      <Tabs
-        dir="rtl"
-        value={activeTab}
-        onValueChange={handleTabChange}
-        className="w-full"
-      >
-        {/* Tab list and content container */}
-        <div className="flex flex-col lg:flex-row items-start gap-12 w-full mt-32 mb-80">
-          {/* Tab list - vertical navigation */}
-          <TabsList className="flex flex-col items-center gap-1  md:max-w-[300px] lg:max-w-[330px] w-full bg-transparent mt-24 relative">
-            <div className="w-full mb-12">
-              <SearchBar />
-            </div>
 
-            {TabsData.map((tab) => (
-              <TabsTrigger
-                className="!main-tab"
-                key={tab.uuid}
-                value={tab.uuid}
-              >
-                {tab.title}
-                <ChevronLeft />
-              </TabsTrigger>
-            ))}
-          </TabsList>
-
-          {/* Tab content area */}
-          <div className="w-full">
-            {TabsData.map((tab) => (
-              <TabsContent
-                className=" -mt-7 w-full relative"
-                key={tab.uuid}
-                value={tab.uuid}
-              >
-                <div className="mb-10 text-right">
-                  <h3 className="text-2xl font-bold text-main lg:text-3xl">
-                    {tab.title}
-                  </h3>
-                  <div className="mt-2 h-[2px] w-56 bg-main" />
-                </div>
-
-                {/* Loading state */}
-                {questionsLoading ? (
-                  <QuestionSkeleton />
-                ) : // Error state
-                questionsError ? (
-                  <QuestionError onRetry={handleRetry} />
-                ) : // Success state with data
-                questionResponse?.data && questionResponse.data.length > 0 ? (
-                  <>
-                    <Accordion
-                      type="single"
-                      collapsible
-                      className="w-full space-y-2"
-                      dir="rtl"
-                    >
-                      {questionResponse.data.map((question: Iquestion) => (
-                        <AccordionItem
-                          key={question.uuid}
-                          value={`item-${question.uuid}`}
-                        >
-                          <AccordionTrigger className="py-1 text-sm font-medium sm:text-base text-right hover:no-underline hover:text-main transition-all duration-300">
-                            <p style={{ direction: "rtl" }}>{question.title}</p>
-                          </AccordionTrigger>
-                          <AccordionContent className="text-sm mt-5 text-gray-500">
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: cleanHtmlStyles(question.answer),
-                              }}
-                            ></div>
-                          </AccordionContent>
-                          <div className="flex justify-end items-center gap-3 mb-5 me-10">
-                            <BookmarkButton item={question} type="question" />
-                            <ShareButton item={question} type="question" />
-                          </div>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-
-                    {/* Pagination - Only show if multiple pages exist */}
-                    {questionResponse.meta?.last_page > 1 && (
-                      <div className="flex justify-center mt-8">
-                        <PaginationComp
-                          currentPage={questionResponse.meta.current_page}
-                          totalPages={questionResponse.meta.last_page}
-                          onPageChange={handlePageChange}
-                        />
-                      </div>
-                    )}
-                  </>
-                ) : // Empty states
-                isEmptySearchResults ? (
-                  <QuestionEmptyState
-                    type="no-search-results"
-                    searchQuery={searchQuery}
-                    onClearSearch={handleClearSearch}
-                  />
-                ) : (
-                  <QuestionEmptyState type="no-data" />
-                )}
-              </TabsContent>
-            ))}
-          </div>
-        </div>
-      </Tabs>
+      <ReusableTabs
+        tabs={tabs}
+        defaultValue={categoriesData.data[0].uuid}
+        showHeading
+      />
     </section>
   );
 }

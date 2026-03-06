@@ -5,5 +5,6 @@ declare type questionCategory = {
 declare type Iquestion = {
   uuid: string;
   title: string;
+  order: number;
   answer: string;
 };

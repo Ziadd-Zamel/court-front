@@ -20,10 +20,10 @@ export default async function SiteHighlights() {
   ].filter((c) => c.length > 0);
 
   const backgrounds = [
-    "bg-white",
-    "bg-main/10",
-    "bg-white",
-    "bg-main/10",
+    { bg: "bg-white", gradient: "to-white" },
+    { bg: "bg-main/10", gradient: "to-[#FBF7F0]" },
+    { bg: "bg-white", gradient: "to-white" },
+    { bg: "bg-main/15", gradient: "to-[#FBF7F0]" },
   ] as const;
 
   return (
@@ -37,11 +37,20 @@ export default async function SiteHighlights() {
       {chunks.map((chunk, sectionIndex) => (
         <div
           key={sectionIndex}
-          className={backgrounds[sectionIndex] ?? "bg-white"}
+          className={backgrounds[sectionIndex]?.bg ?? "bg-white"}
         >
-          <div className="flex flex-col items-center justify-between md:flex-row md:items-start md:gap-20 box-container">
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 md:gap-x-20 box-container"
+            style={{ gridAutoRows: "auto" }}
+          >
             {chunk.map((_item, index) => (
-              <HighlightCard article={_item} key={`${sectionIndex}-${index}`} />
+              <HighlightCard
+                article={_item}
+                key={`${sectionIndex}-${index}`}
+                gradientFrom={
+                  backgrounds[sectionIndex]?.gradient ?? "from-white"
+                }
+              />
             ))}
           </div>
         </div>

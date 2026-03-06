@@ -3,6 +3,7 @@ declare type Assembly = {
   category: string;
   title: string;
   date: string;
+  publish_date: string;
   brief: string;
   body_html: string;
   body_text: string;

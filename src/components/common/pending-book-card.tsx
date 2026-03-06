@@ -5,13 +5,10 @@ export default function PendingBookCard({
 }) {
   return (
     <div className="border border-black p-4 text-center shadow hover:shadow-lg transition cursor-pointer w-[130px] sm:w-[160px] h-40 sm:h-52 flex flex-col items-center">
-      <h3 className=" text-sm sm:text-lg font-semibold mb-2">{book.title}</h3>
+      <h3 className=" text-sm font-semibold mb-2 mt-4">{book.title}</h3>
       <div className="justify-self-end mt-auto">
         {book.author && (
-          <p className=" text-xs sm:text-sm text-gray-600 mb-1">
-            {" "}
-            {book.author}
-          </p>
+          <p className=" text-[10px] text-gray-600 mb-1"> {book.author}</p>
         )}
         {/* {book.issue_number && (
           <p className=" text-xs sm:text-sm text-gray-600">

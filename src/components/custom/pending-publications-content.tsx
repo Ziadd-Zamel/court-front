@@ -1,9 +1,9 @@
 import catchError from "@/lib/utils/catch-error";
 import CourtPagination from "./court-pagination";
-import BookCard from "@/components/common/book-card";
+import PendingBookCard from "@/components/common/pending-book-card";
 import ErrorState from "@/components/custom/error-state";
 import NoDataState from "@/components/custom/no-data-state";
-import { getPublicationByCategory } from "@/lib/api/publication.api";
+import { getPendingPublications } from "@/lib/api/publication.api";
 
 type Props = {
   pagination: {
@@ -12,41 +12,23 @@ type Props = {
   };
 };
 
-export default async function PublicationsContent({
+export default async function PendingPublicationsContent({
   pagination,
-  categoryUuid,
-}: {
-  categoryUuid: string;
-  pagination: Props["pagination"];
-}) {
-  // Get all the data
+}: Props) {
   const [data, error] = await catchError(() =>
-    getPublicationByCategory(pagination.currentPage, 40, categoryUuid),
+    getPendingPublications(pagination.currentPage, 40),
   );
-  // Empty data State
-  if (!data || data.data.length === 0) {
-    return <NoDataState />;
-  }
 
-  // Error State
-  if (error) {
-    return <ErrorState />;
-  }
+  if (error) return <ErrorState />;
 
-  console.log(data);
+  if (!data || data.data.length === 0) return <NoDataState />;
+
   return (
     <>
-      {/** Main content */}
       <div className="flex w-full justify-center lg:justify-start mt-10">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-2 min-[1230]:grid-cols-3! min-[1300]:grid-cols-5! gap-y-16 mt-10">
-          {data?.data.map((book, index) => (
-            <BookCard
-              type={"magazine"}
-              image="/assets/mahazine.jpeg"
-              key={book.uuid}
-              book={book}
-              issueNumber={index + 1}
-            />
+          {data.data.map((book) => (
+            <PendingBookCard key={book.uuid} book={book} />
           ))}
         </div>
       </div>
