@@ -10,7 +10,7 @@ interface ProvidersProps {
 export default function Providers({ children }: ProvidersProps) {
   return (
     <ThemeProvider
-      attribute="data-theme"
+      attribute="class"
       defaultTheme="light"
       value={{
         light: "light",

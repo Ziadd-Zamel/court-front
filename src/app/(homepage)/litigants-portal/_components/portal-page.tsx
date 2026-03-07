@@ -52,18 +52,22 @@ export default function LitigantsPortalPage() {
             key={service.id}
             className="transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
           >
-            <div className="p-3 text-center">
-              <div className="w-40 h-40 border-input border-2 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-main/10 transition-colors duration-300">
-                <Image src={service.image} alt="Image" width={60} height={60} />
+            <div className="p-6 text-center">
+              <div className="w-40 h-40 border-2 border-gray-200 dark:border-white/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-main dark:group-hover:border-main group-hover:bg-main/10 dark:group-hover:bg-main/15 transition-all duration-300">
+                <Image
+                  src={service.image}
+                  alt="Image"
+                  width={60}
+                  height={60}
+                  className="dark:brightness-0 dark:invert"
+                />
               </div>
 
-              {/* Title */}
-              <h3 className="text-lg font-bold text-gray-800 mb-4 group-hover:text-main transition-colors duration-300">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 group-hover:text-main transition-colors duration-300">
                 {service.title}
               </h3>
 
-              {/* Description */}
-              <p className="text-gray-600 leading-relaxed text-sm">
+              <p className="text-gray-500 dark:text-white/70 leading-relaxed text-sm">
                 {service.description}
               </p>
             </div>

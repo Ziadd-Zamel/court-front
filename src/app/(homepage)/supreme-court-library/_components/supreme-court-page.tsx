@@ -21,22 +21,20 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
       label: "الكتب",
       value: "all-books",
       heading: "الكتب",
-      component: <BooksContent pagination={pagination} />,
+      component: <BooksContent pagination={pagination} search={searchQueries.search} />,
     },
     {
       label: "البحث في الكتب",
       value: "search-books",
       component: (
-        <SearchBooks
-          searchQueries={searchQueries}
-          pagination={pagination}
-        />
+        <SearchBooks searchQueries={searchQueries} pagination={pagination} />
       ),
     },
     {
       label: "إصدارات المحكمة",
       value: "court-publications",
-      component: <CourtPublications pagination={pagination} />,
+      heading: "إصدارات المحكمة",
+      component: <CourtPublications pagination={pagination} search={searchQueries.search} />,
     },
 
     {
@@ -49,13 +47,9 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-20"
+      className="relative w-full box-container pt-20 pb-20"
     >
-      <ReusableTabs
-        tabs={courtReleaseTabs}
-        defaultValue="all-books"
-        tabContentClassName="lg:mt-14!"
-      />
+      <ReusableTabs tabs={courtReleaseTabs} defaultValue="all-books" />
     </section>
   );
 }

@@ -1,7 +1,10 @@
+"use client";
+
 import { ReactNode } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronLeft } from "lucide-react";
 import SearchBar from "@/components/common/search-bar";
+import { usePathname, useRouter } from "next/navigation";
 
 export interface TabItem {
   label: string;
@@ -36,17 +39,24 @@ export default function ReusableTabs({
   tablistDownContent,
 }: ReusableTabsProps) {
   const defaultTab = defaultValue || tabs[0]?.value || "";
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleTabChange = () => {
+    router.replace(pathname, { scroll: false });
+  };
 
   return (
     <Tabs
       dir={direction}
-      className={`w-full ${className} mt-10`}
+      className={`w-full ${className}`}
       defaultValue={defaultTab}
+      onValueChange={handleTabChange}
     >
-      <div className="flex flex-col lg:flex-row md:items-start gap-16 w-full">
+      <div className="flex flex-col min-[1150px]:flex-row! md:items-start gap-10 lg:gap-16 w-full">
         {/* Tab list */}
         <TabsList
-          className={`flex flex-col relative items-center gap-1 md:px-20 lg:px-0 lg:max-w-[330px] w-full bg-transparent mt-40 ${tabListClassName}`}
+          className={`flex flex-col relative items-center gap-1 md:px-20 lg:px-0  min-[1150px]:max-w-[330px]! w-full bg-transparent${tabListClassName}`}
         >
           {tablistUpContent && tablistUpContent}
 
@@ -77,14 +87,17 @@ export default function ReusableTabs({
           {tabs.map((tab) => (
             <TabsContent
               key={tab.value}
-              className={`mt-32 w-full min-h-screen flex flex-col ${tabContentClassName}`}
+              className={`w-full min-h-screen flex flex-col md:mt-15 ${tabContentClassName}`}
               value={tab.value}
             >
               {showHeading &&
-                tab.heading && ( // Add showHeading check here
-                  <h3 className="text-2xl font-bold text-main sm:mb-8 sm:text-3xl">
-                    {tab.heading}
-                  </h3>
+                tab.heading && (
+                  <div className="mb-10 text-right">
+                    <h3 className="text-2xl font-bold text-main">
+                      {tab.heading}
+                    </h3>
+                    <div className="mt-2 h-[2px] w-56 bg-main" />
+                  </div>
                 )}
               <div className="mt-6">{tab.component}</div>
             </TabsContent>

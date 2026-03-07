@@ -45,15 +45,24 @@ export default function PrincipleSearch() {
     const params = new URLSearchParams(window.location.search);
 
     params.set("page", "1");
-    if (exactPhrase) params.set("exact_phrase", exactPhrase); else params.delete("exact_phrase");
-    if (similarPhrase) params.set("similar_phrase", similarPhrase); else params.delete("similar_phrase");
-    if (includeTerms) params.set("include_terms", includeTerms); else params.delete("include_terms");
-    if (excludeTerms) params.set("exclude_terms", excludeTerms); else params.delete("exclude_terms");
-    if (anyTerms) params.set("any_terms", anyTerms); else params.delete("any_terms");
-    if (appealNumber) params.set("appeal_number", appealNumber); else params.delete("appeal_number");
-    if (appealYear) params.set("appeal_year", appealYear); else params.delete("appeal_year");
-    if (principleNumber) params.set("principle_number", principleNumber); else params.delete("principle_number");
-    if (principleYear) params.set("principle_year", principleYear); else params.delete("principle_year");
+    if (exactPhrase) params.set("exact_phrase", exactPhrase);
+    else params.delete("exact_phrase");
+    if (similarPhrase) params.set("similar_phrase", similarPhrase);
+    else params.delete("similar_phrase");
+    if (includeTerms) params.set("include_terms", includeTerms);
+    else params.delete("include_terms");
+    if (excludeTerms) params.set("exclude_terms", excludeTerms);
+    else params.delete("exclude_terms");
+    if (anyTerms) params.set("any_terms", anyTerms);
+    else params.delete("any_terms");
+    if (appealNumber) params.set("appeal_number", appealNumber);
+    else params.delete("appeal_number");
+    if (appealYear) params.set("appeal_year", appealYear);
+    else params.delete("appeal_year");
+    if (principleNumber) params.set("principle_number", principleNumber);
+    else params.delete("principle_number");
+    if (principleYear) params.set("principle_year", principleYear);
+    else params.delete("principle_year");
     params.set("strict_alef", strictAlef ?? "0");
     params.set("strict_ya", strictYa ?? "0");
     params.set("strict_ta", strictTa ?? "0");
@@ -62,7 +71,7 @@ export default function PrincipleSearch() {
   };
 
   return (
-    <div className="w-full -mt-8">
+    <div className="w-full mt-4">
       {/* Title */}
       <div className="mb-10 text-right">
         <h2 className="text-2xl font-bold text-main">

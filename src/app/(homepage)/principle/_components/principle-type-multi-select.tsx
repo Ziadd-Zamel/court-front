@@ -47,14 +47,14 @@ export default function PrincipleTypeMultiSelect({
   return (
     <Tabs
       dir="rtl"
-      className={`w-full ${className} mt-10`}
+      className={`w-full ${className}`}
       value=""
       onValueChange={() => {}}
     >
       <div className="flex flex-col lg:flex-row md:items-start gap-16 w-full">
         {/* Tab list */}
         <TabsList
-          className={`flex flex-col relative items-center gap-1 md:px-20 lg:px-0 lg:max-w-[330px] w-full bg-transparent mt-40 ${tabListClassName}`}
+          className={`flex flex-col relative items-center gap-1 md:px-20 lg:px-0 lg:max-w-[330px] w-full bg-transparent ${tabListClassName}`}
         >
           {tablistUpContent && tablistUpContent}
 
@@ -85,7 +85,7 @@ export default function PrincipleTypeMultiSelect({
         {/* Content */}
         <div className="w-full">
           <div
-            className={`mt-32 w-full min-h-screen flex flex-col ${tabContentClassName}`}
+            className={`w-full min-h-screen flex flex-col ${tabContentClassName}`}
           >
             {children}
           </div>

@@ -49,14 +49,9 @@ export default async function GeneralAssemblyPage({
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-80"
+      className="relative pt-20 pb-40 w-full box-container"
     >
-      <ReusableTabs
-        tabs={tabs}
-        defaultValue={staticTab.value}
-        className="lg:mt-0"
-        tabContentClassName="lg:mt-20"
-      />
+      <ReusableTabs tabs={tabs} defaultValue={staticTab.value} />
     </section>
   );
 }

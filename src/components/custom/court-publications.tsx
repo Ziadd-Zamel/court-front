@@ -11,13 +11,10 @@ type Props = {
     currentPage: number;
     limit: number;
   };
+  search?: string;
 };
 
-export default async function CourtPublications({
-  pagination,
-}: {
-  pagination: Props["pagination"];
-}) {
+export default async function CourtPublications({ pagination, search }: Props) {
   // Fetch categories
   const [categoriesData, categoriesError] = await catchError(() =>
     getPublicationCategories(),
@@ -41,6 +38,7 @@ export default async function CourtPublications({
         <PublicationsContent
           categoryUuid={category.uuid}
           pagination={pagination}
+          search={search}
         />
       ),
     }));
@@ -48,16 +46,12 @@ export default async function CourtPublications({
   const pendingTab: TabItem = {
     label: "اصدارات قيد الطباعة",
     value: "pending-publications",
-    component: <PendingPublicationsContent pagination={pagination} />,
+    component: <PendingPublicationsContent pagination={pagination} search={search} />,
   };
 
   const allTabs = [...categoryTabs, pendingTab];
 
   return (
-    <SecondaryTabs
-      tabListClassName={"pt-20 lg:pt-0 lg:mt-[-45px]"}
-      tabs={allTabs}
-      defaultValue={categoriesData.data[0].uuid}
-    />
+    <SecondaryTabs tabs={allTabs} defaultValue={categoriesData.data[0].uuid} />
   );
 }

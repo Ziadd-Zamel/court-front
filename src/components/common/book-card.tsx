@@ -42,10 +42,10 @@ export default function BookCard({
   return (
     <Link
       href={`/books/${book.uuid}`}
-      className="cursor-pointer w-[120px] sm:w-[160px] relative block "
+      className="cursor-pointer w-[140px] sm:w-[160px] relative block "
       {...linkProps}
     >
-      <div className="relative h-40 sm:h-50 w-full mb-2 transition-shadow duration-300 hover:shadow-[0_0_6px_4px_rgba(0,0,0,0.85)]  hover:border-black border-transparent border-1">
+      <div className="relative h-45 sm:h-50 w-full mb-2 transition-shadow duration-300 hover:shadow-[0_0_6px_4px_rgba(0,0,0,0.85)]  hover:border-black border-transparent border-1">
         <Image
           src={bookImage}
           alt={book.title}
@@ -70,9 +70,7 @@ export default function BookCard({
           <p className="absolute top-[145px] right-3 text-white text-base">
             {book.judicial_year || 0}
           </p>
-          <p className="absolute bottom-17.5 right-3 text-main text-xs">
-            العدد
-          </p>
+          <p className="absolute bottom-17 right-3 text-main text-xs">العدد</p>
           <p className="absolute bottom-12 right-3 text-white text-base">
             {book.number || 0}
           </p>

@@ -12,17 +12,16 @@ type Props = {
     currentPage: number;
     limit: number;
   };
+  search?: string;
 };
 
-export default async function ConstitutionalItemsContent({
-  categoryId,
-  pagination,
-}: Props) {
+export default async function ConstitutionalItemsContent({ categoryId, pagination, search }: Props) {
   const [data, error] = await catchError(() =>
     getConstitutionalItemsByCategory(
       categoryId,
       pagination.currentPage,
       pagination.limit,
+      search,
     ),
   );
 

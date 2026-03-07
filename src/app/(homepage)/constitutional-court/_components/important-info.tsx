@@ -11,9 +11,10 @@ type Props = {
     currentPage: number;
     limit: number;
   };
+  search?: string;
 };
 
-export default async function ImportantInfo({ pagination }: Props) {
+export default async function ImportantInfo({ pagination, search }: Props) {
   const [categoriesData, categoriesError] = await catchError(() =>
     getConstitutionalCategories(),
   );
@@ -30,6 +31,7 @@ export default async function ImportantInfo({ pagination }: Props) {
       <ConstitutionalItemsContent
         categoryId={category.uuid}
         pagination={pagination}
+        search={search}
       />
     ),
   }));

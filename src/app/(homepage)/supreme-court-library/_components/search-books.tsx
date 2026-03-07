@@ -19,8 +19,12 @@ export default function SearchBooks({ searchQueries, pagination }: Props) {
   const hasSearchQuery = Boolean(searchQueries.search?.trim());
 
   return (
-    <div>
-      <Suspense fallback={<div className="h-12 w-full !mt-12 bg-gray-100 animate-pulse rounded" />}>
+    <div className="-mt-8">
+      <Suspense
+        fallback={
+          <div className="h-12 w-full bg-gray-100 animate-pulse rounded" />
+        }
+      >
         <ArabicSearchBar />
       </Suspense>
       {hasSearchQuery ? (

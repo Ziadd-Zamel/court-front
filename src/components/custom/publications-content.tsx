@@ -10,18 +10,17 @@ type Props = {
     currentPage: number;
     limit: number;
   };
+  categoryUuid: string;
+  search?: string;
 };
 
 export default async function PublicationsContent({
   pagination,
   categoryUuid,
-}: {
-  categoryUuid: string;
-  pagination: Props["pagination"];
-}) {
-  // Get all the data
+  search,
+}: Props) {
   const [data, error] = await catchError(() =>
-    getPublicationByCategory(pagination.currentPage, 40, categoryUuid),
+    getPublicationByCategory(pagination.currentPage, 40, categoryUuid, search),
   );
   // Empty data State
   if (!data || data.data.length === 0) {
@@ -38,7 +37,7 @@ export default async function PublicationsContent({
     <>
       {/** Main content */}
       <div className="flex w-full justify-center lg:justify-start mt-10">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-2 min-[1230]:grid-cols-3! min-[1300]:grid-cols-5! gap-y-16 mt-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 min-[1150px]:grid-cols-4! min-[1300px]:grid-cols-5! gap-y-16 lg:mt-10">
           {data?.data.map((book, index) => (
             <BookCard
               type={"magazine"}

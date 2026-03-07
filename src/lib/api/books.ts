@@ -137,11 +137,13 @@ export const getBooksByCategory = async (
   page: number = 1,
   perPage: number = 10,
   category_uuid: string,
+  search?: string,
 ) => {
   const queryString = buildQueryParams({
     category_uuid: category_uuid,
     page,
     per_page: perPage,
+    search,
   });
 
   const url = `${process.env.API}books/by-category?${queryString}`;

@@ -10,13 +10,15 @@ type Props = {
     currentPage: number;
     limit: number;
   };
+  search?: string;
 };
 
 export default async function PendingPublicationsContent({
   pagination,
+  search,
 }: Props) {
   const [data, error] = await catchError(() =>
-    getPendingPublications(pagination.currentPage, 40),
+    getPendingPublications(pagination.currentPage, 40, search),
   );
 
   if (error) return <ErrorState />;
@@ -26,7 +28,7 @@ export default async function PendingPublicationsContent({
   return (
     <>
       <div className="flex w-full justify-center lg:justify-start mt-10">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-2 min-[1230]:grid-cols-3! min-[1300]:grid-cols-5! gap-y-16 mt-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 min-[1150px]:grid-cols-4! min-[1300px]:grid-cols-5! gap-y-16 lg:mt-10">
           {data.data.map((book) => (
             <PendingBookCard key={book.uuid} book={book} />
           ))}

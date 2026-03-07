@@ -30,13 +30,13 @@ export default function ConstitutionalCourtPage({ pagination, search }: Props) {
       label: "معلومات مهمة",
       value: "important-info",
       heading: "معلومات مهمة",
-      component: <ImportantInfo pagination={pagination} />,
+      component: <ImportantInfo pagination={pagination} search={search} />,
     },
     {
       label: "جلسات الدائرة الدستورية",
       value: "constitutional-court-sessions",
       heading: "جلسات الدائرة الدستورية",
-      component: <ConstitutionalCourtSessions pagination={pagination} />,
+      component: <ConstitutionalCourtSessions pagination={pagination} search={search} />,
     },
     {
       label: "عن الدائرة الدستورية",
@@ -50,13 +50,11 @@ export default function ConstitutionalCourtPage({ pagination, search }: Props) {
     <section
       id="ConstitutionalCourt"
       aria-labelledby="Constitutional Court Page"
-      className="relative pt-32 w-full box-container mb-20"
+      className="relative box-container py-20 pb-40"
     >
       <ReusableTabs
         tabs={tabs}
         defaultValue="590da7e0-a113-4bcf-a599-a859c89f7ff3"
-        className="lg:-mt-12"
-        tabContentClassName="mt-32 lg:mt-[150px]"
       />
     </section>
   );

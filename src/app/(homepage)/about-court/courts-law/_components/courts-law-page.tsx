@@ -34,14 +34,9 @@ export default async function CourtLawsPage() {
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-60"
+      className="relative pt-20 w-full box-container pb-40"
     >
-      <ReusableTabs
-        tabs={COURT_LAW_TABS}
-        defaultValue="court-law"
-        className="lg:mt-[130px]"
-        tabContentClassName=" mt-32 lg:mt-[100px]"
-      />
+      <ReusableTabs tabs={COURT_LAW_TABS} defaultValue="court-law" />
     </section>
   );
 }

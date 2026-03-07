@@ -19,8 +19,9 @@ export const getPublicationCategories = async () => {
 export const getPendingPublications = async (
   page: number = 1,
   perPage: number = 10,
+  search?: string,
 ) => {
-  const queryString = buildQueryParams({ page, per_page: perPage });
+  const queryString = buildQueryParams({ page, per_page: perPage, search });
   const url = `${process.env.API}pending-publications?${queryString}`;
 
   const response = await fetch(url, { next: { revalidate: 600 } });
@@ -37,11 +38,13 @@ export const getPublicationByCategory = async (
   page: number = 1,
   perPage: number = 10,
   category_uuid: string,
+  search?: string,
 ) => {
   const queryString = buildQueryParams({
     category_uuid: category_uuid,
     page,
     per_page: perPage,
+    search,
   });
 
   const url = `${process.env.API}publications/by-category?${queryString}`;

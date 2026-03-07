@@ -62,8 +62,7 @@ export default async function NewsPage({
     <SecondaryTabs
       tabs={newsTabs}
       defaultValue="all"
-      className="w-full flex justify-center items-center py-40"
-      tabListClassName="mb-20"
+      tabListClassName={"justify-center! mb-20 pt-20 items-center"}
     />
   );
 }

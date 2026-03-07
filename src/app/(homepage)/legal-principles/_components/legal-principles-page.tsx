@@ -39,13 +39,9 @@ export default async function LegalPrinciplesPage({
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-20"
+      className="relative w-full box-container pt-20 pb-40"
     >
-      <ReusableTabs
-        tabs={dynamicTabs}
-        defaultValue={categoriesData[0].uuid}
-        tabContentClassName=" mt-32 lg:mt-0 gap-2"
-      />
+      <ReusableTabs tabs={dynamicTabs} defaultValue={categoriesData[0].uuid} />
     </section>
   );
 }

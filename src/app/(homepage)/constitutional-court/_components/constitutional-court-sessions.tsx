@@ -11,13 +11,12 @@ type Props = {
     currentPage: number;
     limit: number;
   };
+  search?: string;
 };
 
-export default async function ConstitutionalCourtSessions({
-  pagination,
-}: Props) {
+export default async function ConstitutionalCourtSessions({ pagination, search }: Props) {
   const [data, error] = await catchError(() =>
-    getConstitutionalSessions(pagination.currentPage, pagination.limit),
+    getConstitutionalSessions(pagination.currentPage, pagination.limit, search),
   );
 
   if (error) return <ErrorState />;

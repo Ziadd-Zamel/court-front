@@ -11,11 +11,10 @@ type Props = {
     currentPage: number;
     limit: number;
   };
+  search?: string;
 };
 
-// Component for each category's content
-
-export default async function BooksContent({ pagination }: Props) {
+export default async function BooksContent({ pagination, search }: Props) {
   // Fetch categories
   const [categoriesData, categoriesError] = await catchError(() =>
     getBookCategories(),
@@ -34,16 +33,12 @@ export default async function BooksContent({ pagination }: Props) {
     label: category.name,
     value: category.uuid,
     component: (
-      <CategoryBooks categoryUuid={category.uuid} pagination={pagination} />
+      <CategoryBooks categoryUuid={category.uuid} pagination={pagination} search={search} />
     ),
   }));
 
   return (
-    <section
-      id="BooksCategories"
-      aria-labelledby="Books Categories Page"
-      className="relative pt-10 w-full mb-20"
-    >
+    <section id="BooksCategories" aria-labelledby="Books Categories Page">
       <SecondaryTabs
         tabs={categoryTabs}
         defaultValue={categoriesData.data[0]?.uuid || ""}

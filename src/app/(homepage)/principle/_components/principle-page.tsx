@@ -58,13 +58,13 @@ export default async function PrinciplePage({
 
   return (
     <>
-      <section className="relative pt-32 w-full box-container mb-20">
+      <section className="relative w-full box-container pt-20 pb-20">
         <PrincipleTypeMultiSelect
           options={options}
           className="lg:mt-0"
           tabContentClassName="lg:mt-0"
           tablistUpContent={
-            <p className="text-start self-start mb-5 mt-20 text-gray-600 font-medium text-lg">
+            <p className="text-start self-start mb-5  text-gray-600 font-medium text-lg">
               اختر مجالا او اكثر للبحث
             </p>
           }

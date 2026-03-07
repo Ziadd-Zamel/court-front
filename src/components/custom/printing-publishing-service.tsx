@@ -60,11 +60,10 @@ export default function PrintingPublishingService() {
   };
 
   return (
-    <div className="w-full -mt-13">
-      <div className=" w-full sm:max-w-fit">
-        <h3 className="text-2xl font-medium text-main sm:mb-8 sm:text-3xl border-b border-gray-300 pb-2.5">
-          خدمة الطباعة والنشر
-        </h3>
+    <div className="w-full -mt-5">
+      <div className="mb-10 text-right">
+        <h3 className="text-2xl font-bold text-main">خدمة الطباعة والنشر</h3>
+        <div className="mt-2 h-[2px] w-70 bg-main" />
       </div>
       <p className="mt-3 text-sm text-gray-500 text-justify">
         تتضمن خدمة الطباعة والنشر التي تقدمها المحكمة للقانونيين والمهتمين
@@ -80,11 +79,10 @@ export default function PrintingPublishingService() {
         والنشر.
       </p>
 
-      <div className="mt-16">
-        <div className=" w-full sm:max-w-fit">
-          <h3 className="text-2xl font-medium text-main sm:mb-8 sm:text-3xl border-b border-gray-300 pb-2.5">
-            طلب الطباعة والنشر
-          </h3>
+      <div className="mt-12">
+        <div className="mb-10 text-right">
+          <h3 className="text-2xl font-bold text-main">طلب الطباعة والنشر</h3>
+          <div className="mt-2 h-[2px] w-70 bg-main" />
         </div>
         <p className="mt-4 text-sm text-gray-500 text-justify">
           تبدأ إجراءات طلب الطباعة والنشر بإرسال النموذج التالي بعد تعبئة جميع

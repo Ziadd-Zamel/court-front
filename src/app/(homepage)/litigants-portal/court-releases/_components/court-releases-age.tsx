@@ -34,7 +34,7 @@ export default function CourtReleasesPage({ pagination }: Props) {
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-20"
+      className="relative pt-20 pb-40 w-full box-container"
     >
       <ReusableTabs
         tabs={courtReleaseTabs}

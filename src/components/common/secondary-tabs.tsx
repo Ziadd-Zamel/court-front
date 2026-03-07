@@ -34,10 +34,12 @@ export default function SecondaryTabs({
       defaultValue={defaultTab}
       className={`w-full ${className}`}
     >
-      <div className="flex items-center justify-start w-full">
+      <div
+        className={`flex items-center justify-start w-full ${tabListClassName}`}
+      >
         <div className="max-w-[880px] w-full overflow-x-auto scrollbar-tabs pb-1">
           <TabsList
-            className={`bg-transparent justify-between sm:justify-start gap-2 sm:gap-5 w-full pt-20 lg:pt-0 ${tabListClassName}`}
+            className={`bg-transparent justify-between sm:justify-start gap-2 sm:gap-5 w-full`}
           >
             {tabs.map((tab) => (
               <TabsTrigger
@@ -74,7 +76,7 @@ export default function SecondaryTabs({
       {tabs.map((tab) => (
         <TabsContent
           key={tab.value}
-          className={`mt-20 lg:mt-0 w-full ${tabContentClassName}`}
+          className={`mt-10 lg:mt-0 w-full ${tabContentClassName}`}
           value={tab.value}
         >
           {tab.component}

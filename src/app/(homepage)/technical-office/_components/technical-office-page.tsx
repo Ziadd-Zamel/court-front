@@ -26,7 +26,8 @@ export default async function TechnicalOfficePage({
     {
       label: "إصدارات المحكمة",
       value: "court-publications",
-      component: <CourtPublications pagination={pagination} />,
+      heading: "إصدارات المحكمة",
+      component: <CourtPublications pagination={pagination} search={search} />,
     },
     {
       label: "خدمة الطباعة والنشر",
@@ -59,14 +60,9 @@ export default async function TechnicalOfficePage({
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-10 w-full box-container mb-20"
+      className="relative w-full box-container pt-20 pb-20"
     >
-      <ReusableTabs
-        tabs={allTabs}
-        defaultValue="printing"
-        className="lg:mt-0"
-        tabContentClassName="lg:mt-[155px]"
-      />
+      <ReusableTabs tabs={allTabs} defaultValue="court-publications" />
     </section>
   );
 }
