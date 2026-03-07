@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronLeft } from "lucide-react";
 import SearchBar from "@/components/common/search-bar";
@@ -62,7 +62,9 @@ export default function ReusableTabs({
 
           {showSearch && (
             <div className="w-full mb-12">
-              <SearchBar />
+              <Suspense fallback={null}>
+                <SearchBar />
+              </Suspense>
             </div>
           )}
 

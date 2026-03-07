@@ -40,7 +40,7 @@ export const getQuestionsByCategory = async (
 
   const response = await fetch(
     `${process.env.API}questions?${params.toString()}`,
-    { next: { revalidate: 0 } },
+    { next: { revalidate: 600 } },
   );
 
   if (!response.ok) {
