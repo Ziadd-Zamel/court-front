@@ -32,7 +32,6 @@ export default async function PublicationsContent({
     return <ErrorState />;
   }
 
-  console.log(data);
   return (
     <>
       {/** Main content */}

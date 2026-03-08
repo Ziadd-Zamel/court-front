@@ -196,7 +196,7 @@ export default function PageContent({ article }: { article: Article }) {
 
       {/* Article brief */}
       <div
-        className="text-gray-500 leading-relaxed text-base text-justify font-normal mt-16 mb-6"
+        className="text-gray-500 leading-relaxed text-sm text-justify font-normal mt-16 mb-6"
         style={{ direction: "rtl" }}
         dangerouslySetInnerHTML={{
           __html: cleanHtmlStyles(article.brief_html),

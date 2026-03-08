@@ -7,15 +7,15 @@ import { cn } from "@/lib/utils";
 const SWITCHES = [
   {
     key: "strict_ya" as const,
-    label: "تقييد بنقطتي الياء النهائية",
+    label: "تقيد بنقطتي الياء النهائية",
   },
   {
     key: "strict_alef" as const,
-    label: "تقييد بهمزة الألف الابتدائية",
+    label: "تقيد بهمزة الألف الابتدائية",
   },
   {
     key: "strict_ta" as const,
-    label: "تقييد بالتاء المربوطة",
+    label: "تقيد بالتاء المربوطة",
   },
 ] as const;
 

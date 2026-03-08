@@ -20,6 +20,7 @@ export default function CourtReleasesPage({ pagination }: Props) {
     {
       label: "إصدارات المحكمة",
       value: "court-publications",
+      heading: "إصدارات المحكمة",
       component: <CourtPublications pagination={pagination} />,
     },
 

@@ -33,7 +33,7 @@ export default function HighlightCard({
         <span className="text-base font-bold text-main">
           {article.number}/{article.judicial_year}
           {article.sign}
-        </span>{" "}
+        </span>
         : {article.title}
       </h4>
 

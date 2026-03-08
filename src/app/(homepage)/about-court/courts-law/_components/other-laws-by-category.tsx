@@ -22,11 +22,10 @@ export default async function OtherLawsByCategory({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 mt-5">
       {data.data.map((law) => (
         <OtherLawCard key={law.uuid} law={law} />
       ))}
     </div>
   );
 }
-

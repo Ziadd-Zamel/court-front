@@ -1,10 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Search, FolderOpen, Minus } from "lucide-react";
+import { Search, Minus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ActionButtonsProps } from "../types/navbar.types";
 import { cn } from "@/lib/utils";
+import { TiFolderOpen } from "react-icons/ti";
 
 export default function ActionButtons({
   onToggleSearch,
@@ -35,7 +36,7 @@ export default function ActionButtons({
               size={80}
               className={cn(
                 "text-white -mt-[70px]",
-                isMenuOpen && "-rotate-45 -mt-[79px]"
+                isMenuOpen && "-rotate-45 -mt-[79px]",
               )}
             />
           </div>
@@ -59,10 +60,8 @@ export default function ActionButtons({
         className="size-8 sm:size-12 hover:bg-transparent focus:outline-none relative"
         aria-label="المفضلة"
       >
-        <FolderOpen className="size-4 sm:size-6 text-white transition-colors hover:text-main" />
-        <div className="rounded-full bg-red-500 flex-center absolute size-4 text-white top-1 left-1 aspect-square">
-          3
-        </div>
+        <TiFolderOpen className="size-4 sm:size-6 text-white transition-colors hover:text-main" />
+        <div className="rounded-full bg-red-500 flex-center absolute size-2.5 text-white top-2.5 left-2.5 aspect-square"></div>
       </Button>
     </div>
   );

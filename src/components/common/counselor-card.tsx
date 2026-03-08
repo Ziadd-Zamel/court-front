@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function CounselorCard({ counselor }: { counselor: Counselor }) {
   return (
-    <div className="group relative flex flex-col bg-white border border-gray-100 hover:border-main/30 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+    <div className="group relative flex flex-col bg-white border border-gray-100 hover:border-main/30 shadow-xl hover:shadow-lg transition-all duration-300 overflow-hidden">
       <div className="flex flex-col items-center gap-3 p-6 pb-4 min-h-[260px]">
         {/* Avatar */}
         <Avatar className="size-18 border-2 border-main/20">
@@ -48,11 +48,13 @@ export default function CounselorCard({ counselor }: { counselor: Counselor }) {
         </li>
       </ol>
 
+      <div className="mx-6 h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
+
       {/* Tasks footer */}
-      <div className="px-6 pb-5 border-gray-100 mt-auto min-h-[50px]">
+      <div className="px-6 pb-5 border-black mt-auto min-h-[50px]">
         {counselor.tasks && (
           <p
-            className="text-xs font-semibold pt-1 border-t text-main text-center leading-relaxed"
+            className="text-xs font-bold pt-2 text-black   text-center leading-relaxed"
             dir="rtl"
           >
             {counselor.tasks}

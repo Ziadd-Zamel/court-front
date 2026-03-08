@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function page() {
   return (
     <section className="flex flex-col">
-      <SecondaryHeading title="sda" breadcrumb />
+      <SecondaryHeading title="الهيكل التنظيمي للمحكمة العليا" breadcrumb />
       <div className="w-full flex items-center justify-center min-h-screen py-20">
         <Image
           src={"/assets/structure.png"}

@@ -75,12 +75,12 @@ export default function PrincipleSearch() {
       {/* Title */}
       <div className="mb-10 text-right">
         <h2 className="text-2xl font-bold text-main">
-          املأ واحدًا أو أكثر من حقول البحث
+          املأ حقلاً أو أكثر للبحث:
         </h2>
         <div className="mt-2 h-[2px] w-56 bg-main" />
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-6">
         {/* ROW 1 - Include Terms & Exclude Terms */}
         <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
           <div className="text-right text-lg font-semibold mt-2">
@@ -198,7 +198,7 @@ export default function PrincipleSearch() {
       </div>
 
       {/* Button */}
-      <div className="mt-12 flex justify-center lg:justify-end">
+      <div className="mt-8 flex text-lg! xl:text-xl justify-center lg:justify-end">
         <Button onClick={handleSearch} className="px-10">
           بحث
         </Button>

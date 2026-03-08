@@ -24,12 +24,5 @@ export default async function OtherLawsContent() {
     }),
   );
 
-  return (
-    <SecondaryTabs
-      tabs={tabs}
-      direction="rtl"
-      tabListClassName="pt-0"
-      tabContentClassName="mt-10"
-    />
-  );
+  return <SecondaryTabs tabs={tabs} direction="rtl" />;
 }

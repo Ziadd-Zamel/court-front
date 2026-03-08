@@ -50,7 +50,7 @@ const HeroSlides4 = () => {
             >
               <Button
                 className="py-1 sm:py-2 px-10 mt-5"
-                onClick={() => router.push("/legal-principles")}
+                onClick={() => router.push("/principle")}
               >
                 دخول
               </Button>

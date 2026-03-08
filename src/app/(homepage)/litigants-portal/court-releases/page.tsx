@@ -19,7 +19,7 @@ export default async function Page({
   return (
     <>
       {/** Heading */}
-      <SecondaryHeading title="إصدارات المحكمة و النشر" breadcrumb />
+      <SecondaryHeading title="إصدارات المحكمة والنشر" breadcrumb />
 
       {/** Main page content */}
       <CourtReleasesPage

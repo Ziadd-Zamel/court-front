@@ -65,7 +65,7 @@ export default async function PrinciplePage({
           tabContentClassName="lg:mt-0"
           tablistUpContent={
             <p className="text-start self-start mb-5  text-gray-600 font-medium text-lg">
-              اختر مجالا او اكثر للبحث
+              اختر مجالاً أو أكثر للبحث:
             </p>
           }
           tablistDownContent={<PrincipleStrictSwitches />}

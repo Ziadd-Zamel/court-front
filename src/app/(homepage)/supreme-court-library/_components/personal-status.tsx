@@ -27,7 +27,7 @@ export default function PersonalStatus() {
       {/* Title */}
       <div className="mb-10 text-right">
         <h2 className="text-2xl font-bold text-main">
-          املأ واحدًا أو أكثر من حقول البحث
+          املأ حقلاً أو أكثر للبحث:
         </h2>
         <div className="mt-2 h-[2px] w-56 bg-main" />
       </div>

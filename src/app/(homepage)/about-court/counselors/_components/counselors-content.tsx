@@ -18,7 +18,7 @@ export default async function CounselorsContent({
   pagination,
 }: ArticlePageProps) {
   const [CounselorsData, error] = await catchError(() =>
-    getAllCounselors(pagination.currentPage, 26, search),
+    getAllCounselors(pagination.currentPage, 40, search),
   );
 
   if (error) return <ErrorState />;

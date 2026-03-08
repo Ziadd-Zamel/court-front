@@ -32,7 +32,7 @@ export default function SecondaryTabs({
     <Tabs
       dir={direction}
       defaultValue={defaultTab}
-      className={`w-full ${className}`}
+      className={`w-full ${className} pt-4`}
     >
       <div
         className={`flex items-center justify-start w-full ${tabListClassName}`}

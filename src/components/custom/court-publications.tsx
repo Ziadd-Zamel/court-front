@@ -44,9 +44,11 @@ export default async function CourtPublications({ pagination, search }: Props) {
     }));
 
   const pendingTab: TabItem = {
-    label: "اصدارات قيد الطباعة",
+    label: "إصدارات قيد الطباعة",
     value: "pending-publications",
-    component: <PendingPublicationsContent pagination={pagination} search={search} />,
+    component: (
+      <PendingPublicationsContent pagination={pagination} search={search} />
+    ),
   };
 
   const allTabs = [...categoryTabs, pendingTab];
