@@ -132,6 +132,7 @@ export default function PageContent({ setShowstates }: PageContentProps) {
 
     return null;
   };
+  console.log(caseData);
 
   return (
     <div className="min-h-screen flex-1 py-6 pl-2 pr-2 md:pl-10 md:pr-10 lg:pr-20">

@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const params = new URLSearchParams();
   params.append("r", "api/classifications/get-data");
 
-  const apiUrl = `https://102.213.181.78/supremCourt/web/index-api.php?${params.toString()}`;
+  const apiUrl = `https://inquiry.alolya.gov.ly/supremCourt/web/index-api.php?${params.toString()}`;
 
   try {
     const response = await fetch(apiUrl, {

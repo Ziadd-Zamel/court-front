@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     params.append("classId", searchParams.get("classId")!);
   }
 
-  const apiUrl = `https://102.213.181.78/supremCourt/web/index-api.php?${params.toString()}`;
+  const apiUrl = `https://inquiry.alolya.gov.ly/index-api.php?${params.toString()}`;
 
   try {
     const response = await fetch(apiUrl, {
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to fetch case data" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
