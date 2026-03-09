@@ -2,6 +2,7 @@ import FirstSectoin from "@/components/layout/Footer/component/first-sectoin";
 import SecondeSectoin from "@/components/layout/Footer/component/srconde-sectoin";
 import ThirdSectoin from "@/components/layout/Footer/component/third-sectoin";
 import FootrLogo from "./component/FotterLogo";
+import { CURRENT_YEAR } from "@/lib/constants/app-years";
 
 const Footer = () => {
   return (
@@ -32,8 +33,8 @@ const Footer = () => {
           >
             <p className="font-zain">
               ﺟﻤﻴﻊ الحقوق ﻣﺤﻔﻮﻇﺔ،{" "}
-              <span className="font-semibold text-white">المحكمة العليا</span>،
-              2026
+              <span className="font-semibold text-white">المحكمة العليا</span>،{" "}
+              {CURRENT_YEAR}
             </p>
           </div>
         </div>

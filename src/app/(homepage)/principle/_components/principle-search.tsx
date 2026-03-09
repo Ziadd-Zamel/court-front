@@ -10,6 +10,10 @@ import {
   EXCLUDE_KEYWORD_HELP,
   OR_KEYWORD_HELP,
 } from "@/lib/constants/personal.constnat";
+import {
+  CURRENT_YEAR,
+  YEARS_SINCE_FOUNDING,
+} from "@/lib/constants/app-years";
 import { SearchInput } from "../../supreme-court-library/_components/search-Input";
 import DateRangePicker from "@/components/common/date-range-picker";
 import DatePicker from "@/components/common/date-picker";
@@ -164,7 +168,7 @@ export default function PrincipleSearch() {
             <SearchInput
               value={appealYear ?? ""}
               onChange={setAppealYear}
-              placeholder="أدرج السنة القضائية. مثال: 73"
+              placeholder={`أدرج السنة القضائية. مثال: ${YEARS_SINCE_FOUNDING}`}
             />
           </div>
         </div>
@@ -184,7 +188,7 @@ export default function PrincipleSearch() {
             <SearchInput
               value={principleYear ?? ""}
               onChange={setPrincipleYear}
-              placeholder="أدرج السنة الميلادية. مثال: 2026"
+              placeholder={`أدرج السنة الميلادية. مثال: ${CURRENT_YEAR}`}
             />
           </div>
         </div>

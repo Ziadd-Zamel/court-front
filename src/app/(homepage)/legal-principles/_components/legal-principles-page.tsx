@@ -30,6 +30,7 @@ export default async function LegalPrinciplesPage({
           search={search}
           uuid={category.uuid}
           pagination={pagination}
+          from="/legal-principles"
         />
       </Suspense>
     ),

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { YEARS_SINCE_FOUNDING } from "@/lib/constants/app-years";
 
 const FirstSectoin = () => {
   return (
@@ -25,7 +26,7 @@ const FirstSectoin = () => {
             <div className="w-fit -mb-6">
               <div className="relative">
                 <p className="text-[140px] text-black font-merriweather font-extrabold -mt-0">
-                  73
+                  {YEARS_SINCE_FOUNDING}
                 </p>
                 <span className="absolute top-[135px] text-xl font-bold -left-10 text-black">
                   عاماً

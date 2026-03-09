@@ -23,6 +23,7 @@ export default function ConstitutionalCourtPage({ pagination, search }: Props) {
           pagination={pagination}
           uuid="590da7e0-a113-4bcf-a599-a859c89f7ff3"
           search={search}
+          from="/constitutional-court"
         />
       ),
     },

@@ -4,11 +4,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Link from "next/link";
 import { Calendar } from "lucide-react";
-import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 import { CopyButton } from "@/components/common/copy-button";
 import { BookmarkButton } from "@/components/common/bookmark-button";
 import { ShareButton } from "@/components/common/share-button";
+import { HighlightedHtml } from "@/components/common/highlighted-html";
+import { HighlightedText } from "@/components/common/highlighted-text";
 
 type ArticleCardProps = {
   principle: Principle;
@@ -16,11 +18,9 @@ type ArticleCardProps = {
 };
 
 export default function PrincipleCard({ principle }: ArticleCardProps) {
-  // Clean the HTML content before rendering
-  const cleanedBodyHtml = cleanHtmlStyles(principle.content || "");
-
   const pdfUrl = "/court-book.pdf";
-  const pageNumber = 3;
+  const pageNumber = principle.page_number ?? 3;
+  const hasWebsiteUrl = Boolean(principle.website_url?.trim());
 
   const handlePdfClick = () => {
     window.open(`${pdfUrl}#page=${pageNumber}`, "_blank");
@@ -36,11 +36,12 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
         {/* Date block */}
         <div className="flex flex-col text-center shrink-0 px-3 mt-3">
           <p className="text-[40px] text-main mb-2 font-bold">
-            {principle.serial_number || "------"}
+            <HighlightedText text={principle.serial_number || "------"} />
           </p>
           <p className="text-md md:text-xs">
-            {principle.gregorian_year || "------"}{" "}
-            {principle.principle_type || "------"}
+            <HighlightedText
+              text={`${principle.gregorian_year || "------"} ${principle.principle_type || "------"}`}
+            />
           </p>
         </div>
 
@@ -50,28 +51,36 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
             <div className="flex flex-col gap-2 text-start min-w-[130px]">
               <p className="text-gray-500 sm:text-lg md:text-xs flex items-center gap-1">
                 <Calendar size={14} className="text-main -mt-1" />
-                {principle.session_date
-                  ? principle.session_date
-                      .split(" - ")
-                      .map((date) => date.split("-").reverse().join("-"))
-                      .join(" - ")
-                  : "------"}{" "}
+                <HighlightedText
+                  text={
+                    principle.session_date
+                      ? principle.session_date
+                          .split(" - ")
+                          .map((date) => date.split("-").reverse().join("-"))
+                          .join(" - ")
+                      : "------"
+                  }
+                />
               </p>
               <p className="sm:text-lg md:text-xs">
-                {principle.ruling_type || "------"}
+                <HighlightedText text={principle.ruling_type || "------"} />
               </p>
             </div>
             <div className="flex flex-col gap-2 text-start">
               <p className="text-xl font-bold md:text-md lg:text-xl flex items-center gap-1">
-                <span>{principle.number || "------"}</span>
+                <span>
+                  <HighlightedText text={principle.number || "------"} />
+                </span>
                 <span className="-mx-1">/</span>
                 <span className="-me-1">
-                  {principle.judicial_year || "------"}
+                  <HighlightedText text={principle.judicial_year || "------"} />
                 </span>
-                <span>{principle.sign || "------"}</span>
+                <span>
+                  <HighlightedText text={principle.sign || "------"} />
+                </span>
               </p>
               <p className="min-h-[30px] text-md md:text-xs lg:text-sm leading-6">
-                {principle.brief || "------"}
+                <HighlightedText text={principle.brief || "------"} />
               </p>
             </div>
           </AccordionTrigger>
@@ -80,18 +89,29 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
             <h6 className="mt-5 text-center font-zain text-xl font-bold text-main">
               المبدأ القانوني
             </h6>
-            <div
+            <HighlightedHtml
+              html={principle.content || ""}
               style={{ direction: "rtl" }}
               className="mt-5 !text-justify !font-zain !font-normal !text-sm text-gray-500"
-              dangerouslySetInnerHTML={{ __html: cleanedBodyHtml }}
             />
             <div className="mt-5 flex w-full">
-              <button
-                onClick={handlePdfClick}
-                className="text-main hover:underline text-sm cursor-pointer"
-              >
-                مجلة المحكمة العليا: السنة 33 - العدد 1 - ص 231
-              </button>
+              {hasWebsiteUrl ? (
+                <Link
+                  href={principle.website_url!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-main hover:underline text-sm cursor-pointer"
+                >
+                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"} - العدد {principle.issue_number ?? "1"} - ص {principle.page_number ?? 231}
+                </Link>
+              ) : (
+                <button
+                  onClick={handlePdfClick}
+                  className="text-main hover:underline text-sm cursor-pointer"
+                >
+                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"} - العدد {principle.issue_number ?? "1"} - ص {principle.page_number ?? 231}
+                </button>
+              )}
             </div>
           </AccordionContent>
           <div className="flex justify-end items-center gap-3 mb-2.5 -mt-2 me-11">

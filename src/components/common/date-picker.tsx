@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { format } from "date-fns";
+import { ar } from "react-day-picker/locale";
 import { CalendarIcon, X } from "lucide-react";
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
@@ -87,6 +88,9 @@ export default function DatePicker({ placeholder }: FormDatePickerProps) {
           captionLayout="dropdown"
           selected={date}
           onSelect={handleSelect}
+          locale={ar}
+          dir="rtl"
+          className="w-[350px] px-0"
         />
       </PopoverContent>
     </Popover>

@@ -1,6 +1,7 @@
 // components/search-input.tsx
 "use client";
 
+import { X } from "lucide-react";
 import { HelpDialog } from "./help-dialog";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +23,13 @@ export function SearchInput({
   className?: string;
   disabled?: boolean;
 }) {
+  const hasValue = Boolean(value?.trim());
+
+  const handleClear = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onChange(null);
+  };
+
   return (
     <div
       className={cn(
@@ -39,7 +47,18 @@ export function SearchInput({
         className="w-full text-gray-800 placeholder-gray-400 outline-none placeholder:text-sm disabled:cursor-not-allowed"
       />
 
-      {help && <HelpDialog title={help.title} body={help.body} />}
+      {hasValue && !disabled && (
+        <button
+          type="button"
+          onClick={handleClear}
+          className="shrink-0 p-0.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+          aria-label="مسح"
+        >
+          <X className="h-3 w-3" />
+        </button>
+      )}
+
+      {help && !hasValue && <HelpDialog title={help.title} body={help.body} />}
     </div>
   );
 }

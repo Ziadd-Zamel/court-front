@@ -5,6 +5,7 @@ import { useQueryStates } from "nuqs";
 import { parseAsArrayOf, parseAsString } from "nuqs";
 import { Tabs, TabsList } from "@/components/ui/tabs";
 import { ChevronLeft } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export type PrincipleTypeOption = {
   label: string;
@@ -64,14 +65,17 @@ export default function PrincipleTypeMultiSelect({
               <button
                 key={opt.value}
                 type="button"
-                className="main-tab py-2.5 ps-2.5 pe-2 gap-2 text-black"
+                className={cn(
+                  "main-tab py-2.5 ps-2.5 pe-2 gap-2 text-black",
+                  "data-[state=inactive]:hover:bg-main/50 data-[state=inactive]:hover:text-white",
+                )}
                 onClick={() => toggleType(opt.value)}
                 data-state={isSelected ? "active" : "inactive"}
               >
                 <span>{opt.label}</span>
                 <ChevronLeft
                   size={18}
-                  className={` ${isSelected ? "text-white" : "text-black"}`}
+                  className={isSelected ? "text-white" : "text-inherit"}
                 />
               </button>
             );

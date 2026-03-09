@@ -155,7 +155,28 @@
   height: auto;
 }
 
+/* Hero slider: 4s zoom in, 4s zoom out */
+@keyframes hero-zoom-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
 /* Audio player range - thumb uses main color */
+/* Search param highlight - used when ?search= or ?time= etc. exist in URL */
+.search-highlight {
+  background-color: #b8860b;
+  color: white;
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
+}
+
 .audio-progress-slider {
   -webkit-appearance: none;
   appearance: none;

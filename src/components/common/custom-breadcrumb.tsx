@@ -47,6 +47,7 @@ const UUID_REGEX =
 // Map of parent path → detail label
 const dynamicSegmentMap: { [key: string]: string } = {
   "/about-court/news": "تفاصيل الخبر",
+  "/about-court/counselors": "أعمال المستشار",
   "/legal-principles": "تفاصيل المبدأ",
   "/litigants-portal/important-notices": "تفاصيل الإشعار",
   "/litigants-portal/court-releases": "تفاصيل الإصدار",
@@ -55,15 +56,20 @@ const dynamicSegmentMap: { [key: string]: string } = {
 interface CustomBreadcrumbProps {
   className?: string;
   black?: boolean;
+  /** When provided (e.g. from article page), use this path for breadcrumb + "المبدأ" as last */
+  fromPath?: string;
 }
 
 export default function CustomBreadcrumb({
   className,
   black,
+  fromPath,
 }: CustomBreadcrumbProps) {
   const pathname = usePathname();
 
-  const pathSegments = pathname.split("/").filter((segment) => segment !== "");
+  const pathSegments = fromPath
+    ? fromPath.split("/").filter((segment) => segment !== "")
+    : pathname.split("/").filter((segment) => segment !== "");
 
   if (pathname === "/") return null;
 
@@ -95,7 +101,8 @@ export default function CustomBreadcrumb({
 
         {pathSegments.map((segment, index) => {
           const href = "/" + pathSegments.slice(0, index + 1).join("/");
-          const isLast = index === pathSegments.length - 1;
+          const isLast =
+            index === pathSegments.length - 1 && !fromPath;
           const parentHref = "/" + pathSegments.slice(0, index).join("/");
 
           // If segment looks like a UUID/ID, resolve a friendly label
@@ -119,10 +126,19 @@ export default function CustomBreadcrumb({
                   <BreadcrumbLink href={href}>{displayName}</BreadcrumbLink>
                 )}
               </BreadcrumbItem>
-              {!isLast && <BreadcrumbSeparator className="-ml-1" />}
+              {(!isLast || fromPath) && (
+                <BreadcrumbSeparator className="-ml-1" />
+              )}
             </div>
           );
         })}
+
+        {/* When fromPath is provided (article page), add "التفاصيل" as final segment */}
+        {fromPath && (
+          <BreadcrumbItem>
+            <BreadcrumbPage className="text-white">التفاصيل</BreadcrumbPage>
+          </BreadcrumbItem>
+        )}
       </BreadcrumbList>
     </Breadcrumb>
   );

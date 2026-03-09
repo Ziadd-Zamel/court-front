@@ -12,9 +12,12 @@ import { DownloadButton } from "@/components/common/download-button";
 
 export default async function LegalCasePage({
   id,
+  search,
+  from,
 }: {
   id: string;
   search: string;
+  from?: string;
 }) {
   const [data, error] = await catchError(() => getArticleByID(id));
 
@@ -28,6 +31,8 @@ export default async function LegalCasePage({
   return (
     <>
       <SecondaryHeading
+        breadcrumb
+        fromPath={from}
         IconSecyion={
           <div className="flex items-center gap-3 w-full h-full">
             <BookmarkButton item={article} type="article" />

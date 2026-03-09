@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { YEARS_SINCE_FOUNDING } from "@/lib/constants/app-years";
 
 export default function AboutSection() {
   return (
@@ -35,7 +36,7 @@ export default function AboutSection() {
         <div className="w-fit mt-20">
           <div className="relative">
             <p className="text-[120px] font-merriweather font-extrabold -mt-5">
-              73
+              {YEARS_SINCE_FOUNDING}
             </p>
             <span className="absolute top-[115px] text-lg font-bold -left-10 text-main">
               عاماً

@@ -7,7 +7,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
+import { HighlightedHtml } from "@/components/common/highlighted-html";
+import { HighlightedText } from "@/components/common/highlighted-text";
 import { Slash } from "lucide-react";
 
 type Props = {
@@ -47,9 +48,11 @@ export default function AssemblySessionCard({ assembly }: Props) {
       <div className="flex flex-col items-start py-2 md:flex-row">
         <div className="flex w-full flex-1 -mt-3">
           <div className="flex flex-col text-start items-center">
-            <p className="text-3xl text-black">{day}</p>
+            <p className="text-3xl text-black">
+              <HighlightedText text={String(day)} />
+            </p>
             <p className="text-md md:text-xs text-main mt-2">
-              {month}، {year}
+              <HighlightedText text={`${month}، ${year}`} />
             </p>
           </div>
           <Slash
@@ -63,21 +66,21 @@ export default function AssemblySessionCard({ assembly }: Props) {
           {hasBrief ? (
             <>
               <AccordionTrigger className="rounded-none pt-0 flex w-full cursor-pointer flex-col items-start gap-5 text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
-                <h4 className="text-sm font-medium">{assembly.title}</h4>
+                <h4 className="text-sm font-medium">
+                  <HighlightedText text={assembly.title} />
+                </h4>
               </AccordionTrigger>
 
               <AccordionContent>
                 {assembly.items.map((item, index) => (
                   <div key={index} className="space-y-3">
                     <h6 className="mt-5 text-center font-zain text-xl font-bold text-main">
-                      {item.title}
+                      <HighlightedText text={item.title} />
                     </h6>
-                    <div
+                    <HighlightedHtml
+                      html={item.body}
                       style={{ direction: "rtl" }}
                       className="!text-justify !font-zain !font-normal !text-sm text-gray-500"
-                      dangerouslySetInnerHTML={{
-                        __html: cleanHtmlStyles(item.body),
-                      }}
                     />
                   </div>
                 ))}
@@ -91,7 +94,9 @@ export default function AssemblySessionCard({ assembly }: Props) {
           ) : (
             <>
               <div className="flex w-full flex-col items-start gap-5 pb-4 pt-0 text-start md:flex-row md:items-center">
-                <h4 className="text-sm font-medium">{assembly.title}</h4>
+                <h4 className="text-sm font-medium">
+                  <HighlightedText text={assembly.title} />
+                </h4>
               </div>
               <div className="flex justify-end items-center gap-3 mb-2.5 me-11">
                 {assembly.pdf && <DownloadButton url={assembly.pdf} />}

@@ -6,11 +6,14 @@ import { motion } from "framer-motion";
 interface Props {
   title: string;
   breadcrumb?: boolean;
+  /** When provided (e.g. on article page), breadcrumb uses this path instead of pathname */
+  fromPath?: string;
   IconSecyion?: ReactNode;
 }
 export default function SecondaryHeading({
   title,
   breadcrumb,
+  fromPath,
   IconSecyion,
 }: Props) {
   return (
@@ -30,13 +33,13 @@ export default function SecondaryHeading({
         </motion.div>
 
         {/*Seconde Part */}
-        <div className="w-1/2 lg:w-1/2 flex justify-start pr-10 lg:pr-52">
+        <div className="w-1/2 lg:w-1/2 flex justify-start pr-10 lg:pr-54">
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            {breadcrumb && <CustomBreadcrumb black />}
+            {breadcrumb && <CustomBreadcrumb black fromPath={fromPath} />}
           </motion.div>
         </div>
 

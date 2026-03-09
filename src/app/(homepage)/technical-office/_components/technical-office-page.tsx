@@ -48,6 +48,7 @@ export default async function TechnicalOfficePage({
           search={search}
           uuid={category.uuid}
           pagination={pagination}
+          from="/technical-office"
         />
       </Suspense>
     ),

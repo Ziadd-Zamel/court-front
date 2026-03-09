@@ -43,7 +43,7 @@ const useSlider = (slides: SlideData[], autoPlayInterval: number = 5000) => {
         setState((prev) => ({ ...prev, isTransitioning: false }));
       }, 300); // Much shorter transition lock
     },
-    [state.currentIndex]
+    [state.currentIndex],
   );
 
   // Function to stop auto-play
@@ -103,7 +103,7 @@ const SlideContent = ({
       HeroSlides3,
       HeroSlides4,
     }),
-    []
+    [],
   );
 
   const Component =
@@ -134,13 +134,14 @@ const SlideBackground = ({
     }}
   >
     <div
-      className={`absolute inset-0 h-full w-full transition-transform duration-[5000ms] ease-linear ${
-        isActive ? "scale-110" : "scale-100"
-      }`}
+      className="absolute inset-0 h-full w-full"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        ...(isActive && {
+          animation: "hero-zoom-pulse 20s ease-in-out infinite",
+        }),
       }}
     />
     {showoverlay && <div className="absolute inset-0 bg-black/50" />}
@@ -213,7 +214,7 @@ const DotsNavigation = ({
 const HeroSlider = () => {
   const { currentIndex, goToNextUser, goToPrevious, goToSlide } = useSlider(
     slides,
-    5000
+    8000,
   );
 
   // Create unique key for each slide to force component remount and restart animations
@@ -228,7 +229,7 @@ const HeroSlider = () => {
     (index: number) => {
       goToSlide(index);
     },
-    [goToSlide]
+    [goToSlide],
   );
 
   return (

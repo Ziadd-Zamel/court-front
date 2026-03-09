@@ -20,14 +20,14 @@ export default function NavbarContainer({
   return (
     <motion.nav
       className={cn(
-        "fixed right-0 box-container !max-w-full top-0 z-50 flex w-full items-center justify-between  py-3 transition-colors duration-300",
+        "fixed right-0 box-container !max-w-full top-0 z-50 flex w-full items-center justify-between  py-1 transition-colors duration-300",
         isScrolled && visible
           ? "border-b-2 border-[#e6c599] bg-black/70 py-px"
           : shouldUseDarkBackground
-          ? "bg-black/80"
-          : !opacity
-          ? "bg-black bg-opacity-0"
-          : "bg-black bg-opacity-70"
+            ? "bg-black/80"
+            : !opacity
+              ? "bg-black bg-opacity-0"
+              : "bg-black bg-opacity-70",
       )}
       initial={{ top: 0 }}
       animate={{

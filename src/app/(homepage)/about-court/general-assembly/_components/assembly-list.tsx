@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import CourtPagination from "@/components/custom/court-pagination";
 import { Accordion } from "@/components/ui/accordion";
 import AssemblyCard from "./assembly-card";
@@ -28,7 +29,9 @@ const AssemblyList = ({
       </Accordion>
 
       {totalPages > 1 && (
-        <CourtPagination pagination={pagination} totalPages={totalPages} />
+        <Suspense fallback={null}>
+          <CourtPagination pagination={pagination} totalPages={totalPages} />
+        </Suspense>
       )}
     </section>
   );

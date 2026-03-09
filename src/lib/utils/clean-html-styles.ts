@@ -1,69 +1,63 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const cleanHtmlStyles = (htmlString: any) => {
-  // Create a temporary div to parse the HTML
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = htmlString;
 
-  // Get all elements with style attributes
-  const elementsWithStyle = tempDiv.querySelectorAll("[style]");
+const FONT_PROPERTIES = [
+  "font-size",
+  "font-family",
+  "font-weight",
+  "color",
+  "font",
+  "font-style",
+  "font-variant",
+  "mso-fareast-font-family",
+];
 
-  elementsWithStyle.forEach((element) => {
-    const currentStyle = element.getAttribute("style");
-    if (currentStyle) {
-      // Split the style string into individual declarations
-      const styleDeclarations = currentStyle
-        .split(";")
-        .filter((decl) => decl.trim());
+function isFontProperty(property: string): boolean {
+  const prop = property.trim().toLowerCase();
+  return FONT_PROPERTIES.some((fontProp) => {
+    return (
+      prop === fontProp ||
+      prop.startsWith(fontProp + "-") ||
+      (fontProp === "font" && prop.startsWith("font"))
+    );
+  });
+}
 
-      // Filter out font-related styles
-      const cleanedDeclarations = styleDeclarations.filter((declaration) => {
-        const property = declaration.split(":")[0].trim().toLowerCase();
+function cleanStyleAttribute(styleValue: string): string | null {
+  const declarations = styleValue
+    .split(";")
+    .map((d) => d.trim())
+    .filter(Boolean);
 
-        // List of font-related properties to remove (exact matches)
-        const fontProperties = [
-          "font-size",
-          "font-family",
-          "font-weight",
-          "color",
-          "font",
-          "font-style",
-          "font-variant",
-          "mso-fareast-font-family",
-        ];
+  const cleaned = declarations.filter((decl) => {
+    const colonIndex = decl.indexOf(":");
+    const property = colonIndex === -1 ? decl : decl.slice(0, colonIndex);
+    return !isFontProperty(property);
+  });
 
-        // Check for exact property match or if property starts with font-related terms
-        const isFontProperty = fontProperties.some((fontProp) => {
-          return (
-            property === fontProp ||
-            property.startsWith(fontProp + "-") ||
-            (fontProp === "font" && property.startsWith("font"))
-          );
-        });
+  if (cleaned.length === 0) return null;
+  return cleaned.join("; ") + ";";
+}
 
-        // Keep declaration if it's NOT a font property
-        return !isFontProperty;
-      });
+/** Strips font-related inline styles and attributes. Works on both server and client. */
+export const cleanHtmlStyles = (htmlString: any): string => {
+  if (typeof htmlString !== "string") return "";
 
-      // Update the style attribute
-      if (cleanedDeclarations.length > 0) {
-        element.setAttribute("style", cleanedDeclarations.join("; ") + ";");
-      } else {
-        element.removeAttribute("style");
-      }
+  let result = htmlString;
+
+  // 1. Process style="..." attributes
+  result = result.replace(
+    /style\s*=\s*["']([^"']*)["']/gi,
+    (_match: string, styleValue: string) => {
+      const cleaned = cleanStyleAttribute(styleValue);
+      return cleaned ? `style="${cleaned}"` : "";
     }
-  });
+  );
 
-  // Also remove font-related attributes from elements
-  const elementsWithFontAttribs = tempDiv.querySelectorAll("*");
-  elementsWithFontAttribs.forEach((element) => {
-    // Remove common font attributes
-    const fontAttributes = ["face", "size", "color"];
-    fontAttributes.forEach((attr) => {
-      if (element.hasAttribute(attr)) {
-        element.removeAttribute(attr);
-      }
-    });
-  });
+  // 2. Remove empty style="" or style='' left after cleaning
+  result = result.replace(/\s*style\s*=\s*["']['"]/gi, "");
 
-  return tempDiv.innerHTML;
+  // 3. Remove font-related attributes: face, size, color
+  result = result.replace(/\s+(face|size|color)\s*=\s*["'][^"']*["']/gi, "");
+
+  return result;
 };

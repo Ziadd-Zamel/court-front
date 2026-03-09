@@ -1,55 +1,13 @@
-import React, { useEffect, useState } from "react";
-
-export interface Testimonial {
-  title: string;
-  text: string;
-  desc: string;
-}
-
-const testimonials: Testimonial[][] = [
-  [
-    {
-      title: "المحكمة العليا",
-
-      text: "إعلان استئناف عمل الدائرة الدستورية بالمحكمة العليا بتاريخ 22-4-2026 بعد توقف دام لعدة أشهر",
-      desc: "ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري.",
-    },
-    {
-      title: "المكتب الفني",
-      text: "عقد اجتماع غير عادي بتاريخ 22-4-2026 لمناقشة عناوين إصدار مجلة المحكمة العليا العدد السبعون",
-      desc: "ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري.",
-    },
-    {
-      title: "مكتبة المحكمة العليا",
-      text: "إضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري",
-      desc: "ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري.",
-    },
-  ],
-  [
-    {
-      title: "المحكمة العليا",
-
-      text: "إعلان استئناف عمل الدائرة الدستورية بالمحكمة العليا بتاريخ 22-4-2026 بعد توقف دام لعدة أشهر",
-      desc: "ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري.",
-    },
-    {
-      title: "المكتب الفني",
-      text: "عقد اجتماع غير عادي بتاريخ 22-4-2026 لمناقشة عناوين إصدار مجلة المحكمة العليا العدد السبعون",
-      desc: "ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري.",
-    },
-    {
-      title: "مكتبة المحكمة العليا",
-      text: "إضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري",
-      desc: "ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري. ضافة حزمة من الكتب في مختلف فروع القانون بتاريخ 20-4-2026 تشمل أكثر من 150 عنواناً في القانون المدني والجنائي والدستوري والإداري.",
-    },
-  ],
-];
+import React, { useEffect, useRef, useState } from "react";
+import type { NewsCarouselItem } from "./RecentNews";
 
 interface CarouselProps {
-  onCardClick: (testimonial: Testimonial) => void;
+  testimonials: NewsCarouselItem[][];
+  onCardClick: (item: NewsCarouselItem) => void;
 }
 
 const StaggeredNavigationCarousel: React.FC<CarouselProps> = ({
+  testimonials,
   onCardClick,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -67,21 +25,21 @@ const StaggeredNavigationCarousel: React.FC<CarouselProps> = ({
     setTimeout(() => {
       setCurrentIndex(index);
 
-      // Bring cards back one by one
-      setTimeout(() => setActiveCards([0]), 100);
-      setTimeout(() => setActiveCards([0, 1]), 250);
+      // Bring cards back one by one (slower animation)
+      setTimeout(() => setActiveCards([0]), 200);
+      setTimeout(() => setActiveCards([0, 1]), 450);
       setTimeout(() => {
         setActiveCards([0, 1, 2]);
         setIsTransitioning(false);
-      }, 400);
-    }, 500);
+      }, 700);
+    }, 600);
   };
 
-  // Initialize cards on mount
+  // Initialize cards on mount (slower)
   useEffect(() => {
-    const timeout1 = setTimeout(() => setActiveCards([0]), 100);
-    const timeout2 = setTimeout(() => setActiveCards([0, 1]), 250);
-    const timeout3 = setTimeout(() => setActiveCards([0, 1, 2]), 400);
+    const timeout1 = setTimeout(() => setActiveCards([0]), 200);
+    const timeout2 = setTimeout(() => setActiveCards([0, 1]), 450);
+    const timeout3 = setTimeout(() => setActiveCards([0, 1, 2]), 700);
 
     return () => {
       clearTimeout(timeout1);
@@ -89,6 +47,17 @@ const StaggeredNavigationCarousel: React.FC<CarouselProps> = ({
       clearTimeout(timeout3);
     };
   }, []);
+
+  // Autoplay every 6 seconds
+  const handleNavRef = useRef(handleNavigation);
+  handleNavRef.current = handleNavigation;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const next = (currentIndex + 1) % testimonials.length;
+      handleNavRef.current(next);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [currentIndex, testimonials.length]);
 
   return (
     <div
@@ -99,29 +68,29 @@ const StaggeredNavigationCarousel: React.FC<CarouselProps> = ({
         <div className="mr-40 flex w-full flex-col items-start space-y-2">
           {testimonials[currentIndex].map((item, cardIndex) => (
             <div
-              className={`w-full cursor-pointer transition-all duration-300 ${
+              className={`w-full cursor-pointer transition-all duration-700 ease-out ${
                 activeCards.includes(cardIndex)
                   ? "translate-x-0 opacity-100"
                   : "translate-x-full opacity-0"
               }`}
               style={{
-                transitionDelay: `${cardIndex * 150}ms`,
+                transitionDelay: `${cardIndex * 280}ms`,
               }}
               onClick={() => onCardClick(item)}
-              key={cardIndex}
+              key={item.uuid}
             >
-              <div className="flex w-full items-center gap-5">
-                <div className="w-full">
-                  <h3 className="font-zain text-md font-bold text-main md:text-[20px] lg:text-xl">
-                    {item.title}{" "}
+              <div className="flex w-full min-w-0 items-center gap-5">
+                <div className="min-w-0 flex-1">
+                  <h3 className="truncate font-zain text-md font-bold text-main md:text-[20px] lg:text-xl">
+                    {item.title}
                   </h3>
-                  <p className="mt-2 min-h-[30px] font-zain text-sm text-[#8989A1] md:text-base lg:text-md">
-                    ...{item.text.substring(0, 50)}{" "}
+                  <p className="mt-2 min-h-[30px] truncate font-zain text-sm text-[#8989A1] md:text-base lg:text-md">
+                    ...{item.text.substring(0, 50)}
                   </p>
                 </div>
                 <div className="flex h-[60px] w-[70px] flex-col items-center justify-center rounded-[1px] bg-main text-center text-sm text-white">
-                  <p className="text-base">21</p>
-                  <p className="-mt-2 text-sm">ديسمبر</p>
+                  <p className="text-base">{item.day}</p>
+                  <p className="-mt-2 text-sm">{item.month}</p>
                 </div>
               </div>
               <div className="my-4 ml-10 h-[.5px] w-full bg-[#d8d8d8]" />

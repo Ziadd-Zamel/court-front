@@ -1,72 +1,67 @@
 "use client";
 
-import { useQueryState } from "nuqs";
+import { useQueryStates } from "nuqs";
+import { parseAsString } from "nuqs";
 import { Switch } from "@/components/ui/switch";
+import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const SWITCHES = [
-  {
-    key: "strict_ya" as const,
-    label: "تقيد بنقطتي الياء النهائية",
-  },
-  {
-    key: "strict_alef" as const,
-    label: "تقيد بهمزة الألف الابتدائية",
-  },
-  {
-    key: "strict_ta" as const,
-    label: "تقيد بالتاء المربوطة",
-  },
-] as const;
+const strictParser = parseAsString.withDefault("0");
 
 export default function PrincipleStrictSwitches({
   className,
 }: {
   className?: string;
 }) {
-  const [strictYa, setStrictYa] = useQueryState("strict_ya", {
-    defaultValue: "0",
-    clearOnDefault: false,
-    scroll: false,
-  });
-  const [strictAlef, setStrictAlef] = useQueryState("strict_alef", {
-    defaultValue: "0",
-    clearOnDefault: false,
-    scroll: false,
-  });
-  const [strictTa, setStrictTa] = useQueryState("strict_ta", {
-    defaultValue: "0",
-    clearOnDefault: false,
-    scroll: false,
-  });
+  const [strict, setStrict] = useQueryStates(
+    {
+      strict_ya: strictParser,
+      strict_alef: strictParser,
+      strict_ta: strictParser,
+    },
+    {
+      shallow: false,
+      clearOnDefault: false,
+      scroll: false,
+    },
+  );
 
-  const setters = {
-    strict_ya: setStrictYa,
-    strict_alef: setStrictAlef,
-    strict_ta: setStrictTa,
-  };
+  const isAllOn =
+    strict.strict_ya === "1" &&
+    strict.strict_alef === "1" &&
+    strict.strict_ta === "1";
 
-  const values = {
-    strict_ya: strictYa,
-    strict_alef: strictAlef,
-    strict_ta: strictTa,
+  const handleChange = (checked: boolean) => {
+    const value = checked ? "1" : "0";
+    setStrict({
+      strict_ya: value,
+      strict_alef: value,
+      strict_ta: value,
+    });
   };
 
   return (
-    <div className={cn("flex flex-col gap-4 w-full pt-5", className)}>
-      {SWITCHES.map(({ key, label }) => (
-        <div
-          key={key}
-          className="flex items-center justify-between gap-4 text-start"
-        >
-          <span className="text-gray-600 text-xs md:text-sm">{label}</span>
-          <Switch
-            id={key}
-            checked={values[key] === "1"}
-            onCheckedChange={(checked) => setters[key](checked ? "1" : "0")}
-          />
-        </div>
-      ))}
-    </div>
+    <button
+      type="button"
+      onClick={() => handleChange(!isAllOn)}
+      className={cn(
+        "main-tab py-2.5 ps-2.5 pe-2 gap-2 text-black",
+        "data-[state=inactive]:hover:bg-main/50 data-[state=inactive]:hover:text-white",
+        className
+      )}
+      data-state={isAllOn ? "active" : "inactive"}
+    >
+      <span>تقييدات الحروف العربية</span>
+      <ChevronLeft
+        size={18}
+        className={isAllOn ? "text-white" : "text-inherit"}
+      />
+      <Switch
+        id="strict-letters"
+        checked={isAllOn}
+        onCheckedChange={handleChange}
+        className="sr-only"
+      />
+    </button>
   );
 }

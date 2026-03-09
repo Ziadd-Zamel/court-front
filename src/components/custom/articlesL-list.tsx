@@ -11,19 +11,26 @@ type ArticlesListProps = {
     limit: number;
   };
   totalPages: number;
+  /** Path for breadcrumb on article page (e.g. /legal-principles) */
+  from?: string;
 };
 
 const ArticlesList = ({
   articles,
   pagination,
   totalPages,
+  from,
 }: ArticlesListProps) => {
-  console.log(articles);
   return (
     <section>
       <Accordion style={{ direction: "rtl" }} type="single" collapsible>
         {articles.map((article, index) => (
-          <ArticleCard key={article.uuid} article={article} index={index} />
+          <ArticleCard
+            key={article.uuid}
+            article={article}
+            index={index}
+            from={from}
+          />
         ))}
       </Accordion>
 

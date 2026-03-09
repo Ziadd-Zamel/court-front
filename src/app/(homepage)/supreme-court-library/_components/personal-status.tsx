@@ -9,6 +9,10 @@ import {
   EXCLUDE_KEYWORD_HELP,
   OR_KEYWORD_HELP,
 } from "@/lib/constants/personal.constnat";
+import {
+  CURRENT_YEAR,
+  YEARS_SINCE_FOUNDING,
+} from "@/lib/constants/app-years";
 
 export default function PersonalStatus() {
   const [word, setWord] = useQueryState("word");
@@ -103,7 +107,7 @@ export default function PersonalStatus() {
             <SearchInput
               value={principleYear ?? ""}
               onChange={setPrincipleYear}
-              placeholder="أدرج السنة الميلادية. مثال: 2026"
+              placeholder={`أدرج السنة الميلادية. مثال: ${CURRENT_YEAR}`}
             />
             <SearchInput
               value={principleNumber ?? ""}

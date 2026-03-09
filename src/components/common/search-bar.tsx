@@ -15,7 +15,12 @@ const SearchBar = ({ className }: { className?: string }) => {
 
   const handleSearch = () => {
     if (value.trim()) {
-      router.push(`${pathname}?search=${encodeURIComponent(value.trim())}`, {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("search", value.trim());
+      // Explicitly preserve 'from' for breadcrumb (e.g. from=legal-principles)
+      const fromVal = searchParams.get("from");
+      if (fromVal) params.set("from", fromVal);
+      router.push(`${pathname}?${params.toString()}`, {
         scroll: false,
       });
     }
@@ -27,7 +32,15 @@ const SearchBar = ({ className }: { className?: string }) => {
 
   const handleClear = () => {
     setValue("");
-    router.push(pathname, { scroll: false });
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("search");
+    // Explicitly preserve 'from' for breadcrumb
+    const fromVal = searchParams.get("from");
+    if (fromVal) params.set("from", fromVal);
+    const query = params.toString();
+    router.push(query ? `${pathname}?${query}` : pathname, {
+      scroll: false,
+    });
   };
 
   return (

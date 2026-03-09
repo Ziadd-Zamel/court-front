@@ -20,7 +20,6 @@ export default async function CounselorPage({
 
   if (!CounselorsData || !CounselorsData?.data) return <NoDataState />;
 
-  console.log(CounselorsData);
   return (
     <section>
       <SecondaryHeading title="أعمال مستشار" />
@@ -44,6 +43,7 @@ export default async function CounselorPage({
                       index={index}
                       key={ruling.uuid}
                       article={ruling}
+                      from={`/about-court/counselors/${counselorId}`}
                     />
                   );
                 })}

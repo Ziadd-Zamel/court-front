@@ -77,7 +77,11 @@ export default function FavoriteReaserchPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <ArticleCard article={article} index={index} />
+                    <ArticleCard
+                      article={article}
+                      index={index}
+                      from="/favorite/research"
+                    />
                   </motion.div>
                 ))}
               </Accordion>

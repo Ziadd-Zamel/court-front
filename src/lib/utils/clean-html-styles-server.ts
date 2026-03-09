@@ -65,17 +65,14 @@ export function cleanHtmlStylesServer(htmlString: string): string {
     (_match, styleValue) => {
       const cleaned = cleanStyleAttribute(styleValue);
       return cleaned ? `style="${cleaned}"` : "";
-    }
+    },
   );
 
   // 2. Remove empty style="" or style='' left after cleaning
   result = result.replace(/\s*style\s*=\s*["']['"]/gi, "");
 
   // 3. Remove font-related attributes: face, size, color
-  result = result.replace(
-    /\s+(face|size|color)\s*=\s*["'][^"']*["']/gi,
-    ""
-  );
+  result = result.replace(/\s+(face|size|color)\s*=\s*["'][^"']*["']/gi, "");
 
   return result;
 }

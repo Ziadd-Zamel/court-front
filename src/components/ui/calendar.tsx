@@ -11,6 +11,8 @@ import {
   getDefaultClassNames,
   type DayButton,
 } from "react-day-picker";
+import { format } from "date-fns";
+import type { Locale } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "./button";
 
@@ -22,6 +24,7 @@ function Calendar({
   buttonVariant = "ghost",
   formatters,
   components,
+  locale,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"];
@@ -31,6 +34,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
+      locale={locale}
       className={cn(
         "bg-white dark:bg-gray-800 group/calendar p-3 [--cell-size:--spacing(8)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
@@ -40,7 +44,9 @@ function Calendar({
       captionLayout={captionLayout}
       formatters={{
         formatMonthDropdown: (date) =>
-          date.toLocaleString("default", { month: "short" }),
+          locale
+            ? format(date, "LLL", { locale: locale as Locale })
+            : date.toLocaleString("default", { month: "short" }),
         ...formatters,
       }}
       classNames={{
@@ -113,15 +119,15 @@ function Calendar({
           defaultClassNames.day,
         ),
         range_start: cn(
-          "rounded-l-md bg-blue-100 dark:bg-blue-900/40",
+          "rounded-l-md bg-main/30 dark:bg-main/40",
           defaultClassNames.range_start,
         ),
         range_middle: cn(
-          "rounded-none bg-blue-50 dark:bg-blue-900/20",
+          "rounded-none bg-main/20 dark:bg-main/30",
           defaultClassNames.range_middle,
         ),
         range_end: cn(
-          "rounded-r-md bg-blue-100 dark:bg-blue-900/40",
+          "rounded-r-md bg-main/30 dark:bg-main/40",
           defaultClassNames.range_end,
         ),
         today: cn(
@@ -217,21 +223,21 @@ function CalendarDayButton({
       data-range-middle={modifiers.range_middle}
       className={cn(
         // Selected single day
-        "data-[selected-single=true]:bg-blue-600 data-[selected-single=true]:text-white",
+        "data-[selected-single=true]:bg-main data-[selected-single=true]:text-white",
         // Range
-        "data-[range-middle=true]:bg-blue-50 data-[range-middle=true]:text-blue-700",
-        "data-[range-start=true]:bg-blue-600 data-[range-start=true]:text-white",
-        "data-[range-end=true]:bg-blue-600 data-[range-end=true]:text-white",
+        "data-[range-middle=true]:bg-main/20 data-[range-middle=true]:text-main",
+        "data-[range-start=true]:bg-main data-[range-start=true]:text-white",
+        "data-[range-end=true]:bg-main data-[range-end=true]:text-white",
         // Dark mode selected
-        "dark:data-[selected-single=true]:bg-blue-500 dark:data-[selected-single=true]:text-white",
-        "dark:data-[range-middle=true]:bg-blue-900/30 dark:data-[range-middle=true]:text-blue-300",
-        "dark:data-[range-start=true]:bg-blue-500 dark:data-[range-start=true]:text-white",
-        "dark:data-[range-end=true]:bg-blue-500 dark:data-[range-end=true]:text-white",
+        "dark:data-[selected-single=true]:bg-main dark:data-[selected-single=true]:text-white",
+        "dark:data-[range-middle=true]:bg-main/30 dark:data-[range-middle=true]:text-main",
+        "dark:data-[range-start=true]:bg-main dark:data-[range-start=true]:text-white",
+        "dark:data-[range-end=true]:bg-main dark:data-[range-end=true]:text-white",
         // Hover
         "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
         "dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-100",
         // Focus ring
-        "group-data-[focused=true]/day:border-blue-400 group-data-[focused=true]/day:ring-blue-400/50",
+        "group-data-[focused=true]/day:border-main group-data-[focused=true]/day:ring-main/50",
         "group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px]",
         // Layout
         "flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal",

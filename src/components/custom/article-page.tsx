@@ -12,16 +12,19 @@ type ArticlePageProps = {
     limit: number;
   };
   search?: string;
+  /** Path for breadcrumb on article page (e.g. /legal-principles) */
+  from?: string;
 };
 
 export default async function ArticlePage({
   uuid,
   search,
   pagination,
+  from,
 }: ArticlePageProps) {
   // Get Articles
   const [articlesData, articlesError] = await catchError(() =>
-    getArticlesByCategory(pagination.currentPage, 5, uuid, search),
+    getArticlesByCategory(pagination.currentPage, 15, uuid, search),
   );
 
   // Error state
@@ -43,6 +46,7 @@ export default async function ArticlePage({
       title={`المقالات - ${uuid}`}
       pagination={pagination}
       totalPages={articlesData.meta.last_page}
+      from={from}
     />
   );
 }
