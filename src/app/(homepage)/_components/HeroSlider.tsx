@@ -211,9 +211,34 @@ const DotsNavigation = ({
 );
 
 // Main slider component
-const HeroSlider = () => {
+const HeroSlider = ({
+  siteSettings,
+}: {
+  siteSettings?: SiteSettingsData | null;
+}) => {
+  const slidesWithImages = useMemo(
+    () =>
+      slides.map((slide, index) => {
+        const cmsKey = [
+          "home_slider_1",
+          "home_slider_2",
+          "home_slider_3",
+          "home_slider_4",
+        ][index] as keyof Pick<
+          SiteSettingsData,
+          "home_slider_1" | "home_slider_2" | "home_slider_3" | "home_slider_4"
+        >;
+        const cmsImage = siteSettings?.[cmsKey];
+        return {
+          ...slide,
+          backgroundImage: cmsImage ?? slide.backgroundImage,
+        };
+      }),
+    [siteSettings],
+  );
+
   const { currentIndex, goToNextUser, goToPrevious, goToSlide } = useSlider(
-    slides,
+    slidesWithImages,
     8000,
   );
 
@@ -235,7 +260,7 @@ const HeroSlider = () => {
   return (
     <div className="relative h-screen w-full overflow-hidden">
       {/* Slides */}
-      {slides.map((slide, index) => (
+      {slidesWithImages.map((slide, index) => (
         <div
           key={`slide-${index}`}
           className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
@@ -262,7 +287,7 @@ const HeroSlider = () => {
       <NavigationArrows onPrevious={goToPrevious} onNext={goToNextUser} />
 
       <DotsNavigation
-        totalSlides={slides.length}
+        totalSlides={slidesWithImages.length}
         currentIndex={currentIndex}
         onDotClick={handleDotClick}
       />

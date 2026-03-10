@@ -95,23 +95,32 @@ export default function PageContent({ setShowstates }: PageContentProps) {
     if (!hasSearched && !caseData) {
       return (
         <div className="pt-20 pb-40">
-          <h3 className=" text-2xl sm:text-3xl font-bold text-zinc-800 mb-2 text-right">
+          <h3 className="text-2xl sm:text-3xl font-bold text-zinc-800 mb-4 text-right">
             إضاءات:
           </h3>
-          <p className="text-gray-600 text-sm text-justify">
-            هذه بعض الملاحظات المهمة التي يمكن أن تعين الزائر في عملية البحث وفي
-            فهم إجراءات نظر الطعن. هذا النص قابل للتعديل والتحديث من لوحة
-            التحكم. هذه بعض الملاحظات المهمة التي يمكن أن تعين الزائر في عملية
-            البحث وفي فهم إجراءات نظر الطعن. هذا النص قابل للتعديل والتحديث من
-            لوحة التحكم. هذه بعض الملاحظات المهمة التي يمكن أن تعين الزائر في
-            عملية البحث وفي فهم إجراءات نظر الطعن.
-          </p>
+          <ul className="text-gray-600 text-sm space-y-4 list-disc list-inside text-right">
+            <li>
+              للحصول على نتائج سريعة ودقيقة، يُراعى إدخال بيانات قضيتك إدخالاً
+              صحيحاً. يُرجى الانتباه إلى أنه في حالات نادرة، قد يتأخر تحديث
+              بيانات القضية لوقت قصير، لا يجاوز في الغالب يومين أو ثلاثة.
+            </li>
+            <li>
+              حرصاً على وقتك ووقت العاملين، لا حاجة لمراجعة مكاتب المحكمة العليا
+              من أجل الحصول على النسخة النهائية للحكم إلا بعد التحقق، بواسطة هذه
+              الخدمة، من إيداعها.
+            </li>
+            <li>
+              يجب مراعاة أن البيانات الواردة في هذه الخدمة لا تتمتع بأي حجية.
+              تظل الحجية القانونية المطلقة قاصرة على المستندات الورقية المودعة
+              ملف القضية.
+            </li>
+          </ul>
         </div>
       );
     }
 
     // If search has been performed and there are results
-    if (hasSearched && caseData?.data) {
+    if (hasSearched && caseData?.data && caseData.data.length > 0) {
       return (
         <MainTable
           caseData={caseData.data}
@@ -120,19 +129,27 @@ export default function PageContent({ setShowstates }: PageContentProps) {
       );
     }
 
-    // If search has been performed but no results found (or search completed with no data)
-    if (hasSearched && !isLoading && !caseData?.data) {
+    // If search failed with API/validation error (wrong input)
+    if (hasSearched && !isLoading && caseError) {
+      return <NoSearchResults box={false} message="خطأ في الإدخال" />;
+    }
+
+    // If search completed but no appeal data available yet
+    if (
+      hasSearched &&
+      !isLoading &&
+      (!caseData?.data || caseData.data.length === 0)
+    ) {
       return (
         <NoSearchResults
           box={false}
-          message="رسالة عدم توفر بيانات الطعن إلى الآن"
+          message="المعذرة، بيانات الطعن المحدد ليست متاحة بعد"
         />
       );
     }
 
     return null;
   };
-  console.log(caseData);
 
   return (
     <div className="min-h-screen flex-1 py-6 pl-2 pr-2 md:pl-10 md:pr-10 lg:pr-20">

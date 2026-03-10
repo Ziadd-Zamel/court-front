@@ -15,9 +15,9 @@ const routeNameMap: { [key: string]: string } = {
   "/": "Home",
   "/litigants-portal": "بوابة المتقاضين والقانونيين",
   "/litigants-portal/important-notices": "معلومات مهمة",
-  "/litigants-portal/appeal-inquiry": "الاستعلام عن الطعون",
+  "/litigants-portal/appeal-inquiry": "مؤشرات أداء الدوائر",
   "/litigants-portal/litigation-services": "المحامون المقبولون",
-  "/litigants-portal/court-releases": "إصدارات المحكمة و النشر",
+  "/litigants-portal/court-releases": "إصدارات المحكمة والنشر",
   "/technical-office": "المكتب الفني",
   "/supreme-court-library": "مكتبة المحكمة العليا",
   "/constitutional-court": "الدائرة الدستورية",
@@ -101,8 +101,7 @@ export default function CustomBreadcrumb({
 
         {pathSegments.map((segment, index) => {
           const href = "/" + pathSegments.slice(0, index + 1).join("/");
-          const isLast =
-            index === pathSegments.length - 1 && !fromPath;
+          const isLast = index === pathSegments.length - 1 && !fromPath;
           const parentHref = "/" + pathSegments.slice(0, index).join("/");
 
           // If segment looks like a UUID/ID, resolve a friendly label

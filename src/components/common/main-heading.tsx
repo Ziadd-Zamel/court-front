@@ -4,11 +4,14 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import CustomBreadcrumb from "./custom-breadcrumb";
 import { useRef } from "react";
+import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 
 interface Props {
   title: string;
   bgImage: string;
   description?: string;
+  /** HTML content for description (cleaned with cleanHtmlStyles). Takes precedence over description when provided. */
+  descriptionHtml?: string | null;
   titleClassName?: string;
   descriptionClassname?: string;
   overlay?: boolean;
@@ -21,6 +24,7 @@ export default function MainHeading({
   titleClassName,
   descriptionClassname,
   description,
+  descriptionHtml,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -71,18 +75,23 @@ export default function MainHeading({
         </div>
 
         {/**Description */}
-        {description && (
-          <motion.p
+        {(descriptionHtml || description) && (
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
             className={cn(
               descriptionClassname,
-              "font-normal text-justify leading-7 -mt-3 text-gray-300 text-xs sm:text-sm md:text-base md:max-w-[80%]",
+              "font-normal text-justify leading-7 -mt-3 text-gray-300 text-xs sm:text-sm md:text-base md:max-w-[80%] [&_p]:mb-2 [&_p:last-child]:mb-0",
             )}
-          >
-            {description}
-          </motion.p>
+            {...(descriptionHtml
+              ? {
+                  dangerouslySetInnerHTML: {
+                    __html: cleanHtmlStyles(descriptionHtml),
+                  },
+                }
+              : { children: description })}
+          />
         )}
       </div>
     </section>

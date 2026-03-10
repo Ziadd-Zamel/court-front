@@ -3,7 +3,15 @@ import { getConstitutionalRulingsFavourites } from "@/lib/api/articles";
 import catchError from "@/lib/utils/catch-error";
 import { FavouriteRulingsGrid } from "./favourite-rulings-grid";
 
-export default async function FavouriteRulings() {
+const FALLBACK_BACKGROUND = "/assets/home-1.jpg";
+
+interface FavouriteRulingsProps {
+  backgroundImage?: string | null;
+}
+
+export default async function FavouriteRulings({
+  backgroundImage,
+}: FavouriteRulingsProps) {
   const [data, error] = await catchError(getConstitutionalRulingsFavourites);
 
   if (error || !data || !("data" in data) || !data.data?.length) {
@@ -11,12 +19,13 @@ export default async function FavouriteRulings() {
   }
 
   const articles = data.data;
+  const bgUrl = backgroundImage ?? FALLBACK_BACKGROUND;
 
   return (
     <section
       className="w-full py-16 relative"
       style={{
-        backgroundImage: "url('/assets/home-1.jpg')",
+        backgroundImage: `url(${bgUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",

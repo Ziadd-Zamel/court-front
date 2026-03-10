@@ -12,7 +12,7 @@ import AppealInquiryPage from "./_components/appealInquiry-page";
 export default async function Page() {
   return (
     <>
-      <SecondaryHeading title="الاستعلام عن الطعون " breadcrumb />
+      <SecondaryHeading title="مؤشرات أداء الدوائر " breadcrumb />
       <AppealInquiryPage />
     </>
   );

@@ -16,7 +16,7 @@ export const serviceData = [
     path: "/litigants-lawyers-portal/appeal-inquiry",
   },
   {
-    title: "إصدارات المحكمة و النشر",
+    title: "إصدارات المحكمة والنشر",
     description:
       "نص تجريبي يتناول بعض أحكام المحكمة العليا ويضم فقرات مختارة من قانون المرافعات، مخصص للاستخدام في الاختبارات فقط.",
     icon: Layers,

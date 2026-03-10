@@ -1,6 +1,11 @@
 import MainHeading from "@/components/common/main-heading";
 import SupermeCourtPage from "./_components/supreme-court-page";
 import ContactSection from "@/components/custom/contact-section";
+import { getSiteSettings } from "@/lib/api/site-settings.api";
+
+const FALLBACK_BACKGROUND = "/assets/supreme-court-library.png";
+const FALLBACK_DESCRIPTION =
+  "قسم يضم كلَّ ما تحويه المكتبة من مطبوعات: الكتب، وإصدارات المحكمة العليا، والمواد العلمية الأخرى.  يتيح للزائر البحثَ عن كتاب أو مؤلف أو موضوع، وتصفّحَ قائمة المحتويات بأسلوب يحاكي تجربة الكتاب الواقعية، ليكون الوصول إلى المصادر القانونية سريعاً وسهلاً، وليتاح للجميع الغوص في ثراء المعرفة القانونية بطريقة مرنة وعملية.";
 
 export default async function Page({
   searchParams,
@@ -12,10 +17,8 @@ export default async function Page({
     search_type?: string;
   }>;
 }) {
-  // Get the page and the limit form search params
   const resolvedSearchParams = await searchParams;
 
-  // destructure page and limit from search param
   const mainPage = Math.max(1, Number(resolvedSearchParams.page) || 1);
   const mainLimit = Math.max(
     1,
@@ -25,16 +28,20 @@ export default async function Page({
   const searchQuery = resolvedSearchParams.search;
   const searchType = resolvedSearchParams.search_type;
 
+  const { data } = await getSiteSettings();
+  const backgroundImage =
+    data.supreme_library_background ?? FALLBACK_BACKGROUND;
+  const descriptionHtml = data.supreme_library_intro_text ?? undefined;
+
   return (
     <>
-      {/** Heading */}
       <MainHeading
         title=" مكتبة المحكمة العليا"
-        bgImage="/assets/supreme-court-library.png"
-        description="قسم يضم كلَّ ما تحويه المكتبة من مطبوعات: الكتب، وإصدارات المحكمة العليا، والمواد العلمية الأخرى.  يتيح للزائر البحثَ عن كتاب أو مؤلف أو موضوع، وتصفّحَ قائمة المحتويات بأسلوب يحاكي تجربة الكتاب الواقعية، ليكون الوصول إلى المصادر القانونية سريعاً وسهلاً، وليتاح للجميع الغوص في ثراء المعرفة القانونية بطريقة مرنة وعملية."
+        descriptionHtml={descriptionHtml}
+        description={!descriptionHtml ? FALLBACK_DESCRIPTION : undefined}
+        bgImage={backgroundImage}
       />
 
-      {/** Main page content */}
       <SupermeCourtPage
         pagination={{
           currentPage: mainPage,

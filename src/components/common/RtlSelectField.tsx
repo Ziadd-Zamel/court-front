@@ -59,7 +59,7 @@ export default function RtlSelectField({
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
           <span
-            className={`text-right ${!value ? "text-gray-500" : "text-black"}`}
+            className={`text-right ${!value ? "text-gray-400 text-xs" : "text-black"}`}
           >
             {getDisplayName()}
           </span>{" "}

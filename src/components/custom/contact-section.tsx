@@ -35,10 +35,19 @@ import AnimatedSectionHeader from "../common/AnimatedSectionHeader";
 import { ContactFormData, contactFormSchema } from "@/lib/schemas/validations";
 import { submitContactForm } from "@/lib/actions/contact";
 
+const FALLBACK_DESCRIPTION =
+  "إذا لم تجد ضالتك في قوائم أصناف الأسئلة، لك أن ترسل استفهامك. لك أيضاً أن تقترح إضافات مفيدة.";
+const FALLBACK_SUB_DESCRIPTION =
+  "سندرس اقتراحك، و سنعمل، بإذنه تعالى، على إضافة المعلومات التي تجيب مسألتك في أقرب وقت، وذلك متى كانت من العموم بما يخدم الحق في التقاضي.";
+
 export default function ContactSection({
   title = "اطرح استفهاماً أو اقتراحاً",
+  description = FALLBACK_DESCRIPTION,
+  subDescription = FALLBACK_SUB_DESCRIPTION,
 }: {
   title?: string;
+  description?: string;
+  subDescription?: string;
 }) {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
@@ -95,16 +104,13 @@ export default function ContactSection({
           <div className="w-full md:w-1/2">
             <h2 className="pb-12 text-3xl font-bold text-white">{title} </h2>
             <p className="mb-5 font-zain leading-relaxed text-gray-400">
-              إذا لم تجد ضالتك في قوائم أصناف الأسئلة، لك أن ترسل استفهامك. لك
-              أيضاً أن تقترح إضافات مفيدة.
+              {description}
             </p>
             <p
               style={{ direction: "rtl" }}
               className="font-zain leading-relaxed text-gray-400"
             >
-              سندرس اقتراحك، و سنعمل، بإذنه تعالى، على إضافة المعلومات التي تجيب
-              مسألتك في أقرب وقت، وذلك متى كانت من العموم بما يخدم الحق في
-              التقاضي.
+              {subDescription}
             </p>
           </div>
 
@@ -203,6 +209,7 @@ export default function ContactSection({
                           placeholder="اكتب رسالتك هنا"
                           className="h-24 w-full rounded bg-white/20 px-4 py-2 text-right text-gray-400 placeholder-gray-400 border-none focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 resize-none"
                           style={{ direction: "rtl" }}
+                          maxLength={250}
                         />
                       </FormControl>
                       <FormMessage className="text-right text-red-400" />

@@ -20,13 +20,12 @@ export default function NoDataState() {
 
       {/* Title */}
       <h2 className="text-2xl font-bold text-gray-800 mb-3 text-center">
-        لا توجد بيانات متاحة
+        لم تُرفع بيانات هذه الصفحة بعد، نرجو معاودة الزيارة لاحقاً
       </h2>
 
       {/* Message */}
       <p className="text-gray-600 text-center mb-8 max-w-md text-lg">
-        لم يتم العثور على أي محتوى للعرض في الوقت الحالي. يرجى المحاولة مرة أخرى
-        لاحقاً.
+        قد تكون الصفحة تحت التحديث أو الصيانة
       </p>
 
       {/* Action Buttons */}

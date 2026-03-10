@@ -15,7 +15,11 @@ export default function AppealInquiryPage() {
           <Sidebar showstates={showstates} />
         </div>
       </div>
-      <ContactSection />
+      <ContactSection
+        title="ملاحظاتك عن الخدمة"
+        description="هذه المساحة مخصصة لملاحظاتك واقتراحاتك بشأن خدمة الاستعلام عن الطعون. مشاركتك لها ستسهم –بعون الله– في تطوير الخدمة وتحسين الأداء."
+        subDescription="سندرس كل الملاحظات والمقترحات بعناية، وسنعمل –بإذنه تعالى– على الاستفادة منها بما يحقق خدمة أفضل وأكثر استجابة لحاجات المتقاضين."
+      />
     </>
   );
 }

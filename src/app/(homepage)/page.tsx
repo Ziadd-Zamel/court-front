@@ -3,15 +3,20 @@ import FavouriteRulings from "./_components/favourite-rulings";
 import RecentNewsSection from "./_components/recent-news-section";
 import SiteHighlights from "./_components/SiteHighlights";
 import CombinedComponent from "./_components/CombinedComponent";
+import { getSiteSettings } from "@/lib/api/site-settings.api";
 
 export default async function Page() {
+  const siteSettings = await getSiteSettings();
+
   return (
     <>
       <div className="bg-black">
-        <HeroSlider />
+        <HeroSlider siteSettings={siteSettings.data} />
       </div>
       <SiteHighlights />
-      <FavouriteRulings />
+      <FavouriteRulings
+        backgroundImage={siteSettings.data.home_latest_topics_background}
+      />
       <RecentNewsSection />
       <CombinedComponent />
     </>
