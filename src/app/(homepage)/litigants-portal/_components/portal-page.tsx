@@ -43,7 +43,7 @@ export default function LitigantsPortalPage() {
     <section
       id="litigants-portal"
       aria-labelledby="litigants-portal Page"
-      className="relative py-30 box-container"
+      className="relative py-30 box-container dark:bg-[#121212]"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {services.map((service) => (
@@ -59,7 +59,6 @@ export default function LitigantsPortalPage() {
                   alt="Image"
                   width={60}
                   height={60}
-                  className="dark:brightness-0 dark:invert"
                 />
               </div>
 

@@ -9,11 +9,9 @@ import {
   MULTI_KEYWORD_HELP,
   EXCLUDE_KEYWORD_HELP,
   OR_KEYWORD_HELP,
+  PHRASE_HELP,
 } from "@/lib/constants/personal.constnat";
-import {
-  CURRENT_YEAR,
-  YEARS_SINCE_FOUNDING,
-} from "@/lib/constants/app-years";
+import { CURRENT_YEAR, YEARS_SINCE_FOUNDING } from "@/lib/constants/app-years";
 import { SearchInput } from "../../supreme-court-library/_components/search-Input";
 import DateRangePicker from "@/components/common/date-range-picker";
 import DatePicker from "@/components/common/date-picker";
@@ -86,8 +84,8 @@ export default function PrincipleSearch() {
 
       <div className="space-y-6">
         {/* ROW 1 - Include Terms & Exclude Terms */}
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
-          <div className="text-right text-lg font-semibold mt-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
             كلمة أو أكثر:
           </div>
 
@@ -95,7 +93,7 @@ export default function PrincipleSearch() {
             <SearchInput
               value={includeTerms ?? ""}
               onChange={setIncludeTerms}
-              placeholder="في المبادئ"
+              placeholder="في المبادئ والموجز"
               help={KEYWORD_HELP}
               disabled={hasAnyTerms || hasSimilarPhrase}
             />
@@ -110,23 +108,23 @@ export default function PrincipleSearch() {
         </div>
 
         {/* ROW 2 - Any Terms */}
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
-          <div className="text-right text-lg font-semibold mt-2">
-            أي من الكلمات:
+        <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
+            بجزء كلمة أو بأي كلمة:
           </div>
 
           <SearchInput
             value={anyTerms ?? ""}
             onChange={setAnyTerms}
-            placeholder="ابحث عن أي من هذه الكلمات"
+            placeholder="في المبادئ والموجز"
             help={OR_KEYWORD_HELP}
             disabled={hasIncludeExclude || hasSimilarPhrase}
           />
         </div>
 
         {/* ROW 3 - Exact Phrase */}
-        {/* <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
-          <div className="text-right text-lg font-semibold mt-2">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
             جملة مطابقة:
           </div>
 
@@ -139,23 +137,21 @@ export default function PrincipleSearch() {
         </div> */}
 
         {/* ROW 4 - Similar Phrase */}
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
-          <div className="text-right text-lg font-semibold mt-2">
-            جملة مشابهة:
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">بجملة:</div>
 
           <SearchInput
             value={similarPhrase ?? ""}
             onChange={setSimilarPhrase}
-            placeholder="ابحث في المبادئ بجملة مشابهة لهذه الجملة"
-            help={OR_KEYWORD_HELP}
+            placeholder="في المبادئ والموجز"
+            help={PHRASE_HELP}
             disabled={hasIncludeExclude || hasAnyTerms}
           />
         </div>
 
         {/* ROW 5 - Appeal Number */}
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
-          <div className="text-right text-lg font-semibold mt-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
             رقم الطعن:
           </div>
 
@@ -174,8 +170,8 @@ export default function PrincipleSearch() {
         </div>
 
         {/* ROW 6 - Principle Number */}
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
-          <div className="text-right text-lg font-semibold mt-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
             رقم المبدأ:
           </div>
 
@@ -192,8 +188,8 @@ export default function PrincipleSearch() {
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
-          <div className="text-right text-lg font-semibold mt-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
             تاريخ الجلسة:
           </div>
 

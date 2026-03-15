@@ -3,10 +3,15 @@
 import { useQueryStates } from "nuqs";
 import { parseAsString } from "nuqs";
 import { Switch } from "@/components/ui/switch";
-import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const strictParser = parseAsString.withDefault("0");
+
+const RESTRICTION_LABELS = [
+  "بِنقطتي الياء النهائية؛",
+  "بهمزة الألف الابتدائية؛",
+  "بالتاء المربوطة.",
+] as const;
 
 export default function PrincipleStrictSwitches({
   className,
@@ -23,7 +28,7 @@ export default function PrincipleStrictSwitches({
       shallow: false,
       clearOnDefault: false,
       scroll: false,
-    },
+    }
   );
 
   const isAllOn =
@@ -31,7 +36,7 @@ export default function PrincipleStrictSwitches({
     strict.strict_alef === "1" &&
     strict.strict_ta === "1";
 
-  const handleChange = (checked: boolean) => {
+  const handleAllChange = (checked: boolean) => {
     const value = checked ? "1" : "0";
     setStrict({
       strict_ya: value,
@@ -41,27 +46,28 @@ export default function PrincipleStrictSwitches({
   };
 
   return (
-    <button
-      type="button"
-      onClick={() => handleChange(!isAllOn)}
+    <div
       className={cn(
-        "main-tab py-2.5 ps-2.5 pe-2 gap-2 text-black",
-        "data-[state=inactive]:hover:bg-main/50 data-[state=inactive]:hover:text-white",
+        "w-full border border-gray-300 dark:border-white/10 rounded-none p-4 mt-4 bg-white dark:bg-white/10",
         className
       )}
-      data-state={isAllOn ? "active" : "inactive"}
     >
-      <span>تقييدات الحروف العربية</span>
-      <ChevronLeft
-        size={18}
-        className={isAllOn ? "text-white" : "text-inherit"}
-      />
-      <Switch
-        id="strict-letters"
-        checked={isAllOn}
-        onCheckedChange={handleChange}
-        className="sr-only"
-      />
-    </button>
+      <div className="flex items-center justify-between gap-3 mb-3" dir="rtl">
+        <h3 className="text-base font-semibold text-black dark:text-white">التّقييد:</h3>
+        <Switch
+          id="strict-all"
+          checked={isAllOn}
+          onCheckedChange={handleAllChange}
+        />
+      </div>
+      <ul className="space-y-2" dir="rtl">
+        {RESTRICTION_LABELS.map((label) => (
+          <li key={label} className="flex items-center gap-2">
+            <span className="size-1.5 rounded-full bg-main shrink-0" />
+            <span className="text-black dark:text-white/70 text-sm">{label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

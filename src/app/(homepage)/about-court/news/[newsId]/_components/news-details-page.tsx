@@ -25,17 +25,17 @@ export default async function NewsPageDetails({ id }: { id: string }) {
 
       <article className="box-container pb-40 pt-20">
         {/* Meta row: source + date */}
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-200">
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-200 dark:border-white/10">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-main inline-block" />
-            <span className="text-sm text-gray-500">المصدر:</span>
+            <span className="text-sm text-gray-500 dark:text-white/70">المصدر:</span>
             <span className="text-sm font-medium text-main">
               {data.data.source}
             </span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-400">
+          <div className="flex items-center gap-2 text-sm text-gray-400 dark:text-white/70">
             <span>{data.data.publish_date}</span>
-            <span className="bg-main/10 text-main text-xs px-2 py-0.5 rounded-full">
+            <span className="bg-main/10 dark:bg-white/10 text-main text-xs px-2 py-0.5 rounded-full">
               {data.data.category}
             </span>
           </div>
@@ -43,14 +43,14 @@ export default async function NewsPageDetails({ id }: { id: string }) {
 
         {/* Body text */}
         <div
-          className="prose prose-lg max-w-none text-gray-700 text-sm leading-relaxed text-right mb-12"
+          className="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-white/70 text-sm leading-relaxed text-right mb-12"
           dangerouslySetInnerHTML={{ __html: data.data.content_html }}
         />
 
         {/* Images gallery */}
         {data.data.images && data.data.images.length > 0 && (
           <div className="mt-8">
-            <h3 className="text-base font-semibold text-gray-600 mb-4 flex items-center gap-2">
+            <h3 className="text-base font-semibold text-gray-600 dark:text-white mb-4 flex items-center gap-2">
               <span className="w-1 h-5 bg-main rounded-full inline-block" />
               الصور
             </h3>
@@ -117,7 +117,7 @@ export default async function NewsPageDetails({ id }: { id: string }) {
         {/* Video */}
         {data.data.main_video && (
           <div className="mt-8">
-            <h3 className="text-base font-semibold text-gray-600 mb-4 flex items-center gap-2">
+            <h3 className="text-base font-semibold text-gray-600 dark:text-white mb-4 flex items-center gap-2">
               <span className="w-1 h-5 bg-main rounded-full inline-block" />
               الفيديو
             </h3>

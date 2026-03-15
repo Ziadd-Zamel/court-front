@@ -13,7 +13,7 @@ export default async function AboutCourtPage() {
   return (
     <>
       <MainHeading
-        title="معدلات الأداء بالمحكمة"
+        title="مؤشرات أداء الدوائر بالمحكمة"
         descriptionHtml={descriptionHtml}
         bgImage={backgroundImage}
       />

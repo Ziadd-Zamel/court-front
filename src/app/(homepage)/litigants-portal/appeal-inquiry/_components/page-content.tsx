@@ -95,10 +95,10 @@ export default function PageContent({ setShowstates }: PageContentProps) {
     if (!hasSearched && !caseData) {
       return (
         <div className="pt-20 pb-40">
-          <h3 className="text-2xl sm:text-3xl font-bold text-zinc-800 mb-4 text-right">
+          <h3 className="text-2xl sm:text-3xl font-bold text-zinc-800 dark:text-white mb-4 text-right">
             إضاءات:
           </h3>
-          <ul className="text-gray-600 text-sm space-y-4 list-disc list-inside text-right">
+          <ul className="text-gray-600 dark:text-white/70 text-sm space-y-4 list-disc list-inside text-right">
             <li>
               للحصول على نتائج سريعة ودقيقة، يُراعى إدخال بيانات قضيتك إدخالاً
               صحيحاً. يُرجى الانتباه إلى أنه في حالات نادرة، قد يتأخر تحديث
@@ -152,8 +152,8 @@ export default function PageContent({ setShowstates }: PageContentProps) {
   };
 
   return (
-    <div className="min-h-screen flex-1 py-6 pl-2 pr-2 md:pl-10 md:pr-10 lg:pr-20">
-      <h2 className="mb-4 mt-5 text-right text-xl font-bold text-gray-800 sm:text-3xl">
+    <div className="min-h-screen flex-1 py-6 pl-2 pr-2 md:pl-10 md:pr-10 lg:pr-20 dark:bg-[#1a1a1a]">
+      <h2 className="mb-4 mt-5 text-right text-xl font-bold text-gray-800 dark:text-white sm:text-3xl">
         تتبّع قضيتك{" "}
       </h2>
 
@@ -186,7 +186,7 @@ export default function PageContent({ setShowstates }: PageContentProps) {
         />
 
         {classificationsError && (
-          <div className="text-red-500 text-sm mt-1">
+          <div className="text-red-500 dark:text-red-400 text-sm mt-1">
             خطأ في تحميل أنواع الطعون: {classificationsError.message}
           </div>
         )}
@@ -195,9 +195,9 @@ export default function PageContent({ setShowstates }: PageContentProps) {
       {/* Search Button */}
       <div className="mt-8 flex justify-center">
         <Button
+          className="min-w-20"
           onClick={handleSearch}
           disabled={isSearchDisabled || isLoading}
-          className="px-10 py-1 text-2xl"
         >
           {isLoading ? " البحث جار" : "بحث"}
         </Button>

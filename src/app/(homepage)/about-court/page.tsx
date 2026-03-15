@@ -6,7 +6,7 @@ export default function AboutCourtPage() {
   return (
     <>
       <MainHeading bgImage="/assets/about.png" />
-      <div className="  bg-main/30  w-full">
+      <div className="bg-main/30 dark:bg-[#121212] w-full">
         <AboutSection />
       </div>
       <ServicesGrid />

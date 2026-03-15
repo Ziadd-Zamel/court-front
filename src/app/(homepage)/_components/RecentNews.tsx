@@ -70,10 +70,10 @@ const RecentNews = ({ articles = [] }: { articles?: NewsArticle[] }) => {
   if (itemsByPage.length === 0) return null;
 
   return (
-    <section className="py-16 bg-main/10">
+    <section className="py-16 bg-main/10 dark:bg-[#1a1a1a]">
       <AnimatedSectionHeader
         title="أنشطة المحكمة العليا"
-        textClassName="text-black!"
+        textClassName="text-foreground"
       />
       <div className="mt-7 flex flex-col items-center justify-center lg:flex-row box-container ">
         <div className="flex w-full flex-col items-start text-right lg:w-[50%]">
@@ -98,7 +98,7 @@ const RecentNews = ({ articles = [] }: { articles?: NewsArticle[] }) => {
         </div>
         <div className="mb-20 w-full lg:mt-0 lg:w-[50%]">
           <motion.div
-            className=" w-full border h-[425px] bg-white px-7 py-5 shadow-lg"
+            className="w-full border h-[425px] bg-white dark:bg-[#121212] border-border px-7 py-5 shadow-lg"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
@@ -106,7 +106,7 @@ const RecentNews = ({ articles = [] }: { articles?: NewsArticle[] }) => {
           >
             {SelectedNew && (
               <motion.div
-                className="flex min-h-[100px] w-full cursor-pointer flex-col space-y-2 rounded-md bg-white text-right"
+                className="flex min-h-[100px] w-full cursor-pointer flex-col space-y-2 rounded-md bg-white dark:bg-[#121212] text-right"
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
@@ -117,12 +117,12 @@ const RecentNews = ({ articles = [] }: { articles?: NewsArticle[] }) => {
                 <div className="relative mt-5 h-[280px] overflow-hidden">
                   <div
                     style={{ direction: "rtl" }}
-                    className="!text-justify !font-zain !font-normal !text-sm text-gray-500"
+                    className="!text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white"
                     dangerouslySetInnerHTML={{
                       __html: cleanHtmlStyles(SelectedNew.desc || ""),
                     }}
                   />
-                  <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white to-transparent" />
+                  <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white dark:from-[#121212] to-transparent" />
                 </div>
               </motion.div>
             )}

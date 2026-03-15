@@ -13,9 +13,9 @@ export default async function SiteHighlights() {
   const articles = data.data;
 
   return (
-    <section className="pt-16 bg-white">
+    <section className="pt-16 bg-white dark:bg-[#1a1a1a]">
       <div className="m-auto">
-        <div className="bg-white">
+        <div className="bg-white dark:bg-[#1a1a1a]">
           <AnimatedSectionHeader title="مختارات من فروع الموقع" />
         </div>
       </div>

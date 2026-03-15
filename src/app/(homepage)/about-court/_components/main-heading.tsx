@@ -37,6 +37,7 @@ export default function MainHeading({ bgImage, overlay }: Props) {
       </motion.div>
 
       {overlay && <div className="absolute inset-0 bg-black/50 z-10" />}
+      <div className="absolute inset-0 bg-transparent dark:bg-black/40 z-10 pointer-events-none" />
 
       {/**Content container */}
       <div className="relative flex flex-col box-container z-20 gap-8 mt-32">

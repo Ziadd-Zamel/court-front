@@ -33,8 +33,8 @@ export function SearchInput({
   return (
     <div
       className={cn(
-        "flex items-center gap-2 rounded-sm border border-gray-200 bg-white px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-main",
-        disabled && "opacity-40 cursor-not-allowed bg-gray-50",
+        "flex items-center gap-2 rounded-sm border border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-main",
+        disabled && "opacity-40 cursor-not-allowed bg-gray-50 dark:bg-white/5",
         className,
       )}
     >
@@ -44,14 +44,14 @@ export function SearchInput({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         disabled={disabled}
-        className="w-full text-gray-800 placeholder-gray-400 outline-none placeholder:text-sm disabled:cursor-not-allowed"
+        className="w-full text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-white/50 outline-none placeholder:text-sm disabled:cursor-not-allowed"
       />
 
       {hasValue && !disabled && (
         <button
           type="button"
           onClick={handleClear}
-          className="shrink-0 p-0.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+          className="shrink-0 p-0.5 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-white/50 hover:text-gray-600 dark:hover:text-white transition-colors"
           aria-label="مسح"
         >
           <X className="h-3 w-3" />

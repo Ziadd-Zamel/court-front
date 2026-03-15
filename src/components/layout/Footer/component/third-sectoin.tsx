@@ -19,14 +19,14 @@ const ThirdSectoin = () => {
       </div>
       {/* Email Input Form */}
       <div className="mb-6 flex">
-        <div className="relative flex w-full max-w-[400px]">
+        <div className="flex w-full max-w-[400px] items-center gap-0 overflow-hidden rounded-md border border-white/10 bg-white/10 focus-within:ring-1 focus-within:ring-main">
           <input
             type="email"
-            placeholder=""
-            className="w-full border border-l-0 border-main bg-transparent px-2 text-right text-white placeholder-white focus:outline-none"
+            placeholder="البريد الإلكتروني"
+            className="flex-1 bg-transparent px-4 py-2 text-right text-white placeholder-white/50 focus:outline-none"
             style={{ direction: "rtl" }}
           />
-          <Button type="submit" className="w-[100px] rounded-none">
+          <Button type="submit" className="shrink-0 rounded-none">
             اشترك
           </Button>
         </div>

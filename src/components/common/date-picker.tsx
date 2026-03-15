@@ -48,11 +48,11 @@ export default function DatePicker({ placeholder }: FormDatePickerProps) {
         <button
           dir="rtl"
           className={cn(
-            "flex items-center gap-2 w-full rounded-sm border border-gray-200 bg-white px-3 py-3 shadow-sm",
+            "flex items-center gap-2 w-full rounded-sm border border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 px-3 py-3 shadow-sm",
             "focus-within:ring-1 focus-within:ring-[#e6c599] focus:outline-none",
             "hover:border-[#e6c599] transition-colors duration-200",
-            "text-sm",
-            !date && "text-gray-400",
+            "text-sm text-gray-800 dark:text-white",
+            !date && "text-gray-400 dark:text-white/50",
           )}
         >
           <div className="flex-1 flex items-center gap-3">
@@ -69,7 +69,7 @@ export default function DatePicker({ placeholder }: FormDatePickerProps) {
           </div>
           {date && (
             <X
-              className="h-3.5 w-3.5 text-gray-400 hover:text-gray-600 shrink-0"
+              className="h-3.5 w-3.5 text-gray-400 dark:text-white/50 hover:text-gray-600 dark:hover:text-white shrink-0"
               onClick={handleClear}
             />
           )}
@@ -79,7 +79,7 @@ export default function DatePicker({ placeholder }: FormDatePickerProps) {
         className={cn(
           "w-auto p-4 rounded-xl border-2 shadow-lg",
           "border-slate-200 bg-white",
-          "dark:border-gray-600 dark:bg-gray-700",
+          "dark:border-white/10 dark:bg-[#1a1a1a]",
         )}
         align="center"
       >

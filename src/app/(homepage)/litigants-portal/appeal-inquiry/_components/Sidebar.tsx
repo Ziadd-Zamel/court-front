@@ -70,19 +70,19 @@ const Sidebar = ({ showstates }: { showstates: boolean }) => {
   }, [showstates]);
 
   return (
-    <div className="flex flex-col h-full text-right border-gray-300 pt-21 bg-[#F1E2CE] pl-16 pr-7">
+    <div className="flex flex-col h-full text-right border-gray-300 dark:border-white/10 pt-21 bg-[#F1E2CE] dark:bg-[#252525] pl-16 pr-7">
       {!showstates ? (
         <>
-          <h3 className="text-base text-gray-800 font-semibold mb-6">
+          <h3 className="text-base text-gray-800 dark:text-white font-semibold mb-6">
             مراحل الطعن أمام المحكمة العليا
           </h3>
           <ul className="space-y-4">
             {appealStages.map((stage, index) => (
               <li
                 key={index}
-                className="flex items-center justify-start text-gray-700"
+                className="flex items-center justify-start text-gray-700 dark:text-white/80"
               >
-                <span className="text-sm">•</span>
+                <span className="text-sm dark:text-main">•</span>
                 <span className="mr-4 -mt-1 text-sm">{stage}</span>
               </li>
             ))}
@@ -90,7 +90,7 @@ const Sidebar = ({ showstates }: { showstates: boolean }) => {
         </>
       ) : (
         <>
-          <h3 className="text-xl text-gray-800 font-semibold mb-6">
+          <h3 className="text-xl text-gray-800 dark:text-white font-semibold mb-6">
             تقدم إجراءات الطعن
           </h3>
           <div className="space-y-6">
@@ -100,11 +100,11 @@ const Sidebar = ({ showstates }: { showstates: boolean }) => {
                 className="opacity-0 animate-[fadeIn_0.5s_ease-in-out_forwards]"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="flex justify-between text-sm mb-1">
+                <div className="flex justify-between text-sm mb-1 dark:text-white/80">
                   <span>{item.stage}</span>
                   <span>{Math.round(animatedProgress[item.stage] || 0)}%</span>
                 </div>
-                <div className="w-full bg-gray-200 h-3 rounded overflow-hidden">
+                <div className="w-full bg-gray-200 dark:bg-white/20 h-3 rounded overflow-hidden">
                   <div
                     className={`${item.color} h-3 rounded transition-all duration-1000 ease-out`}
                     style={{ width: `${animatedProgress[item.stage] || 0}%` }}
@@ -141,7 +141,7 @@ const Sidebar = ({ showstates }: { showstates: boolean }) => {
                   style={{ transitionDelay: "0.3s" }}
                 />
               </svg>
-              <div className="absolute top-1/2 -translate-y-1/2 mt-3.5 -ml-2 inset-0 flex justify-center items-center text-3xl font-semibold">
+              <div className="absolute top-1/2 -translate-y-1/2 mt-3.5 -ml-2 inset-0 flex justify-center items-center text-3xl font-semibold dark:text-white">
                 {Math.round(circularProgress)}%
               </div>
             </div>

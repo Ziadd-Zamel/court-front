@@ -64,7 +64,7 @@ export default async function PrinciplePage({
           className="lg:mt-0"
           tabContentClassName="lg:mt-0"
           tablistUpContent={
-            <p className="text-start self-start mb-5  text-gray-600 font-medium text-lg">
+            <p className="text-start self-start mb-5 text-gray-600 dark:text-white/70 font-medium text-lg">
               اختر مجالاً أو أكثر للبحث:
             </p>
           }
@@ -78,7 +78,11 @@ export default async function PrinciplePage({
           />
         </PrincipleTypeMultiSelect>
       </section>
-      <ContactSection title="شارك بملاحظاتك من أجل تطوير منظومة البحث" />
+      <ContactSection
+        title="شارك بملاحظاتك"
+        description="من أجل تطوير منظومة البحث وتيسير الوصول إلى مبادئ المحكمة العليا، نرجو المشاركة بملاحظاتك عن الخدمة، سواء بإبداء الملاحظات عن طريقة عملها أو عن محتواها، أو باقتراح تحسينات إضافية."
+        subDescription="سنولي كل مشاركة العناية التي تستحق، وسنعمل-بتوفيق الله تعالى-على إدخال كل التحديثات المهمة للارتقاء بالخدمة."
+      />
     </>
   );
 }

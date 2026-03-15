@@ -17,7 +17,6 @@ export const publicationRequestSchema = z.object({
   book_size: z.string().min(1, "حجم الكتاب مطلوب"),
   author_name: z.string().min(1, "اسم المؤلف مطلوب"),
   academic_degree: z.string().min(1, "الدرجة العلمية مطلوبة"),
-  supervisor_academic_degree: z.string().min(1, "الدرجة العلمية للمشرف مطلوبة"),
   job: z.string().min(1, "الوظيفة مطلوبة"),
   email: z
     .string()
@@ -26,8 +25,8 @@ export const publicationRequestSchema = z.object({
   phone: z.string().min(1, "رقم الهاتف مطلوب"),
   summary: z
     .string()
-    .min(10, "الملخص يجب أن يحتوي على الأقل 10 حرف")
-    .max(1000, "الملخص يجب ألا يزيد عن 1000 حرف"),
+    .min(300, "الملخص يجب أن يحتوي على 150–200 كلمة")
+    .max(1200, "الملخص يجب ألا يزيد عن 200 كلمة"),
 });
 
 export type PublicationRequestData = z.infer<typeof publicationRequestSchema>;

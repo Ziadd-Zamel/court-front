@@ -4,7 +4,7 @@ import { getSiteSettings } from "@/lib/api/site-settings.api";
 
 const FALLBACK_BACKGROUND = "/assets/home-1.jpg";
 const FALLBACK_DESCRIPTION =
-  "القانون الليبي هو المرجع في الأعمال، لكن قدراً غير يسير منها يتوافق مع قوانين دول عربية لاسيما المصري، المصدر التاريخي للقانون الليبي ولكثير من القوانين العربية. تيسيراً للزائر في معرفة مدى تعلق العمل باهتمامه";
+  "تتألف الجمعية العمومية للمحكمة العليا من رئيسها وجميع مستشاريها ورئيس نيابة النقض، وتصدر القرارات بأغلبية الآراء للأعضاء الحاضرين. تختص الجمعية العمومية دون غيرها بالنظر في المسائل المتعلقة بنظام المحكمة وأمورها الداخلية، وبالشئون المالية والإدارية المتعلقة بمستشاري المحكمة وأعضاء نيابة النقض، وبتوزيع الأعمال على أعضاء المحكمة وبين دوائرها المختلفة.";
 
 export default async function Page({
   searchParams,
@@ -27,7 +27,7 @@ export default async function Page({
   return (
     <>
       <MainHeading
-        title="الدائرة الدستورية"
+        title="الجمعية العمومية"
         descriptionHtml={descriptionHtml}
         description={!descriptionHtml ? FALLBACK_DESCRIPTION : undefined}
         bgImage={backgroundImage}

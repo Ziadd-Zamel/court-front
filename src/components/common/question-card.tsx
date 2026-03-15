@@ -25,7 +25,7 @@ export default function QuestionCard({ item }: Props) {
           <HighlightedText text={item.title} />
         </p>
       </AccordionTrigger>
-      <AccordionContent className="text-sm mt-5 text-gray-500">
+      <AccordionContent className="text-sm mt-5 text-gray-500 dark:text-white/70">
         <HighlightedHtml html={item.answer} />
       </AccordionContent>
       <div className="flex justify-end items-center gap-3 mb-5 me-10">

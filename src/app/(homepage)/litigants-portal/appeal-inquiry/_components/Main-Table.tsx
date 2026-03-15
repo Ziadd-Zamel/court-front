@@ -14,7 +14,7 @@ export default function MainTable({ caseData }: PageContentProps) {
   return (
     <section className="">
       <table className="w-full border-collapse">
-        <h5 className="text-2xl font-medium text-right pb-5 w-full">
+        <h5 className="text-2xl font-medium text-right pb-5 w-full dark:text-white">
           البيانات العامة
         </h5>
         <tbody className="rounded-md">
@@ -61,7 +61,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* Respondent - بيانات المطعون ضده/ضدهم */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24">
+      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24 dark:text-white">
         بيانات المطعون ضده/ضدهم
       </h5>
       <table className="w-full border-collapse">
@@ -76,7 +76,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* Urgent Section - الشق المستعجل */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24">
+      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24 dark:text-white">
         الشق المستعجل
       </h5>
       {caseItem.appeals_urgent && caseItem.appeals_urgent.length > 0 && (
@@ -142,7 +142,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       )}
 
       {/* نيابة النقض */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24">
+      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24 dark:text-white">
         نيابة النقض
       </h5>
       <table className="w-full border-collapse">
@@ -169,7 +169,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* نظر الطعن - Appeal Sessions */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24">
+      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24 dark:text-white">
         نظر الطعن
       </h5>
 
@@ -201,7 +201,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       )}
 
       {/* الحكم السابق على الفصل في الطعن */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24">
+      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24 dark:text-white">
         الحكم السابق على الفصل في الطعن
       </h5>
       <table className="w-full border-collapse">
@@ -219,7 +219,7 @@ export default function MainTable({ caseData }: PageContentProps) {
       </table>
 
       {/* الفصل في الطعن */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24">
+      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-24 dark:text-white">
         الفصل في الطعن
       </h5>
       <table className="w-full border-collapse">

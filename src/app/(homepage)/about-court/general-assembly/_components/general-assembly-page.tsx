@@ -23,7 +23,7 @@ export default async function GeneralAssemblyPage({
     value: "about-assembly",
     heading: "عن الجمعية",
     component: (
-      <p className="text-justify text-gray-600 md:text-sm indent-7 leading-6">
+      <p className="text-justify text-gray-600 dark:text-white/70 md:text-sm indent-7 leading-6">
         نص عن الجمعية يمكن تعديله لاحقاً
       </p>
     ),

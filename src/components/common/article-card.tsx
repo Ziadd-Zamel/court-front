@@ -51,10 +51,14 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
         {/* Date block */}
         <div className="flex flex-col text-center shrink-0 px-3 mt-3">
           <p className="text-[40px] text-main mb-2 font-bold">
-            <HighlightedText text={formatNumberDisplay(article.principle_number)} />
+            <HighlightedText
+              text={formatNumberDisplay(article.principle_number)}
+            />
           </p>
           <p className="text-md md:text-xs">
-            <HighlightedText text={`${article.principle_year} ${article.principle_type}`} />
+            <HighlightedText
+              text={`${article.principle_year} ${article.principle_type}`}
+            />
           </p>
         </div>
 
@@ -62,7 +66,7 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
         <div className="flex-1 border-b border-main">
           <AccordionTrigger className="rounded-none justify-normal flex w-full cursor-pointer flex-col items-start gap-5  text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
             <div className="flex flex-col gap-2 text-start min-w-[130px]">
-              <p className="text-gray-500 sm:text-lg md:text-xs flex items-center gap-1">
+              <p className="text-gray-500 dark:text-white/70 sm:text-lg md:text-xs flex items-center gap-1">
                 <Calendar size={14} className="text-main -mt-1" />
                 <span>
                   <HighlightedText text={`${day} - ${month} - ${year}`} />
@@ -74,10 +78,18 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
             </div>
             <div className="flex flex-col gap-2 text-start">
               <p className="text-xl font-bold md:text-md lg:text-xl flex items-center gap-1">
-                <span><HighlightedText text={formatNumberDisplay(article.number)} /></span>
+                <span>
+                  <HighlightedText text={formatNumberDisplay(article.number)} />
+                </span>
                 <span className="-mx-1">/</span>
-                <span className="-me-1"><HighlightedText text={formatNumberDisplay(article.judicial_year)} /></span>
-                <span><HighlightedText text={article.sign} /></span>
+                <span className="-me-1">
+                  <HighlightedText
+                    text={formatNumberDisplay(article.judicial_year)}
+                  />
+                </span>
+                <span>
+                  <HighlightedText text={article.sign} />
+                </span>
               </p>
               <p className="min-h-[30px] text-md md:text-xs lg:text-sm leading-6">
                 <HighlightedText text={article.title} />
@@ -100,7 +112,7 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
             <HighlightedHtml
               html={article.rule.body_html}
               style={{ direction: "rtl" }}
-              className="mt-5 !text-justify !font-zain !font-normal !text-sm text-gray-500"
+              className="mt-5 !text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white/70"
             />
             <div className="mt-5 flex w-full items-end justify-end">
               <Link

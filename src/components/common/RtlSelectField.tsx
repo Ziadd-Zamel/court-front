@@ -50,28 +50,28 @@ export default function RtlSelectField({
 
   return (
     <div className="flex sm:flex-row flex-col sm:items-center gap-5">
-      <label className=" w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] px-3 py-2 text-xs font-semibold text-gray-700 sm:py-[14px] sm:text-xs lg:text-sm">
+      <label className="w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] dark:bg-white/10 dark:border dark:border-white/10 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-white sm:py-[14px] sm:text-xs lg:text-sm">
         {label}
       </label>
       <div className="relative sm:w-3/4" ref={dropdownRef}>
         <div
-          className="flex items-center justify-between cursor-pointer w-full rounded-md bg-[#FBF3E0] px-3 py-1 placeholder:text-xs placeholder:text-gray-400 sm:py-[12px] sm:placeholder:text-xs sm:text-xs lg:text-sm"
+          className="flex items-center justify-between cursor-pointer w-full rounded-md bg-[#FBF3E0] dark:bg-white/10 dark:border dark:border-white/10 px-3 py-1 placeholder:text-xs placeholder:text-gray-400 dark:placeholder:text-white/50 sm:py-[12px] sm:placeholder:text-xs sm:text-xs lg:text-sm"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
           <span
-            className={`text-right ${!value ? "text-gray-400 text-xs" : "text-black"}`}
+            className={`text-right ${!value ? "text-gray-500 dark:text-white/50 text-xs" : "text-gray-800 dark:text-white"}`}
           >
             {getDisplayName()}
           </span>{" "}
-          <MdKeyboardArrowDown className="size-5 text-gray-500" />
+          <MdKeyboardArrowDown className="size-5 text-gray-500 dark:text-main" />
         </div>
 
         {isDropdownOpen && (
-          <div className="absolute z-10 mt-1 max-h-72 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow-lg">
+          <div className="absolute z-10 mt-1 max-h-72 w-full overflow-y-auto rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 shadow-lg">
             {options.map((option) => (
               <div
                 key={option.id}
-                className="cursor-pointer p-3 text-right hover:bg-gray-100"
+                className="cursor-pointer p-3 text-right hover:bg-gray-100 dark:hover:bg-white/20 dark:text-white"
                 onClick={() => {
                   onChange(option.id.toString());
                   setIsDropdownOpen(false);

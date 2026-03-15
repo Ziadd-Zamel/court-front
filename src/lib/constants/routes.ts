@@ -59,7 +59,7 @@ export const ROUTES: RouteItem[] = [
     //     path: "/about-court/courts-law",
     //   },
     //   {
-    //     name: "معدلات الأداء",
+    //     name: "مؤشرات أداء الدوائر",
     //     path: "/about-court/performance-metrics",
     //   },
     //   {

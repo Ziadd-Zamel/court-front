@@ -19,10 +19,10 @@ const TrakeLineSectoin = ({
     <div className="relative mt-44 px-7">
       <div className="relative flex items-center justify-between">
         <button
-          className="absolute -left-8 text-gray-400 transition-colors hover:text-gray-300  cursor-pointer"
+          className="absolute -left-8 text-gray-400 dark:text-white/60 transition-colors hover:text-gray-300 dark:hover:text-white cursor-pointer"
           onClick={() => {
             const currentIndex = years.findIndex(
-              (item) => item.year === selectedYear
+              (item) => item.year === selectedYear,
             );
             if (currentIndex < years.length - 1) {
               setSelectedYear(years[currentIndex + 1].year);
@@ -32,7 +32,7 @@ const TrakeLineSectoin = ({
           <ArrowLeft className="size-5 sm:size-6" />
         </button>
 
-        <div className="h-[2px] w-full bg-[#e4e4e4] sm:h-[4px]">
+        <div className="h-[2px] w-full bg-[#e4e4e4] dark:bg-white/20 sm:h-[4px]">
           <div
             className="h-full bg-main transition-all duration-500"
             style={{
@@ -53,11 +53,11 @@ const TrakeLineSectoin = ({
               <div
                 className={`h-1 w-1 rounded-full transition-all duration-300 sm:h-2 sm:w-2 ${
                   selectedYear === item.year
-                    ? "bg-white ring-4 ring-[#3e5481] sm:ring-8"
-                    : "bg-white ring-4 ring-[#e4e4e4] hover:ring-4 hover:ring-[#3e5481] sm:ring-8"
+                    ? "bg-main ring-4 ring-[#3e5481] dark:ring-main sm:ring-8"
+                    : "bg-main ring-4 ring-[#e4e4e4] dark:ring-white/30 hover:ring-4 hover:ring-[#3e5481] dark:hover:ring-main sm:ring-8"
                 } `}
               />
-              <span className="absolute bottom-5 left-1/2 w-[50px] -translate-x-1/2 transform text-[10px] font-bold text-black sm:w-[120px] sm:text-lg">
+              <span className="absolute bottom-5 left-1/2 w-[50px] -translate-x-1/2 transform text-[9px] font-bold text-black dark:text-white sm:w-[120px] sm:text-sm">
                 {item.label}
               </span>
             </button>
@@ -65,10 +65,10 @@ const TrakeLineSectoin = ({
         </div>
 
         <button
-          className="absolute -right-8 text-gray-400 transition-colors hover:text-gray-300 cursor-pointer"
+          className="absolute -right-8 text-gray-400 dark:text-white/60 transition-colors hover:text-gray-300 dark:hover:text-white cursor-pointer"
           onClick={() => {
             const currentIndex = years.findIndex(
-              (item) => item.year === selectedYear
+              (item) => item.year === selectedYear,
             );
             if (currentIndex > 0) {
               setSelectedYear(years[currentIndex - 1].year);

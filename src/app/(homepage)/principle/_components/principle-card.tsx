@@ -38,7 +38,7 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
           <p className="text-[40px] text-main mb-2 font-bold">
             <HighlightedText text={principle.serial_number || "------"} />
           </p>
-          <p className="text-md md:text-xs">
+          <p className="text-md md:text-xs text-gray-700 dark:text-white/70">
             <HighlightedText
               text={`${principle.gregorian_year || "------"} ${principle.principle_type || "------"}`}
             />
@@ -62,12 +62,12 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
                   }
                 />
               </p>
-              <p className="sm:text-lg md:text-xs">
+              <p className="sm:text-lg md:text-xs text-gray-700 dark:text-white/70">
                 <HighlightedText text={principle.ruling_type || "------"} />
               </p>
             </div>
             <div className="flex flex-col gap-2 text-start">
-              <p className="text-xl font-bold md:text-md lg:text-xl flex items-center gap-1">
+              <p className="text-xl font-bold md:text-md lg:text-xl flex items-center gap-1 text-gray-900 dark:text-white">
                 <span>
                   <HighlightedText text={principle.number || "------"} />
                 </span>
@@ -79,7 +79,7 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
                   <HighlightedText text={principle.sign || "------"} />
                 </span>
               </p>
-              <p className="min-h-[30px] text-md md:text-xs lg:text-sm leading-6">
+              <p className="min-h-[30px] text-md md:text-xs lg:text-sm leading-6 text-gray-800 dark:text-white">
                 <HighlightedText text={principle.brief || "------"} />
               </p>
             </div>
@@ -92,7 +92,7 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
             <HighlightedHtml
               html={principle.content || ""}
               style={{ direction: "rtl" }}
-              className="mt-5 !text-justify !font-zain !font-normal !text-sm text-gray-500"
+              className="mt-5 !text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white/70"
             />
             <div className="mt-5 flex w-full">
               {hasWebsiteUrl ? (

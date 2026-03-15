@@ -46,7 +46,7 @@ const SearchBar = ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        "flex items-center gap-2 rounded-sm border border-gray-200 bg-white px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-main",
+        "flex items-center gap-2 rounded-sm border border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-main",
         className,
       )}
     >
@@ -56,7 +56,7 @@ const SearchBar = ({ className }: { className?: string }) => {
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="ابحث في هذه الصفحة"
-        className="w-full text-gray-800 placeholder-gray-400 outline-none placeholder:text-sm"
+        className="w-full text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-white/50 outline-none placeholder:text-sm bg-transparent"
       />
       {isSearchActive ? (
         <button
@@ -65,7 +65,10 @@ const SearchBar = ({ className }: { className?: string }) => {
           onClick={handleClear}
           aria-label="مسح البحث"
         >
-          <X size={16} className="text-gray-400 hover:text-gray-600" />
+          <X
+            size={16}
+            className="text-gray-400 dark:text-white/50 hover:text-gray-600 dark:hover:text-white"
+          />
         </button>
       ) : (
         <button

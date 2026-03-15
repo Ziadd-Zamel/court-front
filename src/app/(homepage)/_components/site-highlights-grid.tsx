@@ -4,10 +4,22 @@ import { motion } from "framer-motion";
 import HighlightCard from "@/components/common/highlight-card";
 
 const backgrounds = [
-  { bg: "bg-white", gradient: "to-white" },
-  { bg: "bg-main/10", gradient: "to-[#FBF7F0]" },
-  { bg: "bg-white", gradient: "to-white" },
-  { bg: "bg-main/15", gradient: "to-[#FBF7F0]" },
+  {
+    bg: "bg-white dark:bg-[#1a1a1a]",
+    gradient: "to-white dark:to-[#1a1a1a]",
+  },
+  {
+    bg: "bg-main/10 dark:bg-[#121212]",
+    gradient: "to-[#FBF7F0] dark:to-[#121212]",
+  },
+  {
+    bg: "bg-white dark:bg-[#1a1a1a]",
+    gradient: "to-white dark:to-[#1a1a1a]",
+  },
+  {
+    bg: "bg-main/15 dark:bg-[#121212]",
+    gradient: "to-[#FBF7F0] dark:to-[#121212]",
+  },
 ] as const;
 
 function chunkIntoPairs<T>(arr: T[]): T[][] {
@@ -48,7 +60,8 @@ export default function SiteHighlightsGrid({
         <div
           key={rowIndex}
           className={
-            backgrounds[rowIndex % backgrounds.length]?.bg ?? "bg-white"
+            backgrounds[rowIndex % backgrounds.length]?.bg ??
+            "bg-white dark:bg-[#1a1a1a]"
           }
         >
           <motion.div

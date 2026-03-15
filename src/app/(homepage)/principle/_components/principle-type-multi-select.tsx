@@ -66,7 +66,7 @@ export default function PrincipleTypeMultiSelect({
                 key={opt.value}
                 type="button"
                 className={cn(
-                  "main-tab py-2.5 ps-2.5 pe-2 gap-2 text-black",
+                  "main-tab py-2.5 ps-2.5 pe-2 gap-2",
                   "data-[state=inactive]:hover:bg-main/50 data-[state=inactive]:hover:text-white",
                 )}
                 onClick={() => toggleType(opt.value)}

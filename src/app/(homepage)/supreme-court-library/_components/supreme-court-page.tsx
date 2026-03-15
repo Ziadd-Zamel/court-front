@@ -38,7 +38,7 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
     },
 
     {
-      label: "خدمات الرواد",
+      label: "دليل الاستخدام",
       value: "vistor-services",
       component: <VistorServices />,
     },

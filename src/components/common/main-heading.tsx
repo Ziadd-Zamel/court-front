@@ -47,12 +47,12 @@ export default function MainHeading({
         />
       </motion.div>
 
-      {overlay && <div className="absolute inset-0 bg-black/50 z-10" />}
+      {overlay && <div className="absolute inset-0 bg-black/50 dark:bg-black/60 z-10" />}
 
       {/**Content container */}
       <div className="relative flex flex-col box-container z-20 gap-8 mt-28">
         {/** Title with Breadcrumb */}
-        <div className="flex gap-10 sm:gap-0 sm:flex-row flex-col-reverse w-full max-w[80%] items-center justify-between">
+        <div className="flex gap-10 sm:gap-0 sm:flex-row flex-col-reverse w-full max-w-[80%] items-center justify-between">
           <motion.h2
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
@@ -68,7 +68,7 @@ export default function MainHeading({
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="self-start"
+            className="self-start min-w-0 shrink-0"
           >
             <CustomBreadcrumb />
           </motion.div>
@@ -82,7 +82,7 @@ export default function MainHeading({
             transition={{ duration: 1, delay: 0.6 }}
             className={cn(
               descriptionClassname,
-              "font-normal text-justify leading-7 -mt-3 text-gray-300 text-xs sm:text-sm md:text-base md:max-w-[80%] [&_p]:mb-2 [&_p:last-child]:mb-0",
+              "font-normal text-justify leading-7 -mt-3 text-gray-300 dark:text-white/70 text-xs sm:text-sm md:text-base md:max-w-[80%] [&_p]:mb-2 [&_p:last-child]:mb-0",
             )}
             {...(descriptionHtml
               ? {

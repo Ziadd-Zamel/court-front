@@ -16,7 +16,7 @@ const CombinedComponent = () => {
   }, [selectedYear]);
 
   return (
-    <div className=" w-full pb-40 pt-16 bg-white flex flex-col justify-center items-center">
+    <div className="w-full pb-40 pt-16 bg-white dark:bg-[#121212] flex flex-col justify-center items-center">
       <AnimatedSectionHeader title="الفصل في الطعون" />
       <div className="w-full space-y-5 box-container ">
         <StatsSection yearlyData={yearlyData} selectedYear={selectedYear} />

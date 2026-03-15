@@ -48,7 +48,7 @@ export default function AssemblySessionCard({ assembly }: Props) {
       <div className="flex flex-col items-start py-2 md:flex-row">
         <div className="flex w-full flex-1 -mt-3">
           <div className="flex flex-col text-start items-center">
-            <p className="text-3xl text-black">
+            <p className="text-3xl text-black dark:text-white">
               <HighlightedText text={String(day)} />
             </p>
             <p className="text-md md:text-xs text-main mt-2">
@@ -58,7 +58,7 @@ export default function AssemblySessionCard({ assembly }: Props) {
           <Slash
             size={45}
             strokeWidth={1}
-            className="-rotate-12 hidden self-center lg:block mr-3"
+            className="-rotate-12 hidden self-center lg:block mr-3 text-gray-400 dark:text-white/30"
           />
         </div>
 
@@ -66,7 +66,7 @@ export default function AssemblySessionCard({ assembly }: Props) {
           {hasBrief ? (
             <>
               <AccordionTrigger className="rounded-none pt-0 flex w-full cursor-pointer flex-col items-start gap-5 text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
-                <h4 className="text-sm font-medium">
+                <h4 className="text-sm font-medium text-gray-900 dark:text-white">
                   <HighlightedText text={assembly.title} />
                 </h4>
               </AccordionTrigger>
@@ -80,7 +80,7 @@ export default function AssemblySessionCard({ assembly }: Props) {
                     <HighlightedHtml
                       html={item.body}
                       style={{ direction: "rtl" }}
-                      className="!text-justify !font-zain !font-normal !text-sm text-gray-500"
+                      className="!text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white/70"
                     />
                   </div>
                 ))}
@@ -94,7 +94,7 @@ export default function AssemblySessionCard({ assembly }: Props) {
           ) : (
             <>
               <div className="flex w-full flex-col items-start gap-5 pb-4 pt-0 text-start md:flex-row md:items-center">
-                <h4 className="text-sm font-medium">
+                <h4 className="text-sm font-medium text-gray-900 dark:text-white">
                   <HighlightedText text={assembly.title} />
                 </h4>
               </div>

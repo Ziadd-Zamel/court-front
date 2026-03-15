@@ -23,7 +23,7 @@ export default function NewsCard({ article }: NewsCardProps) {
       : article.images?.[0] || fallbackImage;
 
   return (
-    <div className="bg-white overflow-hidden">
+    <div className="bg-white dark:bg-white/10 dark:border dark:border-white/10 overflow-hidden">
       {/* Media: Video or Image */}
       <div className="relative h-48 w-full">
         {hasVideo ? (
@@ -58,12 +58,12 @@ export default function NewsCard({ article }: NewsCardProps) {
         </div>
 
         {/* Title */}
-        <h3 className="text-sm font-medium text-gray-800 mb-3 line-clamp-2 leading-tight mt-5 min-h-[80px]">
+        <h3 className="text-sm font-medium text-gray-800 dark:text-white mb-3 line-clamp-2 leading-tight mt-5 min-h-[80px]">
           {article.title}
         </h3>
 
         {/* Horizontal Line */}
-        <hr className="border-gray-200 mb-4" />
+        <hr className="border-gray-200 dark:border-white/10 mb-4" />
 
         {/* Action Buttons */}
         <div className="flex justify-between items-center">

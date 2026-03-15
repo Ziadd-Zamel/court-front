@@ -9,7 +9,7 @@ export default function AppealInquiryPage() {
 
   return (
     <>
-      <div className="min-h-screen lg:flex lg:flex-row">
+      <div className="min-h-screen lg:flex lg:flex-row dark:bg-[#121212]">
         <PageContent showstates={showstates} setShowstates={setShowstates} />
         <div className="hidden min-h-screen  lg:block w-1/4">
           <Sidebar showstates={showstates} />

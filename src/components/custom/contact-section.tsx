@@ -130,7 +130,7 @@ export default function ContactSection({
                         <Input
                           {...field}
                           placeholder="الاسم (اختياري)"
-                          className="w-full rounded bg-white/20 px-4 py-2 text-right text-gray-400 placeholder-gray-400 border-none focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50"
+                          className="w-full rounded bg-white/20 dark:bg-white/10 dark:border dark:border-white/10 px-4 py-2 text-right text-gray-400 dark:text-white placeholder-gray-400 dark:placeholder-white/50 border-none focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 dark:focus:ring-main/50"
                           style={{ direction: "rtl" }}
                         />
                       </FormControl>
@@ -149,7 +149,7 @@ export default function ContactSection({
                           {...field}
                           type="email"
                           placeholder="البريد الإلكتروني"
-                          className="w-full rounded bg-white/20 px-4 py-2 text-right text-gray-400 placeholder-gray-400 border-none focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50"
+                          className="w-full rounded bg-white/20 dark:bg-white/10 dark:border dark:border-white/10 px-4 py-2 text-right text-gray-400 dark:text-white placeholder-gray-400 dark:placeholder-white/50 border-none focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 dark:focus:ring-main/50"
                           style={{ direction: "rtl" }}
                         />
                       </FormControl>
@@ -207,7 +207,7 @@ export default function ContactSection({
                         <Textarea
                           {...field}
                           placeholder="اكتب رسالتك هنا"
-                          className="h-24 w-full rounded bg-white/20 px-4 py-2 text-right text-gray-400 placeholder-gray-400 border-none focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 resize-none"
+                          className="h-24 w-full rounded bg-white/20 dark:bg-white/10 dark:border dark:border-white/10 px-4 py-2 text-right text-gray-400 dark:text-white placeholder-gray-400 dark:placeholder-white/50 border-none focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 dark:focus:ring-main/50 resize-none"
                           style={{ direction: "rtl" }}
                           maxLength={250}
                         />

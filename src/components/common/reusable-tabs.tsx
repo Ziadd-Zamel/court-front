@@ -92,15 +92,14 @@ export default function ReusableTabs({
               className={`w-full min-h-screen flex flex-col md:mt-15 ${tabContentClassName}`}
               value={tab.value}
             >
-              {showHeading &&
-                tab.heading && (
-                  <div className="mb-10 text-right">
-                    <h3 className="text-2xl font-bold text-main">
-                      {tab.heading}
-                    </h3>
-                    <div className="mt-2 h-[2px] w-56 bg-main" />
-                  </div>
-                )}
+              {showHeading && tab.heading && (
+                <div className="mb-10 text-right">
+                  <h3 className="text-2xl font-bold text-main">
+                    {tab.heading}
+                  </h3>
+                  <div className="mt-2 h-[2px] w-56 bg-main" />
+                </div>
+              )}
               <div className="mt-6">{tab.component}</div>
             </TabsContent>
           ))}

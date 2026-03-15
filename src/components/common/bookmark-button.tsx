@@ -119,8 +119,10 @@ export function BookmarkButton({
 
   const buttonStyles =
     variant === "light"
-      ? "bg-white backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow"
-      : "bg-white backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
+      ? "bg-white dark:bg-white/15 dark:hover:bg-white/20 dark:border-main/50 backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 dark:hover:border-main/60 shadow-sm hover:shadow"
+      : "bg-white dark:bg-white/15 dark:hover:bg-white/20 dark:border-main/50 backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 dark:hover:border-main/60 shadow-sm hover:shadow";
+
+  const iconStyles = isSaved ? "text-main" : "text-gray-700 dark:!text-main";
 
   return (
     <button
@@ -130,9 +132,9 @@ export function BookmarkButton({
       title={isSaved ? "إزالة من المفضلة" : "إضافة للمفضلة"}
     >
       {isSaved ? (
-        <FaBookmark size={size} className="text-main" />
+        <FaBookmark size={size} className={iconStyles} />
       ) : (
-        <FaRegBookmark size={size} className="text-gray-700" />
+        <FaRegBookmark size={size} className={iconStyles} />
       )}
     </button>
   );

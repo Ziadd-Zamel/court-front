@@ -7,6 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  /* Main brand color - always #e6c599 in both light and dark mode */
   --color-main: #e6c599;
   --color-secndary: #f1e2ce;
   --color-main-bg: #f1e2ce;
@@ -84,41 +85,46 @@
   --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
   --sidebar-border: oklch(0.928 0.006 264.531);
   --sidebar-ring: oklch(0.707 0.022 261.325);
+  --row-alt: #f5f2ed;
 }
 
 .dark {
-  /* warm dark brown — complements the golden #e6c599 main color */
-  --background: oklch(0.13 0.02 75);
-  --foreground: oklch(0.95 0.01 80);
-  --card: oklch(0.18 0.022 75);
-  --card-foreground: oklch(0.95 0.01 80);
-  --popover: oklch(0.18 0.022 75);
-  --popover-foreground: oklch(0.95 0.01 80);
-  --primary: oklch(0.82 0.06 75);
-  --primary-foreground: oklch(0.13 0.02 75);
-  --secondary: oklch(0.22 0.025 75);
-  --secondary-foreground: oklch(0.95 0.01 80);
-  --muted: oklch(0.22 0.025 75);
-  --muted-foreground: oklch(0.65 0.03 75);
-  --accent: oklch(0.25 0.03 75);
-  --accent-foreground: oklch(0.95 0.01 80);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.82 0.06 75);
-  --chart-1: oklch(0.82 0.06 75);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.18 0.022 75);
-  --sidebar-foreground: oklch(0.95 0.01 80);
-  --sidebar-primary: oklch(0.82 0.06 75);
-  --sidebar-primary-foreground: oklch(0.13 0.02 75);
-  --sidebar-accent: oklch(0.22 0.025 75);
-  --sidebar-accent-foreground: oklch(0.95 0.01 80);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.82 0.06 75);
+  /*
+   * Dark mode — Main #1A1A1A, Secondary #121212 (swapped).
+   * Main color #e6c599 stays the same.
+   */
+  --background: #1a1a1a;
+  --foreground: #ffffff;
+  --card: #121212;
+  --card-foreground: #ffffff;
+  --popover: #121212;
+  --popover-foreground: #ffffff;
+  --primary: #e6c599;
+  --primary-foreground: #1a1a1a;
+  --secondary: #181818;
+  --secondary-foreground: #ffffff;
+  --muted: #181818;
+  --muted-foreground: #a3a3a3;
+  --accent: #121212;
+  --accent-foreground: #ffffff;
+  --destructive: #e57373;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #e6c599;
+  --chart-1: #e6c599;
+  --chart-2: #c9a86c;
+  --chart-3: #a88b4a;
+  --chart-4: #8b7355;
+  --chart-5: #6d5a45;
+  --sidebar: #121212;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #e6c599;
+  --sidebar-primary-foreground: #1a1a1a;
+  --sidebar-accent: #181818;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #e6c599;
+  --row-alt: #121212;
 }
 
 @layer base {
@@ -140,11 +146,11 @@
   @apply mx-auto w-full min-[1700px]:max-w-[85%] px-5 md:px-10 lg:px-16;
 }
 @utility main-tab {
-  @apply bg-white  hover:bg-main hover:text-white data-[state=active]:bg-main data-[state=active]:text-white transition duration-300 rounded-none cursor-pointer text-base font-normal w-full py-3 border border-gray-300 shadow-none flex items-center justify-between;
+  @apply bg-white text-gray-800 hover:bg-main/10 hover:text-main data-[state=active]:bg-main data-[state=active]:text-white data-[state=active]:hover:bg-main data-[state=active]:hover:text-white dark:bg-white/5 dark:text-white dark:border-white/10 dark:hover:bg-main/10 dark:hover:text-main dark:data-[state=active]:bg-main dark:data-[state=active]:text-white dark:data-[state=active]:hover:bg-main dark:data-[state=active]:hover:text-white transition duration-300 rounded-none cursor-pointer text-base font-normal w-full py-3 border border-gray-300 shadow-none flex items-center justify-between;
 }
 
 .page {
-  background: #ffffff;
+  background: var(--card);
   display: flex;
   justify-content: center;
   align-items: center;

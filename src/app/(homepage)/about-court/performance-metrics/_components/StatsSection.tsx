@@ -39,7 +39,7 @@ const LeftSection = ({
       name,
       value: percentage,
       fill: COLORS[name as keyof typeof COLORS],
-    })
+    }),
   );
 
   return (
@@ -50,11 +50,11 @@ const LeftSection = ({
           content={({ active, payload }) => {
             if (active && payload && payload.length) {
               return (
-                <div className="rounded-lg border bg-white p-3 shadow-lg">
-                  <p className="text-right font-medium text-gray-900">
+                <div className="rounded-lg border bg-white dark:bg-[#121212] border-border p-3 shadow-lg">
+                  <p className="text-right font-medium text-gray-900 dark:text-white">
                     {payload[0].name}
                   </p>
-                  <p className="text-right text-sm text-gray-600">
+                  <p className="text-right text-sm text-gray-600 dark:text-gray-400">
                     {payload[0].value}%
                   </p>
                 </div>
@@ -89,9 +89,9 @@ const LeftSection = ({
                 className="h-3 w-3 rounded-full"
                 style={{ backgroundColor: item.fill }}
               />
-              <span className="text-right text-black text-xs">{item.name}</span>
+              <span className="text-right text-black dark:text-white text-xs">{item.name}</span>
             </div>
-            <span className="font-medium text-white">{item.value}%</span>
+            <span className="font-medium text-main">{item.value}%</span>
           </div>
         ))}
       </div>
@@ -109,15 +109,15 @@ const RightSection = ({
   return (
     <div className="w-full space-y-8 lg:w-1/2">
       <div className="">
-        <h2 className="text-right font-zain text-2xl font-bold text-black sm:text-4xl lg:text-3xl">
-          المعدل الفردي{" "}
+        <h2 className="text-right font-zain text-2xl font-bold text-black dark:text-white sm:text-4xl lg:text-3xl">
+          مؤشرات الأداء{" "}
         </h2>
       </div>
       <div className="space-y-5">
         {Object.entries(yearlyData[selectedYear].cases).map(
           ([caseName, percentage]) => (
             <div key={caseName} className="space-y-3">
-              <div className="flex flex-row-reverse items-center justify-between text-black">
+              <div className="flex flex-row-reverse items-center justify-between text-black dark:text-white">
                 <span className="text-[14px] font-bold text-main">
                   <AnimatedValue value={Math.round(percentage)} />%
                 </span>
@@ -128,7 +128,7 @@ const RightSection = ({
                 className="!important [&>div]:!border-b-none border-b-transparent h-2 rotate-180 border-t-2 bg-transparent [&>div]:!bg-main"
               />
             </div>
-          )
+          ),
         )}
       </div>
     </div>

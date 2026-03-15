@@ -38,23 +38,16 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             transition={{ delay: 0.2 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative">
+            <div className="relative flex items-center rounded-md border border-white/10 bg-white/10 px-4 focus-within:ring-1 focus-within:ring-main">
               <input
                 dir="rtl"
                 type="text"
                 placeholder="ابحث في الموقع"
-                className="w-full bg-transparent pl-12 pr-4 text-right text-lg text-white placeholder:text-right placeholder:text-lg placeholder:text-gray-100/50 focus:outline-none"
+                className="w-full bg-transparent pl-12 pr-4 text-right text-lg text-white placeholder:text-right placeholder:text-lg placeholder:text-white/50 focus:outline-none"
                 autoFocus
               />
-              <Search className="absolute left-0 top-1/2 h-8 w-8 -translate-y-1/2 text-white" />
+              <Search className="absolute left-4 top-1/2 h-8 w-8 -translate-y-1/2 text-main" />
 
-              {/* Animated underline */}
-              <motion.div
-                className="absolute bottom-0 right-0 h-[1px] bg-[#808893]"
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              />
             </div>
           </motion.div>
         </motion.div>

@@ -412,6 +412,10 @@ export default function AccessibilityButton({
     // Reset theme to light
     setTheme("light");
 
+    // Clear any inline body styles from theme switching
+    document.body.style.removeProperty("backgroundColor");
+    document.body.style.removeProperty("color");
+
     const root = document.documentElement;
     root.style.removeProperty("--accessibility-font-scale");
     document.body.style.removeProperty("fontSize");
@@ -433,19 +437,10 @@ export default function AccessibilityButton({
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
 
-    // Direct DOM manipulation as fallback
-    const html = document.documentElement;
-    const body = document.body;
-
-    if (newTheme === "dark") {
-      html.setAttribute("data-theme", "dark");
-      body.style.backgroundColor = "#0f172a";
-      body.style.color = "#f8fafc";
-    } else {
-      html.setAttribute("data-theme", "light");
-      body.style.backgroundColor = "#f3f3f3";
-      body.style.color = "#0f172a";
-    }
+    // Clear any inline styles - let CSS variables from globals.css handle theming
+    // next-themes adds class="dark" to html, which triggers .dark { --background: ... } etc.
+    document.body.style.removeProperty("backgroundColor");
+    document.body.style.removeProperty("color");
   };
 
   const isDarkTheme = theme === "dark";

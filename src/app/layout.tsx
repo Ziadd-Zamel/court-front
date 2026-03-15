@@ -52,6 +52,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
+      suppressHydrationWarning
       className={`${zain.variable} ${merriweather.variable} ${majalla.variable}`}
     >
       <body className="font-zain antialiased bg-background">

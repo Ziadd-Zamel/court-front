@@ -31,7 +31,7 @@ export function HelpDialog({ title, body }: Props) {
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
 
-        <ul className="list-disc pr-5 space-y-2">
+        <ul className="list-disc pr-5 space-y-2 marker:text-main">
           {body.map((item, i) => (
             <li key={i}>{item}</li>
           ))}

@@ -24,7 +24,7 @@ export default async function LawContent({ type }: Props) {
 
   return (
     <div
-      className="prose prose-lg text-sm max-w-none text-gray-600 leading-relaxed text-right"
+      className="prose prose-lg dark:prose-invert text-sm max-w-none text-gray-600 dark:text-white/70 leading-relaxed text-right"
       style={{ direction: "rtl" }}
       dangerouslySetInnerHTML={{
         __html: cleanHtmlStylesServer(bodyHtml),

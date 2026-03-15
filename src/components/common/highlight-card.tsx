@@ -29,7 +29,7 @@ export default function HighlightCard({
       </div>
 
       {/* Row 2: title */}
-      <h4 className="my-3 text-right text-md font-medium text-black lg:text-base">
+      <h4 className="my-3 text-right text-md font-medium text-black dark:text-foreground lg:text-base">
         <span className="text-base font-bold text-main">
           {article.number}/{article.judicial_year}
           {article.sign}
@@ -41,7 +41,7 @@ export default function HighlightCard({
       <div className="relative mt-5 h-[13.75rem] overflow-hidden">
         <div
           style={{ direction: "rtl" }}
-          className="!text-justify !font-zain !font-normal !text-sm text-gray-500"
+          className="!text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-card-foreground"
           dangerouslySetInnerHTML={{ __html: cleanedBodyHtml }}
         />
         <div

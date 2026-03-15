@@ -16,12 +16,12 @@ export default function NoSearchResults({
       </div>
 
       {/* Title */}
-      <h2 className="text-2xl font-bold text-gray-800 mb-3 text-center">
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-3 text-center">
         لم نجد نتائج مطابقة
       </h2>
 
       {/* Message */}
-      <p className="text-gray-600 text-center mb-8 max-w-md text-lg">
+      <p className="text-gray-600 dark:text-white/70 text-center mb-8 max-w-md text-lg">
         {message}
       </p>
       {/* Suggestions */}

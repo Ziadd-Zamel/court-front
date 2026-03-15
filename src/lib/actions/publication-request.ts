@@ -17,10 +17,7 @@ export async function submitPublicationRequest(data: PublicationRequestData) {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          ...validatedData,
-          phone: "+218912345268",
-        }),
+        body: JSON.stringify(validatedData),
       }
     );
 

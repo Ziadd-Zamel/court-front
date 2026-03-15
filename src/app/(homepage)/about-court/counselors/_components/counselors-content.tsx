@@ -31,7 +31,7 @@ export default async function CounselorsContent({
     <>
       {/* Featured president card */}
       <div className="box-container mt-16 mb-4" dir="rtl">
-        <div className="relative overflow-hidden bg-white border border-gray-100 shadow-md">
+        <div className="relative overflow-hidden bg-white dark:bg-white/10 border border-gray-100 dark:border-white/10 shadow-md">
           {/* Subtle dot pattern */}
           <div
             className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -49,17 +49,17 @@ export default async function CounselorsContent({
                   ع
                 </AvatarFallback>
               </Avatar>
-              <span className="text-xs font-medium text-main bg-main/8 border border-main/20 px-3 py-1 rounded-full whitespace-nowrap">
+              <span className="text-xs font-medium text-main bg-main/8 dark:bg-white/10 dark:border-white/20 border border-main/20 px-3 py-1 rounded-full whitespace-nowrap">
                 رئيس المحكمة العليا
               </span>
             </div>
 
             {/* Vertical divider */}
-            <div className="hidden sm:block w-px self-stretch bg-gradient-to-b from-transparent via-gray-200 to-transparent mx-2" />
+            <div className="hidden sm:block w-px self-stretch bg-gradient-to-b from-transparent via-gray-200 dark:via-white/20 to-transparent mx-2" />
 
             {/* Info */}
             <div className="flex flex-col gap-5 flex-1 text-center sm:text-right">
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
                 عبدالله محمد أبوزريزة
               </h3>
 
@@ -80,7 +80,7 @@ export default async function CounselorsContent({
                 ))}
               </ol>
 
-              <div className="h-px bg-gradient-to-l from-transparent via-gray-200 to-transparent" />
+              <div className="h-px bg-gradient-to-l from-transparent via-gray-200 dark:via-white/20 to-transparent" />
 
               {/* Roles */}
               <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
@@ -92,7 +92,7 @@ export default async function CounselorsContent({
                 ].map((role) => (
                   <span
                     key={role}
-                    className="text-xs font-medium bg-main/5 border border-main/20 text-main px-3 py-1.5 rounded-full"
+                    className="text-xs font-medium bg-main/5 dark:bg-white/10 dark:border-white/20 border border-main/20 text-main px-3 py-1.5 rounded-full"
                   >
                     {role}
                   </span>

@@ -84,15 +84,15 @@ const ArabicSearchBar = () => {
   );
 
   return (
-    <div className="mx-auto w-full border border-gray-200 bg-white shadow-sm !mt-12">
-      {/* Desktop Layout */}
-      <div className="hidden items-center sm:flex flex-row">
-        {/* Dropdown */}
-        <div className="bg-gray-100 ">
+    <div className="mx-auto w-full !mt-12 overflow-hidden rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-lg shadow-gray-200/50 dark:shadow-black/20 focus-within:ring-2 focus-within:ring-main/30 focus-within:border-main/50 transition-all duration-200">
+      {/* Desktop Layout - RTL: dropdown right, input center, search button left */}
+      <div className="hidden items-stretch sm:flex flex-row" dir="rtl">
+        {/* Dropdown - right (first in RTL) */}
+        <div className="border-l border-gray-200 dark:border-white/10">
           <Select value={selectedOption} onValueChange={handleSearchTypeChange}>
             <SelectTrigger
               dir="rtl"
-              className="h-12 min-w-[200px] cursor-pointer border-transparent justify-between w-full bg-gray-100 px-4 text-right"
+              className="h-full min-w-[200px] cursor-pointer border-0 rounded-none bg-gray-50 dark:bg-transparent text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-white/50 px-4 text-right focus:ring-0 focus:ring-offset-0"
             >
               <SelectValue />
             </SelectTrigger>
@@ -109,33 +109,37 @@ const ArabicSearchBar = () => {
             </SelectContent>
           </Select>
         </div>
-        {/* Search Input */}
-        <div className="flex-1 px-4" dir="rtl">
+
+        {/* Search Input - center */}
+        <div className="flex-1 min-w-0 px-4 py-3" dir="rtl">
           <Input
             type="text"
             value={localSearchQuery}
             onChange={(e) => setLocalSearchQuery(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder={currentOption?.placeholder}
-            className="h-12 w-full border-none text-right text-gray-700 placeholder-gray-400 outline-none shadow-none focus-visible:ring-0"
+            className="h-full w-full border-0 bg-transparent dark:bg-transparent text-right text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-white/50 outline-none shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none"
           />
         </div>
 
-        {/* Search Button */}
+        {/* Search Button - left */}
         <Button
           onClick={handleSearch}
-          className="h-12 w-12 rounded-none bg-gray-600 hover:bg-gray-700"
+          className="h-14 w-14 shrink-0 rounded-none bg-main hover:bg-main/90 text-primary-foreground border-l border-main/20 dark:border-white/10"
           size="icon"
         >
-          <Search size={20} />
+          <Search size={22} />
         </Button>
       </div>
 
-      {/* Mobile Layout - same structure with updated handlers */}
+      {/* Mobile Layout */}
       <div className="sm:hidden">
-        <div className="border-b border-gray-200 px-3 py-2">
+        <div className="flex flex-col gap-2 p-3">
           <Select value={selectedOption} onValueChange={handleSearchTypeChange}>
-            <SelectTrigger className="w-full bg-white text-right">
+            <SelectTrigger
+              dir="rtl"
+              className="w-full h-12 rounded-lg bg-gray-50 dark:bg-white/10 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-white text-right"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent dir="rtl" className="text-right" align="end">
@@ -146,28 +150,25 @@ const ArabicSearchBar = () => {
               ))}
             </SelectContent>
           </Select>
-        </div>
 
-        <div className="flex items-center flex-row-reverse">
-          <div className="flex-1 px-3" dir="rtl">
+          <div className="flex items-center gap-2 rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 px-3 py-2 focus-within:ring-2 focus-within:ring-main/30">
             <Input
               type="text"
               value={localSearchQuery}
               onChange={(e) => setLocalSearchQuery(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder={currentOption?.placeholder}
-              className="h-12 w-full border-none text-right text-sm text-gray-700 placeholder-gray-400 outline-none shadow-none focus-visible:ring-0"
+              className="h-10 flex-1 border-0 bg-transparent text-right text-sm text-gray-700 dark:text-white placeholder-gray-400 dark:placeholder-white/50 outline-none shadow-none focus-visible:ring-0"
               dir="rtl"
             />
+            <Button
+              onClick={handleSearch}
+              className="shrink-0 h-10 w-10 rounded-lg bg-main hover:bg-main/90"
+              size="icon"
+            >
+              <Search size={18} />
+            </Button>
           </div>
-
-          <Button
-            onClick={handleSearch}
-            className="h-12 w-12 rounded-none bg-gray-600 hover:bg-gray-700"
-            size="icon"
-          >
-            <Search size={18} />
-          </Button>
         </div>
       </div>
     </div>
