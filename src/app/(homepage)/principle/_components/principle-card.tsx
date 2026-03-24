@@ -9,6 +9,7 @@ import { Calendar } from "lucide-react";
 import { CopyButton } from "@/components/common/copy-button";
 import { BookmarkButton } from "@/components/common/bookmark-button";
 import { ShareButton } from "@/components/common/share-button";
+import { PrinciplePdfButton } from "@/components/common/principle-pdf-button";
 import { HighlightedHtml } from "@/components/common/highlighted-html";
 import { HighlightedText } from "@/components/common/highlighted-text";
 
@@ -21,6 +22,11 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
   const pdfUrl = "/court-book.pdf";
   const pageNumber = principle.page_number ?? 3;
   const hasWebsiteUrl = Boolean(principle.website_url?.trim());
+  const copyText =
+    principle.content
+      ?.replace(/<[^>]*>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim() || principle.brief || "";
 
   const handlePdfClick = () => {
     window.open(`${pdfUrl}#page=${pageNumber}`, "_blank");
@@ -117,7 +123,8 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
           <div className="flex justify-end items-center gap-3 mb-2.5 -mt-2 me-11">
             <BookmarkButton item={principle} type="principle" />
             <ShareButton item={principle} type="principle" />
-            <CopyButton text={principle.brief} />
+            <CopyButton text={copyText} />
+            <PrinciplePdfButton principle={principle} />
           </div>
         </div>
       </div>

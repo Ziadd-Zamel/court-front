@@ -55,9 +55,17 @@ function PhoneInputWithCountryCode({
   const [isOpen, setIsOpen] = useState(false);
 
   const parseValue = (v: string) => {
-    const match = v.match(/^(\+\d+)(.*)$/);
-    if (match)
-      return { code: match[1], number: match[2].replace(/^[- ]+/, "") };
+    const matchedCountry = [...COUNTRY_CODES]
+      .sort((a, b) => b.code.length - a.code.length)
+      .find((country) => v.startsWith(country.code));
+
+    if (matchedCountry) {
+      return {
+        code: matchedCountry.code,
+        number: v.slice(matchedCountry.code.length).replace(/^[- ]+/, ""),
+      };
+    }
+
     return { code: "+218", number: v };
   };
 
@@ -69,11 +77,11 @@ function PhoneInputWithCountryCode({
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const num = e.target.value;
-    onChange(num ? `${displayCode}${num}` : "");
+    onChange(num ? `${displayCode}${num}` : displayCode);
   };
 
   const handleCountryChange = (code: string) => {
-    onChange(phoneNumber ? `${code}${phoneNumber}` : "");
+    onChange(phoneNumber ? `${code}${phoneNumber}` : code);
     setIsOpen(false);
   };
 

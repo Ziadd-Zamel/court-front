@@ -67,11 +67,11 @@ export default function RtlSelectField({
         </div>
 
         {isDropdownOpen && (
-          <div className="absolute z-10 mt-1 max-h-72 w-full overflow-y-auto rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 shadow-lg">
+          <div className="absolute z-10 mt-1 max-h-75 w-full overflow-y-auto rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 shadow-lg">
             {options.map((option) => (
               <div
                 key={option.id}
-                className="cursor-pointer p-3 text-right hover:bg-gray-100 dark:hover:bg-white/20 dark:text-white"
+                className="cursor-pointer py-1.5 px-3 text-sm text-right hover:bg-gray-100 dark:hover:bg-white/20 dark:text-white"
                 onClick={() => {
                   onChange(option.id.toString());
                   setIsDropdownOpen(false);

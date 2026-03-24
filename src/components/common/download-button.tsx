@@ -61,10 +61,11 @@ export function DownloadButton({
 
   const buttonStyles =
     variant === "light"
-      ? "bg-white backdrop-blur-sm hover:bg-white/80  border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow"
-      : "bg-white backdrop-blur-sm hover:bg-white/80  border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
+      ? "bg-white dark:bg-white/15 dark:hover:bg-white/20 dark:border-main/50 dark:hover:border-main/60 backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow"
+      : "bg-white dark:bg-white/15 dark:hover:bg-white/20 dark:border-main/50 dark:hover:border-main/60 backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
 
-  const iconStyles = variant === "light" ? "text-main" : "text-gray-700";
+  const iconStyles =
+    variant === "light" ? "text-main" : "text-gray-700 dark:!text-main";
 
   const downloadingStyles =
     "bg-main hover:bg-main border-main shadow-md hover:shadow-lg scale-105";

@@ -40,7 +40,7 @@ export const getArticleByID = async (uuid: string) => {
 };
 
 export const getConstitutionalRulingsFavourites = async () => {
-  const url = `${process.env.API}rulings/favourites`;
+  const url = `${process.env.API}rulings/favourites?per_page=9`;
 
   const response = await fetch(url, {
     next: { revalidate: 600 },

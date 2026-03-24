@@ -99,17 +99,17 @@ export default function PageContent({ setShowstates }: PageContentProps) {
             إضاءات:
           </h3>
           <ul className="text-gray-600 dark:text-white/70 text-sm space-y-4 list-disc list-inside text-right">
-            <li>
+            <li className="marker:text-main">
               للحصول على نتائج سريعة ودقيقة، يُراعى إدخال بيانات قضيتك إدخالاً
               صحيحاً. يُرجى الانتباه إلى أنه في حالات نادرة، قد يتأخر تحديث
               بيانات القضية لوقت قصير، لا يجاوز في الغالب يومين أو ثلاثة.
             </li>
-            <li>
+            <li className="marker:text-main">
               حرصاً على وقتك ووقت العاملين، لا حاجة لمراجعة مكاتب المحكمة العليا
               من أجل الحصول على النسخة النهائية للحكم إلا بعد التحقق، بواسطة هذه
               الخدمة، من إيداعها.
             </li>
-            <li>
+            <li className="marker:text-main">
               يجب مراعاة أن البيانات الواردة في هذه الخدمة لا تتمتع بأي حجية.
               تظل الحجية القانونية المطلقة قاصرة على المستندات الورقية المودعة
               ملف القضية.

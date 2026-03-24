@@ -69,7 +69,7 @@ export default function PrincipleSearch() {
     params.set("strict_ya", strictYa ?? "0");
     params.set("strict_ta", strictTa ?? "0");
 
-    router.push(`?${params.toString()}`, { scroll: false });
+    router.push(`?${params.toString()}#principles-results`);
   };
 
   return (

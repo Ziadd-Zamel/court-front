@@ -15,22 +15,22 @@ import { Button } from "@/components/ui/button";
 const SEARCH_OPTIONS = [
   {
     value: "by_title",
-    label: "البحث باسم الكتاب",
+    label: "البحث بعنوان كتاب",
     placeholder: "ابحث باسم الكتاب...",
   },
   {
     value: "by_author",
-    label: "البحث بالمؤلف",
+    label: "البحث باسم مؤلف",
     placeholder: "ابحث بالمؤلف...",
   },
   {
     value: "by_index",
-    label: "في النصوص/الفهارس",
+    label: "البحث في الفهارس",
     placeholder: "ابحث في النصوص أو الفهارس",
   },
   {
     value: "all",
-    label: "البحث في كل الحقول",
+    label: "البحث في الكل",
     placeholder: "ابحث في كل الحقول...",
   },
 ] as const;

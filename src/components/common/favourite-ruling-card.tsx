@@ -11,9 +11,8 @@ type FavouriteRulingCardProps = {
 
 export function FavouriteRulingCard({ article }: FavouriteRulingCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-
-  const title = article.sub_category;
-  const description = `${article.number}/${article.judicial_year}${article.sign}: ${article.title || ""}`;
+  const title = article.main_category;
+  const description = `${article.judicial_year}/${article.number}${article.sign}: ${article.title || ""}`;
   const Icon = Pin;
 
   const cardVariants = {

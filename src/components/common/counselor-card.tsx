@@ -1,6 +1,21 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function CounselorCard({ counselor }: { counselor: Counselor }) {
+  const getYear = (date?: string | null) => {
+    if (!date) return "----";
+    return date.slice(0, 4);
+  };
+  const birthYear = getYear(counselor.birth_date);
+  const qualificationName =
+    counselor.higher_qualification || counselor.qualification || "----";
+  const qualificationYear = getYear(
+    counselor.higher_qualification_date || counselor.qualification_date,
+  );
+  const appointedYear = counselor.appointed_year || "----";
+  const experienceYears = counselor.experience_years ?? "----";
+  const footerText =
+    counselor.status === "current" ? counselor.tasks : "متقاعد";
+
   return (
     <div className="group relative flex flex-col bg-white dark:bg-white/10 border border-gray-100 dark:border-white/10 hover:border-main/30 dark:hover:border-main/50 shadow-xl hover:shadow-lg transition-all duration-300 overflow-hidden">
       <div className="flex flex-col items-center gap-3 p-6 pb-4 min-h-[260px]">
@@ -32,19 +47,19 @@ export default function CounselorCard({ counselor }: { counselor: Counselor }) {
       <ol className="flex flex-col gap-2 px-6 py-4 flex-1" dir="rtl">
         <li className="flex items-center gap-2 text-xs text-gray-500 dark:text-white/70">
           <span className="w-1.5 h-1.5 rounded-full bg-main/40 shrink-0" />
-          1970
+          {birthYear}
         </li>
         <li className="flex items-center gap-2 text-xs text-gray-500 dark:text-white/70">
           <span className="w-1.5 h-1.5 rounded-full bg-main/40 shrink-0" />
-          1992، {counselor.higher_qualification}
+          {qualificationYear}، {qualificationName}
         </li>
         <li className="flex items-center gap-2 text-xs text-gray-500 dark:text-white/70">
           <span className="w-1.5 h-1.5 rounded-full bg-main/40 shrink-0" />
-          {counselor.appointed_year || "3333"}، مستشاراً بالمحكمة العليا
+          {appointedYear}، مستشاراً بالمحكمة العليا
         </li>
         <li className="flex items-center gap-2 text-xs text-gray-500 dark:text-white/70">
           <span className="w-1.5 h-1.5 rounded-full bg-main/40 shrink-0" />
-          {counselor.experience_years} عاماً في العمل القضائي
+          {experienceYears} عاماً في العمل القضائي
         </li>
       </ol>
 
@@ -52,12 +67,12 @@ export default function CounselorCard({ counselor }: { counselor: Counselor }) {
 
       {/* Tasks footer */}
       <div className="px-6 pb-5 border-black dark:border-transparent mt-auto min-h-[50px]">
-        {counselor.tasks && (
+        {footerText && (
           <p
             className="text-xs font-bold pt-2 text-black dark:text-white text-center leading-relaxed"
             dir="rtl"
           >
-            {counselor.tasks}
+            {footerText}
           </p>
         )}
       </div>

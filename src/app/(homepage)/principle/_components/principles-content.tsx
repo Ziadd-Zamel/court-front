@@ -77,7 +77,9 @@ export default async function PrinciplesContent({
     return (
       <>
         <PrincipleSearch />
-        <ErrorState />
+        <div id="principles-results">
+          <ErrorState />
+        </div>
       </>
     );
   }
@@ -95,7 +97,9 @@ export default async function PrinciplesContent({
     return (
       <>
         <PrincipleSearch />
-        <NoDataState />
+        <div id="principles-results">
+          <NoDataState />
+        </div>
       </>
     );
   }
@@ -103,13 +107,15 @@ export default async function PrinciplesContent({
   return (
     <>
       <PrincipleSearch />
-      <PrincipleList
-        articles={payload.data}
-        title="المقالات"
-        pagination={pagination}
-        totalItems={payload.meta.total}
-        totalPages={payload.meta.last_page}
-      />
+      <div id="principles-results">
+        <PrincipleList
+          articles={payload.data}
+          title="المقالات"
+          pagination={pagination}
+          totalItems={payload.meta.total}
+          totalPages={payload.meta.last_page}
+        />
+      </div>
     </>
   );
 }

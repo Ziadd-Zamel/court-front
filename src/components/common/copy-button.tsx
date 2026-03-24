@@ -47,22 +47,18 @@ export function CopyButton({
       ? "bg-white dark:bg-white/15 dark:hover:bg-white/20 dark:border-main/50 dark:hover:border-main/60 backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow"
       : "bg-white dark:bg-white/15 dark:hover:bg-white/20 dark:border-main/50 dark:hover:border-main/60 backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
 
-  const iconStyles = variant === "light" ? "text-main" : "text-gray-700 dark:!text-main";
-
-  const copiedStyles =
-    "bg-main hover:bg-main border-main shadow-md hover:shadow-lg scale-105";
+  const iconStyles =
+    variant === "light" ? "text-main" : "text-gray-700 dark:!text-main";
 
   return (
     <button
       onClick={handleCopy}
-      className={`${className} flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 border ${
-        copied ? copiedStyles : buttonStyles
-      }`}
+      className={`${className} flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 ${buttonStyles}`}
       aria-label="Copy text"
       title={copied ? "تم النسخ" : "نسخ النص"}
     >
       {copied ? (
-        <FaCheck size={size} className="text-white" />
+        <FaCheck size={size} className="text-main" />
       ) : (
         <Files size={size} className={`transition-colors ${iconStyles}`} />
       )}

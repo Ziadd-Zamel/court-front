@@ -16,6 +16,11 @@ const SearchBar = ({ className }: { className?: string }) => {
   const handleSearch = () => {
     if (value.trim()) {
       const params = new URLSearchParams(searchParams.toString());
+      // Reset pagination when a new search is triggered
+      params.delete("page");
+      params.delete("perpage");
+      params.delete("per_page");
+      params.delete("limit");
       params.set("search", value.trim());
       // Explicitly preserve 'from' for breadcrumb (e.g. from=legal-principles)
       const fromVal = searchParams.get("from");

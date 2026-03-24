@@ -17,8 +17,8 @@ export default function NoSearchQuery() {
 
       {/* Message */}
       <p className="text-gray-600 dark:text-white/70 text-center mb-8 max-w-md text-lg">
-        استخدم شريط البحث أعلاه للعثور على الكتب والمؤلفين والنصوص التي تبحث
-        عنها
+        استخدم شريط البحث للعثور على كتاب، أو على نص في فهارس الكتب، أو لعرض كتب
+        مؤلف معين
       </p>
 
       {/* Search Types */}
@@ -27,24 +27,36 @@ export default function NoSearchQuery() {
           <div className="bg-main/10 dark:bg-white/10 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
             <BookOpen className="size-5 md:size-8 text-main/70 dark:text-main" />
           </div>
-          <h3 className="font-semibold text-gray-800 dark:text-white mb-2">البحث عن كتاب</h3>
-          <p className="text-sm text-gray-600 dark:text-white/70">ابحث في مكتبة الكتب القانونية</p>
+          <h3 className="font-semibold text-gray-800 dark:text-white mb-2">
+            البحث عن كتاب
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-white/70">
+            ابحث في مكتبة الكتب القانونية
+          </p>
         </div>
 
         <div className="bg-white dark:bg-white/10 dark:border-white/10 border border-gray-200 rounded-lg p-6 text-center hover:shadow-md dark:hover:shadow-lg transition-shadow">
           <div className="bg-main/10 dark:bg-white/10 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
             <Users className="size-5 md:size-8 text-main/70 dark:text-main" />
           </div>
-          <h3 className="font-semibold text-gray-800 dark:text-white mb-2">البحث عن مؤلف</h3>
-          <p className="text-sm text-gray-600 dark:text-white/70">ابحث عن المؤلفين والكتّاب</p>
+          <h3 className="font-semibold text-gray-800 dark:text-white mb-2">
+            البحث عن مؤلف
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-white/70">
+            ابحث عن المؤلفين والكتّاب
+          </p>
         </div>
 
         <div className="bg-white dark:bg-white/10 dark:border-white/10 border border-gray-200 rounded-lg p-6 text-center hover:shadow-md dark:hover:shadow-lg transition-shadow">
           <div className="bg-main/10 dark:bg-white/10 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
             <FileText className="size-5 md:size-8 text-main/70 dark:text-main" />
           </div>
-          <h3 className="font-semibold text-gray-800 dark:text-white mb-2">البحث في النصوص</h3>
-          <p className="text-sm text-gray-600 dark:text-white/70">ابحث داخل محتوى النصوص</p>
+          <h3 className="font-semibold text-gray-800 dark:text-white mb-2">
+            البحث في النصوص
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-white/70">
+            ابحث داخل محتوى النصوص
+          </p>
         </div>
       </div>
     </div>

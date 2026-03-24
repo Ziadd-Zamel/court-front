@@ -139,8 +139,10 @@ const SlideBackground = ({
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        // Keep inactive slide at end-scale to avoid snap zoom-out during fade.
+        transform: "scale(1.08)",
         ...(isActive && {
-          animation: "hero-zoom-pulse 20s ease-in-out infinite",
+          animation: "hero-zoom-in 8s linear forwards",
         }),
       }}
     />

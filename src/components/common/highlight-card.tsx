@@ -14,6 +14,7 @@ export default function HighlightCard({
   gradientFrom = "to-white",
 }: Props) {
   const cleanedBodyHtml = cleanHtmlStylesServer(article.rule.body_html);
+  console.log(article);
 
   return (
     <div
@@ -31,7 +32,7 @@ export default function HighlightCard({
       {/* Row 2: title */}
       <h4 className="my-3 text-right text-md font-medium text-black dark:text-foreground lg:text-base">
         <span className="text-base font-bold text-main">
-          {article.number}/{article.judicial_year}
+          {article.judicial_year}/{article.number}
           {article.sign}
         </span>
         : {article.title}

@@ -220,7 +220,7 @@ export default function ContactSection({
                 <div className="flex justify-end">
                   <Button
                     type="submit"
-                    className="w-24 text-2xl py-1"
+                    className="text-base min-w-20 py-1 "
                     disabled={mutation.isPending}
                   >
                     {mutation.isPending ? (

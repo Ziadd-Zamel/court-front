@@ -24,12 +24,12 @@ export default function PageContent({ article }: { article: Article }) {
       value: "rule",
       component: (
         <div className="text-right mt-10">
-          <h4 className="text-xl text-center font-semibold mb-10 text-gray-700">
+          <h4 className="text-xl text-center font-semibold mb-10 text-gray-700 dark:text-white">
             المبادئ القانونية{" "}
           </h4>
           <HighlightedHtml
             html={article.rule.body_html}
-            className="text-gray-500 leading-relaxed text-sm text-justify font-normal"
+            className="text-gray-500 dark:text-white/70 leading-relaxed text-sm text-justify font-normal"
             style={{ direction: "rtl" }}
           />
         </div>
@@ -79,12 +79,12 @@ export default function PageContent({ article }: { article: Article }) {
                   key={idx}
                   className="first:border-b-main first:border-b first:mb-10"
                 >
-                  <h4 className="text-xl text-center font-semibold mb-4 text-gray-700">
+                  <h4 className="text-xl text-center font-semibold mb-4 text-gray-700 dark:text-white">
                     {content.title}
                   </h4>
                   <HighlightedHtml
                     html={content.body_html}
-                    className={`text-gray-500 leading-relaxed text-sm text-justify font-normal ${
+                    className={`text-gray-500 dark:text-white/70 leading-relaxed text-sm text-justify font-normal ${
                       idx < pair.length - 1 ? "mb-8" : ""
                     }`}
                   />
@@ -105,7 +105,7 @@ export default function PageContent({ article }: { article: Article }) {
       value: content.title.toLowerCase().replace(/\s+/g, "-"),
       component: (
         <div className="text-right mt-10">
-          <p className="text-gray-500 leading-relaxed text-sm text-justify">
+          <p className="text-gray-500 dark:text-white/70 leading-relaxed text-sm text-justify">
             <HighlightedText text={content.body_text} />
           </p>
         </div>
@@ -122,7 +122,7 @@ export default function PageContent({ article }: { article: Article }) {
       value: "counselors",
       component: (
         <div className="text-right mt-10">
-          <h4 className="text-xl text-center font-semibold mb-10 text-gray-700">
+          <h4 className="text-xl text-center font-semibold mb-10 text-gray-700 dark:text-white">
             هيئة الحكم
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -136,7 +136,7 @@ export default function PageContent({ article }: { article: Article }) {
                   {counselor.name.charAt(0)}
                 </div>
 
-                <h5 className="text-black text-xs font-medium whitespace-nowrap group-hover:text-main transition-colors">
+                <h5 className="text-black dark:text-white text-xs font-medium whitespace-nowrap group-hover:text-main transition-colors">
                   {counselor.name}
                 </h5>
               </Link>
@@ -147,9 +147,9 @@ export default function PageContent({ article }: { article: Article }) {
     });
   }
   return (
-    <section className=" pt-20 w-full lg:w-3/4 md:px-10 px-5 lg:px-13! pb-40 ">
+    <section className="pt-20 w-full lg:w-3/4 md:px-10 px-5 lg:px-13! pb-40 dark:bg-[#121212]">
       <div className="flex flex-col items-start">
-        <h3 className="text-xl font-semibold md:text-md lg:text-2xl mb-5 flex items-center gap-1">
+        <h3 className="text-xl font-semibold md:text-md lg:text-2xl mb-5 flex items-center gap-1 text-gray-900 dark:text-white">
           <div className="flex items-center flex-row-reverse gap-1">
             <span><HighlightedText text={String(article.principle_year)} /></span>
             <span className="-mx-1">/</span>
@@ -168,7 +168,7 @@ export default function PageContent({ article }: { article: Article }) {
             </div>
           </div>
         </h3>
-        <h4 className="text-right text-sm font-bold sm:text-xl flex items-center gap-2">
+        <h4 className="text-right text-sm font-bold sm:text-xl flex items-center gap-2 text-gray-900 dark:text-white">
           <HighlightedText text={article.title} />
         </h4>
         <div className="mt-5 flex items-center justify-end gap-5">
@@ -193,7 +193,7 @@ export default function PageContent({ article }: { article: Article }) {
       {/* Article brief */}
       <HighlightedHtml
         html={article.brief_html}
-        className="text-gray-500 leading-relaxed text-sm text-justify font-normal mt-16 mb-6"
+        className="text-gray-500 dark:text-white/70 leading-relaxed text-sm text-justify font-normal mt-16 mb-6"
         style={{ direction: "rtl" }}
       />
 
