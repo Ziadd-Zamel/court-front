@@ -11,8 +11,22 @@ type FavouriteRulingCardProps = {
 
 export function FavouriteRulingCard({ article }: FavouriteRulingCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const title = article.main_category;
-  const description = `${article.judicial_year}/${article.number}${article.sign}: ${article.title || ""}`;
+  const title = article.sub_category;
+
+  const normalize = (value: unknown) => {
+    if (value === null || value === undefined) return "";
+    const text = String(value).trim();
+    if (!text || text.toLowerCase() === "null") return "";
+    return text;
+  };
+
+  const judicialYear = normalize(article.judicial_year);
+  const number = normalize(article.number);
+  const sign = normalize(article.sign);
+  const articleTitle = normalize(article.title);
+  const mainMeta = [judicialYear, number].filter(Boolean).join("/");
+  const fullMeta = `${mainMeta}${sign}`.trim();
+  const description = [fullMeta, articleTitle].filter(Boolean).join(": ");
   const Icon = Pin;
 
   const cardVariants = {

@@ -43,7 +43,8 @@ export default async function CounselorsContent({
     ? `${featuredCounselor.appointed_year} مستشاراً في المحكمة العليا`
     : "------";
   const featuredRole = featuredCounselor?.tasks || "------";
-  const fields = featuredCounselor?.fields?.map((f) => f.field).filter(Boolean) || [];
+  const fields =
+    featuredCounselor?.fields?.map((f) => f.field).filter(Boolean) || [];
 
   return (
     <>
@@ -63,7 +64,7 @@ export default async function CounselorsContent({
             <div className="relative flex flex-col sm:flex-row items-center gap-8 p-8 sm:p-10">
               {/* Avatar */}
               <div className="shrink-0 flex flex-col items-center gap-3">
-                <Avatar className="size-24 sm:size-28 border-4 border-main/20 shadow-md">
+                <Avatar className="size-24 sm:size-35 border-4 border-main/20 shadow-md">
                   {featuredCounselor.image && (
                     <AvatarImage src={featuredCounselor.image} />
                   )}
@@ -71,7 +72,7 @@ export default async function CounselorsContent({
                     {featuredCounselor.name?.slice(0, 1) || "ع"}
                   </AvatarFallback>
                 </Avatar>
-                <span className="text-xs font-medium text-main bg-main/8 dark:bg-white/10 dark:border-white/20 border border-main/20 px-3 py-1 rounded-full whitespace-nowrap">
+                <span className="text-sm font-medium text-black dark:text-white whitespace-nowrap">
                   {featuredRole}
                 </span>
               </div>
@@ -97,7 +98,7 @@ export default async function CounselorsContent({
                       className="text-gray-600 text-sm flex items-center gap-2 justify-center sm:justify-start"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-main shrink-0" />
-                      {item}
+                      {`${item}`}
                     </li>
                   ))}
                 </ol>

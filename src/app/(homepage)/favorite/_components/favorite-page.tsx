@@ -4,32 +4,30 @@ import SecondaryHeading from "@/components/common/seondary-heading";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  FaGavel,
-  FaBook,
   FaQuestionCircle,
-  FaFileAlt,
-  FaBalanceScale,
-  FaNewspaper,
+  FaGavel,
   FaScroll,
+  FaFileAlt,
+  FaBook,
 } from "react-icons/fa";
 
 export default function FavoritesPage() {
   const favoriteTypes = [
     {
       id: 1,
-      title: "المبادئ القانونية",
-      description: "مختاراتك من أحكام المحكمة العليا من مختلف دوائرها",
+      title: "قضاء النقض",
+      description: "مختاراتك من أحكام قضاء النقض",
       icon: FaGavel,
-      image: "/assets/articles.svg",
       route: "/favorite/articles",
+      image: "/assets/articles.svg",
     },
     {
       id: 2,
-      title: "الكتب والإصدارات",
-      description: "مفضلتك من كتب المكتبة وإصدارات المحكمة العليا",
-      icon: FaBook,
-      route: "/favorite/books",
-      image: "/assets/booksPup.svg",
+      title: "القضاء الدستوري",
+      description: "مختاراتك من أحكام القضاء الدستوري",
+      icon: FaGavel,
+      route: "/favorite/constitutional",
+      image: "/assets/articles.svg",
     },
     {
       id: 3,
@@ -41,37 +39,27 @@ export default function FavoritesPage() {
     },
     {
       id: 4,
-      title: "البحوث والأوراق العلمية",
-      description:
-        "الوصول السريع لتفضيلاتك من البحوث والمقالات المنشورة على الموقع",
-      icon: FaFileAlt,
-      route: "/favorite/research",
-      image: "/assets/research.svg",
+      title: "الكتب والإصدارات",
+      description: "مفضلتك من الكتب وإصدارات المحكمة العليا",
+      icon: FaBook,
+      route: "/favorite/books",
+      image: "/assets/booksPup.svg",
     },
     {
       id: 5,
-      title: "القوانين",
-      description:
-        "مجموعة القوانين والقرارات واللوائح المنتقاة لسهولة الرجوع إليها",
-      icon: FaBalanceScale,
-      route: "/favorite/law",
-      image: "/assets/free_icon_1 (5).svg",
-    },
-    {
-      id: 6,
-      title: "أخبار المحكمة",
-      description: "حزمة الأحداث وقرارات الجمعية العمومية المختارة",
-      icon: FaNewspaper,
-      route: "/favorite/news",
-      image: "/assets/free_icon_1 (8).svg",
-    },
-    {
-      id: 7,
-      title: "المبادئ",
+      title: "منصة المبادئ القانونية",
       description: "مختاراتك من المبادئ القانونية المحفوظة لسهولة الرجوع إليها",
       icon: FaScroll,
       route: "/favorite/principles",
       image: "/assets/articles.svg",
+    },
+    {
+      id: 6,
+      title: "البحوث والأوراق العلمية",
+      description: "مختاراتك من محتوى المكتب الفني والبحوث",
+      icon: FaFileAlt,
+      route: "/favorite/research",
+      image: "/assets/research.svg",
     },
   ];
 

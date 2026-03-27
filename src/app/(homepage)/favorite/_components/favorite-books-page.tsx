@@ -22,6 +22,17 @@ export default function FavoriteBooksPage() {
     return () => window.removeEventListener("bookmarks-changed", loadBooks);
   }, []);
 
+  const isPublicationItem = (item: BookData) => {
+    const publication = item as BookData & {
+      publication_type?: string | null;
+      calendar_year?: string | null;
+    };
+    return Boolean(publication.publication_type || publication.calendar_year);
+  };
+
+  const bookItems = books.filter((item) => !isPublicationItem(item));
+  const publicationItems = books.filter(isPublicationItem);
+
   return (
     <>
       <SecondaryHeading title="الكتب والإصدارات المفضلة" breadcrumb />
@@ -68,18 +79,51 @@ export default function FavoriteBooksPage() {
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                {books.map((book, index) => (
-                  <motion.div
-                    key={book.uuid}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
-                    <BookCard type="book" book={book} />
-                  </motion.div>
-                ))}
-              </div>
+              {bookItems.length > 0 && (
+                <div className="mb-12">
+                  <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                    الكتب
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                    {bookItems.map((book, index) => (
+                      <motion.div
+                        key={book.uuid}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <BookCard type="book" book={book} />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {publicationItems.length > 0 && (
+                <div>
+                  <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                    الإصدارات
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                    {publicationItems.map((book, index) => (
+                      <motion.div
+                        key={book.uuid}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{
+                          delay: (bookItems.length + index) * 0.05,
+                        }}
+                      >
+                        <BookCard
+                          type={"magazine"}
+                          image="/assets/mahazine.jpeg"
+                          book={book}
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>

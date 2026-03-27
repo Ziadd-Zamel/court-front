@@ -15,7 +15,7 @@ export default function CounselorCard({ counselor }: { counselor: Counselor }) {
   const experienceYears = counselor.experience_years ?? "----";
   const footerText =
     counselor.status === "current" ? counselor.tasks : "متقاعد";
-
+  console.log(counselor);
   return (
     <div className="group relative flex flex-col bg-white dark:bg-white/10 border border-gray-100 dark:border-white/10 hover:border-main/30 dark:hover:border-main/50 shadow-xl hover:shadow-lg transition-all duration-300 overflow-hidden">
       <div className="flex flex-col items-center gap-3 p-6 pb-4 min-h-[260px]">

@@ -22,11 +22,40 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
   const pdfUrl = "/court-book.pdf";
   const pageNumber = principle.page_number ?? 3;
   const hasWebsiteUrl = Boolean(principle.website_url?.trim());
+
+  // Normalize API fields so we never render null/undefined/"null" placeholders.
+  const normalize = (value: unknown) => {
+    if (value === null || value === undefined) return "";
+    const text = String(value).trim();
+    if (!text || text.toLowerCase() === "null") return "";
+    return text;
+  };
+
+  // Build display metadata from existing pieces only (no dangling "/" or ":").
+  const serialNumber = normalize(principle.serial_number);
+  const topMeta = [normalize(principle.gregorian_year), normalize(principle.principle_type)]
+    .filter(Boolean)
+    .join(" ");
+
+  const sessionDate = normalize(principle.session_date)
+    ? normalize(principle.session_date)
+        .split(" - ")
+        .map((date) => date.split("-").reverse().join("-"))
+        .join(" - ")
+    : "";
+
+  const rulingType = normalize(principle.ruling_type);
+  const number = normalize(principle.number);
+  const judicialYear = normalize(principle.judicial_year);
+  const sign = normalize(principle.sign);
+  const headingMeta = `${[number, judicialYear].filter(Boolean).join("/")}${sign}`.trim();
+  const brief = normalize(principle.brief);
+
   const copyText =
     principle.content
       ?.replace(/<[^>]*>/g, " ")
       .replace(/\s+/g, " ")
-      .trim() || principle.brief || "";
+      .trim() || brief;
 
   const handlePdfClick = () => {
     window.open(`${pdfUrl}#page=${pageNumber}`, "_blank");
@@ -39,55 +68,47 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
       className="border-b-0"
     >
       <div className="flex flex-col items-start md:flex-row gap-5">
-        {/* Date block */}
+        {/* Left metadata block (serial + year/classification) */}
         <div className="flex flex-col text-center shrink-0 px-3 mt-3">
-          <p className="text-[40px] text-main mb-2 font-bold">
-            <HighlightedText text={principle.serial_number || "------"} />
-          </p>
-          <p className="text-md md:text-xs text-gray-700 dark:text-white/70">
-            <HighlightedText
-              text={`${principle.gregorian_year || "------"} ${principle.principle_type || "------"}`}
-            />
-          </p>
+          {serialNumber && (
+            <p className="text-[40px] text-main mb-2 font-bold">
+              <HighlightedText text={serialNumber} />
+            </p>
+          )}
+          {topMeta && (
+            <p className="text-md md:text-xs text-gray-700 dark:text-white/70">
+              <HighlightedText text={topMeta} />
+            </p>
+          )}
         </div>
 
-        {/* Content block */}
+        {/* Main card content: session/ruling meta, heading, brief, and expandable body */}
         <div className="flex-1 border-b border-main">
           <AccordionTrigger className="rounded-none justify-normal flex w-full cursor-pointer flex-col items-start gap-5  text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
             <div className="flex flex-col gap-2 text-start min-w-[130px]">
-              <p className="text-gray-500 sm:text-lg md:text-xs flex items-center gap-1">
-                <Calendar size={14} className="text-main -mt-1" />
-                <HighlightedText
-                  text={
-                    principle.session_date
-                      ? principle.session_date
-                          .split(" - ")
-                          .map((date) => date.split("-").reverse().join("-"))
-                          .join(" - ")
-                      : "------"
-                  }
-                />
-              </p>
-              <p className="sm:text-lg md:text-xs text-gray-700 dark:text-white/70">
-                <HighlightedText text={principle.ruling_type || "------"} />
-              </p>
+              {sessionDate && (
+                <p className="text-gray-500 sm:text-lg md:text-xs flex items-center gap-1">
+                  <Calendar size={14} className="text-main -mt-1" />
+                  <HighlightedText text={sessionDate} />
+                </p>
+              )}
+              {rulingType && (
+                <p className="sm:text-lg md:text-xs text-gray-700 dark:text-white/70">
+                  <HighlightedText text={rulingType} />
+                </p>
+              )}
             </div>
             <div className="flex flex-col gap-2 text-start">
-              <p className="text-xl font-bold md:text-md lg:text-xl flex items-center gap-1 text-gray-900 dark:text-white">
-                <span>
-                  <HighlightedText text={principle.number || "------"} />
-                </span>
-                <span className="-mx-1">/</span>
-                <span className="-me-1">
-                  <HighlightedText text={principle.judicial_year || "------"} />
-                </span>
-                <span>
-                  <HighlightedText text={principle.sign || "------"} />
-                </span>
-              </p>
-              <p className="min-h-[30px] text-md md:text-xs lg:text-sm leading-6 text-gray-800 dark:text-white">
-                <HighlightedText text={principle.brief || "------"} />
-              </p>
+              {headingMeta && (
+                <p className="text-xl font-bold md:text-md lg:text-xl flex items-center gap-1 text-gray-900 dark:text-white">
+                  <HighlightedText text={headingMeta} />
+                </p>
+              )}
+              {brief && (
+                <p className="min-h-[30px] text-md md:text-xs lg:text-sm leading-6 text-gray-800 dark:text-white">
+                  <HighlightedText text={brief} />
+                </p>
+              )}
             </div>
           </AccordionTrigger>
 

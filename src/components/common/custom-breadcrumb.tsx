@@ -30,13 +30,13 @@ const routeNameMap: { [key: string]: string } = {
   "/about-court/performance-metrics": "مؤشرات أداء الدوائر",
   "/about-court/news": "الأخبار",
   "/favorite": "مجلدي",
-  "/favorite/articles": "منصة المبادئ القانونية المفضلة",
+  "/favorite/articles": "قضاء النقض المفضل",
   "/favorite/books": "الكتب والإصدارات المفضلة",
   "/favorite/news": "أخبار المحكمة المفضلة",
   "/favorite/research": "البحوث والأوراق العلمية المفضلة",
-  "/favorite/law": " القوانين المفضلة",
+  "/favorite/constitutional": "القضاء الدستوري المفضل",
   "/favorite/questions": "المعلومات المهمة المفضلة",
-  "/favorite/principles": "المبادئ المفضلة",
+  "/favorite/principles": "منصة المبادئ القانونية",
   "/principle": "منصة المبادئ القانونية",
 };
 

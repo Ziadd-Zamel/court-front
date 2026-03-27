@@ -23,7 +23,7 @@ export default function PrincipleList({
   console.log(articles);
   return (
     <section>
-      <div className="mb-12 mt-20 text-right">
+      <div className="mb-12 mt-5 text-right">
         <h2 className="text-2xl font-bold text-main">
           نتائج البحث: {totalItems}
         </h2>

@@ -12,13 +12,13 @@ const isConstitutionalArticle = (article: Article) => {
   return haystack.includes("الدستوري");
 };
 
-export default function FavoriteArticlesPage() {
+export default function FavoriteConstitutionalPage() {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
     const loadArticles = () => {
       const bookmarked = getBookmarkedArticles();
-      setArticles(bookmarked.filter((article) => !isConstitutionalArticle(article)));
+      setArticles(bookmarked.filter(isConstitutionalArticle));
     };
 
     loadArticles();
@@ -28,7 +28,7 @@ export default function FavoriteArticlesPage() {
 
   return (
     <>
-      <SecondaryHeading title="قضاء النقض المفضل" breadcrumb />
+      <SecondaryHeading title="القضاء الدستوري المفضل" breadcrumb />
 
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 box-container">
         <div className="max-w-5xl mx-auto">
@@ -39,10 +39,10 @@ export default function FavoriteArticlesPage() {
               className="text-center py-20"
             >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                لا توجد أحكام محفوظة
+                لا توجد أحكام دستورية محفوظة
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                قم بإضافة أحكام قضاء النقض إلى المفضلة لتظهر هنا
+                قم بإضافة أحكام القضاء الدستوري إلى المفضلة لتظهر هنا
               </p>
             </motion.div>
           ) : (
@@ -57,7 +57,7 @@ export default function FavoriteArticlesPage() {
                   <ArticleCard
                     article={article}
                     index={index}
-                    from="/favorite/articles"
+                    from="/favorite/constitutional"
                   />
                 </motion.div>
               ))}

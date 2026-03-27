@@ -14,7 +14,22 @@ export default function HighlightCard({
   gradientFrom = "to-white",
 }: Props) {
   const cleanedBodyHtml = cleanHtmlStylesServer(article.rule.body_html);
-  console.log(article);
+
+  const normalize = (value: unknown) => {
+    if (value === null || value === undefined) return "";
+    const text = String(value).trim();
+    if (!text || text.toLowerCase() === "null") return "";
+    return text;
+  };
+
+  const judicialYear = normalize(article.judicial_year);
+  const number = normalize(article.number);
+  const sign = normalize(article.sign);
+  const title = normalize(article.title);
+
+  const mainMeta = [judicialYear, number].filter(Boolean).join("/");
+  const headMeta = `${mainMeta}${sign}`.trim();
+  const headingText = [headMeta, title].filter(Boolean).join(": ");
 
   return (
     <div
@@ -25,17 +40,17 @@ export default function HighlightCard({
       <div className="flex flex-col items-center justify-center gap-3">
         <Pin className="size-7 text-main" />
         <h3 className="text-center text-lg font-bold my-5 text-main">
-          {article.main_category}
+          {article.sub_category}
         </h3>
       </div>
 
       {/* Row 2: title */}
       <h4 className="my-3 text-right text-md font-medium text-black dark:text-foreground lg:text-base">
-        <span className="text-base font-bold text-main">
-          {article.judicial_year}/{article.number}
-          {article.sign}
-        </span>
-        : {article.title}
+        {headMeta && (
+          <span className="text-base font-bold text-main">{headMeta}</span>
+        )}
+        {headingText && headMeta && " "}
+        {headingText && !headMeta ? headingText : title}
       </h4>
 
       {/* Row 3: content */}
