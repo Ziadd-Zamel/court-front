@@ -76,7 +76,7 @@ export const getPrincipleBySearch = async (
     exclude_terms: excludeTerms,
     any_terms: anyTerms,
     appeal_number: appealNumber,
-    judicial_year: appealYear,
+    appeal_year: appealYear,
     principle_number: principleNumber,
     principle_year: principleYear,
     session_date: session_date,
@@ -84,7 +84,7 @@ export const getPrincipleBySearch = async (
     strict_ya,
     strict_ta,
   });
-
+  console.log(queryString);
   const url = `${process.env.API}principles/advanced-search?${queryString}`;
 
   const response = await fetch(url, {
