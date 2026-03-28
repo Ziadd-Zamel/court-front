@@ -2,7 +2,7 @@ import HeroSlider from "./_components/HeroSlider";
 import FavouriteRulings from "./_components/favourite-rulings";
 import RecentNewsSection from "./_components/recent-news-section";
 import SiteHighlights from "./_components/SiteHighlights";
-import CombinedComponent from "./_components/CombinedComponent";
+import AppealsPerformanceSection from "./_components/appeals-performance-section";
 import { getSiteSettings } from "@/lib/api/site-settings.api";
 
 export default async function Page() {
@@ -18,7 +18,7 @@ export default async function Page() {
         backgroundImage={siteSettings.data.home_latest_topics_background}
       />
       <RecentNewsSection />
-      <CombinedComponent />
+      <AppealsPerformanceSection />
     </>
   );
 }

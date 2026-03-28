@@ -15,6 +15,7 @@ interface SecondaryTabsProps {
   tabListClassName?: string;
   tabTriggerClassName?: string;
   tabContentClassName?: string;
+  maxwidth?: string;
 }
 
 export default function SecondaryTabs({
@@ -25,6 +26,7 @@ export default function SecondaryTabs({
   tabListClassName = "",
   tabTriggerClassName = "",
   tabContentClassName = "",
+  maxwidth,
 }: SecondaryTabsProps) {
   const defaultTab = defaultValue || tabs[0]?.value || "";
 
@@ -37,7 +39,9 @@ export default function SecondaryTabs({
       <div
         className={`flex items-center justify-start w-full ${tabListClassName}`}
       >
-        <div className="max-w-[880px] w-full overflow-x-auto scrollbar-tabs pb-1">
+        <div
+          className={`max-w-[880px] w-full overflow-x-auto scrollbar-tabs pb-1 ${maxwidth}`}
+        >
           <TabsList
             className={`bg-transparent justify-between sm:justify-start gap-2 sm:gap-5 w-full`}
           >

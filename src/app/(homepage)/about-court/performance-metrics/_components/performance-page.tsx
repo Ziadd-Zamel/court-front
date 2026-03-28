@@ -1,44 +1,39 @@
-import SecondaryTabs, {
-  SecondaryTabItem,
-} from "@/components/common/secondary-tabs";
-import CivilCassation from "./CivilCassation";
-import CriminalCassation from "./CriminalCassation";
-import PersonalAdminCassation from "./personal-admin-cassation";
-import CassationProsecution from "./cassation-prosecution";
-import { yearlyData } from "@/lib/constants";
+"use client";
 
-export default function PerformancePage() {
-  const newsTabs: SecondaryTabItem[] = [
-    {
-      label: "دوائر النقض المدني",
-      value: "CivilCassation",
-      component: <CivilCassation yearlyData={yearlyData} />,
-    },
-    {
-      label: "دوائر النقض الجنائي",
-      value: "CriminalCassation",
-      component: <CriminalCassation yearlyData={yearlyData} />,
-    },
-    {
-      label: "دوائر الأحوال الشخصية والإداري",
-      value: "PersonalAdminCassation",
-      component: <PersonalAdminCassation />,
-    },
-    {
-      label: "نيابة النقض",
-      value: "CassationProsecution",
-      component: <CassationProsecution />,
-    },
-  ];
+import SecondaryTabs, {
+  type SecondaryTabItem,
+} from "@/components/common/secondary-tabs";
+import type { PerformanceMetricsCategory } from "@/lib/api/performance-metrics.api";
+import PerformanceMetricsCategoryContent from "./performance-metrics-category-content";
+
+export default function PerformancePage({
+  categories,
+}: {
+  categories: PerformanceMetricsCategory[];
+}) {
+  if (!categories.length) {
+    return (
+      <section className="bg-main/10">
+        <div className="box-container pt-20 pb-32 text-center text-muted-foreground">
+          لا توجد فئات متاحة.
+        </div>
+      </section>
+    );
+  }
+
+  const newsTabs: SecondaryTabItem[] = categories.map((c) => ({
+    label: c.name,
+    value: String(c.id),
+    component: <PerformanceMetricsCategoryContent classId={c.id} />,
+  }));
 
   return (
     <section className="bg-main/10">
-      <div className=" flex-col justify-center items-center box-container pt-20 pb-32">
+      <div className="box-container pb-40 pt-20">
         <SecondaryTabs
           tabs={newsTabs}
-          defaultValue="CivilCassation"
-          className="justify-center items-center lg:w-full"
-          tabListClassName="mb-20 max-w-none"
+          defaultValue={String(categories[0].id)}
+          maxwidth="max-w-none"
         />
       </div>
     </section>
