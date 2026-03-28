@@ -32,7 +32,7 @@ export const getPrincipleTypes = async (
   const url = `${process.env.API}principle-types?${queryString}`;
 
   const response = await fetch(url, {
-    next: { revalidate: 600 },
+    cache: "no-store",
   });
 
   if (!response.ok) {
