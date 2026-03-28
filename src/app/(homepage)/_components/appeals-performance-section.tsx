@@ -25,9 +25,13 @@ export default function AppealsPerformanceSection() {
 
   return (
     <div className="flex w-full flex-col items-center justify-center bg-white pb-40 pt-16 dark:bg-[#121212]">
-      <AnimatedSectionHeader title="الفصل في الطعون" />
+      <AnimatedSectionHeader title="مؤشرات الأداء" />
       <div className="box-container w-full space-y-5">
-        <AppealsPerformanceStats rows={data} isLoading={isLoading} />
+        <AppealsPerformanceStats
+          text="المعدل الفردي"
+          rows={data}
+          isLoading={isLoading}
+        />
         <PerformanceTrackLine />
       </div>
       <Link

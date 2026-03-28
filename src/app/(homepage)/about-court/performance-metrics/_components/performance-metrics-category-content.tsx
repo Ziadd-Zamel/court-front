@@ -2,12 +2,16 @@
 
 import AppealsPerformanceStats from "@/app/(homepage)/_components/appeals-performance-stats";
 import PerformanceTrackLine from "@/components/custom/performance-track-line";
-import { useBasicInfoByStats } from "@/hooks/use-basic-info-by-stats";
+import {
+  mapByClassRowsToStatsRows,
+  useBasicInfoByClass,
+} from "@/hooks/use-basic-info-by-class";
 import { useMonthYearParams } from "@/hooks/use-month-year-params";
 import {
   getRollingFiveMonths,
   resolveSlotIndex,
 } from "@/lib/performance-metrics/rolling-window";
+import { useMemo } from "react";
 
 export default function PerformanceMetricsCategoryContent({
   classId,
@@ -19,11 +23,16 @@ export default function PerformanceMetricsCategoryContent({
   const slotIndex = resolveSlotIndex(window, params.year, params.month);
   const { month, year } = window[slotIndex];
 
-  const { data, isLoading } = useBasicInfoByStats({ month, year, classId });
-  console.log(data);
+  const { data, isLoading } = useBasicInfoByClass({ month, year, classId });
+
+  const statsRows = useMemo(() => {
+    if (data === undefined) return undefined;
+    return mapByClassRowsToStatsRows(data);
+  }, [data]);
+
   return (
     <div className="w-full space-y-5 pb-10">
-      <AppealsPerformanceStats rows={data} isLoading={isLoading} />
+      <AppealsPerformanceStats rows={statsRows} isLoading={isLoading} />
       <PerformanceTrackLine />
     </div>
   );

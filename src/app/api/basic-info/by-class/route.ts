@@ -10,9 +10,9 @@ export async function GET(request: NextRequest) {
   const year = searchParams.get("year");
   const classId = searchParams.get("classId");
 
-  if (!month || !year) {
+  if (!month || !year || !classId) {
     return NextResponse.json(
-      { error: "Missing month or year" },
+      { error: "Missing month, year, or classId" },
       { status: 400 },
     );
   }
@@ -21,10 +21,8 @@ export async function GET(request: NextRequest) {
     r: "api/basic-info/by-class",
     month,
     year,
+    classId,
   });
-  if (classId) {
-    params.set("classId", classId);
-  }
 
   const apiUrl = `${UPSTREAM_BASE}?${params.toString()}`;
 
