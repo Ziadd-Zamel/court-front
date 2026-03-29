@@ -22,6 +22,7 @@ declare type Article = {
   brief_text: string;
   publish_date: string;
   author: string;
+  sub_category_icon: string;
   number: string;
   sign: string;
   audio_file: string | null;

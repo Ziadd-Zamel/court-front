@@ -2,8 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { Plus, Minus, Sun, Moon } from "lucide-react";
-import { IoAccessibilitySharp } from "react-icons/io5";
+import { Plus, Minus, Sun, Moon, Settings } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
@@ -460,7 +459,7 @@ export default function AccessibilityButton({
       >
         {/* Icon */}
         <div className="relative z-10">
-          <IoAccessibilitySharp className="h-4 w-4 transition-transform duration-200 group-hover:rotate-90" />
+          <Settings className="h-4 w-4 transition-transform duration-200 group-hover:rotate-90" strokeWidth={2.25} />
         </div>
       </button>
 

@@ -1,5 +1,5 @@
 import AnimatedSectionHeader from "@/components/common/AnimatedSectionHeader";
-import { getConstitutionalRulingsFavourites } from "@/lib/api/articles";
+import { getRecentRulings } from "@/lib/api/articles";
 import catchError from "@/lib/utils/catch-error";
 import { FavouriteRulingsGrid } from "./favourite-rulings-grid";
 
@@ -12,7 +12,7 @@ interface FavouriteRulingsProps {
 export default async function FavouriteRulings({
   backgroundImage,
 }: FavouriteRulingsProps) {
-  const [data, error] = await catchError(getConstitutionalRulingsFavourites);
+  const [data, error] = await catchError(getRecentRulings);
 
   if (error || !data || !("data" in data) || !data.data?.length) {
     return null;
@@ -20,7 +20,6 @@ export default async function FavouriteRulings({
 
   const articles = data.data;
   const bgUrl = backgroundImage ?? FALLBACK_BACKGROUND;
-
   return (
     <section
       className="w-full py-16 relative"

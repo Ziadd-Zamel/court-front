@@ -17,6 +17,9 @@ type BookCardProps = {
   openInNewTab?: boolean;
 };
 
+/** Default cover when `type="magazine"` and no `image` override. */
+const MAGAZINE_COVER_IMAGE = "/assets/mahazine.jpeg";
+
 export default function BookCard({
   book,
   hideIcons,
@@ -39,9 +42,14 @@ export default function BookCard({
     ? { target: "_blank", rel: "noopener noreferrer" as const }
     : {};
 
+  const bookHref =
+    type === "magazine"
+      ? `/books/${book.uuid}?type=magazine`
+      : `/books/${book.uuid}`;
+
   return (
     <Link
-      href={`/books/${book.uuid}`}
+      href={bookHref}
       className="cursor-pointer w-[140px] sm:w-[160px] relative block "
       {...linkProps}
     >

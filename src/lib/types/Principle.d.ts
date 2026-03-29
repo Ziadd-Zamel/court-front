@@ -9,6 +9,11 @@ declare type PrincipleContent = {
   id: number;
 };
 
+declare type PrinciplePublication = {
+  pdf_file?: string | null;
+  page_number?: number | null;
+};
+
 declare type Principle = {
   uuid: string;
   brief: string;
@@ -34,4 +39,5 @@ declare type Principle = {
   supreme_court_magazine: boolean;
   tags: string[];
   website_url: string | null;
+  publications?: PrinciplePublication[];
 };

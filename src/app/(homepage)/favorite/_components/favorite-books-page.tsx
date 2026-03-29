@@ -114,11 +114,7 @@ export default function FavoriteBooksPage() {
                           delay: (bookItems.length + index) * 0.05,
                         }}
                       >
-                        <BookCard
-                          type={"magazine"}
-                          image="/assets/mahazine.jpeg"
-                          book={book}
-                        />
+                        <BookCard type="magazine" book={book} />
                       </motion.div>
                     ))}
                   </div>

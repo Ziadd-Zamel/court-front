@@ -3,15 +3,23 @@ import PageContent from "./page-content";
 import NoDataState from "@/components/custom/no-data-state";
 import ErrorState from "@/components/custom/error-state";
 import SecondaryHeading from "@/components/common/seondary-heading";
-import { getBookByID } from "@/lib/api/books";
+import { getBookByID, getPublicationsByID } from "@/lib/api/books";
 import { BookmarkButton } from "@/components/common/bookmark-button";
 import { ShareButton } from "@/components/common/share-button";
 import { DownloadButton } from "@/components/common/download-button";
 import { PrintButton } from "@/components/common/print-button";
 import BookFlip from "./book-flip";
 
-export default async function BookPage({ id }: { id: string }) {
-  const [data, error] = await catchError(() => getBookByID(id));
+export default async function BookPage({
+  id,
+  isMagazine,
+}: {
+  id: string;
+  isMagazine?: boolean;
+}) {
+  const [data, error] = await catchError(() =>
+    isMagazine ? getPublicationsByID(id) : getBookByID(id),
+  );
 
   // Show Error When there is Error
   if (error) return <ErrorState />;
@@ -20,6 +28,7 @@ export default async function BookPage({ id }: { id: string }) {
   if (!data) return <NoDataState />;
 
   const Book = data?.data;
+  console.log(data);
   return (
     <>
       <SecondaryHeading

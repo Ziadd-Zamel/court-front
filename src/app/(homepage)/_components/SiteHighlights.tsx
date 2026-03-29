@@ -11,7 +11,6 @@ export default async function SiteHighlights() {
   }
 
   const articles = data.data;
-
   return (
     <section className="pt-16 bg-white dark:bg-[#1a1a1a]">
       <div className="m-auto">

@@ -123,11 +123,12 @@ export default async function CounselorsContent({
       )}
 
       {/* Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 py-16 box-container">
+      <div className="grid items-stretch sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 py-16 box-container">
         {gridCounselors.map((counselor) => (
           <Link
             href={`/about-court/counselors/${counselor.uuid}`}
             key={counselor.uuid}
+            className="flex min-h-0 h-full min-w-0"
           >
             <CounselorCard counselor={counselor} />
           </Link>

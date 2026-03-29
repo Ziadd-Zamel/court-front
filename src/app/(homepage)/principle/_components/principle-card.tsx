@@ -19,9 +19,17 @@ type ArticleCardProps = {
 };
 
 export default function PrincipleCard({ principle }: ArticleCardProps) {
-  const pdfUrl = "/court-book.pdf";
-  const pageNumber = principle.page_number ?? 3;
-  const hasWebsiteUrl = Boolean(principle.website_url?.trim());
+  const firstPublication = principle.publications?.[0];
+  const websiteUrl = principle.website_url?.trim() ?? "";
+  const hasWebsiteUrl = Boolean(websiteUrl);
+  const publicationPdfUrl =
+    typeof firstPublication?.pdf_file === "string"
+      ? firstPublication.pdf_file.trim()
+      : "";
+  const hasPublicationPdf = Boolean(publicationPdfUrl);
+  const showMagazineLink = hasWebsiteUrl || hasPublicationPdf;
+  const pdfPageForAnchor =
+    firstPublication?.page_number ?? principle.page_number ?? 231;
 
   // Normalize API fields so we never render null/undefined/"null" placeholders.
   const normalize = (value: unknown) => {
@@ -33,7 +41,10 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
 
   // Build display metadata from existing pieces only (no dangling "/" or ":").
   const serialNumber = normalize(principle.serial_number);
-  const topMeta = [normalize(principle.gregorian_year), normalize(principle.principle_type)]
+  const topMeta = [
+    normalize(principle.gregorian_year),
+    normalize(principle.principle_type),
+  ]
     .filter(Boolean)
     .join(" ");
 
@@ -48,18 +59,20 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
   const number = normalize(principle.number);
   const judicialYear = normalize(principle.judicial_year);
   const sign = normalize(principle.sign);
-  const headingMeta = `${[number, judicialYear].filter(Boolean).join("/")}${sign}`.trim();
+  const headingMeta =
+    `${[number, judicialYear].filter(Boolean).join("/")}${sign}`.trim();
   const brief = normalize(principle.brief);
-
   const copyText =
     principle.content
       ?.replace(/<[^>]*>/g, " ")
       .replace(/\s+/g, " ")
       .trim() || brief;
 
-  const handlePdfClick = () => {
-    window.open(`${pdfUrl}#page=${pageNumber}`, "_blank");
+  const handlePublicationPdfClick = () => {
+    if (!publicationPdfUrl) return;
+    window.open(`${publicationPdfUrl}#page=${pdfPageForAnchor}`, "_blank");
   };
+  console.log(principle);
 
   return (
     <AccordionItem
@@ -121,25 +134,34 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
               style={{ direction: "rtl" }}
               className="mt-5 !text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white/70"
             />
-            <div className="mt-5 flex w-full">
-              {hasWebsiteUrl ? (
-                <Link
-                  href={principle.website_url!}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-main hover:underline text-sm cursor-pointer"
-                >
-                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"} - العدد {principle.issue_number ?? "1"} - ص {principle.page_number ?? 231}
-                </Link>
-              ) : (
-                <button
-                  onClick={handlePdfClick}
-                  className="text-main hover:underline text-sm cursor-pointer"
-                >
-                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"} - العدد {principle.issue_number ?? "1"} - ص {principle.page_number ?? 231}
-                </button>
-              )}
-            </div>
+            {showMagazineLink && (
+              <div className="mt-5 flex w-full">
+                {hasWebsiteUrl ? (
+                  <Link
+                    href={websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cursor-pointer text-sm text-main hover:underline"
+                  >
+                    مجلة المحكمة العليا: السنة{" "}
+                    {principle.gregorian_year ?? "33"} - العدد{" "}
+                    {principle.issue_number ?? "1"} - ص{" "}
+                    {principle.page_number ?? 231}
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handlePublicationPdfClick}
+                    className="cursor-pointer text-start text-sm text-main hover:underline"
+                  >
+                    مجلة المحكمة العليا: السنة{" "}
+                    {principle.gregorian_year ?? "33"} - العدد{" "}
+                    {principle.issue_number ?? "1"} - ص{" "}
+                    {principle.page_number ?? 231}
+                  </button>
+                )}
+              </div>
+            )}
           </AccordionContent>
           <div className="flex justify-end items-center gap-3 mb-2.5 -mt-2 me-11">
             <BookmarkButton item={principle} type="principle" />

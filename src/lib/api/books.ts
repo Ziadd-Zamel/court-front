@@ -115,6 +115,20 @@ export const getBookByID = async (uuid: string) => {
   const payload: APIResponse<BookData> = await response.json();
   return payload;
 };
+export const getPublicationsByID = async (uuid: string) => {
+  const url = `${process.env.API}publications/${uuid}`;
+
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: APIResponse<BookData> = await response.json();
+  return payload;
+};
 
 // Gets Books Categories
 export const getBookCategories = async () => {

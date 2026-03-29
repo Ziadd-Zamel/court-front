@@ -26,7 +26,7 @@ export default async function ArticlePage({
   const [articlesData, articlesError] = await catchError(() =>
     getArticlesByCategory(pagination.currentPage, 15, uuid, search),
   );
-  console.log(articlesData);
+
   // Error state
   if (articlesError) return <ErrorState />;
 

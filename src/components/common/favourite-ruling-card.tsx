@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Pin } from "lucide-react";
+import Image from "next/image";
 
 type FavouriteRulingCardProps = {
   article: Article;
@@ -27,7 +27,6 @@ export function FavouriteRulingCard({ article }: FavouriteRulingCardProps) {
   const mainMeta = [judicialYear, number].filter(Boolean).join("/");
   const fullMeta = `${mainMeta}${sign}`.trim();
   const description = [fullMeta, articleTitle].filter(Boolean).join(": ");
-  const Icon = Pin;
 
   const cardVariants = {
     hidden: {
@@ -94,7 +93,12 @@ export function FavouriteRulingCard({ article }: FavouriteRulingCardProps) {
             <div className="h-[2px] w-[30px] bg-main" />
             <div className="flex items-start gap-2">
               <div className="mt-4">
-                <Icon className="size-6 text-main sm:size-8" />
+                <Image
+                  src={article.sub_category_icon}
+                  alt="Icon"
+                  width={24}
+                  height={24}
+                />
               </div>{" "}
               <p className="mt-3 min-h-6 text-xs font-normal text-gray-300 transition-all duration-500 sm:text-[16px]">
                 {description}

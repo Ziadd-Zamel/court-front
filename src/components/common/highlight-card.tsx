@@ -3,6 +3,7 @@ import { Pin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { cleanHtmlStylesServer } from "@/lib/utils/clean-html-styles-server";
+import Image from "next/image";
 
 type Props = {
   article: Article;
@@ -38,7 +39,12 @@ export default function HighlightCard({
     >
       {/* Row 1: pin + category */}
       <div className="flex flex-col items-center justify-center gap-3">
-        <Pin className="size-7 text-main" />
+        <Image
+          src={article.sub_category_icon}
+          alt="Icon"
+          width={24}
+          height={24}
+        />
         <h3 className="text-center text-lg font-bold my-5 text-main">
           {article.sub_category}
         </h3>
