@@ -23,16 +23,37 @@ export default function PerformanceMetricsCategoryContent({
   const slotIndex = resolveSlotIndex(window, params.year, params.month);
   const { month, year } = window[slotIndex];
 
-  const { data, isLoading } = useBasicInfoByClass({ month, year, classId });
+  const { data, isLoading, isSuccess } = useBasicInfoByClass({
+    month,
+    year,
+    classId,
+  });
 
   const statsRows = useMemo(() => {
     if (data === undefined) return undefined;
     return mapByClassRowsToStatsRows(data);
   }, [data]);
 
+  const showStatsEmpty =
+    isSuccess && Array.isArray(data) && data.length === 0;
+
   return (
     <div className="w-full space-y-5 pb-10">
-      <AppealsPerformanceStats rows={statsRows} isLoading={isLoading} />
+      {showStatsEmpty ? (
+        <div
+          className="flex w-full flex-col items-center justify-center gap-3 px-4 pt-12 pb-4 text-center"
+          role="status"
+        >
+          <p className="font-zain text-lg font-medium text-gray-800 dark:text-white">
+            لا تتوفر بيانات
+          </p>
+          <p className="max-w-md text-sm text-gray-600 dark:text-white/70">
+            لا توجد مؤشرات أداء لعرضها لهذا التصنيف في الشهر المحدد.
+          </p>
+        </div>
+      ) : (
+        <AppealsPerformanceStats rows={statsRows} isLoading={isLoading} />
+      )}
       <PerformanceTrackLine />
     </div>
   );
