@@ -203,7 +203,7 @@ export default function PageContent({ setShowstates }: PageContentProps) {
         </Button>
       </div>
 
-      <div className="min-h-[40vh]">{renderContent()}</div>
+      <div className="min-h-[40vh] pb-40 pt-10">{renderContent()}</div>
     </div>
   );
 }

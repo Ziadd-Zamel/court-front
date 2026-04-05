@@ -28,20 +28,40 @@ export default async function CounselorsContent({
   }
 
   const hasSearch = Boolean(search?.trim());
+  const isFirstPage = pagination.currentPage === 1;
+  const showFeatured = !hasSearch && isFirstPage;
   const [firstCounselor, ...restCounselors] = CounselorsData.data;
-  const featuredCounselor = hasSearch ? null : firstCounselor;
-  const gridCounselors = hasSearch ? CounselorsData.data : restCounselors;
+  const featuredCounselor = showFeatured ? firstCounselor : null;
+  const gridCounselors = showFeatured ? restCounselors : CounselorsData.data;
 
-  const birthYear = featuredCounselor?.birth_date?.slice(0, 4) || "------";
-  const qualificationYear = featuredCounselor?.appointed_year || "------";
-  const qualificationText =
-    featuredCounselor?.higher_qualification || featuredCounselor?.qualification;
-  const experienceText = featuredCounselor?.experience_years
-    ? `${featuredCounselor.experience_years} عاماً في العمل القضائي`
-    : "------";
-  const appointmentText = featuredCounselor?.appointed_year
-    ? `${featuredCounselor.appointed_year} مستشاراً في المحكمة العليا`
-    : "------";
+  const getYear = (date?: string | null) => {
+    if (!date) return "----";
+    return date.slice(0, 4);
+  };
+  const birthYear = featuredCounselor
+    ? getYear(featuredCounselor.birth_date)
+    : "----";
+  const normalQualText = featuredCounselor?.qualification?.trim();
+  const higherQualText = featuredCounselor?.higher_qualification?.trim();
+  const normalQualLine =
+    featuredCounselor &&
+    normalQualText &&
+    `${getYear(featuredCounselor.qualification_date)}، ${normalQualText}`;
+  const higherQualLine =
+    featuredCounselor &&
+    higherQualText &&
+    `${getYear(featuredCounselor.higher_qualification_date)}، ${higherQualText}`;
+  const appointedYear = featuredCounselor?.appointed_year || "----";
+  const experienceYears = featuredCounselor?.experience_years ?? "----";
+  const featuredInfoLines = featuredCounselor
+    ? [
+        birthYear,
+        ...(normalQualLine ? [normalQualLine] : []),
+        ...(higherQualLine ? [higherQualLine] : []),
+        `${appointedYear}، مستشاراً بالمحكمة العليا`,
+        `${experienceYears} عاماً في العمل القضائي`,
+      ]
+    : [];
   const featuredRole = featuredCounselor?.tasks || "------";
   const fields =
     featuredCounselor?.fields?.map((f) => f.field).filter(Boolean) || [];
@@ -87,18 +107,13 @@ export default async function CounselorsContent({
                 </h3>
 
                 <ol className="flex flex-col gap-2">
-                  {[
-                    birthYear,
-                    `${qualificationYear} ${qualificationText || ""}`.trim(),
-                    experienceText,
-                    appointmentText,
-                  ].map((item) => (
+                  {featuredInfoLines.map((item, index) => (
                     <li
-                      key={item}
+                      key={`${index}-${item.slice(0, 32)}`}
                       className="text-gray-600 text-sm flex items-center gap-2 justify-center sm:justify-start"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-main shrink-0" />
-                      {`${item}`}
+                      {item}
                     </li>
                   ))}
                 </ol>

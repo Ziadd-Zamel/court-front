@@ -59,7 +59,7 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
   const judicialYear = normalize(principle.judicial_year);
   const sign = normalize(principle.sign);
   const headingMeta =
-    `${[number, judicialYear].filter(Boolean).join("/")}${sign}`.trim();
+    `${[judicialYear, number].filter(Boolean).join("/")}${sign}`.trim();
   const brief = normalize(principle.brief);
   const copyText =
     principle.content
@@ -71,8 +71,6 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
     if (!publicationPdfUrl) return;
     window.open(`${publicationPdfUrl}#page=${pdfPageForAnchor}`, "_blank");
   };
-  console.log(principle);
-
   return (
     <AccordionItem
       key={principle.uuid}
@@ -141,9 +139,8 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
                   rel="noopener noreferrer"
                   className="cursor-pointer text-sm text-main hover:underline"
                 >
-                  مجلة المحكمة العليا: السنة{" "}
-                  {principle.gregorian_year ?? "33"} - العدد{" "}
-                  {principle.issue_number ?? "1"} - ص{" "}
+                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"}{" "}
+                  - العدد {principle.issue_number ?? "1"} - ص{" "}
                   {principle.page_number ?? 231}
                 </Link>
               ) : hasPublicationPdf ? (
@@ -152,16 +149,14 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
                   onClick={handlePublicationPdfClick}
                   className="cursor-pointer text-start text-sm text-main hover:underline"
                 >
-                  مجلة المحكمة العليا: السنة{" "}
-                  {principle.gregorian_year ?? "33"} - العدد{" "}
-                  {principle.issue_number ?? "1"} - ص{" "}
+                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"}{" "}
+                  - العدد {principle.issue_number ?? "1"} - ص{" "}
                   {principle.page_number ?? 231}
                 </button>
               ) : (
                 <span className="text-sm text-gray-700 dark:text-white/70">
-                  مجلة المحكمة العليا: السنة{" "}
-                  {principle.gregorian_year ?? "33"} - العدد{" "}
-                  {principle.issue_number ?? "1"} - ص{" "}
+                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"}{" "}
+                  - العدد {principle.issue_number ?? "1"} - ص{" "}
                   {principle.page_number ?? 231}
                 </span>
               )}

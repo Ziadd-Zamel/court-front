@@ -35,7 +35,7 @@ export default function BookCard({
   const bookImage = useMemo(() => {
     if (image) return image;
     if (type === "magazine") return MAGAZINE_COVER_IMAGE;
-    if (type === "book") return `/assets/book-${randomBookImageNumber}.jpg`;
+    if (type === "book") return book.book_image;
     return book.book_image;
   }, [image, type, randomBookImageNumber, book.book_image]);
 

@@ -42,8 +42,8 @@ export default function HighlightCard({
         <Image
           src={article.sub_category_icon}
           alt="Icon"
-          width={24}
-          height={24}
+          width={50}
+          height={50}
         />
         <h3 className="text-center text-lg font-bold my-5 text-main">
           {article.sub_category}
@@ -53,7 +53,7 @@ export default function HighlightCard({
       {/* Row 2: title */}
       <h4 className="my-3 text-right text-md font-medium text-black dark:text-foreground lg:text-base">
         {headMeta && (
-          <span className="text-base font-bold text-main">{headMeta}</span>
+          <span className="text-base font-bold text-main">{headMeta}: </span>
         )}
         {headingText && headMeta && " "}
         {headingText && !headMeta ? headingText : title}

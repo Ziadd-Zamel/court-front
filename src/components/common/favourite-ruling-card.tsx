@@ -91,16 +91,17 @@ export function FavouriteRulingCard({ article }: FavouriteRulingCardProps) {
               {title}
             </h3>
             <div className="h-[2px] w-[30px] bg-main" />
-            <div className="flex items-start gap-2">
-              <div className="mt-4">
+            <div className="flex min-h-0 items-start gap-2">
+              <div className="mt-4 flex size-[50px] shrink-0 items-center justify-center">
                 <Image
                   src={article.sub_category_icon}
-                  alt="Icon"
-                  width={24}
-                  height={24}
+                  alt=""
+                  width={50}
+                  height={50}
+                  className="h-[50px] w-[50px] max-h-[50px] max-w-[50px] object-contain object-center"
                 />
-              </div>{" "}
-              <p className="mt-3 min-h-6 text-xs font-normal text-gray-300 transition-all duration-500 sm:text-[16px]">
+              </div>
+              <p className="mt-3 min-h-6 min-w-0 flex-1 text-xs font-normal text-gray-300 transition-all duration-500 sm:text-[16px]">
                 {description}
               </p>
             </div>

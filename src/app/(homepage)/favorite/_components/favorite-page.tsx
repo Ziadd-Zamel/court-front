@@ -1,6 +1,7 @@
 "use client";
 
 import SecondaryHeading from "@/components/common/seondary-heading";
+import { Description } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -32,7 +33,7 @@ export default function FavoritesPage() {
     {
       id: 3,
       title: "المعلومات المهمة",
-      description: "أهم الأسئلة التي تهمك عن مختلف أعمال المحكمة العليا",
+      description: "مفضلتك من المعلومات الإجرائية التي تهم المتقاضين",
       icon: FaQuestionCircle,
       route: "/favorite/questions",
       image: "/assets/important-notices.png",
@@ -48,7 +49,7 @@ export default function FavoritesPage() {
     {
       id: 5,
       title: "منصة المبادئ القانونية",
-      description: "مختاراتك من المبادئ القانونية المحفوظة لسهولة الرجوع إليها",
+      description: "مختاراتك من مبادئ المحكمة العليا المبوبة المفهرسة",
       icon: FaScroll,
       route: "/favorite/principles",
       image: "/assets/articles.svg",
@@ -56,7 +57,7 @@ export default function FavoritesPage() {
     {
       id: 6,
       title: "البحوث والأوراق العلمية",
-      description: "مختاراتك من محتوى المكتب الفني والبحوث",
+      description: "مفضلتك من البحوث ومذكرات نيابة النقض",
       icon: FaFileAlt,
       route: "/favorite/research",
       image: "/assets/research.svg",

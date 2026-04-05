@@ -39,11 +39,8 @@ export default function FavoriteConstitutionalPage() {
               className="text-center py-20"
             >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                لا توجد أحكام دستورية محفوظة
+                لم تضف أي موضوع لهذا التصنيف بعد{" "}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                قم بإضافة أحكام القضاء الدستوري إلى المفضلة لتظهر هنا
-              </p>
             </motion.div>
           ) : (
             <Accordion type="single" collapsible className="w-full" dir="rtl">

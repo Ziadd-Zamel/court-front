@@ -51,11 +51,8 @@ export default function FavoriteReaserchPage() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                لا توجد بحوث محفوظة
+                لم تضف أي موضوع لهذا التصنيف بعد{" "}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                قم بإضافة بحوث إلى المفضلة لتظهر هنا
-              </p>
             </motion.div>
           ) : (
             <>

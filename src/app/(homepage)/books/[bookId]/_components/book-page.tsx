@@ -10,6 +10,15 @@ import { DownloadButton } from "@/components/common/download-button";
 import { PrintButton } from "@/components/common/print-button";
 import BookFlip from "./book-flip";
 
+function resolveBookPdfUrl(pdfUrl: string | null | undefined): string | null {
+  const t = typeof pdfUrl === "string" ? pdfUrl.trim() : "";
+  if (!t) return null;
+  if (/^https?:\/\//i.test(t)) return t;
+  const base = (process.env.API ?? "").replace(/\/$/, "");
+  if (!base) return null;
+  return `${base}${t.startsWith("/") ? "" : "/"}${t}`;
+}
+
 export default async function BookPage({
   id,
   isMagazine,
@@ -28,7 +37,8 @@ export default async function BookPage({
   if (!data) return <NoDataState />;
 
   const Book = data?.data;
-  console.log(data);
+  const flipPdfUrl = resolveBookPdfUrl(Book.pdf_url);
+
   return (
     <>
       <SecondaryHeading
@@ -44,11 +54,13 @@ export default async function BookPage({
       />
 
       <div className="min-h-screen lg:flex lg:flex-row">
-        <PageContent Book={Book} />
+        <PageContent Book={Book} isMagazine={isMagazine} />
       </div>
-      <div className="bg-main box-container max-w-4xl p-10 rounded-lg mb-20 px-20">
-        <BookFlip />
-      </div>
+      {flipPdfUrl && (
+        <div className="bg-main box-container max-w-4xl p-10 rounded-lg mb-20 px-20">
+          <BookFlip pdfUrl={flipPdfUrl} />
+        </div>
+      )}
     </>
   );
 }

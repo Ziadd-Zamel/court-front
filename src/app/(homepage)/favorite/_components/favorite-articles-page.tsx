@@ -18,7 +18,9 @@ export default function FavoriteArticlesPage() {
   useEffect(() => {
     const loadArticles = () => {
       const bookmarked = getBookmarkedArticles();
-      setArticles(bookmarked.filter((article) => !isConstitutionalArticle(article)));
+      setArticles(
+        bookmarked.filter((article) => !isConstitutionalArticle(article)),
+      );
     };
 
     loadArticles();
@@ -39,11 +41,8 @@ export default function FavoriteArticlesPage() {
               className="text-center py-20"
             >
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                لا توجد أحكام محفوظة
+                لم تضف أي موضوع لهذا التصنيف بعد{" "}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                قم بإضافة أحكام قضاء النقض إلى المفضلة لتظهر هنا
-              </p>
             </motion.div>
           ) : (
             <Accordion type="single" collapsible className="w-full" dir="rtl">

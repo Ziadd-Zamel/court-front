@@ -9,7 +9,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-export default function BookFlip() {
+type BookFlipProps = {
+  pdfUrl: string;
+};
+
+export default function BookFlip({ pdfUrl }: BookFlipProps) {
   const [numPages, setNumPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [pdfUrls, setPdfUrls] = useState<string | null>(null);
@@ -17,13 +21,21 @@ export default function BookFlip() {
   const bookRef = useRef<any>(null);
 
   useEffect(() => {
-    fetch(`/api/pdf-as-data?src=${encodeURIComponent("/court-book.pdf")}`, {
+    const trimmed = pdfUrl.trim();
+    if (!trimmed) {
+      setPdfUrls(null);
+      return;
+    }
+    fetch(`/api/pdf-as-data?src=${encodeURIComponent(trimmed)}`, {
       cache: "no-store",
     })
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("pdf proxy failed");
+        return r.json();
+      })
       .then((d) => setPdfUrls(d.dataUrl))
       .catch(() => setPdfUrls(null));
-  }, []);
+  }, [pdfUrl]);
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
   }

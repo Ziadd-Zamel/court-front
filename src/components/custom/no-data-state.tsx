@@ -55,16 +55,9 @@ export default function NoDataState({
           className="flex items-center justify-center gap-2 bg-gray-100 dark:bg-white/10 dark:hover:bg-white/15 dark:border dark:border-white/10 hover:bg-gray-200 text-gray-700 dark:text-white px-8 py-3 rounded-lg font-medium transition-colors min-w-[160px]"
         >
           <Home className="w-5 h-5" />
-          الصفحة الرئيسية
+          الصفحة الرئيسة
         </Button>
       </div>
-
-      {/* Additional Help Text */}
-      {showRefreshButton && (
-        <p className="text-sm text-gray-500 dark:text-white/70 mt-8 text-center max-w-sm">
-          قد يكون المحتوى قيد التحديث أو الصيانة
-        </p>
-      )}
     </div>
   );
 }

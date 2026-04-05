@@ -46,9 +46,9 @@ export default async function ImportantNoticesPage({
       className="relative pt-10 w-full box-container flex flex-col mb-20"
     >
       <p className="pb-10 text-base text-gray-500 text-center">
-        <span className="text-lg"> تنبيه:</span> هذه المعلومات معدة لتيسير
-        الإجراءات للمتقاضين والقانونيين، <br /> ولا تمثل بالضرورة حكم القانون في
-        مسائلها.
+        <span className="text-lg"> تنبيه:</span> هذه المعلومات معدّة لتيسير
+        الإجراءات للمتقاضين والقانونيين، <br /> ولا تمثّل بالضرورة حكم القانون
+        في مسائلها.
       </p>
 
       <ReusableTabs

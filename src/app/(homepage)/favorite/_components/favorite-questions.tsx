@@ -3,16 +3,10 @@
 import { useEffect, useState } from "react";
 import SecondaryHeading from "@/components/common/seondary-heading";
 import { getBookmarkedQuestions } from "@/lib/utils/localstorage";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { BookmarkButton } from "@/components/common/bookmark-button";
-import { ShareButton } from "@/components/common/share-button";
-import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
+import { Accordion } from "@/components/ui/accordion";
+
 import { motion } from "framer-motion";
+import QuestionCard from "@/components/common/question-card";
 
 export default function FavoriteQuestionsPage() {
   const [questions, setQuestions] = useState<Iquestion[]>([]);
@@ -35,7 +29,7 @@ export default function FavoriteQuestionsPage() {
       <SecondaryHeading title="المعلومات المهمة المفضلة" breadcrumb />
 
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           {questions.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -58,11 +52,8 @@ export default function FavoriteQuestionsPage() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                لا توجد أسئلة محفوظة
+                لم تضف أي موضوع لهذا التصنيف بعد{" "}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                قم بإضافة أسئلة إلى المفضلة لتظهر هنا
-              </p>
             </motion.div>
           ) : (
             <>
@@ -82,30 +73,8 @@ export default function FavoriteQuestionsPage() {
                 className="w-full space-y-2"
                 dir="rtl"
               >
-                {questions.map((question, index) => (
-                  <motion.div
-                    key={question.uuid}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <AccordionItem value={`item-${question.uuid}`}>
-                      <AccordionTrigger className="py-5 pl-4 text-sm font-medium sm:text-xl text-right hover:no-underline hover:text-main transition-all duration-300">
-                        <p style={{ direction: "rtl" }}>{question.title}</p>
-                      </AccordionTrigger>
-                      <AccordionContent className="text-lg text-gray-500">
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: cleanHtmlStyles(question.answer),
-                          }}
-                        ></div>
-                      </AccordionContent>
-                      <div className="flex justify-end items-center gap-3 mb-5">
-                        <BookmarkButton item={question} type="question" />
-                        <ShareButton item={question} type="question" />
-                      </div>
-                    </AccordionItem>
-                  </motion.div>
+                {questions.map((question) => (
+                  <QuestionCard key={question.uuid} item={question} />
                 ))}
               </Accordion>
             </>
