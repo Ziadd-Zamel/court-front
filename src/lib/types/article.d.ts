@@ -20,6 +20,7 @@ declare type Article = {
   brief: string;
   brief_html: string;
   brief_text: string;
+  paper_classification: string;
   publish_date: string;
   author: string;
   sub_category_icon: string;

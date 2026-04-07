@@ -66,14 +66,20 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
   // Fallback: when principle_type is missing, use paper_classification.
   const principleType =
     normalize(article.principle_type) ||
-    normalize((article as Article & { paper_classification?: string | null }).paper_classification);
-  const principleMeta = [principleYear, principleType].filter(Boolean).join(" ");
+    normalize(
+      (article as Article & { paper_classification?: string | null })
+        .paper_classification,
+    );
+  const principleMeta = [principleYear, principleType]
+    .filter(Boolean)
+    .join(" ");
 
   const number = formatMaybeNumber(article.number);
   const judicialYear = formatMaybeNumber(article.judicial_year);
   const sign = normalize(article.sign);
   // Build heading metadata only from available parts to avoid dangling "/" or ":".
-  const rulingMeta = `${[number, judicialYear].filter(Boolean).join("/")}${sign}`.trim();
+  const rulingMeta =
+    `${[judicialYear, number].filter(Boolean).join("/")}${sign}`.trim();
   const title = normalize(article.title);
 
   return (
@@ -87,7 +93,13 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
         <div className="flex flex-col text-center shrink-0 px-3 mt-3">
           {principleNumber && (
             <p className="text-[40px] text-main mb-2 font-bold">
-              <HighlightedText text={principleNumber} />
+              <HighlightedText
+                text={
+                  principleNumber.includes("-")
+                    ? principleNumber.split("-").reverse().join("-")
+                    : principleNumber
+                }
+              />
             </p>
           )}
           {principleMeta && (

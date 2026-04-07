@@ -151,22 +151,40 @@ export default function PageContent({ article }: { article: Article }) {
       <div className="flex flex-col items-start">
         <h3 className="text-xl font-semibold md:text-md lg:text-2xl mb-5 flex items-center gap-1 text-gray-900 dark:text-white">
           <div className="flex items-center flex-row-reverse gap-1">
-            <span><HighlightedText text={String(article.principle_year)} /></span>
+            <span>
+              <HighlightedText text={String(article.principle_year)} />
+            </span>
             <span className="-mx-1">/</span>
-            <span><HighlightedText text={String(article.principle_number)} /></span>
+            <span>
+              <HighlightedText text={String(article.principle_number)} />
+            </span>
           </div>
           <span className="font-semibold text-xl">
             <HighlightedText text={article.principle_type} />
           </span>
-          <div className="flex items-center text-sm">
-            (<span><HighlightedText text={article.ruling_type} /></span>
-            <div className="flex items-center ms-1">
-              <span><HighlightedText text={String(article.number)} /></span>
-              <span className="">/</span>
-              <span className=""><HighlightedText text={String(article.judicial_year)} /></span>
-              <span><HighlightedText text={article.sign} /></span>)
+          {article.paper_classification ? (
+            <p className="text-base">{article.paper_classification}</p>
+          ) : (
+            <div className="flex items-center text-sm">
+              (
+              <span>
+                <HighlightedText text={article.ruling_type} />
+              </span>
+              <div className="flex items-center ms-1">
+                <span>
+                  <HighlightedText text={String(article.number)} />
+                </span>
+                <span className="">/</span>
+                <span className="">
+                  <HighlightedText text={String(article.judicial_year)} />
+                </span>
+                <span>
+                  <HighlightedText text={article.sign} />
+                </span>
+                )
+              </div>
             </div>
-          </div>
+          )}
         </h3>
         <h4 className="text-right text-sm font-bold sm:text-xl flex items-center gap-2 text-gray-900 dark:text-white">
           <HighlightedText text={article.title} />

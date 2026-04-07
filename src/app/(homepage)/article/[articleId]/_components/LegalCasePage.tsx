@@ -20,7 +20,6 @@ export default async function LegalCasePage({
   from?: string;
 }) {
   const [data, error] = await catchError(() => getArticleByID(id));
-
   // Show Error When there is Error
   if (error) return <ErrorState />;
 

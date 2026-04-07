@@ -138,6 +138,9 @@
   body {
     @apply bg-background text-foreground font-zain;
   }
+  ol {
+    @apply list-decimal pl-6;
+  }
 }
 
 @utility flex-center {
