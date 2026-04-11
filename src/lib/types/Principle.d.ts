@@ -33,6 +33,7 @@ declare type Principle = {
   ruling_type: string | null;
   ruling_type_uuid: string | null;
   serial_number: string | null;
+  overturn: boolean | null;
   session_date: string | null;
   sign: string | null;
   status: boolean;

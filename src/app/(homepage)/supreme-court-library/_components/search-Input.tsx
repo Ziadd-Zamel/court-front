@@ -51,10 +51,10 @@ export function SearchInput({
         <button
           type="button"
           onClick={handleClear}
-          className="shrink-0 p-0.5 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-white/50 hover:text-gray-600 dark:hover:text-white transition-colors"
+          className="shrink-0 cursor-pointer p-0.5 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-white/50 hover:text-gray-600 dark:hover:text-white transition-colors"
           aria-label="مسح"
         >
-          <X className="h-3 w-3" />
+          <X className="size-6" />
         </button>
       )}
 

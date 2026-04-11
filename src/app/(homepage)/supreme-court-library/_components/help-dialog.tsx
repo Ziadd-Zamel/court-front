@@ -20,7 +20,7 @@ export function HelpDialog({ title, body }: Props) {
         <button
           type="button"
           aria-label="مساعدة"
-          className=" cursor-pointer aspect-square text-xs size-4 flex-center font-bold rounded-full border-2 border-black"
+          className=" cursor-pointer aspect-square text-base size-6 flex-center font-bold rounded-full border-1 border-black"
         >
           <span className="mt-1">؟</span>
         </button>

@@ -32,7 +32,7 @@ export default function FavoriteArticlesPage() {
     <>
       <SecondaryHeading title="قضاء النقض المفضل" breadcrumb />
 
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 box-container">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20 pb-40 box-container">
         <div className="max-w-5xl mx-auto">
           {articles.length === 0 ? (
             <motion.div

@@ -79,7 +79,7 @@ export default function FavoritesPage() {
                   className="transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
                 >
                   <div className="p-8 text-center">
-                    <div className="w-40 h-40 border-input border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-main/10 transition-colors duration-300">
+                    <div className="w-40 h-40 border-input dark:border-white/50 border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-main/10 transition-colors duration-300">
                       <Image
                         src={service.image}
                         alt="Image"
@@ -87,10 +87,10 @@ export default function FavoritesPage() {
                         height={60}
                       />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-800 mb-4 group-hover:text-main transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 group-hover:text-main transition-colors duration-300">
                       {service.title}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed text-sm">
+                    <p className="text-gray-600 leading-relaxed text-sm dark:text-white/70">
                       {service.description}
                     </p>
                   </div>

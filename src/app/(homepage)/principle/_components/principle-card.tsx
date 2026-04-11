@@ -129,38 +129,47 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
             <HighlightedHtml
               html={principle.content || ""}
               style={{ direction: "rtl" }}
-              className="mt-5 !text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white/70"
+              className="mt-10 !text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white/70"
             />
-            <div className="mt-5 flex w-full">
-              {hasWebsiteUrl ? (
-                <Link
-                  href={websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cursor-pointer text-sm text-main hover:underline"
-                >
-                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"}{" "}
-                  - العدد {principle.issue_number ?? "1"} - ص{" "}
-                  {principle.page_number ?? 231}
-                </Link>
-              ) : hasPublicationPdf ? (
-                <button
-                  type="button"
-                  onClick={handlePublicationPdfClick}
-                  className="cursor-pointer text-start text-sm text-main hover:underline"
-                >
-                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"}{" "}
-                  - العدد {principle.issue_number ?? "1"} - ص{" "}
-                  {principle.page_number ?? 231}
-                </button>
-              ) : (
-                <span className="text-sm text-gray-700 dark:text-white/70">
-                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"}{" "}
-                  - العدد {principle.issue_number ?? "1"} - ص{" "}
-                  {principle.page_number ?? 231}
-                </span>
-              )}
-            </div>
+            {principle.overturn ? (
+              <span className="text-sm text-main font-medium mt-5">
+                {`تم العدول عن هذا المبدأ بقرار الدوائر مجتمعة الصادر في  ${rulingType} ${headingMeta}`}
+              </span>
+            ) : (
+              <div className="mt-5 flex w-full">
+                {hasWebsiteUrl ? (
+                  <Link
+                    href={websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cursor-pointer text-sm text-main hover:underline"
+                  >
+                    مجلة المحكمة العليا: السنة{" "}
+                    {principle.gregorian_year ?? "33"} - العدد{" "}
+                    {principle.issue_number ?? "1"} - ص{" "}
+                    {principle.page_number ?? 231}
+                  </Link>
+                ) : hasPublicationPdf ? (
+                  <button
+                    type="button"
+                    onClick={handlePublicationPdfClick}
+                    className="cursor-pointer text-start text-sm text-main hover:underline"
+                  >
+                    مجلة المحكمة العليا: السنة{" "}
+                    {principle.gregorian_year ?? "33"} - العدد{" "}
+                    {principle.issue_number ?? "1"} - ص{" "}
+                    {principle.page_number ?? 231}
+                  </button>
+                ) : (
+                  <span className="text-sm text-gray-700 dark:text-white/70">
+                    مجلة المحكمة العليا: السنة{" "}
+                    {principle.gregorian_year ?? "33"} - العدد{" "}
+                    {principle.issue_number ?? "1"} - ص{" "}
+                    {principle.page_number ?? 231}
+                  </span>
+                )}
+              </div>
+            )}
           </AccordionContent>
           <div className="flex justify-end items-center gap-3 mb-2.5 -mt-2 me-11">
             <BookmarkButton item={principle} type="principle" />

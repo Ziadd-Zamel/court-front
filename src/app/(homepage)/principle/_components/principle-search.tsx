@@ -16,7 +16,7 @@ import { SearchInput } from "../../supreme-court-library/_components/search-Inpu
 import DateRangePicker from "@/components/common/date-range-picker";
 import DatePicker from "@/components/common/date-picker";
 
-export default function PrincipleSearch() {
+export default function PrincipleSearch({ disabled }: { disabled?: boolean }) {
   const router = useRouter();
 
   // Match the API parameter names
@@ -69,7 +69,15 @@ export default function PrincipleSearch() {
     params.set("strict_ya", strictYa ?? "0");
     params.set("strict_ta", strictTa ?? "0");
 
-    router.push(`?${params.toString()}#principles-results`);
+    router.push(`?${params.toString()}`, { scroll: false }); // ← remove the #hash from here
+
+    // Scroll after navigation completes
+    setTimeout(() => {
+      document.getElementById("principles-results")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 1000);
   };
 
   return (
@@ -138,7 +146,9 @@ export default function PrincipleSearch() {
 
         {/* ROW 4 - Similar Phrase */}
         <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
-          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">بجملة:</div>
+          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
+            بجملة:
+          </div>
 
           <SearchInput
             value={similarPhrase ?? ""}
@@ -199,7 +209,7 @@ export default function PrincipleSearch() {
 
       {/* Button */}
       <div className="mt-8 flex text-lg! xl:text-xl justify-center lg:justify-end">
-        <Button onClick={handleSearch} className="px-10">
+        <Button disabled={disabled} onClick={handleSearch} className="px-10">
           بحث
         </Button>
       </div>

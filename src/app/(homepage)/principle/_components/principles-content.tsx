@@ -87,6 +87,7 @@ export default async function PrinciplesContent({
     return (
       <>
         <PrincipleSearch />
+        <div id="principles-results" />
       </>
     );
   }
@@ -102,7 +103,7 @@ export default async function PrinciplesContent({
             className="flex flex-col items-center justify-center px-4 py-16 text-center"
             role="status"
           >
-            <div className="mb-6 rounded-full bg-main/10 p-6 dark:bg-white/10">
+            <div className="mb-6 rounded-full bg-main/10 p-3 dark:bg-white/10">
               <SearchX
                 className="size-16 text-main/70 dark:text-main"
                 aria-hidden
@@ -123,7 +124,7 @@ export default async function PrinciplesContent({
   return (
     <>
       <PrincipleSearch />
-      <div id="principles-results">
+      <div id="principles-results" className="min-h-10">
         <PrincipleList
           articles={payload.data}
           title="المقالات"
