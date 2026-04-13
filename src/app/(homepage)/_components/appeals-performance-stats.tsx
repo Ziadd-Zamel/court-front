@@ -1,22 +1,24 @@
 "use client";
 
-import { ChartTooltip } from "@/components/ui/chart";
+import CustomPieChart, { PieSlice } from "@/components/custom/custom-pie-chart";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { BasicInfoByStatsRow } from "@/hooks/use-basic-info-by-stats";
-import { Cell, Pie, PieChart } from "recharts";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-// Pie slices + row dots: navy/gold/bronze aligned with --color-main; works on white and #121212.
-const PIE_COLORS = ["#4a5d78", "#6b82a3", "#d1b882", "#a68968", "#7d726d"];
-
-// Single-class pie: completion (--color-main) vs remainder (slate); two segments; row uses justify-between.
-const SINGLE_PIE_DONE = "#e6c599";
-const SINGLE_PIE_REMAIN = "#4a5d78";
+const SLICE_COLORS = [
+  "#FFD6D0",
+  "#FFB3AB",
+  "#FF8F86",
+  "#FF6B61",
+  "#F74746",
+  "#D93030",
+  "#B81E1E",
+  "#930F0F",
+];
 
 const PIE_ANIM_MS = 550;
 
-// Smoothstep: interpolate slice % from previous targets to new ones (no “from zero” restart).
 function useAnimatedPercentages(targets: number[]) {
   const targetsKey = targets.join(",");
   const displayRef = useRef<number[]>([]);
@@ -38,9 +40,7 @@ function useAnimatedPercentages(targets: number[]) {
       return;
     }
 
-    if (from.every((v, i) => v === next[i])) {
-      return;
-    }
+    if (from.every((v, i) => v === next[i])) return;
 
     let rafId = 0;
     const start = performance.now();
@@ -56,9 +56,7 @@ function useAnimatedPercentages(targets: number[]) {
       });
       displayRef.current = interpolated;
       setDisplay(interpolated);
-      if (t < 1) {
-        rafId = requestAnimationFrame(tick);
-      }
+      if (t < 1) rafId = requestAnimationFrame(tick);
     };
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
@@ -67,7 +65,6 @@ function useAnimatedPercentages(targets: number[]) {
   return display;
 }
 
-// Skeleton mirrors loaded layout: bars column + pie only (no legend under chart).
 function AppealsPerformanceStatsSkeleton() {
   return (
     <div className="flex w-full flex-col items-center gap-10 pt-12 lg:flex-row-reverse">
@@ -93,7 +90,6 @@ function AppealsPerformanceStatsSkeleton() {
           ))}
         </div>
       </div>
-
       <div className="flex w-full max-w-lg flex-col items-start justify-center -mt-7">
         <Skeleton className="mr-10 size-[300px] shrink-0 rounded-full" />
       </div>
@@ -105,14 +101,16 @@ type Props = {
   rows: BasicInfoByStatsRow[] | undefined;
   isLoading: boolean;
   text?: string;
+  useDecidedForPie?: boolean;
 };
 
 export default function AppealsPerformanceStats({
   rows,
   isLoading,
   text = "مؤشرات الأداء",
+  useDecidedForPie = false, // ✅ default
 }: Props) {
-  const targets = useMemo(
+  const progressTargets = useMemo(
     () =>
       rows?.length
         ? rows.map((r) => Math.round(parseFloat(r.completion_rate)))
@@ -120,91 +118,38 @@ export default function AppealsPerformanceStats({
     [rows],
   );
 
-  const display = useAnimatedPercentages(targets);
+  const pieTargets = useMemo(
+    () =>
+      rows?.length
+        ? rows.map((r) =>
+            Math.round(
+              parseFloat(
+                useDecidedForPie
+                  ? (r.decided_percentage ?? "0")
+                  : r.completion_rate,
+              ),
+            ),
+          )
+        : [],
+    [rows, useDecidedForPie],
+  );
 
-  if (isLoading) {
-    return <AppealsPerformanceStatsSkeleton />;
-  }
+  const displayProgress = useAnimatedPercentages(progressTargets);
+  const displayPie = useAnimatedPercentages(pieTargets);
 
-  if (!rows?.length) {
-    return null;
-  }
+  if (isLoading) return <AppealsPerformanceStatsSkeleton />;
+  if (!rows?.length) return null;
 
-  const chartData = rows.map((row, index) => ({
+  const pieSlices = rows.map((row, index) => ({
+    id: row.classId,
     name: row.className,
-    value: Math.max(0, display[index] ?? 0),
-    fill: PIE_COLORS[index % PIE_COLORS.length],
+    value: Math.max(0, displayPie[index] ?? 0),
+    color: row.color ?? undefined,
   }));
-
-  // One row (e.g. filtered by classId): only big % (left) + two-color pie (right) — no title or department label.
-  if (rows.length === 1) {
-    const index = 0;
-    const row = rows[0];
-    const done = Math.min(100, Math.max(0, display[index] ?? 0));
-    const pct = Math.round(done);
-    const remainder = Math.max(0, 100 - done);
-    const singlePieData = [
-      { name: row.className, value: done, fill: SINGLE_PIE_DONE },
-      { name: "متبقي", value: remainder, fill: SINGLE_PIE_REMAIN },
-    ];
-
-    return (
-      <div
-        className="mx-auto flex w-full max-w-5xl flex-row flex-nowrap items-center justify-between gap-4 px-4 pt-12 sm:gap-8 sm:px-6"
-        dir="ltr"
-      >
-        <span className="shrink-0 text-6xl font-bold tabular-nums text-black dark:text-white sm:text-7xl md:text-8xl">
-          {pct}%
-        </span>
-        <div className="flex shrink-0 flex-col items-center justify-center">
-          <PieChart width={300} height={300} className="mx-auto">
-            <ChartTooltip
-              cursor={false}
-              content={({ active, payload }) => {
-                if (active && payload?.length) {
-                  const v = payload[0].value;
-                  const n = typeof v === "number" ? Math.round(v) : v;
-                  return (
-                    <div className="rounded-lg border border-border bg-white p-3 shadow-lg dark:bg-[#121212]">
-                      <p className="text-right font-medium text-gray-900 dark:text-white">
-                        {payload[0].name}
-                      </p>
-                      <p className="text-right text-sm text-gray-600 dark:text-gray-400">
-                        {n}%
-                      </p>
-                    </div>
-                  );
-                }
-                return null;
-              }}
-            />
-            <Pie
-              data={singlePieData}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={120}
-              innerRadius={0}
-              startAngle={90}
-              endAngle={-270}
-              stroke="0"
-              strokeWidth={0}
-              isAnimationActive={false}
-            >
-              {singlePieData.map((entry, i) => (
-                <Cell key={`single-slice-${i}`} fill={entry.fill} />
-              ))}
-            </Pie>
-          </PieChart>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex w-full flex-col items-center justify-between gap-10 pt-12 lg:flex-row-reverse">
-      {/* Left: heading, % + dot + title per row, then progress (bar uses theme main). */}
+      {/* Left: heading + progress bars */}
       <div className="w-full space-y-8 lg:w-1/2">
         <h2 className="text-right font-zain text-2xl font-bold text-black dark:text-white sm:text-4xl lg:text-3xl">
           {text}
@@ -213,15 +158,13 @@ export default function AppealsPerformanceStats({
           {rows.map((row, index) => {
             const pct = Math.min(
               100,
-              Math.max(0, Math.round(display[index] ?? 0)),
+              Math.max(0, Math.round(displayProgress[index] ?? 0)),
             );
-            const fill = PIE_COLORS[index % PIE_COLORS.length];
+            const fill = row.color ?? SLICE_COLORS[index % SLICE_COLORS.length];
             return (
               <div key={row.classId} className="space-y-3">
                 <div className="flex flex-row-reverse items-center justify-between gap-3 text-black dark:text-white">
-                  <span className="shrink-0 text-[14px] font-bold text-black dark:text-white">
-                    {pct}%
-                  </span>
+                  <span className="shrink-0 text-[14px] font-bold">{pct}%</span>
                   <div className="flex min-w-0 items-center gap-2">
                     <span
                       className="h-2.5 w-2.5 aspect-square rounded-full"
@@ -241,47 +184,15 @@ export default function AppealsPerformanceStats({
         </div>
       </div>
 
-      {/* Right: pie — Recharts sector animation off; motion comes from interpolated values. */}
+      {/* Right: pie */}
       <div className="flex w-full max-w-lg flex-col items-center -mt-7">
-        <PieChart width={300} height={300} className="mr-10 shrink-0">
-          <ChartTooltip
-            cursor={false}
-            content={({ active, payload }) => {
-              if (active && payload?.length) {
-                const v = payload[0].value;
-                const n = typeof v === "number" ? Math.round(v) : v;
-                return (
-                  <div className="rounded-lg border border-border bg-white p-3 shadow-lg dark:bg-[#121212]">
-                    <p className="text-right font-medium text-gray-900 dark:text-white">
-                      {payload[0].name}
-                    </p>
-                    <p className="text-right text-sm text-gray-600 dark:text-gray-400">
-                      {n}%
-                    </p>
-                  </div>
-                );
-              }
-              return null;
-            }}
+        <div className="mr-10 shrink-0">
+          <CustomPieChart
+            slices={pieSlices as unknown as PieSlice[]}
+            size={300}
           />
-          <Pie
-            data={chartData}
-            dataKey="value"
-            nameKey="name"
-            cx="50%"
-            cy="50%"
-            outerRadius={120}
-            innerRadius={0}
-            stroke="0"
-            strokeWidth={0}
-            isAnimationActive={false}
-          >
-            {chartData.map((entry, index) => (
-              <Cell key={`cell-${rows[index].classId}`} fill={entry.fill} />
-            ))}
-          </Pie>
-        </PieChart>
-        <p className="mr-10 mt-4  text-center self-start text-sm leading-relaxed text-black dark:text-white">
+        </div>
+        <p className="mr-10 mt-4 text-center self-start text-sm leading-relaxed text-black dark:text-white">
           تعبر المؤشرات عن نسبة القضايا المفصول فيها من إجمالي القضايا المعروضة
           خلال الشهر
         </p>

@@ -8,6 +8,8 @@ export type BasicInfoByClassRow = {
   category: string;
   court_department: string;
   completion_rate: string;
+  decided_percentage?: string;
+  color: string;
 };
 
 export type BasicInfoByClassParams = {
@@ -54,6 +56,8 @@ export function mapByClassRowsToStatsRows(
     classId: index,
     className: row.court_department,
     completion_rate: row.completion_rate,
+    decided_percentage: row.decided_percentage,
+    color: row.color ?? "#D93030",
   }));
 }
 

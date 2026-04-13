@@ -12,6 +12,8 @@ export type BasicInfoByStatsRow = {
   classId: number;
   className: string;
   completion_rate: string;
+  color: string;
+  decided_percentage?: string;
 };
 
 export const basicInfoByStatsQueryKey = (p: BasicInfoByStatsParams) =>

@@ -2,9 +2,11 @@ import { PERFORMANCE_DATA_YEAR_KEYS } from "./data-year-keys";
 
 export type CalendarPoint = { year: number; month: number };
 
-export function getRollingFiveMonths(anchor: Date = new Date()): CalendarPoint[] {
+export function getRollingFiveMonths(
+  anchor: Date = new Date(),
+): CalendarPoint[] {
   const out: CalendarPoint[] = [];
-  for (let back = 4; back >= 0; back--) {
+  for (let back = 5; back >= 1; back--) {
     const d = new Date(anchor.getFullYear(), anchor.getMonth() - back, 1);
     out.push({ year: d.getFullYear(), month: d.getMonth() + 1 });
   }
@@ -27,10 +29,6 @@ export function resolveSlotIndex(
   if (year != null && month != null) {
     const idx = findSlotIndex(window, year, month);
     if (idx >= 0) return idx;
-  }
-  // No (valid) URL: default to the month before current, not the latest slot.
-  if (window.length >= 2) {
-    return window.length - 2;
   }
   return window.length - 1;
 }
