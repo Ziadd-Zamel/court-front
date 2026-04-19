@@ -59,13 +59,12 @@ export default function FavoriteReaserchPage() {
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-8"
+                className="mb-20"
               >
                 <p className="text-lg text-gray-600 dark:text-gray-400">
-                  {articles.length} من {"البحوث والأوراق العلمية"}
+                  {"عدد المفضلات: "} {articles.length}
                 </p>
               </motion.div>
-
               <Accordion type="single" collapsible className="w-full" dir="rtl">
                 {articles.map((article, index) => (
                   <motion.div

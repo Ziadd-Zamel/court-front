@@ -3,7 +3,7 @@
 import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "sonner";
-import { FileText } from "lucide-react";
+import { BsFiletypePdf } from "react-icons/bs";
 
 interface DownloadButtonProps {
   url: string;
@@ -83,7 +83,10 @@ export function DownloadButton({
       {downloading ? (
         <FaCheck size={size} className="text-white" />
       ) : (
-        <FileText size={size} className={`transition-colors ${iconStyles}`} />
+        <BsFiletypePdf
+          size={size}
+          className={`transition-colors ${iconStyles}`}
+        />
       )}
     </button>
   );

@@ -30,13 +30,13 @@ export default function CounselorCard({ counselor }: { counselor: Counselor }) {
         </Avatar>
 
         {/* Name */}
-        <h3 className="text-center text-sm font-bold text-gray-900 leading-snug min-h-[40px] flex items-center">
+        <h3 className="text-center text-sm font-bold dark:text-white text-gray-900 leading-snug min-h-[40px] flex items-center">
           {counselor.name}
         </h3>
 
         {/* Main field badge */}
         {counselor.fields?.[0]?.field && (
-          <span className="text-xs font-medium text-main bg-main/8 dark:bg-white/10 dark:border-white/20 border border-main/20 px-3 py-1 rounded-full text-center">
+          <span className="text-xs font-medium text-main bg-white dark:bg-white/10 border border-main/60 dark:border-white/20 shadow-sm px-3 py-1 rounded-full text-center">
             {counselor.fields[0].field}
           </span>
         )}
@@ -76,7 +76,7 @@ export default function CounselorCard({ counselor }: { counselor: Counselor }) {
         </li>
       </ol>
 
-      <div className="mx-6 h-px shrink-0 bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
+      <div className="mx-6 h-px shrink-0 bg-gradient-to-r from-transparent via-gray-800 dark:via-gray-400 to-transparent" />
 
       {/* Tasks footer */}
       <div className="mt-auto shrink-0 border-black px-6 pb-5 dark:border-transparent min-h-[50px]">

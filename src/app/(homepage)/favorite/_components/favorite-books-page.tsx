@@ -69,10 +69,10 @@ export default function FavoriteBooksPage() {
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-8"
+                className="mb-20"
               >
                 <p className="text-lg text-gray-600 dark:text-gray-400">
-                  {books.length} من {"الكتب والإصدارات المفضلة"}
+                  {"عدد المفضلات: "} {books.length}
                 </p>
               </motion.div>
 

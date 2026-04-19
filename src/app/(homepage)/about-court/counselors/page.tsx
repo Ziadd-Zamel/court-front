@@ -13,7 +13,7 @@ export default async function Page({
   const mainPage = Math.max(1, Number(resolvedSearchParams.page) || 1);
   const mainLimit = Math.max(
     1,
-    Math.min(50, Number(resolvedSearchParams.limit) || 40),
+    Math.min(50, Number(resolvedSearchParams.limit) || 41),
   );
   return (
     <>

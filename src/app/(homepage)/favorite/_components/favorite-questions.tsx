@@ -60,10 +60,10 @@ export default function FavoriteQuestionsPage() {
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-8"
+                className="mb-20"
               >
                 <p className="text-lg text-gray-600 dark:text-gray-400">
-                  {"المعلومات المهمة المفضلة"} {questions.length} من
+                  {"عدد المفضلات: "} {questions.length}
                 </p>
               </motion.div>
 

@@ -129,7 +129,7 @@ export function BookmarkButton({
       onClick={handleToggle}
       className={`${className} flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 ${buttonStyles}`}
       aria-label="Toggle bookmark"
-      title={isSaved ? "إزالة من المفضلة" : "إضافة للمفضلة"}
+      title={isSaved ? "إزالة من المفضلة" : "إضافة إلي مجلدي"}
     >
       {isSaved ? (
         <FaBookmark size={size} className={iconStyles} />

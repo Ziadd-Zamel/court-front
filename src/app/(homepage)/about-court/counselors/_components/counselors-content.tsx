@@ -18,10 +18,11 @@ export default async function CounselorsContent({
   pagination,
 }: ArticlePageProps) {
   const [CounselorsData, error] = await catchError(() =>
-    getAllCounselors(pagination.currentPage, 40, search),
+    getAllCounselors(pagination.currentPage, 41, search),
   );
 
   if (error) return <ErrorState />;
+
   if (!CounselorsData || CounselorsData?.data.length === 0) {
     if (search && search.trim() !== "") return <NoSearchResults />;
     return <NoDataState />;
@@ -125,7 +126,7 @@ export default async function CounselorsContent({
                   {[featuredRole, ...fields].filter(Boolean).map((role) => (
                     <span
                       key={role}
-                      className="text-xs font-medium bg-main/5 dark:bg-white/10 dark:border-white/20 border border-main/20 text-main px-3 py-1.5 rounded-full"
+                      className="text-xs font-medium bg-white dark:bg-white/10 border border-main/60 dark:border-white/20 shadow-sm text-main px-3 py-1.5 rounded-full"
                     >
                       {role}
                     </span>

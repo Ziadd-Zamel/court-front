@@ -101,14 +101,18 @@ type Props = {
   rows: BasicInfoByStatsRow[] | undefined;
   isLoading: boolean;
   text?: string;
+  description?: string;
   useDecidedForPie?: boolean;
+  showPie?: boolean;
 };
 
 export default function AppealsPerformanceStats({
   rows,
   isLoading,
   text = "مؤشرات الأداء",
-  useDecidedForPie = false, // ✅ default
+  description = "تعبر المؤشرات عن نسبة القضايا المفصول فيها من إجمالي القضايا المعروضة خلال الشهر",
+  useDecidedForPie = false,
+  showPie,
 }: Props) {
   const progressTargets = useMemo(
     () =>
@@ -140,6 +144,9 @@ export default function AppealsPerformanceStats({
   if (isLoading) return <AppealsPerformanceStatsSkeleton />;
   if (!rows?.length) return null;
 
+  // Only hide pie when the prop was explicitly passed as false
+  const hidePie = showPie === false;
+
   const pieSlices = rows.map((row, index) => ({
     id: row.classId,
     name: row.className,
@@ -148,9 +155,17 @@ export default function AppealsPerformanceStats({
   }));
 
   return (
-    <div className="flex w-full flex-col items-center justify-between gap-10 pt-12 lg:flex-row-reverse">
-      {/* Left: heading + progress bars */}
-      <div className="w-full space-y-8 lg:w-1/2">
+    <div
+      className={`flex w-full flex-col items-center justify-between gap-10 pt-12 ${
+        hidePie ? "" : "lg:flex-row-reverse"
+      }`}
+    >
+      {/* Progress bars */}
+      <div
+        className={`space-y-8 ${
+          hidePie ? "w-full max-w-2xl mx-auto" : "w-full lg:w-1/2"
+        }`}
+      >
         <h2 className="text-right font-zain text-2xl font-bold text-black dark:text-white sm:text-4xl lg:text-3xl">
           {text}
         </h2>
@@ -167,7 +182,7 @@ export default function AppealsPerformanceStats({
                   <span className="shrink-0 text-[14px] font-bold">{pct}%</span>
                   <div className="flex min-w-0 items-center gap-2">
                     <span
-                      className="h-2.5 w-2.5 aspect-square rounded-full"
+                      className="size-4 aspect-square rounded-full"
                       style={{ backgroundColor: fill }}
                       aria-hidden
                     />
@@ -184,19 +199,20 @@ export default function AppealsPerformanceStats({
         </div>
       </div>
 
-      {/* Right: pie */}
-      <div className="flex w-full max-w-lg flex-col items-center -mt-7">
-        <div className="mr-10 shrink-0">
-          <CustomPieChart
-            slices={pieSlices as unknown as PieSlice[]}
-            size={300}
-          />
+      {/* Pie chart — only rendered when showPie is not explicitly false */}
+      {!hidePie && (
+        <div className="flex w-full max-w-lg flex-col items-center -mt-7">
+          <div className="mr-10 shrink-0">
+            <CustomPieChart
+              slices={pieSlices as unknown as PieSlice[]}
+              size={400}
+            />
+          </div>
+          <p className="mr-10 mt-4 text-center self-start text-sm leading-relaxed text-black dark:text-white">
+            {description}
+          </p>
         </div>
-        <p className="mr-10 mt-4 text-center self-start text-sm leading-relaxed text-black dark:text-white">
-          تعبر المؤشرات عن نسبة القضايا المفصول فيها من إجمالي القضايا المعروضة
-          خلال الشهر
-        </p>
-      </div>
+      )}
     </div>
   );
 }

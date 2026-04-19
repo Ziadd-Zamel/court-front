@@ -10,6 +10,9 @@ export type BasicInfoByClassRow = {
   completion_rate: string;
   decided_percentage?: string;
   color: string;
+  main_label: string;
+  pie_label: string;
+  show_pie: "true" | "false";
 };
 
 export type BasicInfoByClassParams = {

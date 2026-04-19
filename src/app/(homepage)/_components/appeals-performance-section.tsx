@@ -54,7 +54,12 @@ export default function AppealsPerformanceSection() {
             </p>
           </div>
         ) : (
-          <AppealsPerformanceStats rows={data} isLoading={isLoading} />
+          <AppealsPerformanceStats
+            text="مؤشر المساهمة"
+            description="تعبر المؤشرات عن نسبة مساهمة كل طائفة من دوائر المحكمة في إجمالي المفصول فيه خلال الشهر"
+            rows={data}
+            isLoading={isLoading}
+          />
         )}
         <PerformanceTrackLine />
       </div>

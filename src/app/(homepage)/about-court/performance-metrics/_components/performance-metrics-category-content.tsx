@@ -1,12 +1,12 @@
 "use client";
 
 import AppealsPerformanceStats from "@/app/(homepage)/_components/appeals-performance-stats";
-import NoDataState from "@/components/custom/no-data-state";
 import PerformanceTrackLine from "@/components/custom/performance-track-line";
 import {
   mapByClassRowsToStatsRows,
   useBasicInfoByClass,
 } from "@/hooks/use-basic-info-by-class";
+import type { BasicInfoByClassRow } from "@/hooks/use-basic-info-by-class";
 import { useMonthYearParams } from "@/hooks/use-month-year-params";
 import {
   getRollingFiveMonths,
@@ -36,14 +36,21 @@ export default function PerformanceMetricsCategoryContent({
     return mapByClassRowsToStatsRows(data);
   }, [data]);
 
+  // Extract labels and pie visibility from the first valid row
+  const firstRow =
+    Array.isArray(data) && data.length > 0 && !("message" in data[0])
+      ? (data[0] as BasicInfoByClassRow)
+      : null;
+  console.log(firstRow);
+  const mainLabel = firstRow?.main_label;
+  const pieLabel = firstRow?.pie_label;
+  const showPie = firstRow ? firstRow.show_pie === "true" : undefined;
+
   const showStatsEmpty =
     isSuccess &&
     Array.isArray(data) &&
-    // empty array
     (data.length === 0 ||
-      // message case
       (data.length === 1 && "message" in data[0]) ||
-      // ONLY ONE ITEM and it's zero
       (data.length === 1 &&
         !("message" in data[0]) &&
         Number(data[0]?.completion_rate ?? 0) === 0 &&
@@ -64,7 +71,7 @@ export default function PerformanceMetricsCategoryContent({
               لا تتوفر بيانات
             </h2>
             <p className="text-gray-600 dark:text-white/70 text-center mb-8 max-w-md lg:text-lg">
-              بيانات هذا الشهر غير متوفرة{" "}
+              بيانات هذا الشهر غير متوفرة
             </p>
           </div>
         ) : (
@@ -72,6 +79,9 @@ export default function PerformanceMetricsCategoryContent({
             useDecidedForPie
             rows={statsRows}
             isLoading={isLoading}
+            text={mainLabel}
+            description={pieLabel}
+            showPie={showPie}
           />
         )}
       </div>

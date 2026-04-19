@@ -43,22 +43,33 @@ export default function FavoriteConstitutionalPage() {
               </h3>
             </motion.div>
           ) : (
-            <Accordion type="single" collapsible className="w-full" dir="rtl">
-              {articles.map((article, index) => (
-                <motion.div
-                  key={article.uuid}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.06 }}
-                >
-                  <ArticleCard
-                    article={article}
-                    index={index}
-                    from="/favorite/constitutional"
-                  />
-                </motion.div>
-              ))}
-            </Accordion>
+            <>
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-20"
+              >
+                <p className="text-lg text-gray-600 dark:text-gray-400">
+                  {"عدد المفضلات: "} {articles.length}
+                </p>
+              </motion.div>
+              <Accordion type="single" collapsible className="w-full" dir="rtl">
+                {articles.map((article, index) => (
+                  <motion.div
+                    key={article.uuid}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.06 }}
+                  >
+                    <ArticleCard
+                      article={article}
+                      index={index}
+                      from="/favorite/constitutional"
+                    />
+                  </motion.div>
+                ))}
+              </Accordion>
+            </>
           )}
         </div>
       </div>
