@@ -40,10 +40,12 @@ export const getLegalPrinciplesSub = async () => {
   }
 
   const payload: response = await response.json();
+  console.log("responseresponse", response);
+  console.log("responseresponse", payload);
   return payload;
 };
 export const getAssemblySub = async () => {
-  const url = `${process.env.API}assembly-categories?per_page=5`;
+  const url = `${process.env.API}assembly-categories?per_page=10000`;
   const response = await fetch(url, {
     next: { revalidate: 600 },
   });
