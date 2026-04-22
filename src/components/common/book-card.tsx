@@ -39,14 +39,15 @@ export default function BookCard({
     return book.book_image;
   }, [image, type, randomBookImageNumber, book.book_image]);
 
-  const linkProps = openInNewTab
-    ? { target: "_blank", rel: "noopener noreferrer" as const }
-    : {};
+  const isMagazine = type === "magazine";
+  console.log(book);
+  const bookHref = isMagazine ? (book.pdf_file ?? "#") : `/books/${book.uuid}`;
 
-  const bookHref =
-    type === "magazine"
-      ? `/books/${book.uuid}?type=magazine`
-      : `/books/${book.uuid}`;
+  const linkProps = isMagazine
+    ? { target: "_blank", rel: "noopener noreferrer" as const }
+    : openInNewTab
+      ? { target: "_blank", rel: "noopener noreferrer" as const }
+      : {};
 
   return (
     <Link
@@ -71,7 +72,7 @@ export default function BookCard({
           <ShareButton item={book} type="book" />
         </div>
       )}
-      {type === "magazine" && (
+      {isMagazine && (
         <>
           <p className="absolute top-[130px] right-3 text-main text-xs">
             السنة
