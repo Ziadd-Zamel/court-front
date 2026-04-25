@@ -3,6 +3,7 @@ import ImportantInfo from "./important-info";
 import ConstitutionalCourtSessions from "./constitutional-court-sessions";
 import AboutConstitutionalCourt from "./about-constitutional-court";
 import ArticlePage from "@/components/custom/article-page";
+import { getRulingCategory } from "@/lib/api/subcategories";
 
 type Props = {
   pagination: {
@@ -12,16 +13,21 @@ type Props = {
   search?: string;
 };
 
-export default function ConstitutionalCourtPage({ pagination, search }: Props) {
+export default async function ConstitutionalCourtPage({
+  pagination,
+  search,
+}: Props) {
+  const categories = await getRulingCategory();
+  console.log(categories);
   const tabs: TabItem[] = [
     {
       label: "القضاء الدستوري",
-      value: "590da7e0-a113-4bcf-a599-a859c89f7ff3",
+      value: "dfd472f3-aa70-40f4-bdfa-245a2940eb52",
       heading: "القضاء الدستوري",
       component: (
         <ArticlePage
           pagination={pagination}
-          uuid="590da7e0-a113-4bcf-a599-a859c89f7ff3"
+          uuid="dfd472f3-aa70-40f4-bdfa-245a2940eb52"
           search={search}
           from="/constitutional-court"
         />
@@ -37,7 +43,9 @@ export default function ConstitutionalCourtPage({ pagination, search }: Props) {
       label: "جلسات الدائرة الدستورية",
       value: "constitutional-court-sessions",
       heading: "جلسات الدائرة الدستورية",
-      component: <ConstitutionalCourtSessions pagination={pagination} search={search} />,
+      component: (
+        <ConstitutionalCourtSessions pagination={pagination} search={search} />
+      ),
     },
     {
       label: "عن الدائرة الدستورية",

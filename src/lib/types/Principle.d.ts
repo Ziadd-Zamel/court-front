@@ -19,8 +19,9 @@ declare type Principle = {
   brief: string;
   content: string;
   contents: PrincipleContent[];
-  gregorian_year: string | null;
   issue_number: string;
+  gregorian_year: string | null;
+  appeal_year: string | null;
   judicial_year: string | null;
   number: string | null;
   overturn: boolean | null;

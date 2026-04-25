@@ -14,6 +14,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-zain: var(--font-zain);
+  --font-adobe-arabic: "adobe-arabic", sans-serif;
   --font-majalla: var(--font-majalla);
   --font-merriweather: var(--font-merriweather);
 

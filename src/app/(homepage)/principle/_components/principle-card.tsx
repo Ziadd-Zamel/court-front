@@ -122,7 +122,7 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
           </AccordionTrigger>
 
           <AccordionContent className="pb-10">
-            <h6 className="mt-5 text-center font-zain text-xl font-bold text-main">
+            <h6 className="mt-5 text-center  text-xl font-bold text-main">
               المبدأ القانوني
             </h6>
             <HighlightedHtml
@@ -132,34 +132,45 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
             />
 
             <div className="mt-5 flex w-full">
-              {hasWebsiteUrl ? (
-                <Link
-                  href={websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cursor-pointer text-sm text-main hover:underline"
-                >
-                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"}{" "}
-                  - العدد {principle.issue_number ?? "1"} - ص{" "}
-                  {principle.page_number ?? 231}
-                </Link>
-              ) : hasPublicationPdf ? (
-                <button
-                  type="button"
-                  onClick={handlePublicationPdfClick}
-                  className="cursor-pointer text-start text-sm text-main hover:underline"
-                >
-                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"}{" "}
-                  - العدد {principle.issue_number ?? "1"} - ص{" "}
-                  {principle.page_number ?? 231}
-                </button>
-              ) : (
-                <span className="text-sm text-main dark:text-white/70">
-                  مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"}{" "}
-                  - العدد {principle.issue_number ?? "1"} - ص{" "}
-                  {principle.page_number ?? 231}
-                </span>
-              )}
+              {(() => {
+                const parts = [
+                  principle.appeal_year
+                    ? `السنة ${principle.appeal_year}`
+                    : null,
+                  principle.issue_number
+                    ? `العدد ${principle.issue_number}`
+                    : null,
+                  principle.page_number ? `ص ${principle.page_number}` : null,
+                ].filter(Boolean);
+
+                const text =
+                  parts.length > 0
+                    ? `مجلة المحكمة العليا: ${parts.join(" - ")}`
+                    : "مجلة المحكمة العليا";
+
+                return hasWebsiteUrl ? (
+                  <Link
+                    href={websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cursor-pointer text-sm text-main hover:underline"
+                  >
+                    {text}
+                  </Link>
+                ) : hasPublicationPdf ? (
+                  <button
+                    type="button"
+                    onClick={handlePublicationPdfClick}
+                    className="cursor-pointer text-start text-sm text-main hover:underline"
+                  >
+                    {text}
+                  </button>
+                ) : (
+                  <span className="text-sm text-main dark:text-white/70">
+                    {text}
+                  </span>
+                );
+              })()}
             </div>
 
             {principle.overturn && (

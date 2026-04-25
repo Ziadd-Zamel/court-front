@@ -25,6 +25,12 @@ const majalla = localFont({
   display: "swap",
 });
 
+const adobeArabic = localFont({
+  src: "./fonts/adobearabic.ttf",
+  variable: "--font-adobe-arabic",
+  display: "swap",
+});
+
 export const viewport = {
   width: "device-width",
   initialScale: 1,
@@ -53,8 +59,12 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       suppressHydrationWarning
-      className={`${zain.variable} ${merriweather.variable} ${majalla.variable}`}
+      className={`${zain.variable} ${merriweather.variable} ${majalla.variable} ${adobeArabic.variable}`}
     >
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/yts8tvr.css" />
+      </head>
+
       <body className="font-zain antialiased bg-background">
         <Providers>
           <main className="flex flex-col min-h-screen overflow-hidden">
@@ -62,9 +72,7 @@ export default function RootLayout({
             <div className="flex-1">{children}</div>
             <Footer />
           </main>
-          {/* Accessibility Button - Left side, resets on every page navigation */}
           <AccessibilityWrapper />
-          {/* Scroll to Top Button - Right side */}
           <ScrollToTopButton />
         </Providers>
       </body>

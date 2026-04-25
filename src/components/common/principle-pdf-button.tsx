@@ -26,7 +26,7 @@ export function PrinciplePdfButton({
     contentRef: printRef,
     documentTitle: `principle-${principle.serial_number ?? "export"}`,
     pageStyle: `
-      @page { size: A4; margin: 5mm; }
+  @page { size: A4; margin: 7mm 18mm; }
       @media print {
         body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         * { visibility: visible !important; position: static !important; }

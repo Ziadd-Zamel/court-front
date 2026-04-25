@@ -56,20 +56,20 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full">
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-center justify-between w-full -mb-4">
           <Image
             src={"/assets/principle-print/qr.png"}
             alt="Qr"
-            width={150}
+            width={100}
             height={150}
             loading="eager"
             unoptimized
           />
           <Image
-            src={"/assets/principle-print/qr.png"}
+            src={"/assets/principle-print/pdf-logo.png"}
             alt="Qr"
-            width={150}
-            height={150}
+            width={180}
+            height={0}
             loading="eager"
             unoptimized
           />
@@ -82,11 +82,24 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
           loading="eager"
           unoptimized
         />
-        <p className="text-xl font-bold mt-5">المبدأ القانوني</p>
-        <p className="text-xl font-bold mt-5 text-main">
-          {serialNumber}/{`${topMeta}`}
-        </p>
-        <div className="flex items-center gap-1 mt-10">
+        <Image
+          src={"/assets/principle-print/pdf-principle.png"}
+          alt="basmal"
+          width={180}
+          height={0}
+          loading="eager"
+          unoptimized
+          className="mt-5"
+        />
+        <div className="flex items-center">
+          <p dir="rtl" className="text-xl font-bold mt-5 text-[#d4a96a]">
+            {topMeta}
+          </p>
+          <p dir="ltr" className="text-xl font-bold mt-5 text-[#d4a96a]">
+            /{serialNumber}
+          </p>
+        </div>
+        <div className="flex items-center gap-1 mt-5">
           <div className="w-10 h-[1px] bg-gray-300" />
           <Image
             src={"/assets/ShortLogoB.jpg"}
@@ -101,15 +114,18 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
         <p className="text-xl w-full mt-5 font-bold text-center">
           {rulingType}: {headingMeta}
         </p>
-        <p className="text-lg w-full mt-8 text-main font-bold text-center">
-          جلسة: {sessionDate}
+        <p
+          dir="rtl"
+          className="text-lg w-full mt-5 text-[#d4a96a] font-bold text-center"
+        >
+          جلسة: <span dir="ltr">{sessionDate}</span>
         </p>
-        <p dir="rtl" className="text-sm text-right w-full mt-10 font-medium">
+        <p dir="rtl" className=" text-justify w-full mt-5 font-adobe-arabic">
           {brief}
         </p>
       </div>
 
-      <div className="flex items-center justify-center gap-1 my-5">
+      <div className="flex items-center justify-center gap-1 my-3">
         <div className="w-10 h-[1px] bg-gray-300" />
         <Image
           src={"/assets/ShortLogoB.jpg"}
@@ -122,39 +138,46 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
         <div className="w-10 h-[1px] bg-gray-300" />
       </div>
 
-      <p dir="rtl" className="w-full text-right font-medium text-sm">
+      <p dir="rtl" className="w-full text-justify font-adobe-arabic">
         {principle.content}
       </p>
 
-      <div className="mt-10 flex w-full items-center justify-center">
-        {hasWebsiteUrl ? (
-          <Link
-            href={websiteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cursor-pointer text-sm text-main hover:underline"
-          >
-            مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"} -
-            العدد {principle.issue_number ?? "1"} - ص{" "}
-            {principle.page_number ?? 231}
-          </Link>
-        ) : hasPublicationPdf ? (
-          <button
-            type="button"
-            onClick={handlePublicationPdfClick}
-            className="cursor-pointer text-start text-sm text-main hover:underline"
-          >
-            مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"} -
-            العدد {principle.issue_number ?? "1"} - ص{" "}
-            {principle.page_number ?? 231}
-          </button>
-        ) : (
-          <span className="text-sm text-main dark:text-white/70">
-            مجلة المحكمة العليا: السنة {principle.gregorian_year ?? "33"} -
-            العدد {principle.issue_number ?? "1"} - ص{" "}
-            {principle.page_number ?? 231}
-          </span>
-        )}
+      <div className="mt-4 flex w-full items-center justify-center">
+        {(() => {
+          const parts = [
+            principle.appeal_year ? `السنة ${principle.appeal_year}` : null,
+            principle.issue_number ? `العدد ${principle.issue_number}` : null,
+            principle.page_number ? `ص ${principle.page_number}` : null,
+          ].filter(Boolean);
+
+          const text =
+            parts.length > 0
+              ? `مجلة المحكمة العليا: ${parts.join(" - ")}`
+              : "مجلة المحكمة العليا";
+
+          return hasWebsiteUrl ? (
+            <Link
+              href={websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cursor-pointer text-sm text-[#d4a96a] hover:underline"
+            >
+              {text}
+            </Link>
+          ) : hasPublicationPdf ? (
+            <button
+              type="button"
+              onClick={handlePublicationPdfClick}
+              className="cursor-pointer text-start text-sm text-[#d4a96a] hover:underline"
+            >
+              {text}
+            </button>
+          ) : (
+            <span className="text-sm text-[#d4a96a] dark:text-white/70">
+              {text}
+            </span>
+          );
+        })()}
       </div>
 
       {principle.overturn && (
@@ -163,7 +186,7 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
         </p>
       )}
 
-      <div className="flex items-center justify-center gap-1 mt-5">
+      <div className="flex items-center justify-center gap-1 mt-4">
         <div className="w-10 h-[1px] bg-gray-300" />
         <Image
           src={"/assets/ShortLogoB.jpg"}
