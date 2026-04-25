@@ -53,7 +53,6 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
         .map((date) => date.split("-").reverse().join("-"))
         .join(" - ")
     : "";
-
   const rulingType = normalize(principle.ruling_type);
   const number = normalize(principle.number);
   const judicialYear = normalize(principle.judicial_year);
@@ -165,7 +164,9 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
 
             {principle.overturn && (
               <p className="text-sm text-red-600 font-medium pt-3">
-                {`تم العدول عن هذا المبدأ بقرار الدوائر مجتمعة الصادر في  ${rulingType} ${headingMeta}`}
+                {principle?.overturn_decision
+                  ? principle.overturn_decision
+                  : ""}
               </p>
             )}
           </AccordionContent>
@@ -173,7 +174,9 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
             <BookmarkButton item={principle} type="principle" />
             <ShareButton item={principle} type="principle" />
             <CopyButton text={copyText} />
-            <PrinciplePdfButton principle={principle} />
+            <div className="size-5 -mt-3.5">
+              <PrinciplePdfButton principle={principle} />
+            </div>
           </div>
         </div>
       </div>

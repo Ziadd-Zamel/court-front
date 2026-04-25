@@ -24,12 +24,13 @@ export default async function CounselorPage({
     <section>
       <SecondaryHeading title="أعمال مستشار" />
       <div className="flex items-start gap-20 box-container pt-32 pb-40">
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 max-w-[350px]">
           <CounselorCard counselor={CounselorsData.data} />
         </div>
         <div className="flex flex-col -mt-10 flex-1">
           <h2 className="text-xl font-medium border-b-3 w-fit border-b-main pb-3 ">
-            المستشار: {CounselorsData.data.name}
+            المستشار: {CounselorsData.data.name} (عدد الأعمال:{" "}
+            {CounselorsData?.data?.rulings?.length || 0})
           </h2>
           <div className="w-full flex justify-center items-center mt-10">
             {!CounselorsData.data.rulings ||

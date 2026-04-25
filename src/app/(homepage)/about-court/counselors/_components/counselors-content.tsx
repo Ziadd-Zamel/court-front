@@ -82,7 +82,11 @@ export default async function CounselorsContent({
               }}
             />
 
-            <div className="relative flex flex-col sm:flex-row items-center gap-8 p-8 sm:p-10">
+            <Link
+              href={`/about-court/counselors/${featuredCounselor.uuid}`}
+              key={featuredCounselor.uuid}
+              className="relative flex flex-col sm:flex-row items-center gap-8 p-8 sm:p-10"
+            >
               {/* Avatar */}
               <div className="shrink-0 flex flex-col items-center gap-3">
                 <Avatar className="size-24 sm:size-35 border-4 border-main/20 shadow-md">
@@ -133,7 +137,7 @@ export default async function CounselorsContent({
                   ))}
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       )}
