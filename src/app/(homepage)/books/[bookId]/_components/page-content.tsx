@@ -24,7 +24,7 @@ export default function PageContent({
   isMagazine?: boolean;
 }) {
   const pub = Book as PublicationDetailFields;
-
+  console.log(Book);
   const coverSrc = isMagazine
     ? pub.cover_image || Book.book_image || MAGAZINE_COVER_IMAGE
     : Book.book_image || "/assets/book-1.jpg";
@@ -57,14 +57,9 @@ export default function PageContent({
             <Info label="العدد" value={displayValue(Book.number)} />
             <Info
               label="السنة الميلادية"
-              value={displayValue(
-                pub.calendar_year ?? Book.published_year,
-              )}
+              value={displayValue(pub.calendar_year ?? Book.published_year)}
             />
-            <Info
-              label="عدد الصفحات"
-              value={displayValue(Book.page_count)}
-            />
+            <Info label="عدد الصفحات" value={displayValue(Book.page_count)} />
           </div>
         </div>
       </section>

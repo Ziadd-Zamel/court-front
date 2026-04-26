@@ -12,6 +12,7 @@ declare type BookData = {
   pdf_file: string;
   page_count: string;
   pdf_url: string;
+  index_pdf: string;
   court_release: boolean;
   court_release_available: boolean;
   technical_office: boolean;

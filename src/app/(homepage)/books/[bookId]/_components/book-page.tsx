@@ -37,7 +37,7 @@ export default async function BookPage({
   if (!data) return <NoDataState />;
 
   const Book = data?.data;
-  const flipPdfUrl = resolveBookPdfUrl(Book.pdf_url);
+  const flipPdfUrl = resolveBookPdfUrl(Book.index_pdf);
 
   return (
     <>

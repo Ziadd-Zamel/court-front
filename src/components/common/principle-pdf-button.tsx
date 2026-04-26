@@ -26,16 +26,24 @@ export function PrinciplePdfButton({
     contentRef: printRef,
     documentTitle: `principle-${principle.serial_number ?? "export"}`,
     pageStyle: `
-  @page { size: A4; margin: 7mm 18mm; }
-      @media print {
-        body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-        * { visibility: visible !important; position: static !important; }
-      }
-    `,
-    onBeforePrint: async () => setPrinting(true),
+    @import url("https://use.typekit.net/yts8tvr.css");
+
+    .font-adobe-arabic {
+      font-family: "adobe-arabic", sans-serif !important;
+    }
+
+    @page { size: A4; margin: 7mm 18mm; }
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      * { visibility: visible !important; position: static !important; }
+    }
+  `,
+    onBeforePrint: async () => {
+      setPrinting(true);
+      await document.fonts.ready;
+    },
     onAfterPrint: () => setPrinting(false),
   });
-
   const buttonStyles =
     "bg-white dark:bg-white/15 dark:hover:bg-white/20 dark:border-main/50 backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
   const printingStyles =

@@ -75,7 +75,7 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
           />
         </div>
         <Image
-          src={"/assets/principle-print/basmal.jpeg"}
+          src={"/assets/principle-print/basmala.jpeg"}
           alt="basmal"
           width={80}
           height={80}
