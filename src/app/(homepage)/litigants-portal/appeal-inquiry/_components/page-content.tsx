@@ -53,7 +53,7 @@ export default function PageContent({ setShowstates }: PageContentProps) {
     enabled: false,
     staleTime: 5 * 60 * 1000,
   });
-
+  console.log(caseData);
   const isSearchDisabled =
     !appealNumber.trim() || !judicialYear.trim() || !appealTypeId.trim();
 

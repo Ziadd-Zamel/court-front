@@ -14,20 +14,6 @@ type Props = {
   };
   searchParams: {
     ruling_type_uuid?: string | string[];
-    search?: string;
-    exact_phrase?: string;
-    similar_phrase?: string;
-    include_terms?: string;
-    exclude_terms?: string;
-    any_terms?: string;
-    appeal_number?: string;
-    appeal_year?: string;
-    principle_number?: string;
-    principle_year?: string;
-    session_date?: string;
-    strict_alef?: string;
-    strict_ya?: string;
-    strict_ta?: string;
   };
 };
 
@@ -73,8 +59,6 @@ export default async function PrinciplePage({
           <PrinciplesContent
             rulingTypeUuids={rulingTypeUuids}
             pagination={pagination}
-            searchParams={searchParams}
-            totalItems={payload.meta.total || 0}
           />
         </PrincipleTypeMultiSelect>
       </section>

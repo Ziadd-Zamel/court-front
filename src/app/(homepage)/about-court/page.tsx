@@ -1,8 +1,11 @@
+import { getSiteSettings } from "@/lib/api/site-settings.api";
 import ServicesGrid from "./_components/about-pages";
 import AboutSection from "./_components/about-section";
 import MainHeading from "./_components/main-heading";
 
-export default function AboutCourtPage() {
+export default async function AboutCourtPage() {
+  const { data } = await getSiteSettings();
+  console.log(data);
   return (
     <>
       <MainHeading bgImage="/assets/about.png" />

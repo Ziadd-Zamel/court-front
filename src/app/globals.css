@@ -217,3 +217,16 @@
     print-color-adjust: exact;
   }
 }
+
+/* Hide scrollbars inside the embedded PDF viewport while keeping scroll behavior */
+.pdf-viewport,
+.pdf-viewport * {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.pdf-viewport::-webkit-scrollbar,
+.pdf-viewport *::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}

@@ -68,7 +68,13 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
 
   const handlePublicationPdfClick = () => {
     if (!publicationPdfUrl) return;
-    window.open(`${publicationPdfUrl}#page=${pdfPageForAnchor}`, "_blank");
+    const params = new URLSearchParams({
+      src: publicationPdfUrl,
+      page: String(pdfPageForAnchor),
+    });
+    const titlePart = headingMeta || serialNumber;
+    if (titlePart) params.set("title", `مجلة المحكمة العليا - ${titlePart}`);
+    window.open(`/pdf-viewer?${params.toString()}`, "_blank");
   };
   return (
     <AccordionItem

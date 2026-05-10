@@ -44,7 +44,7 @@ const ArabicSearchBar = () => {
   const searchFromUrl = searchParams.get("search") ?? "";
 
   const [localSearchQuery, setLocalSearchQuery] = useState("");
-  const [selectedOption, setSelectedOption] = useState<string>("all");
+  const [selectedOption, setSelectedOption] = useState<string>("by_title");
 
   // Sync from URL on mount / when URL changes (e.g. back button). When user changes type we clear URL so don't overwrite selectedOption then.
   useEffect(() => {

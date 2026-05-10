@@ -1,3 +1,4 @@
+// app/layout.tsx
 import { Zain, Merriweather } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -6,6 +7,8 @@ import Header from "@/components/layout/header";
 import AccessibilityWrapper from "@/components/custom/accessibility-wrapper";
 import ScrollToTopButton from "@/components/custom/scroll-to-top-button";
 import Footer from "@/components/layout/Footer";
+import NextTopLoader from "nextjs-toploader";
+import NavigationLoader from "@/components/common/navigation-loader";
 
 const zain = Zain({
   subsets: ["arabic"],
@@ -41,9 +44,7 @@ export const metadata = {
   description: "الموقع الرسمي للمحكمة العليا الليبية",
   keywords: "ليبيا, المحكمة العليا, القضاء, قانون",
   charset: "utf-8",
-  icons: {
-    icon: "/favicon.ico",
-  },
+  icons: { icon: "/favicon.ico" },
   openGraph: {
     title: "المحكمة العليا الليبية",
     description: "الموقع الرسمي للمحكمة العليا الليبية",
@@ -66,7 +67,15 @@ export default function RootLayout({
       </head>
 
       <body className="font-zain antialiased bg-background">
+        {/* ✅ TopLoader OUTSIDE Providers, at top level */}
+        <NextTopLoader
+          color="#C8A96E"
+          height={3}
+          showSpinner={false}
+          shadow="0 0 10px #C8A96E, 0 0 5px #C8A96E"
+        />
         <Providers>
+          <NavigationLoader />
           <main className="flex flex-col min-h-screen overflow-hidden">
             <Header />
             <div className="flex-1">{children}</div>

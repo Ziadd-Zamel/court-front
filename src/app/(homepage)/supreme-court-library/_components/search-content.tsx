@@ -31,7 +31,7 @@ export default async function SearchContent({
   const searchType = (
     VALID_SEARCH_TYPES.includes(searchQueries.search_type as BookSearchType)
       ? searchQueries.search_type
-      : "all"
+      : "by_title"
   ) as BookSearchType;
 
   const [data, error] = await catchError(() =>
@@ -54,6 +54,10 @@ export default async function SearchContent({
   }
 
   const books = data.data;
+  const totalResults =
+    "meta" in data && typeof data.meta.total === "number"
+      ? data.meta.total
+      : books.length;
   const isByAuthor = searchType === "by_author";
 
   // للمؤلفين: تجميع حسب المؤلف ثم عرض اسم المؤلف فوق كتبه
@@ -85,12 +89,18 @@ export default async function SearchContent({
 
   return (
     <>
+      <p className="mt-12 text-right text-xl font-semibold text-main">
+        نتائج البحث: {totalResults}
+      </p>
       <div className="flex w-full justify-center lg:justify-start mt-10">
         {isByAuthor && byAuthorEntries ? (
           <div className="w-full space-y-12 mt-10">
             {byAuthorEntries.map(([authorName, authorBooks]) => (
               <div key={authorName} className="space-y-4">
-                <h3 className="text-lg font-semibold text-foreground border-b border-main pb-2" dir="rtl">
+                <h3
+                  className="text-lg font-semibold text-foreground border-b border-main pb-2"
+                  dir="rtl"
+                >
                   {authorName}
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-2 min-[1230]:grid-cols-3! min-[1300]:grid-cols-5! gap-y-16">

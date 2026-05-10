@@ -1,84 +1,89 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useQueryState } from "nuqs";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useQueryStates, parseAsString } from "nuqs";
 import { Button } from "@/components/ui/button";
 import {
   KEYWORD_HELP,
   MULTI_KEYWORD_HELP,
-  EXCLUDE_KEYWORD_HELP,
   OR_KEYWORD_HELP,
   PHRASE_HELP,
 } from "@/lib/constants/personal.constnat";
 import { CURRENT_YEAR, YEARS_SINCE_FOUNDING } from "@/lib/constants/app-years";
 import { SearchInput } from "../../supreme-court-library/_components/search-Input";
-import DateRangePicker from "@/components/common/date-range-picker";
 import DatePicker from "@/components/common/date-picker";
 
-export default function PrincipleSearch({ disabled }: { disabled?: boolean }) {
-  const router = useRouter();
+const formParsers = {
+  exact_phrase: parseAsString,
+  similar_phrase: parseAsString,
+  include_terms: parseAsString,
+  exclude_terms: parseAsString,
+  any_terms: parseAsString,
+  appeal_number: parseAsString,
+  appeal_year: parseAsString,
+  principle_number: parseAsString,
+  principle_year: parseAsString,
+  page: parseAsString,
+};
 
-  // Match the API parameter names
-  const [exactPhrase, setExactPhrase] = useQueryState("exact_phrase");
-  const [similarPhrase, setSimilarPhrase] = useQueryState("similar_phrase");
-  const [includeTerms, setIncludeTerms] = useQueryState("include_terms");
-  const [excludeTerms, setExcludeTerms] = useQueryState("exclude_terms");
-  const [anyTerms, setAnyTerms] = useQueryState("any_terms");
+export default function PrincipleSearch({
+  disabled,
+  isLoading,
+}: {
+  disabled?: boolean;
+  isLoading?: boolean;
+}) {
+  // Single batched setter for all form-driven URL params.
+  const [committed, setCommitted] = useQueryStates(formParsers);
 
-  const [appealNumber, setAppealNumber] = useQueryState("appeal_number");
-  const [appealYear, setAppealYear] = useQueryState("appeal_year");
-  const [principleNumber, setPrincipleNumber] =
-    useQueryState("principle_number");
-  const [principleYear, setPrincipleYear] = useQueryState("principle_year");
+  // Local form state, hydrated once from the URL. Inputs no longer write
+  // to the URL on every keystroke - they just update local state until
+  // the user clicks the search button.
+  const [exactPhrase, setExactPhrase] = useState(committed.exact_phrase ?? "");
+  const [similarPhrase, setSimilarPhrase] = useState(
+    committed.similar_phrase ?? "",
+  );
+  const [includeTerms, setIncludeTerms] = useState(
+    committed.include_terms ?? "",
+  );
+  const [excludeTerms, setExcludeTerms] = useState(
+    committed.exclude_terms ?? "",
+  );
+  const [anyTerms, setAnyTerms] = useState(committed.any_terms ?? "");
+  const [appealNumber, setAppealNumber] = useState(
+    committed.appeal_number ?? "",
+  );
+  const [appealYear, setAppealYear] = useState(committed.appeal_year ?? "");
+  const [principleNumber, setPrincipleNumber] = useState(
+    committed.principle_number ?? "",
+  );
+  const [principleYear, setPrincipleYear] = useState(
+    committed.principle_year ?? "",
+  );
 
-  const [page, setPage] = useQueryState("page");
-
-  // Mutual exclusion: only one of the three text-search rows can be active
   const hasIncludeExclude = !!(includeTerms || excludeTerms);
   const hasAnyTerms = !!anyTerms;
   const hasSimilarPhrase = !!similarPhrase;
-  const [strictAlef] = useQueryState("strict_alef", { defaultValue: "0" });
-  const [strictYa] = useQueryState("strict_ya", { defaultValue: "0" });
-  const [strictTa] = useQueryState("strict_ta", { defaultValue: "0" });
+  const hasExactPhrase = !!exactPhrase;
 
   const handleSearch = () => {
-    // Start from current URL to preserve ruling_type_uuid
-    const params = new URLSearchParams(window.location.search);
-
-    params.set("page", "1");
-    if (exactPhrase) params.set("exact_phrase", exactPhrase);
-    else params.delete("exact_phrase");
-    if (similarPhrase) params.set("similar_phrase", similarPhrase);
-    else params.delete("similar_phrase");
-    if (includeTerms) params.set("include_terms", includeTerms);
-    else params.delete("include_terms");
-    if (excludeTerms) params.set("exclude_terms", excludeTerms);
-    else params.delete("exclude_terms");
-    if (anyTerms) params.set("any_terms", anyTerms);
-    else params.delete("any_terms");
-    if (appealNumber) params.set("appeal_number", appealNumber);
-    else params.delete("appeal_number");
-    if (appealYear) params.set("appeal_year", appealYear);
-    else params.delete("appeal_year");
-    if (principleNumber) params.set("principle_number", principleNumber);
-    else params.delete("principle_number");
-    if (principleYear) params.set("principle_year", principleYear);
-    else params.delete("principle_year");
-    params.set("strict_alef", strictAlef ?? "0");
-    params.set("strict_ya", strictYa ?? "0");
-    params.set("strict_ta", strictTa ?? "0");
-
-    router.push(`?${params.toString()}`, { scroll: false }); // ← remove the #hash from here
-
-    // Scroll after navigation completes
-    setTimeout(() => {
-      document.getElementById("principles-results")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 1000);
+    setCommitted({
+      exact_phrase: exactPhrase || null,
+      similar_phrase: similarPhrase || null,
+      include_terms: includeTerms || null,
+      exclude_terms: excludeTerms || null,
+      any_terms: anyTerms || null,
+      appeal_number: appealNumber || null,
+      appeal_year: appealYear || null,
+      principle_number: principleNumber || null,
+      principle_year: principleYear || null,
+      page: "1",
+    });
   };
+
+  const handleStringChange =
+    (setter: (v: string) => void) => (v: string | null) =>
+      setter(v ?? "");
 
   return (
     <div className="w-full mt-4">
@@ -94,23 +99,23 @@ export default function PrincipleSearch({ disabled }: { disabled?: boolean }) {
         {/* ROW 1 - Include Terms & Exclude Terms */}
         <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
           <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
-            كلمة أو أكثر:
+            بكلمة أو أكثر:
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SearchInput
-              value={includeTerms ?? ""}
-              onChange={setIncludeTerms}
+              value={includeTerms}
+              onChange={handleStringChange(setIncludeTerms)}
               placeholder="في المبادئ والموجز"
               help={KEYWORD_HELP}
-              disabled={hasAnyTerms || hasSimilarPhrase}
+              disabled={hasAnyTerms || hasSimilarPhrase || hasExactPhrase}
             />
             <SearchInput
-              value={excludeTerms ?? ""}
-              onChange={setExcludeTerms}
+              value={excludeTerms}
+              onChange={handleStringChange(setExcludeTerms)}
               placeholder="استبعاد كلمات"
               help={MULTI_KEYWORD_HELP}
-              disabled={hasAnyTerms || hasSimilarPhrase}
+              disabled={hasAnyTerms || hasSimilarPhrase || hasExactPhrase}
             />
           </div>
         </div>
@@ -122,58 +127,59 @@ export default function PrincipleSearch({ disabled }: { disabled?: boolean }) {
           </div>
 
           <SearchInput
-            value={anyTerms ?? ""}
-            onChange={setAnyTerms}
+            value={anyTerms}
+            onChange={handleStringChange(setAnyTerms)}
             placeholder="في المبادئ والموجز"
             help={OR_KEYWORD_HELP}
-            disabled={hasIncludeExclude || hasSimilarPhrase}
+            disabled={hasIncludeExclude || hasSimilarPhrase || hasExactPhrase}
           />
         </div>
 
         {/* ROW 3 - Exact Phrase */}
-        {/* <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
+        <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
           <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
-            جملة مطابقة:
+            بجملة مطابقة:
           </div>
 
           <SearchInput
-            value={exactPhrase ?? ""}
-            onChange={setExactPhrase}
+            value={exactPhrase}
+            onChange={handleStringChange(setExactPhrase)}
             placeholder="ابحث في المبادئ بجملة مطابقة لهذه الجملة"
-            help={EXCLUDE_KEYWORD_HELP}
+            help={PHRASE_HELP}
+            disabled={hasIncludeExclude || hasAnyTerms || hasSimilarPhrase}
           />
-        </div> */}
+        </div>
 
         {/* ROW 4 - Similar Phrase */}
         <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
           <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
-            بجملة:
+            بجملة مشابهة:
           </div>
 
           <SearchInput
-            value={similarPhrase ?? ""}
-            onChange={setSimilarPhrase}
+            value={similarPhrase}
+            onChange={handleStringChange(setSimilarPhrase)}
             placeholder="في المبادئ والموجز"
             help={PHRASE_HELP}
-            disabled={hasIncludeExclude || hasAnyTerms}
+            disabled={hasIncludeExclude || hasAnyTerms || hasExactPhrase}
           />
         </div>
 
         {/* ROW 5 - Appeal Number */}
         <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
           <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
-            رقم الطعن:
+            برقم الطعن:
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SearchInput
-              value={appealNumber ?? ""}
-              onChange={setAppealNumber}
+              value={appealNumber}
+              onChange={handleStringChange(setAppealNumber)}
               placeholder="أدرج الرقم دون السنة. مثال: 1234"
             />
             <SearchInput
-              value={appealYear ?? ""}
-              onChange={setAppealYear}
+              value={appealYear}
+              onChange={handleStringChange(setAppealYear)}
               placeholder={`أدرج السنة القضائية. مثال: ${YEARS_SINCE_FOUNDING}`}
             />
           </div>
@@ -182,25 +188,25 @@ export default function PrincipleSearch({ disabled }: { disabled?: boolean }) {
         {/* ROW 6 - Principle Number */}
         <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
           <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
-            رقم المبدأ:
+            برقم المبدأ:
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SearchInput
-              value={principleNumber ?? ""}
-              onChange={setPrincipleNumber}
+              value={principleNumber}
+              onChange={handleStringChange(setPrincipleNumber)}
               placeholder="أدرج الرقم دون السنة. مثال: 12"
             />
             <SearchInput
-              value={principleYear ?? ""}
-              onChange={setPrincipleYear}
+              value={principleYear}
+              onChange={handleStringChange(setPrincipleYear)}
               placeholder={`أدرج السنة الميلادية. مثال: ${CURRENT_YEAR}`}
             />
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
           <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
-            تاريخ الجلسة:
+            بتاريخ الجلسة:
           </div>
 
           <DatePicker />
@@ -209,7 +215,12 @@ export default function PrincipleSearch({ disabled }: { disabled?: boolean }) {
 
       {/* Button */}
       <div className="mt-8 flex text-lg! xl:text-xl justify-center lg:justify-end">
-        <Button disabled={disabled} onClick={handleSearch} className="px-10">
+        <Button
+          disabled={disabled || isLoading}
+          loading={isLoading}
+          onClick={handleSearch}
+          className="px-10"
+        >
           بحث
         </Button>
       </div>

@@ -53,7 +53,7 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
   };
 
   return (
-    <div className="w-full relative px-10">
+    <div className="w-full relative px-5">
       <div className="flex-1 flex items-center justify-center px-8">
         <Document
           file={pdfUrls}
@@ -108,14 +108,14 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
       <button
         onClick={goToPrevPage}
         disabled={currentPage === 0}
-        className="px-6 py-3 text-white cursor-pointer  disabled:cursor-not-allowed  absolute top-1/2 -translate-y-1/2 -right-20 "
+        className="px-6 py-3 text-white cursor-pointer  disabled:cursor-not-allowed  absolute top-1/2 -translate-y-1/2 -right-13 "
       >
         <ChevronRight size={40} />
       </button>
       <button
         onClick={goToNextPage}
         disabled={currentPage >= numPages - 1}
-        className="px-6 py-3 text-white cursor-pointer  disabled:cursor-not-allowed absolute top-1/2 -translate-y-1/2 -left-20"
+        className="px-6 py-3 text-white cursor-pointer  disabled:cursor-not-allowed absolute top-1/2 -translate-y-1/2 -left-13"
       >
         <ChevronLeft size={40} />
       </button>

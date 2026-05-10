@@ -1,10 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { getPrincipleBySearch } from "@/lib/api/principle.api";
-import catchError from "@/lib/utils/catch-error";
+"use client";
+
+import { useEffect, useRef } from "react";
+import { SearchX } from "lucide-react";
+
+import ErrorState from "@/components/custom/error-state";
+import { usePrincipleSearch } from "@/hooks/use-principle-search";
+
 import PrincipleSearch from "./principle-search";
 import PrincipleList from "./principle-list";
-import ErrorState from "@/components/custom/error-state";
-import { SearchX } from "lucide-react";
 
 type Props = {
   rulingTypeUuids: string[];
@@ -12,78 +15,35 @@ type Props = {
     currentPage: number;
     limit: number;
   };
-  totalItems: number;
-  searchParams: {
-    ruling_type_uuid?: string | string[];
-    search?: string;
-    exact_phrase?: string;
-    similar_phrase?: string;
-    include_terms?: string;
-    exclude_terms?: string;
-    any_terms?: string;
-    appeal_number?: string;
-    appeal_year?: string;
-    principle_number?: string;
-    principle_year?: string;
-    session_date?: string;
-    strict_alef?: string;
-    strict_ya?: string;
-    strict_ta?: string;
-  };
 };
 
-export default async function PrinciplesContent({
+export default function PrinciplesContent({
   rulingTypeUuids,
   pagination,
-  searchParams,
-  totalItems,
 }: Props) {
-  const hasSearchParams = Boolean(
-    searchParams.exact_phrase ||
-    searchParams.similar_phrase ||
-    searchParams.include_terms ||
-    searchParams.exclude_terms ||
-    searchParams.any_terms ||
-    searchParams.appeal_number ||
-    searchParams.appeal_year ||
-    searchParams.principle_number ||
-    searchParams.principle_year ||
-    searchParams.session_date,
-  );
+  const { data, isError, isFetching, enabled } = usePrincipleSearch({
+    pagination,
+    rulingTypeUuids,
+  });
+  const wasFetchingRef = useRef(false);
 
-  const [payload, error] = await catchError(() =>
-    getPrincipleBySearch({
-      page: pagination.currentPage,
-      perPage: pagination.limit,
-      rulingTypeUuids: rulingTypeUuids.length > 0 ? rulingTypeUuids : undefined,
-      exactPhrase: searchParams.exact_phrase,
-      similarPhrase: searchParams.similar_phrase,
-      includeTerms: searchParams.include_terms,
-      excludeTerms: searchParams.exclude_terms,
-      anyTerms: searchParams.any_terms,
-      appealNumber: searchParams.appeal_number,
-      appealYear: searchParams.appeal_year,
-      principleNumber: searchParams.principle_number,
-      principleYear: searchParams.principle_year,
-      session_date: searchParams.session_date,
-      strict_alef: searchParams.strict_alef,
-      strict_ya: searchParams.strict_ya,
-      strict_ta: searchParams.strict_ta,
-    }),
-  );
+  useEffect(() => {
+    if (isFetching) {
+      wasFetchingRef.current = true;
+      return;
+    }
 
-  if (error) {
-    return (
-      <>
-        <PrincipleSearch />
-        <div id="principles-results">
-          <ErrorState />
-        </div>
-      </>
-    );
-  }
+    if (!enabled || !wasFetchingRef.current) return;
 
-  if (!hasSearchParams) {
+    wasFetchingRef.current = false;
+    document.getElementById("principles-results")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [enabled, isFetching]);
+
+  // No search inputs yet => only render the form.
+  if (!enabled) {
     return (
       <>
         <PrincipleSearch />
@@ -92,12 +52,31 @@ export default async function PrinciplesContent({
     );
   }
 
-  // Has search params but no results
-  if (!payload || !payload.data || payload.data.length === 0) {
-    const resultCount = payload?.meta?.total ?? 0;
+  if (isFetching && !data) {
     return (
       <>
-        <PrincipleSearch />
+        <PrincipleSearch isLoading />
+        <div id="principles-results" className="min-h-10" />
+      </>
+    );
+  }
+
+  if (isError) {
+    return (
+      <>
+        <PrincipleSearch isLoading={isFetching} />
+        <div id="principles-results">
+          <ErrorState />
+        </div>
+      </>
+    );
+  }
+
+  if (!data || !data.data || data.data.length === 0) {
+    const resultCount = data?.meta?.total ?? 0;
+    return (
+      <>
+        <PrincipleSearch isLoading={isFetching} />
         <div id="principles-results">
           <div
             className="flex flex-col items-center justify-center px-4 py-16 text-center"
@@ -123,14 +102,14 @@ export default async function PrinciplesContent({
 
   return (
     <>
-      <PrincipleSearch />
+      <PrincipleSearch isLoading={isFetching} />
       <div id="principles-results" className="min-h-10">
         <PrincipleList
-          articles={payload.data}
+          articles={data.data}
           title="المقالات"
           pagination={pagination}
-          totalItems={payload.meta.total}
-          totalPages={payload.meta.last_page}
+          totalItems={data.meta.total}
+          totalPages={data.meta.last_page}
         />
       </div>
     </>

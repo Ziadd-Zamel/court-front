@@ -67,7 +67,6 @@ export default function BookCard({
         <div className="flex justify-start gap-1">
           {/* Favorite */}
           <BookmarkButton item={book} type="book" />
-          <PrintButton url={book.pdf_url} />
           {/* Share */}
           <ShareButton item={book} type="book" />
         </div>

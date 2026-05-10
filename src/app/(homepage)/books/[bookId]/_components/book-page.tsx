@@ -57,7 +57,7 @@ export default async function BookPage({
         <PageContent Book={Book} isMagazine={isMagazine} />
       </div>
       {flipPdfUrl && (
-        <div className="bg-main box-container max-w-4xl p-10 rounded-lg mb-20 px-20">
+        <div className="bg-main box-container -mt-10 max-w-[880px] p-6 rounded-lg mb-20">
           <BookFlip pdfUrl={flipPdfUrl} />
         </div>
       )}
