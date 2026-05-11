@@ -115,10 +115,7 @@ export default function AppealsPerformanceStats({
   showPie,
 }: Props) {
   const progressTargets = useMemo(
-    () =>
-      rows?.length
-        ? rows.map((r) => Math.round(parseFloat(r.completion_rate)))
-        : [],
+    () => (rows?.length ? rows.map((r) => parseFloat(r.completion_rate)) : []),
     [rows],
   );
 
@@ -126,12 +123,10 @@ export default function AppealsPerformanceStats({
     () =>
       rows?.length
         ? rows.map((r) =>
-            Math.round(
-              parseFloat(
-                useDecidedForPie
-                  ? (r.decided_percentage ?? "0")
-                  : r.completion_rate,
-              ),
+            parseFloat(
+              useDecidedForPie
+                ? (r.decided_percentage ?? "0")
+                : r.completion_rate,
             ),
           )
         : [],
@@ -144,13 +139,12 @@ export default function AppealsPerformanceStats({
   if (isLoading) return <AppealsPerformanceStatsSkeleton />;
   if (!rows?.length) return null;
 
-  // Only hide pie when the prop was explicitly passed as false
   const hidePie = showPie === false;
 
   const pieSlices = rows.map((row, index) => ({
     id: row.classId,
     name: row.className,
-    value: Math.max(0, displayPie[index] ?? 0),
+    value: displayPie[index],
     color: row.color ?? undefined,
   }));
 
@@ -171,15 +165,14 @@ export default function AppealsPerformanceStats({
         </h2>
         <div className="space-y-5">
           {rows.map((row, index) => {
-            const pct = Math.min(
-              100,
-              Math.max(0, Math.round(displayProgress[index] ?? 0)),
-            );
+            const pct = displayProgress[index];
             const fill = row.color ?? SLICE_COLORS[index % SLICE_COLORS.length];
             return (
               <div key={row.classId} className="space-y-3">
                 <div className="flex flex-row-reverse items-center justify-between gap-3 text-black dark:text-white">
-                  <span className="shrink-0 text-[14px] font-bold">{pct}%</span>
+                  <span className="shrink-0 text-[14px] font-bold">
+                    {parseFloat(row.completion_rate)}%
+                  </span>
                   <div className="flex min-w-0 items-center gap-2">
                     <span
                       className="size-4 aspect-square rounded-full"
@@ -199,7 +192,7 @@ export default function AppealsPerformanceStats({
         </div>
       </div>
 
-      {/* Pie chart — only rendered when showPie is not explicitly false */}
+      {/* Pie chart */}
       {!hidePie && (
         <div className="flex w-full max-w-lg flex-col items-center -mt-7">
           <div className="mr-10 shrink-0">

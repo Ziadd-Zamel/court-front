@@ -34,6 +34,7 @@ export default function AppealsPerformanceSection() {
         !("message" in data[0]) &&
         Number(data[0]?.completion_rate ?? 0) === 0 &&
         Number(data[0]?.decided_percentage ?? 0) === 0));
+  console.log(data);
   return (
     <div className="flex w-full flex-col items-center justify-center bg-white pb-40 pt-16 dark:bg-[#121212]">
       <AnimatedSectionHeader title="مؤشرات الأداء" />
