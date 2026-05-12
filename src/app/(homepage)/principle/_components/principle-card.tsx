@@ -66,14 +66,14 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
       .replace(/\s+/g, " ")
       .trim() || brief;
 
-  const handlePublicationPdfClick = () => {
+  const handlePublicationPdfClick = (title: string) => {
     if (!publicationPdfUrl) return;
     const params = new URLSearchParams({
       src: publicationPdfUrl,
       page: String(pdfPageForAnchor),
     });
-    const titlePart = headingMeta || serialNumber;
-    if (titlePart) params.set("title", `مجلة المحكمة العليا - ${titlePart}`);
+    const cleanedTitle = title.trim();
+    if (cleanedTitle) params.set("title", cleanedTitle);
     window.open(`/pdf-viewer?${params.toString()}`, "_blank");
   };
   return (
@@ -161,12 +161,12 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
                     rel="noopener noreferrer"
                     className="cursor-pointer text-sm text-main hover:underline"
                   >
-                    {text}
+                    نقر للانتقال إلى صفحة الحكم
                   </Link>
                 ) : hasPublicationPdf ? (
                   <button
                     type="button"
-                    onClick={handlePublicationPdfClick}
+                    onClick={() => handlePublicationPdfClick(text)}
                     className="cursor-pointer text-start text-sm text-main hover:underline"
                   >
                     {text}

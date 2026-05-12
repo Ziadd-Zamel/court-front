@@ -171,7 +171,7 @@ export default function AppealsPerformanceStats({
               <div key={row.classId} className="space-y-3">
                 <div className="flex flex-row-reverse items-center justify-between gap-3 text-black dark:text-white">
                   <span className="shrink-0 text-[14px] font-bold">
-                    {parseFloat(row.completion_rate)}%
+                    %{Math.floor(parseFloat(row.completion_rate) * 10) / 10}
                   </span>
                   <div className="flex min-w-0 items-center gap-2">
                     <span

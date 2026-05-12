@@ -28,13 +28,7 @@ import {
   RenderLayer,
   RenderPluginPackage,
 } from "@embedpdf/plugin-render/react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Download,
-  Loader2,
-  X,
-} from "lucide-react";
+import { Download, Loader2, X } from "lucide-react";
 
 type Props = {
   src: string;
@@ -116,7 +110,7 @@ export default function EmbedPdfViewer({ src, targetPage, title }: Props) {
       createPluginRegistration(DocumentManagerPluginPackage, {
         initialDocuments: [{ url: dataUrl }],
       }),
-      createPluginRegistration(ViewportPluginPackage, { viewportGap: 16 }),
+      createPluginRegistration(ViewportPluginPackage, { viewportGap: 32 }),
       createPluginRegistration(ScrollPluginPackage, { defaultPageGap: 12 }),
       createPluginRegistration(RenderPluginPackage),
     ];
@@ -253,7 +247,6 @@ function ViewerSurface({
         </Viewport>
 
         <PageJumpEffect documentId={documentId} targetPage={targetPage} />
-        <BottomPageBar documentId={documentId} />
       </div>
     </>
   );
@@ -456,40 +449,3 @@ function PageJumpEffect({
   return null;
 }
 
-function BottomPageBar({ documentId }: { documentId: string }) {
-  const { provides: scroll, state } = useScroll(documentId);
-
-  return (
-    <div
-      className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center"
-      dir="rtl"
-    >
-      <div className="pointer-events-auto flex items-center gap-3 rounded-full border border-gray-200 bg-white/95 px-4 py-1.5 text-sm shadow-md backdrop-blur dark:border-white/10 dark:bg-zinc-950/95 dark:text-white">
-        <button
-          type="button"
-          onClick={() => scroll?.scrollToPreviousPage()}
-          className="rounded-full p-1 text-main hover:bg-main/10 disabled:opacity-40"
-          disabled={!scroll || state.currentPage <= 1}
-          aria-label="الصفحة السابقة"
-        >
-          <ChevronRight size={18} />
-        </button>
-        <span className="tabular-nums">
-          {state.currentPage || 1} / {state.totalPages || "…"}
-        </span>
-        <button
-          type="button"
-          onClick={() => scroll?.scrollToNextPage()}
-          className="rounded-full p-1 text-main hover:bg-main/10 disabled:opacity-40"
-          disabled={
-            !scroll ||
-            (state.totalPages > 0 && state.currentPage >= state.totalPages)
-          }
-          aria-label="الصفحة التالية"
-        >
-          <ChevronLeft size={18} />
-        </button>
-      </div>
-    </div>
-  );
-}

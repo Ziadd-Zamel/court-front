@@ -8,7 +8,6 @@ import { BookmarkButton } from "@/components/common/bookmark-button";
 import { ShareButton } from "@/components/common/share-button";
 import { DownloadButton } from "@/components/common/download-button";
 import { PrintButton } from "@/components/common/print-button";
-import BookFlip from "./book-flip";
 
 function resolveBookPdfUrl(pdfUrl: string | null | undefined): string | null {
   const t = typeof pdfUrl === "string" ? pdfUrl.trim() : "";
@@ -54,13 +53,12 @@ export default async function BookPage({
       />
 
       <div className="min-h-screen lg:flex lg:flex-row">
-        <PageContent Book={Book} isMagazine={isMagazine} />
+        <PageContent
+          Book={Book}
+          isMagazine={isMagazine}
+          flipPdfUrl={flipPdfUrl}
+        />
       </div>
-      {flipPdfUrl && (
-        <div className="bg-main box-container -mt-10 max-w-[880px] p-6 rounded-lg mb-20">
-          <BookFlip pdfUrl={flipPdfUrl} />
-        </div>
-      )}
     </>
   );
 }

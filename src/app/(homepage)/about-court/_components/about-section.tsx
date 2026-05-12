@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { YEARS_SINCE_FOUNDING } from "@/lib/constants/app-years";
 
-export default function AboutSection() {
+export default function AboutSection({ bg }: { bg: string }) {
   return (
     <section className="py-20 flex items-start lg:flex-row flex-col gap-25 box-container ">
       <div className="border-1 border-main dark:border-main/50 w-full md:w-1/3 lg:w-[35%] h-[250px] sm:h-[350px] md:h-[700px] p-2 sm:p-4 self-center">
         <Image
-          src={"/assets/aboute.jpg"}
+          src={bg}
           alt="abpute image"
           width={500}
           height={500}
@@ -22,8 +22,8 @@ export default function AboutSection() {
             التطبيق الصحيح للقانون. تكفل بالأولى بقاء الشرعية الدستورية في
             مدارجها العليا بمواجهة انتهاك السلطة التشريعية للدستور، وإبطال
             أعمالها المخالفة له وردّها إلى حظيرة المشروعية الدستورية. وأما
-            الوظيفة الثانية، فتمارسها بوصفها محكمة قانون، وتضمن بها سلامة
-            تطبيق المحاكم الدنيا للقانون، وتوحيده بما تتبناه من تفسيرات.
+            الوظيفة الثانية، فتمارسها بوصفها محكمة قانون، وتضمن بها سلامة تطبيق
+            المحاكم الدنيا للقانون، وتوحيده بما تتبناه من تفسيرات.
           </p>
           <p className="font-medium text-justify text-sm text-gray-800 dark:text-white/70">
             {`نشأت المحكمة العليا نشأة دستورية بموجب دستور المملكة الليبية لسنة 1951. منذ ذلك التاريخ، لم تنفك القيمة القانونية للمبادئ التي ترسيها ملازمة لها. نصت المادة 155 من الدستور على أن: "تكون المبادئ القانونية التي تقررها المحكمة العليا في أحكامها ملزمة لجميع المحاكم في المملكة الليبية المتحدة." وقد رسخت هذه القاعدة الدستورية بعد ذلك وفصّلتها المادة 28 من القانون 14 لسنة 1953 بشأن المحكمة العليا الاتحادية للمملكة الليبية المتحدة، إذ كشفت عن أن القوة الملزمة لمبادئ المحكمة لا تقف عند حدود عمل المحاكم، بل تمتد لتحكم وظائف السلطات كافةً في البلاد.`}

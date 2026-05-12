@@ -17,6 +17,7 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
   const [numPages, setNumPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [pdfUrls, setPdfUrls] = useState<string | null>(null);
+  const [isPortrait, setIsPortrait] = useState(false);
 
   const bookRef = useRef<any>(null);
 
@@ -36,6 +37,17 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
       .then((d) => setPdfUrls(d.dataUrl))
       .catch(() => setPdfUrls(null));
   }, [pdfUrl]);
+
+  // Below the Tailwind `lg` breakpoint (1024px) we render as a single page
+  // so the flipbook fits inside narrower containers.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mql = window.matchMedia("(max-width: 1023px)");
+    const update = () => setIsPortrait(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
   }
@@ -67,6 +79,7 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
           {/* @ts-expect-error react-pageflip has incorrect typings */}
 
           <HTMLFlipBook
+            key={isPortrait ? "portrait" : "landscape"}
             ref={bookRef}
             width={400}
             height={550}
@@ -80,7 +93,7 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
             onFlip={(e) => setCurrentPage(e.data)}
             drawShadow={true}
             flippingTime={800}
-            usePortrait={false}
+            usePortrait={isPortrait}
             startZIndex={0}
             autoSize={false}
             maxShadowOpacity={0.5}

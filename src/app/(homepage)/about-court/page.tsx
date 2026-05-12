@@ -6,11 +6,15 @@ import MainHeading from "./_components/main-heading";
 export default async function AboutCourtPage() {
   const { data } = await getSiteSettings();
   console.log(data);
+  const backgroundImage = data?.about_background ?? "/assets/about.png";
+  const backgroundImageSupreme =
+    data?.about_supreme_court_background ?? "/assets/about.png";
+
   return (
     <>
-      <MainHeading bgImage="/assets/about.png" />
+      <MainHeading bgImage={backgroundImage} />
       <div className="bg-main/30 dark:bg-[#121212] w-full">
-        <AboutSection />
+        <AboutSection bg={backgroundImageSupreme ?? "/assets/aboute.jpg"} />
       </div>
       <ServicesGrid />
     </>
