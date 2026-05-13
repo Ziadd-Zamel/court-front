@@ -160,9 +160,10 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
               href={websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="cursor-pointer text-sm text-[#d4a96a] hover:underline"
+              className="cursor-pointer text-sm text-center text-[#d4a96a] hover:underline"
             >
-              {text}
+              منشور على الموقع الإلكتروني للمحكمة العليا:
+              <br /> www.alolya.gov.ly
             </Link>
           ) : hasPublicationPdf ? (
             <button
