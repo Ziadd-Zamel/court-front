@@ -63,7 +63,7 @@ export default async function ConstitutionalCourtPage({
     >
       <ReusableTabs
         tabs={tabs}
-        defaultValue="590da7e0-a113-4bcf-a599-a859c89f7ff3"
+        defaultValue="dfd472f3-aa70-40f4-bdfa-245a2940eb52"
       />
     </section>
   );

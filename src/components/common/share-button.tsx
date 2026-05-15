@@ -8,6 +8,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Share2 } from "lucide-react";
 import { toast } from "sonner";
 
+function principleShareTitle(principle: Principle): string {
+  const norm = (value: unknown) => {
+    if (value === null || value === undefined) return "";
+    const text = String(value).trim();
+    if (!text || text.toLowerCase() === "null") return "";
+    return text;
+  };
+  const serial = norm(principle.serial_number) || norm(principle.number);
+  const year = norm(principle.gregorian_year);
+  const principleType = norm(principle.principle_type);
+  const numYear = [serial, year].filter(Boolean).join("-");
+  const body = [numYear, principleType].filter(Boolean).join(" ");
+  return body ? `المبدأ القانوني: ${body}` : "المبدأ القانوني";
+}
+
 type Assembly = {
   uuid: string;
   category: string;
@@ -89,7 +104,7 @@ export function ShareButton({
       case "principle":
         const principle = item as Principle;
         return {
-          title: `مبدأ قانوني رقم ${principle.number || "------"} / ${principle.judicial_year || "------"}`,
+          title: principleShareTitle(principle),
           description:
             principle.brief?.replace(/<[^>]*>/g, "").substring(0, 200) +
               "..." || "",

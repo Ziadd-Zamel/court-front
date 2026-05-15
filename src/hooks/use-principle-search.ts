@@ -160,7 +160,8 @@ export function usePrincipleSearch({
     queryKey: principleSearchQueryKey(params),
     queryFn: () => fetchPrincipleSearch(params),
     enabled,
-    staleTime: 10 * 60 * 1000,
+    staleTime: 0,
+    refetchOnMount: "always",
     placeholderData: keepPreviousData,
   });
 

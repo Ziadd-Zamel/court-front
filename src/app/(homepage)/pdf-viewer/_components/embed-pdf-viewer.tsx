@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  FormEvent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { createPluginRegistration, setScale } from "@embedpdf/core";
 import { EmbedPDF, useRegistry } from "@embedpdf/core/react";
 import { usePdfiumEngine } from "@embedpdf/engines/react";
@@ -137,7 +131,10 @@ export default function EmbedPdfViewer({ src, targetPage, title }: Props) {
                           className="flex flex-1 items-center justify-center"
                           dir="rtl"
                         >
-                          <Loader2 size={32} className="animate-spin text-main" />
+                          <Loader2
+                            size={32}
+                            className="animate-spin text-main"
+                          />
                         </div>
                       </>
                     );
@@ -295,13 +292,7 @@ function PdfToolbar({
   );
 }
 
-function FallbackToolbar({
-  title,
-  src,
-}: {
-  title?: string;
-  src: string;
-}) {
+function FallbackToolbar({ title, src }: { title?: string; src: string }) {
   const downloadHref = `/api/pdf-stream?src=${encodeURIComponent(src)}`;
   const downloadName = buildDownloadName(src, title);
 
@@ -421,7 +412,7 @@ function PageJumpEffect({
 
       timeout = window.setTimeout(() => {
         scope.scrollToPage({ pageNumber: safePage, behavior: "smooth" });
-      }, 3000);
+      }, 1000);
     });
 
     return () => {
@@ -432,4 +423,3 @@ function PageJumpEffect({
 
   return null;
 }
-

@@ -31,21 +31,27 @@ export default function PrinciplesContent({
     limit: params.per_page,
   };
   const wasFetchingRef = useRef(false);
+  const prevPageRef = useRef(params.page);
 
   useEffect(() => {
+    if (!enabled) return;
+
     if (isFetching) {
       wasFetchingRef.current = true;
       return;
     }
 
-    if (!enabled || !wasFetchingRef.current) return;
+    const pageChanged = prevPageRef.current !== params.page;
+    if (pageChanged) prevPageRef.current = params.page;
+
+    if (!wasFetchingRef.current && !pageChanged) return;
 
     wasFetchingRef.current = false;
     document.getElementById("principles-results")?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
-  }, [enabled, isFetching]);
+  }, [enabled, isFetching, params.page]);
 
   // No search inputs yet => only render the form.
   if (!enabled) {
