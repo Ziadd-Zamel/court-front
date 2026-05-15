@@ -13,9 +13,13 @@ import NoSearchResults from "@/components/custom/no-result";
 export interface PageContentProps {
   showstates: boolean;
   setShowstates: (v: boolean) => void;
+  onCaseData?: (data: CaseDataType[] | undefined) => void;
 }
 
-export default function PageContent({ setShowstates }: PageContentProps) {
+export default function PageContent({
+  setShowstates,
+  onCaseData,
+}: PageContentProps) {
   // Local state for form inputs
   const [appealNumber, setAppealNumber] = useState("");
   const [judicialYear, setJudicialYear] = useState("");
@@ -53,7 +57,6 @@ export default function PageContent({ setShowstates }: PageContentProps) {
     enabled: false,
     staleTime: 5 * 60 * 1000,
   });
-  console.log(caseData);
   const isSearchDisabled =
     !appealNumber.trim() || !judicialYear.trim() || !appealTypeId.trim();
 
@@ -69,18 +72,18 @@ export default function PageContent({ setShowstates }: PageContentProps) {
     refetch();
   };
   useEffect(() => {
-    // If we have a payload with real rows -> set parent state true
+    onCaseData?.(caseData?.data);
+
     if (
       caseData?.data &&
       Array.isArray(caseData.data) &&
       caseData.data.length > 0
     ) {
-      setHasSearched(true); // optional: mark that real data arrived
-      setShowstates(true); // <--- your requested call
+      setHasSearched(true);
+      setShowstates(true);
       return;
     }
 
-    // If a search was attempted and it's finished loading with no data, set false
     if (
       hasSearched &&
       !isLoading &&
@@ -88,7 +91,7 @@ export default function PageContent({ setShowstates }: PageContentProps) {
     ) {
       setShowstates(false);
     }
-  }, [caseData, isLoading, hasSearched, setShowstates]);
+  }, [caseData, isLoading, hasSearched, setShowstates, onCaseData]);
   // Determine what to show based on search state
   const renderContent = () => {
     // If no search has been performed yet, show instructions

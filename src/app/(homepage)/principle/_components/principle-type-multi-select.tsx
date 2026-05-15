@@ -1,18 +1,18 @@
 "use client";
 
 import { ReactNode } from "react";
-import { useQueryStates } from "nuqs";
-import { parseAsArrayOf, parseAsString } from "nuqs";
 import { Tabs, TabsList } from "@/components/ui/tabs";
 import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  PrincipleCategoryProvider,
+  usePrincipleCategory,
+} from "./principle-category-context";
 
 export type PrincipleTypeOption = {
   label: string;
   value: string;
 };
-
-const rulingTypeParser = parseAsArrayOf(parseAsString);
 
 interface PrincipleTypeMultiSelectProps {
   options: PrincipleTypeOption[];
@@ -24,7 +24,7 @@ interface PrincipleTypeMultiSelectProps {
   children?: ReactNode;
 }
 
-export default function PrincipleTypeMultiSelect({
+function PrincipleTypeMultiSelectInner({
   options,
   className = "",
   tabListClassName = "",
@@ -33,17 +33,7 @@ export default function PrincipleTypeMultiSelect({
   tablistDownContent,
   children,
 }: PrincipleTypeMultiSelectProps) {
-  const [selectedIds, setSelectedIds] = useQueryStates(
-    { ruling_type_uuid: rulingTypeParser.withDefault([]) },
-    { shallow: false },
-  );
-
-  function toggleType(id: string) {
-    const next = selectedIds.ruling_type_uuid.includes(id)
-      ? selectedIds.ruling_type_uuid.filter((x) => x !== id)
-      : [...selectedIds.ruling_type_uuid, id];
-    setSelectedIds({ ruling_type_uuid: next.length ? next : null });
-  }
+  const { pendingCategories, toggleCategory } = usePrincipleCategory();
 
   return (
     <Tabs
@@ -60,7 +50,7 @@ export default function PrincipleTypeMultiSelect({
           {tablistUpContent && tablistUpContent}
 
           {options.map((opt) => {
-            const isSelected = selectedIds.ruling_type_uuid.includes(opt.value);
+            const isSelected = pendingCategories.includes(opt.value);
             return (
               <button
                 key={opt.value}
@@ -69,7 +59,7 @@ export default function PrincipleTypeMultiSelect({
                   "main-tab py-2.5 ps-2.5 pe-2 gap-2",
                   "data-[state=inactive]:hover:bg-main/50 data-[state=inactive]:hover:text-white",
                 )}
-                onClick={() => toggleType(opt.value)}
+                onClick={() => toggleCategory(opt.value)}
                 data-state={isSelected ? "active" : "inactive"}
               >
                 <span>{opt.label}</span>
@@ -96,5 +86,15 @@ export default function PrincipleTypeMultiSelect({
         </div>
       </div>
     </Tabs>
+  );
+}
+
+export default function PrincipleTypeMultiSelect(
+  props: PrincipleTypeMultiSelectProps,
+) {
+  return (
+    <PrincipleCategoryProvider>
+      <PrincipleTypeMultiSelectInner {...props} />
+    </PrincipleCategoryProvider>
   );
 }

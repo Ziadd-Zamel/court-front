@@ -27,25 +27,38 @@ declare type CaseDataType = {
   partNumber: string;
   orgname: string;
   notes: string | null;
-  appeals_review: { session_date: string; ruling: string }[];
+  appeals_review: {
+    session_date: string;
+    ruling: string;
+    percentage?: number;
+  }[];
   appeals_sessions: {
     session_date: string;
     number_of_session: string;
     why: string;
     ruling: string;
+    percentage?: number;
   }[];
-  appeals_urgent: { ruling: string; session_date: string }[];
+  appeals_urgent: {
+    ruling: string;
+    session_date: string;
+    percentage?: number;
+  }[];
   final_judgment: {
     final_judgment: string;
     judgment_ruling: string;
     draft_judgment: number;
     final_draft_judgment: number;
+    draft_judgment_percentage?: number;
+    final_judgment_percentage?: number;
   };
   niaba: {
     Concluding_Opinion: string;
     Summary_of_Opinion: string;
     date_of_filing: string;
     date_of_move: string;
+    date_of_filing_percentage?: number;
+    date_of_move_percentage?: number;
   };
 };
 

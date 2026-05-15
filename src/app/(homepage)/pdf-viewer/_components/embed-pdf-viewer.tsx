@@ -270,7 +270,7 @@ function PdfToolbar({
           download={downloadName}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 rounded-sm border border-main/30 bg-white p-1 text-xs font-semibold text-main hover:bg-main/10 sm:px-2 dark:bg-transparent"
+          className="inline-flex items-center gap-1 rounded-sm border border-black bg-white p-1 text-xs font-semibold text-black hover:bg-black/5 sm:px-2 dark:border-white dark:bg-transparent dark:text-white dark:hover:bg-white/10"
           aria-label="تحميل"
           title="تحميل"
         >
@@ -320,7 +320,7 @@ function FallbackToolbar({
           download={downloadName}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 rounded-sm border border-main/30 bg-white p-1 text-xs font-semibold text-main hover:bg-main/10 sm:px-2 dark:bg-transparent"
+          className="inline-flex items-center gap-1 rounded-sm border border-black bg-white p-1 text-xs font-semibold text-black hover:bg-black/5 sm:px-2 dark:border-white dark:bg-transparent dark:text-white dark:hover:bg-white/10"
           aria-label="تحميل"
           title="تحميل"
         >

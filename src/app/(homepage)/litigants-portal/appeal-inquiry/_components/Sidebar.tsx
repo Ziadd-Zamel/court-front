@@ -1,73 +1,140 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-const Sidebar = ({ showstates }: { showstates: boolean }) => {
-  const [animatedProgress, setAnimatedProgress] = useState<{
-    [key: string]: number;
-  }>({});
+const STAGE_COLORS = [
+  "bg-blue-500",
+  "bg-green-500",
+  "bg-orange-500",
+  "bg-yellow-500",
+  "bg-blue-500",
+] as const;
+
+function clampPercent(value: unknown): number {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 0;
+  return Math.max(0, Math.min(100, Math.round(n)));
+}
+
+function avgPercent(...values: unknown[]): number {
+  if (!values.length) return 0;
+  const nums = values.map(clampPercent);
+  return Math.round(nums.reduce((a, b) => a + b, 0) / nums.length);
+}
+
+function buildProgressFromCase(caseItem: CaseDataType | undefined) {
+  if (!caseItem) return [];
+
+  return [
+    {
+      stage: "الشق المستعجل",
+      progress: clampPercent(caseItem.appeals_urgent?.[0]?.percentage),
+      color: STAGE_COLORS[0],
+    },
+    {
+      stage: "فحص الطعن",
+      progress: clampPercent(caseItem.appeals_review?.[0]?.percentage),
+      color: STAGE_COLORS[1],
+    },
+    {
+      stage: "رأي نيابة النقض",
+      progress: avgPercent(
+        caseItem.niaba?.date_of_move_percentage,
+        caseItem.niaba?.date_of_filing_percentage,
+      ),
+      color: STAGE_COLORS[2],
+    },
+    {
+      stage: "نظر الطعن",
+      progress: clampPercent(caseItem.appeals_sessions?.[0]?.percentage),
+      color: STAGE_COLORS[3],
+    },
+    {
+      stage: "الفصل في الطعن",
+      progress: avgPercent(
+        caseItem.final_judgment?.draft_judgment_percentage,
+        caseItem.final_judgment?.final_judgment_percentage,
+      ),
+      color: STAGE_COLORS[4],
+    },
+  ];
+}
+
+const appealStages = [
+  "التقرير بالطعن",
+  "إيداع المذكرات",
+  "الشق المستعجل",
+  "رأي نيابة النقض",
+  "فحص الطعن",
+  "إعلان موعد الجلسة",
+  "نظر الموضوع",
+  "الفصل في الطعن",
+  "إعادة القضية",
+];
+
+type SidebarProps = {
+  showstates: boolean;
+  caseData?: CaseDataType[];
+};
+
+const Sidebar = ({ showstates, caseData }: SidebarProps) => {
+  const [animatedProgress, setAnimatedProgress] = useState<
+    Record<string, number>
+  >({});
   const [circularProgress, setCircularProgress] = useState(0);
 
-  const appealStages = [
-    "التقرير بالطعن",
-    "إيداع المذكرات",
-    "الشق المستعجل",
-    "رأي نيابة النقض",
-    "فحص الطعن",
-    "إعلان موعد الجلسة",
-    "نظر الموضوع",
-    "الفصل في الطعن",
-    "إعادة القضية",
-  ];
+  const caseItem = caseData?.[0];
+  const progressItems = useMemo(
+    () => buildProgressFromCase(caseItem),
+    [caseItem],
+  );
 
-  // بيانات وهمية تحاكي ما بالصورة
-  const fakeProgress = [
-    { stage: "الشق المستعجل", progress: 100, color: "bg-blue-500" },
-    { stage: "فحص الطعن", progress: 100, color: "bg-green-500" },
-    { stage: "رأي نيابة النقض", progress: 100, color: "bg-orange-500" },
-    { stage: "نظر الطعن", progress: 100, color: "bg-yellow-500" },
-    { stage: "الفصل في الطعن", progress: 25, color: "bg-blue-500" },
-  ];
+  const overallPercent = useMemo(() => {
+    if (!progressItems.length) return 0;
+    return Math.round(
+      progressItems.reduce((sum, item) => sum + item.progress, 0) /
+        progressItems.length,
+    );
+  }, [progressItems]);
 
-  // Animation effect for progress bars
   useEffect(() => {
-    if (showstates) {
-      // Reset progress
+    if (!showstates) {
       setAnimatedProgress({});
       setCircularProgress(0);
-
-      // Animate each progress bar with staggered timing
-      fakeProgress.forEach((item, index) => {
-        setTimeout(() => {
-          setAnimatedProgress((prev) => ({
-            ...prev,
-            [item.stage]: item.progress,
-          }));
-        }, index * 200); // 200ms delay between each bar
-      });
-
-      // Animate circular progress after all bars are done
-      setTimeout(
-        () => {
-          let current = 0;
-          const target = 85;
-          const increment = target / 30; // 30 steps for smooth animation
-
-          const animateCircle = () => {
-            current += increment;
-            if (current <= target) {
-              setCircularProgress(Math.min(current, target));
-              requestAnimationFrame(animateCircle);
-            } else {
-              setCircularProgress(target);
-            }
-          };
-
-          animateCircle();
-        },
-        fakeProgress.length * 200 + 300,
-      ); // Start after progress bars + 300ms delay
+      return;
     }
-  }, [showstates]);
+
+    setAnimatedProgress({});
+    setCircularProgress(0);
+
+    progressItems.forEach((item, index) => {
+      setTimeout(() => {
+        setAnimatedProgress((prev) => ({
+          ...prev,
+          [item.stage]: item.progress,
+        }));
+      }, index * 200);
+    });
+
+    const target = overallPercent;
+    setTimeout(
+      () => {
+        let current = 0;
+        const increment = target > 0 ? target / 30 : 0;
+
+        const animateCircle = () => {
+          current += increment;
+          if (current <= target) {
+            setCircularProgress(Math.min(current, target));
+            requestAnimationFrame(animateCircle);
+          } else {
+            setCircularProgress(target);
+          }
+        };
+
+        if (target > 0) animateCircle();
+      },
+      progressItems.length * 200 + 300,
+    );
+  }, [showstates, progressItems, overallPercent]);
 
   return (
     <div className="flex flex-col h-full text-right border-gray-300 dark:border-white/10 pt-21 bg-[#F1E2CE] dark:bg-[#252525] pl-16 pr-7">
@@ -94,27 +161,28 @@ const Sidebar = ({ showstates }: { showstates: boolean }) => {
             تقدم إجراءات الطعن
           </h3>
           <div className="space-y-6">
-            {fakeProgress.map((item, index) => (
+            {progressItems.map((item, index) => (
               <div
-                key={index}
+                key={item.stage}
                 className="opacity-0 animate-[fadeIn_0.5s_ease-in-out_forwards]"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex justify-between text-sm mb-1 dark:text-white/80">
                   <span>{item.stage}</span>
-                  <span>{Math.round(animatedProgress[item.stage] || 0)}%</span>
+                  <span>{item.progress}%</span>
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-white/20 h-3 rounded overflow-hidden">
                   <div
                     className={`${item.color} h-3 rounded transition-all duration-1000 ease-out`}
-                    style={{ width: `${animatedProgress[item.stage] || 0}%` }}
-                  ></div>
+                    style={{
+                      width: `${animatedProgress[item.stage] ?? 0}%`,
+                    }}
+                  />
                 </div>
               </div>
             ))}
           </div>
 
-          {/* الدائرة للنسبة الكلية */}
           <div className="flex justify-center items-center mt-12">
             <div className="relative w-48 h-48 opacity-0 animate-[fadeIn_0.5s_ease-in-out_0.8s_forwards]">
               <svg className="w-48 h-48 transform -rotate-90">

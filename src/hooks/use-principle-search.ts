@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useQueryStates, parseAsString } from "nuqs";
+import { useQueryStates, parseAsString, parseAsArrayOf } from "nuqs";
 
 /**
  * Shared parsers for every URL key the principle search reads/writes.
@@ -58,8 +58,13 @@ const TEXT_SEARCH_KEYS = [
 ] as const;
 
 export function hasAnyPrincipleSearchInput(params: PrincipleSearchParams) {
-  return TEXT_SEARCH_KEYS.some((key) => Boolean(params[key]));
+  return (
+    Boolean(params.principle_type_uuids) ||
+    TEXT_SEARCH_KEYS.some((key) => Boolean(params[key]))
+  );
 }
+
+const rulingTypeUrlParser = parseAsArrayOf(parseAsString).withDefault([]);
 
 export const principleSearchQueryKey = (params: PrincipleSearchParams) =>
   ["principle-advanced-search", params] as const;
@@ -95,26 +100,33 @@ type UsePrincipleSearchOptions = {
     currentPage: number;
     limit: number;
   };
-  rulingTypeUuids: string[];
+  rulingTypeUuids?: string[];
 };
 
 /**
  * Reads the current principle search URL params via nuqs, so the query
- * re-runs reactively whenever PrincipleSearch (or the strict switches /
- * date picker) commits new values to the URL.
+ * re-runs when the search button commits form fields and categories.
  */
 export function usePrincipleSearch({
   pagination,
-  rulingTypeUuids,
+  rulingTypeUuids: rulingTypeUuidsFallback,
 }: UsePrincipleSearchOptions) {
   const [urlValues] = useQueryStates(principleSearchParsers);
+  const [{ ruling_type_uuid: rulingTypesFromUrl }] = useQueryStates({
+    ruling_type_uuid: rulingTypeUrlParser,
+  });
+
+  const rulingTypeKey = (
+    rulingTypesFromUrl.length > 0
+      ? rulingTypesFromUrl
+      : (rulingTypeUuidsFallback ?? [])
+  ).join(",");
 
   const params = useMemo<PrincipleSearchParams>(
     () => ({
       page: pagination.currentPage,
       per_page: pagination.limit,
-      principle_type_uuids:
-        rulingTypeUuids.length > 0 ? rulingTypeUuids.join(",") : undefined,
+      principle_type_uuids: rulingTypeKey || undefined,
       exact_phrase: urlValues.exact_phrase ?? undefined,
       similar_phrase: urlValues.similar_phrase ?? undefined,
       include_terms: urlValues.include_terms ?? undefined,
@@ -129,12 +141,7 @@ export function usePrincipleSearch({
       strict_ya: urlValues.strict_ya ?? undefined,
       strict_ta: urlValues.strict_ta ?? undefined,
     }),
-    [
-      urlValues,
-      pagination.currentPage,
-      pagination.limit,
-      rulingTypeUuids,
-    ],
+    [urlValues, pagination.currentPage, pagination.limit, rulingTypeKey],
   );
 
   const enabled = hasAnyPrincipleSearchInput(params);

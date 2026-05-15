@@ -6,13 +6,18 @@ import ContactSection from "@/components/custom/contact-section";
 
 export default function AppealInquiryPage() {
   const [showstates, setShowstates] = useState<boolean>(false);
+  const [caseData, setCaseData] = useState<CaseDataType[] | undefined>();
 
   return (
     <>
       <div className="min-h-screen lg:flex lg:flex-row dark:bg-[#121212]">
-        <PageContent showstates={showstates} setShowstates={setShowstates} />
-        <div className="hidden min-h-screen  lg:block w-1/4">
-          <Sidebar showstates={showstates} />
+        <PageContent
+          showstates={showstates}
+          setShowstates={setShowstates}
+          onCaseData={setCaseData}
+        />
+        <div className="hidden min-h-screen lg:block w-1/4">
+          <Sidebar showstates={showstates} caseData={caseData} />
         </div>
       </div>
       <ContactSection

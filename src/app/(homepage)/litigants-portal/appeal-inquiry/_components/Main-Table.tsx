@@ -6,244 +6,325 @@ interface PageContentProps {
   error: string | null;
 }
 
+function hasValue(value: unknown): boolean {
+  if (value === null || value === undefined) return false;
+  const text = String(value).trim();
+  if (!text || text.toLowerCase() === "null") return false;
+  return true;
+}
+
+function hasAnyValue(...values: unknown[]): boolean {
+  return values.some(hasValue);
+}
+
+type TableRow = {
+  label: string;
+  value: string;
+  white?: boolean;
+  custom?: boolean;
+};
+
+function displayValue(value: unknown): string {
+  if (!hasValue(value)) return "";
+  return String(value).trim();
+}
+
+function TableSection({
+  title,
+  rows,
+  className = "",
+}: {
+  title: string;
+  rows: TableRow[];
+  className?: string;
+}) {
+  const visibleRows = rows.filter((row) => hasValue(row.value));
+  if (visibleRows.length === 0) return null;
+
+  return (
+    <>
+      {title ? (
+        <h5
+          className={`text-2xl font-medium text-right pb-5 w-full dark:text-white ${className}`}
+        >
+          {title}
+        </h5>
+      ) : null}
+      <table className="w-full border-collapse mb-4">
+      <tbody>
+        {visibleRows.map((row, index) =>
+          row.custom ? (
+            <CustomRow key={row.label} label={row.label} value={row.value} />
+          ) : (
+            <SimpleTableRow
+              key={row.label}
+              label={row.label}
+              value={row.value}
+              white={row.white ?? index % 2 === 0}
+            />
+          ),
+        )}
+      </tbody>
+    </table>
+  </>
+  );
+}
+
 export default function MainTable({ caseData }: PageContentProps) {
   const caseItem = caseData?.[0];
 
   if (!caseItem) return null;
 
+  const fj = caseItem.final_judgment;
+  const niaba = caseItem.niaba;
+
   return (
     <section className="">
-      <table className="w-full border-collapse">
-        <h5 className="text-2xl font-medium text-right pb-5 w-full dark:text-white">
-          البيانات العامة
-        </h5>
-        <tbody className="rounded-md">
-          <SimpleTableRow
-            white={false}
-            label="رقم الطعن"
-            value={caseItem.rippId || ""}
-          />
-          <SimpleTableRow
-            label="السنة القضائية"
-            value={caseItem.year?.toString() || ""}
-          />
-          <SimpleTableRow
-            white={false}
-            label="نوع الطعن"
-            value={caseItem.classname || ""}
-          />
-          <SimpleTableRow
-            label="تاريخ التقرير"
-            value={caseItem.receiptdate || ""}
-          />
-          <SimpleTableRow white={false} label="الحكم المطعون فيه" value={""} />
-          <CustomRow
-            label="رقم الدعوى"
-            value={caseItem.issueId?.toString() || ""}
-          />
-          <CustomRow label="المحكمة" value={caseItem.orgname || ""} />
-          <CustomRow label="منطوق الحكم" value={caseItem.conclusion || ""} />
-        </tbody>
-      </table>
+      <TableSection
+        title="البيانات العامة"
+        rows={[
+          { label: "رقم الطعن", value: displayValue(caseItem.rippId), white: false },
+          { label: "السنة القضائية", value: displayValue(caseItem.year) },
+          { label: "نوع الطعن", value: displayValue(caseItem.classname), white: false },
+          { label: "تاريخ التقرير", value: displayValue(caseItem.receiptdate) },
+          {
+            label: "تاريخ ورود الطعن",
+            value: displayValue(caseItem.incoming_date),
+            white: false,
+          },
+          { label: "تاريخ الحكم المطعون فيه", value: displayValue(caseItem.concluDate) },
+          { label: "البند", value: displayValue(caseItem.itemname), white: false },
+          { label: "الجزء", value: displayValue(caseItem.partNumber) },
+          {
+            label: "رقم الدعوى",
+            value: displayValue(caseItem.issueId),
+            custom: true,
+          },
+          { label: "المحكمة", value: displayValue(caseItem.orgname), custom: true },
+          {
+            label: "منطوق الحكم",
+            value: displayValue(caseItem.conclusion),
+            custom: true,
+          },
+          ...(hasValue(caseItem.notes)
+            ? [
+                {
+                  label: "ملاحظات",
+                  value: displayValue(caseItem.notes),
+                  custom: true,
+                },
+              ]
+            : []),
+        ]}
+      />
 
-      {/* Appellant - بيانات الطاعن/الطاعنين */}
-      <h5 className="text-2xl font-medium pb-5 text-right w-full mt-12">
-        بيانات الطاعن/الطاعنين
-      </h5>
-      <table className="w-full border-collapse">
-        <tbody>
-          <SimpleTableRow label="الاسم" value={caseItem.appellant || ""} />
-          <SimpleTableRow
-            label="المحامي/المحامون"
-            value={caseItem.appellant_lawyername || ""}
-          />
-        </tbody>
-      </table>
+      <TableSection
+        className="mt-12"
+        title="بيانات الطاعن/الطاعنين"
+        rows={[
+          { label: "الاسم", value: displayValue(caseItem.appellant) },
+          {
+            label: "الصفة",
+            value: displayValue(caseItem.appellant_adjective),
+            white: false,
+          },
+          {
+            label: "الجنسية",
+            value: displayValue(caseItem.appellant_nationality),
+          },
+          {
+            label: "المحامي/المحامون",
+            value: displayValue(caseItem.appellant_lawyername),
+            white: false,
+          },
+        ]}
+      />
 
-      {/* Respondent - بيانات المطعون ضده/ضدهم */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-12 dark:text-white">
-        بيانات المطعون ضده/ضدهم
-      </h5>
-      <table className="w-full border-collapse">
-        <tbody>
-          <SimpleTableRow label="الاسم" value={caseItem.ripper || ""} />
+      <TableSection
+        className="mt-12"
+        title="بيانات المطعون ضده/ضدهم"
+        rows={[
+          { label: "الاسم", value: displayValue(caseItem.ripper) },
+          {
+            label: "الصفة",
+            value: displayValue(caseItem.ripper_adjective),
+            white: false,
+          },
+          {
+            label: "الجنسية",
+            value: displayValue(caseItem.ripper_nationality),
+          },
+          {
+            label: "المحامي/المحامون",
+            value: displayValue(caseItem.ripper_lawyername),
+            white: false,
+          },
+        ]}
+      />
 
-          <SimpleTableRow
-            label="المحامي/المحامون"
-            value={caseItem.ripper_lawyername || ""}
+      {(caseItem.appeals_urgent ?? [])
+        .filter((appeal) =>
+          hasAnyValue(caseItem.classname, appeal.session_date, appeal.ruling),
+        )
+        .map((appeal, index) => (
+          <TableSection
+            key={`urgent-${index}`}
+            className="mt-12"
+            title={index === 0 ? "الشق المستعجل" : ""}
+            rows={[
+              {
+                label: "الدائرة المختصة",
+                value: displayValue(caseItem.classname),
+                white: false,
+              },
+              {
+                label: "تاريخ الجلسة",
+                value: displayValue(appeal.session_date),
+              },
+              {
+                label: "منطوق الحكم",
+                value: displayValue(appeal.ruling),
+                white: false,
+              },
+            ]}
           />
-        </tbody>
-      </table>
+        ))}
 
-      {/* Urgent Section - الشق المستعجل */}
-      {caseItem.appeals_urgent && caseItem.appeals_urgent.length > 0 && (
-        <>
-          <h5 className="text-2xl font-medium text-right pb-5 w-full mt-12 dark:text-white">
-            الشق المستعجل
-          </h5>
-          {caseItem.appeals_urgent.map((appeal, index) => (
-            <table key={index} className="w-full border-collapse">
-              <tbody>
-                <SimpleTableRow
-                  white={false}
-                  label="الدائرة المختصة"
-                  value={caseItem.classname || ""}
-                />
-                <SimpleTableRow
-                  label="تاريخ الجلسة"
-                  value={appeal.session_date || ""}
-                />
-                <SimpleTableRow
-                  white={false}
-                  label="منطوق الحكم"
-                  value={appeal.ruling || ""}
-                />
-              </tbody>
-            </table>
-          ))}
-        </>
-      )}
+      {(caseItem.appeals_review ?? [])
+        .filter((review) =>
+          hasAnyValue(caseItem.classname, review.session_date, review.ruling),
+        )
+        .map((review, index) => (
+          <TableSection
+            key={`review-${index}`}
+            className="mt-12"
+            title={index === 0 ? "فحص الطعن" : ""}
+            rows={[
+              {
+                label: "الدائرة المختصة",
+                value: displayValue(caseItem.classname),
+                white: false,
+              },
+              {
+                label: "تاريخ الجلسة",
+                value: displayValue(review.session_date),
+              },
+              {
+                label: "منطوق القرار",
+                value: displayValue(review.ruling),
+                white: false,
+              },
+            ]}
+          />
+        ))}
 
-      {/* Appeal Examination - فحص الطعن */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-12">
-        فحص الطعن
-      </h5>
-      {caseItem.appeals_review && caseItem.appeals_review.length > 0 ? (
-        <>
-          {caseItem.appeals_review.map((review, index) => (
-            <table key={index} className="w-full border-collapse">
-              <tbody>
-                <SimpleTableRow
-                  white={false}
-                  label="الدائرة المختصة"
-                  value={caseItem.classname || ""}
-                />
-                <SimpleTableRow
-                  label="تاريخ الجلسة"
-                  value={review.session_date || ""}
-                />
-                <SimpleTableRow
-                  white={false}
-                  label="منطوق القرار"
-                  value={review.ruling || ""}
-                />
-              </tbody>
-            </table>
-          ))}
-        </>
-      ) : (
-        <table className="w-full border-collapse">
-          <tbody>
-            <SimpleTableRow white={false} label="الدائرة المختصة" value="" />
-            <SimpleTableRow label="تاريخ الجلسة" value="" />
-            <SimpleTableRow white={false} label="منطوق القرار" value="" />
-          </tbody>
-        </table>
-      )}
+      <TableSection
+        className="mt-12"
+        title="نيابة النقض"
+        rows={[
+          {
+            label: "تاريخ الإحالة إلى نيابة النقض",
+            value: displayValue(niaba?.date_of_move),
+            white: false,
+          },
+          {
+            label: "تاريخ إيداع مذكرة النيابة",
+            value: displayValue(niaba?.date_of_filing),
+          },
+          {
+            label: "ملخص الرأي",
+            value: displayValue(niaba?.Summary_of_Opinion),
+            white: false,
+          },
+          {
+            label: "الرأي الختامي بالجلسة",
+            value: displayValue(niaba?.Concluding_Opinion),
+          },
+        ]}
+      />
 
-      {/* نيابة النقض */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-12 dark:text-white">
-        نيابة النقض
-      </h5>
-      <table className="w-full border-collapse">
-        <tbody>
-          <SimpleTableRow
-            white={false}
-            label="تاريخ الإحالة إلى نيابة النقض"
-            value={caseItem.niaba?.date_of_move || ""}
+      {(caseItem.appeals_sessions ?? [])
+        .filter((session) =>
+          hasAnyValue(
+            caseItem.classname,
+            session.session_date,
+            session.number_of_session,
+            session.why,
+            session.ruling,
+          ),
+        )
+        .map((session, index) => (
+          <TableSection
+            key={`session-${index}`}
+            className="mt-12"
+            title={index === 0 ? "نظر الطعن" : ""}
+            rows={[
+              {
+                label: "الدائرة المختصة",
+                value: displayValue(caseItem.classname),
+                white: false,
+              },
+              {
+                label: "تاريخ الجلسة",
+                value: displayValue(session.session_date),
+              },
+              {
+                label: "رقم الجلسة",
+                value: displayValue(session.number_of_session),
+                white: false,
+              },
+              { label: "السبب", value: displayValue(session.why) },
+              {
+                label: "منطوق القرار",
+                value: displayValue(session.ruling),
+                white: false,
+              },
+            ]}
           />
-          <SimpleTableRow
-            label="تاريخ إيداع مذكرة النيابة"
-            value={caseItem.niaba?.date_of_filing || ""}
-          />
-          <SimpleTableRow
-            white={false}
-            label="ملخص الرأي"
-            value={caseItem.niaba?.Summary_of_Opinion || ""}
-          />
-          <SimpleTableRow
-            label="الرأي الختامي بالجلسة"
-            value={caseItem.niaba?.Concluding_Opinion || ""}
-          />
-        </tbody>
-      </table>
+        ))}
 
-      {/* نظر الطعن - Appeal Sessions */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-12 dark:text-white">
-        نظر الطعن
-      </h5>
+      <TableSection
+        className="mt-12"
+        title="الحكم السابق على الفصل في الطعن"
+        rows={[
+          {
+            label: "تاريخ الجلسة",
+            value: displayValue(fj?.final_judgment),
+            white: false,
+          },
+          {
+            label: "منطوق الحكم",
+            value: displayValue(fj?.judgment_ruling),
+          },
+        ]}
+      />
 
-      {caseItem.appeals_sessions && caseItem.appeals_sessions.length > 0 ? (
-        <>
-          {caseItem.appeals_sessions.map((session, index) => (
-            <table key={index} className="w-full border-collapse mt-1">
-              <tbody>
-                <SimpleTableRow
-                  label="جلسة/جلسات المرافعة"
-                  value={session.session_date || ""}
-                />
-                <SimpleTableRow
-                  white={false}
-                  label="منطوق القرار"
-                  value={session.ruling || ""}
-                />
-              </tbody>
-            </table>
-          ))}
-        </>
-      ) : (
-        <table className="w-full border-collapse">
-          <tbody>
-            <SimpleTableRow white={false} label="الدائرة المختصة" value="" />
-            <SimpleTableRow label="جلسة/جلسات المرافعة" value="" />
-          </tbody>
-        </table>
-      )}
-
-      {/* الحكم السابق على الفصل في الطعن */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-12 dark:text-white">
-        الحكم السابق على الفصل في الطعن
-      </h5>
-      <table className="w-full border-collapse">
-        <tbody>
-          <SimpleTableRow
-            white={false}
-            label="تاريخ الجلسة"
-            value={caseItem.final_judgment?.final_judgment || ""}
-          />
-          <SimpleTableRow
-            label="منطوق الحكم"
-            value={caseItem.final_judgment?.judgment_ruling?.trim() || ""}
-          />
-        </tbody>
-      </table>
-
-      {/* الفصل في الطعن */}
-      <h5 className="text-2xl font-medium text-right pb-5 w-full mt-12 dark:text-white">
-        الفصل في الطعن
-      </h5>
-      <table className="w-full border-collapse">
-        <tbody>
-          <SimpleTableRow
-            white={false}
-            label="تاريخ الحكم"
-            value={caseItem.final_judgment?.final_judgment || ""}
-          />
-          <SimpleTableRow
-            label="منطوق الحكم"
-            value={caseItem.final_judgment?.judgment_ruling?.trim() || ""}
-          />
-          <SimpleTableRow
-            white={false}
-            label="إيداع مسودة الحكم"
-            value={caseItem.final_judgment?.draft_judgment ? "نعم" : ""}
-          />
-          <SimpleTableRow
-            label="توقيع النسخة النهائية للحكم"
-            value={caseItem.final_judgment?.final_draft_judgment ? "نعم" : ""}
-          />
-        </tbody>
-      </table>
+      <TableSection
+        className="mt-12"
+        title="الفصل في الطعن"
+        rows={[
+          {
+            label: "تاريخ الحكم",
+            value: displayValue(fj?.final_judgment),
+            white: false,
+          },
+          {
+            label: "منطوق الحكم",
+            value: displayValue(fj?.judgment_ruling),
+          },
+          {
+            label: "إيداع مسودة الحكم",
+            value: hasValue(fj?.draft_judgment)
+              ? displayValue(fj?.draft_judgment)
+              : "",
+            white: false,
+          },
+          {
+            label: "توقيع النسخة النهائية للحكم",
+            value: displayValue(fj?.final_draft_judgment),
+          },
+        ]}
+      />
     </section>
   );
 }

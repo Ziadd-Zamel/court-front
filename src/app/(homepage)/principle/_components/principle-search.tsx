@@ -12,6 +12,7 @@ import {
 import { CURRENT_YEAR, YEARS_SINCE_FOUNDING } from "@/lib/constants/app-years";
 import { SearchInput } from "../../supreme-court-library/_components/search-Input";
 import DatePicker from "@/components/common/date-picker";
+import { usePrincipleCategory } from "./principle-category-context";
 
 const formParsers = {
   exact_phrase: parseAsString,
@@ -33,6 +34,8 @@ export default function PrincipleSearch({
   disabled?: boolean;
   isLoading?: boolean;
 }) {
+  const { commitCategoriesToUrl } = usePrincipleCategory();
+
   // Single batched setter for all form-driven URL params.
   const [committed, setCommitted] = useQueryStates(formParsers);
 
@@ -67,6 +70,7 @@ export default function PrincipleSearch({
   const hasExactPhrase = !!exactPhrase;
 
   const handleSearch = () => {
+    commitCategoriesToUrl();
     setCommitted({
       exact_phrase: exactPhrase || null,
       similar_phrase: similarPhrase || null,
