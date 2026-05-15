@@ -9,16 +9,18 @@ import {
   Suspense,
   type ReactNode,
 } from "react";
-import { useSearchParams } from "next/navigation";
+import { parseAsString, useQueryStates } from "nuqs";
 
-/** Search param keys to use for highlighting (e.g. ?search=foo&time=bar) */
-const HIGHLIGHT_PARAM_KEYS = ["search", "time", "similar_phrase"] as const;
+import { principleSearchParsers } from "@/hooks/use-principle-search";
 
-/** Params whose value is multiple words separated by space - each word is highlighted separately (principle page) */
-const MULTI_WORD_PARAM_KEYS = ["include_terms", "any_terms"] as const;
+/** Params used on library / other pages (not principle search form). */
+const legacyHighlightParsers = {
+  search: parseAsString,
+  time: parseAsString,
+};
 
 type SearchHighlightContextValue = {
-  /** Terms to highlight, from URL search params. Empty array when none. */
+  /** Terms to highlight, derived from current URL via nuqs (same source as search). */
   highlightTerms: string[];
 };
 
@@ -26,34 +28,58 @@ const SearchHighlightContext = createContext<SearchHighlightContextValue>({
   highlightTerms: [],
 });
 
-function extractTerms(searchParams: URLSearchParams): string[] {
+function splitMultiWordParam(value: string | null | undefined): string[] {
+  if (!value?.trim()) return [];
+  return value
+    .split(/\s+/)
+    .map((w) => w.trim())
+    .filter(Boolean);
+}
+
+function buildHighlightTerms(
+  p: {
+    exact_phrase: string | null;
+    similar_phrase: string | null;
+    include_terms: string | null;
+    any_terms: string | null;
+  },
+  legacy: { search: string | null; time: string | null },
+): string[] {
   const terms: string[] = [];
-  for (const key of HIGHLIGHT_PARAM_KEYS) {
-    const value = searchParams.get(key);
-    if (value?.trim()) terms.push(value.trim());
-  }
-  for (const key of MULTI_WORD_PARAM_KEYS) {
-    const value = searchParams.get(key);
-    if (value?.trim()) {
-      terms.push(
-        ...value.split(/\s+/).map((w) => w.trim()).filter(Boolean)
-      );
-    }
-  }
+  if (legacy.search?.trim()) terms.push(legacy.search.trim());
+  if (legacy.time?.trim()) terms.push(legacy.time.trim());
+  if (p.exact_phrase?.trim()) terms.push(p.exact_phrase.trim());
+  if (p.similar_phrase?.trim()) terms.push(p.similar_phrase.trim());
+  terms.push(...splitMultiWordParam(p.include_terms));
+  terms.push(...splitMultiWordParam(p.any_terms));
   return terms;
 }
 
-/** Inner component that uses useSearchParams - must be inside Suspense */
+/** Reads highlight terms from URL using nuqs so updates stay in sync (e.g. principle ?include_terms=). */
 function SearchHighlightParamsReader({
   onTerms,
 }: {
   onTerms: (terms: string[]) => void;
 }) {
-  const searchParams = useSearchParams();
-  const terms = useMemo(() => extractTerms(searchParams), [searchParams]);
+  const [principleUrl] = useQueryStates(principleSearchParsers);
+  const [legacyUrl] = useQueryStates(legacyHighlightParsers);
+
+  const terms = useMemo(
+    () => buildHighlightTerms(principleUrl, legacyUrl),
+    [
+      principleUrl.exact_phrase,
+      principleUrl.similar_phrase,
+      principleUrl.include_terms,
+      principleUrl.any_terms,
+      legacyUrl.search,
+      legacyUrl.time,
+    ],
+  );
+
   useEffect(() => {
     onTerms(terms);
   }, [terms, onTerms]);
+
   return null;
 }
 
