@@ -1,6 +1,10 @@
 "use client";
+
 import { PaginationComponent } from "@/components/ui/pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useQueryStates } from "nuqs";
+
+import { principlePaginationParsers } from "@/hooks/use-principle-search";
 
 type Props = {
   pagination: {
@@ -8,25 +12,42 @@ type Props = {
     limit: number;
   };
   totalPages: number;
+  /** Principle page: update URL via nuqs without router.push */
+  shallowUpdate?: boolean;
 };
 
-export default function CourtPagination({ pagination, totalPages }: Props) {
+export default function CourtPagination({
+  pagination,
+  totalPages,
+  shallowUpdate = false,
+}: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [, setPagination] = useQueryStates(principlePaginationParsers, {
+    shallow: true,
+    history: "push",
+  });
 
   const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", newPage.toString());
-    params.set("limit", pagination.limit.toString());
+    if (shallowUpdate) {
+      void setPagination({
+        page: String(newPage),
+        limit: String(pagination.limit),
+      });
+    } else {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", newPage.toString());
+      params.set("limit", pagination.limit.toString());
+      router.push(`${pathname}?${params.toString()}`);
+    }
 
-    router.push(`${pathname}?${params.toString()}`);
-
-    // Smooth scroll to top
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    if (!shallowUpdate) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (

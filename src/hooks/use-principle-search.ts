@@ -66,6 +66,11 @@ export function hasAnyPrincipleSearchInput(params: PrincipleSearchParams) {
 
 const rulingTypeUrlParser = parseAsArrayOf(parseAsString).withDefault([]);
 
+export const principlePaginationParsers = {
+  page: parseAsString.withDefault("1"),
+  limit: parseAsString.withDefault("15"),
+};
+
 export const principleSearchQueryKey = (params: PrincipleSearchParams) =>
   ["principle-advanced-search", params] as const;
 
@@ -108,13 +113,18 @@ type UsePrincipleSearchOptions = {
  * re-runs when the search button commits form fields and categories.
  */
 export function usePrincipleSearch({
-  pagination,
   rulingTypeUuids: rulingTypeUuidsFallback,
 }: UsePrincipleSearchOptions) {
   const [urlValues] = useQueryStates(principleSearchParsers);
+  const [{ page: pageParam, limit: limitParam }] = useQueryStates(
+    principlePaginationParsers,
+  );
   const [{ ruling_type_uuid: rulingTypesFromUrl }] = useQueryStates({
     ruling_type_uuid: rulingTypeUrlParser,
   });
+
+  const page = Math.max(1, Number(pageParam) || 1);
+  const perPage = Math.max(1, Math.min(50, Number(limitParam) || 15));
 
   const rulingTypeKey = (
     rulingTypesFromUrl.length > 0
@@ -124,8 +134,8 @@ export function usePrincipleSearch({
 
   const params = useMemo<PrincipleSearchParams>(
     () => ({
-      page: pagination.currentPage,
-      per_page: pagination.limit,
+      page,
+      per_page: perPage,
       principle_type_uuids: rulingTypeKey || undefined,
       exact_phrase: urlValues.exact_phrase ?? undefined,
       similar_phrase: urlValues.similar_phrase ?? undefined,
@@ -141,7 +151,7 @@ export function usePrincipleSearch({
       strict_ya: urlValues.strict_ya ?? undefined,
       strict_ta: urlValues.strict_ta ?? undefined,
     }),
-    [urlValues, pagination.currentPage, pagination.limit, rulingTypeKey],
+    [urlValues, page, perPage, rulingTypeKey],
   );
 
   const enabled = hasAnyPrincipleSearchInput(params);

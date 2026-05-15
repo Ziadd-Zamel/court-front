@@ -103,7 +103,7 @@ export default function PrincipleSearch({
         {/* ROW 1 - Include Terms & Exclude Terms */}
         <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
           <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
-            بكلمة أو أكثر:
+            بكلمة مطابقة أو أكثر:
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

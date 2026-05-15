@@ -21,10 +21,15 @@ export default function PrinciplesContent({
   rulingTypeUuids,
   pagination,
 }: Props) {
-  const { data, isError, isFetching, enabled } = usePrincipleSearch({
+  const { data, isError, isFetching, enabled, params } = usePrincipleSearch({
     pagination,
     rulingTypeUuids,
   });
+
+  const clientPagination = {
+    currentPage: params.page,
+    limit: params.per_page,
+  };
   const wasFetchingRef = useRef(false);
 
   useEffect(() => {
@@ -107,7 +112,7 @@ export default function PrinciplesContent({
         <PrincipleList
           articles={data.data}
           title="المقالات"
-          pagination={pagination}
+          pagination={clientPagination}
           totalItems={data.meta.total}
           totalPages={data.meta.last_page}
         />

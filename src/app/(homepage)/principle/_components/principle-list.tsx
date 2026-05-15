@@ -37,7 +37,11 @@ export default function PrincipleList({
       </Accordion>
 
       {totalPages > 1 && (
-        <CourtPagination pagination={pagination} totalPages={totalPages} />
+        <CourtPagination
+          pagination={pagination}
+          totalPages={totalPages}
+          shallowUpdate
+        />
       )}
     </section>
   );
