@@ -11,7 +11,7 @@ export default function FooterContent() {
         <FootrLogo />
       </div>
 
-      <div className="grid grid-cols-12 gap-4 md:gap-8 lg:gap-16 box-container">
+      <div className="grid grid-cols-12 gap-4 md:gap-8 lg:gap-16 box-container pb-5">
         <div className="col-span-12 md:col-span-6 lg:col-span-4 w-full">
           <FirstSectoin />
         </div>
@@ -23,7 +23,7 @@ export default function FooterContent() {
         </div>
       </div>
 
-      <div className="mt-[50px] justify-self-start bg-black py-5">
+      <div className="mt-auto justify-self-start bg-black py-5">
         <div
           style={{ direction: "rtl" }}
           className="text-center font-zain text-[14px] font-[300] text-white"

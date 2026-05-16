@@ -28,7 +28,7 @@ export default async function PendingPublicationsContent({
   return (
     <>
       <div className="flex w-full justify-center lg:justify-start mt-10">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 min-[1150px]:grid-cols-4! min-[1300px]:grid-cols-5! gap-y-16 lg:mt-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 min-[1150px]:grid-cols-4! min-[1300px]:grid-cols-5! min-[1500px]:grid-cols-6! min-[1700px]:grid-cols-7! gap-y-16 lg:mt-10">
           {data.data.map((book) => (
             <PendingBookCard key={book.uuid} book={book} />
           ))}

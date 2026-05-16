@@ -148,7 +148,7 @@
   @apply flex justify-center items-center;
 }
 @utility box-container {
-  @apply mx-auto w-full min-[1700px]:max-w-[85%] px-5 md:px-10 lg:px-16;
+  @apply mx-auto w-full min-[1700px]:max-w-[85%] min-[1700px]:max-w-[95%] px-5 md:px-10 lg:px-16;
 }
 @utility main-tab {
   @apply bg-white text-gray-800 hover:bg-main/10 hover:text-main data-[state=active]:bg-main data-[state=active]:text-white data-[state=active]:hover:bg-main data-[state=active]:hover:text-white dark:bg-white/5 dark:text-white dark:border-white/10 dark:hover:bg-main/10 dark:hover:text-main dark:data-[state=active]:bg-main dark:data-[state=active]:text-white dark:data-[state=active]:hover:bg-main dark:data-[state=active]:hover:text-white transition duration-300 rounded-none cursor-pointer text-base font-normal w-full py-3 border border-gray-300 shadow-none flex items-center justify-between;

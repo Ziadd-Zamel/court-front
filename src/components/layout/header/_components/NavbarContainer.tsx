@@ -20,7 +20,7 @@ export default function NavbarContainer({
   return (
     <motion.nav
       className={cn(
-        "fixed right-0 box-container !max-w-full top-0 z-50 flex w-full items-center justify-between  py-1 transition-colors duration-300",
+        "fixed right-0  top-0 z-50 w-full  py-1 transition-colors duration-300",
         isScrolled && visible
           ? "border-b-2 border-[#e6c599] bg-black/70 py-px"
           : shouldUseDarkBackground
@@ -35,7 +35,9 @@ export default function NavbarContainer({
       }}
       transition={{ duration: 0.3 }}
     >
-      {children}
+      <div className="box-container flex w-full items-center justify-between ">
+        {children}
+      </div>
     </motion.nav>
   );
 }
