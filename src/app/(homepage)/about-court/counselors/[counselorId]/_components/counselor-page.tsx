@@ -45,7 +45,16 @@ export default async function CounselorPage({
             {!counselor.rulings || counselor.rulings.length === 0 ? (
               <NoDataState />
             ) : (
-              <Accordion type="single"></Accordion>
+              <Accordion type="single">
+                {counselor.rulings.map((ruling, index) => (
+                  <ArticleCard
+                    index={index}
+                    key={ruling.uuid}
+                    article={ruling}
+                    from={`/about-court/counselors/${counselorId}`}
+                  />
+                ))}
+              </Accordion>
             )}
           </div>
         </div>
