@@ -24,7 +24,14 @@ export const getAllCounselors = async (
   return payload;
 };
 
-export const getCounselorByID = async (CounselorId: string) => {
+type Response = Counselor & {
+  rulings_count: number;
+  rulings: Article[];
+};
+
+export const getCounselorByID = async (
+  CounselorId: string,
+): Promise<APIResponse<Response>> => {
   const url = `${process.env.API}counselors/${CounselorId}`;
 
   const response = await fetch(url, {
@@ -35,6 +42,7 @@ export const getCounselorByID = async (CounselorId: string) => {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  const payload: APIResponse<Counselor> = await response.json();
+  const payload: APIResponse<Response> = await response.json();
+
   return payload;
 };
