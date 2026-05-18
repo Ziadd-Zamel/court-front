@@ -12,7 +12,6 @@ import { DownloadButton } from "@/components/common/download-button";
 
 export default async function LegalCasePage({
   id,
-  search,
   from,
 }: {
   id: string;

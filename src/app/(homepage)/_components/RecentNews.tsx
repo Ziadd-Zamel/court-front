@@ -44,7 +44,7 @@ function mapArticleToItem(a: NewsArticle): NewsCarouselItem {
   const month = ARABIC_MONTHS[d.getMonth()] ?? "ديسمبر";
   return {
     uuid: a.uuid,
-    title: a.category,
+    title: a.source,
     text: a.title,
     desc: a.content_html || a.content_text || "",
     day,
@@ -68,20 +68,21 @@ const RecentNews = ({ articles = [] }: { articles?: NewsArticle[] }) => {
   };
 
   if (itemsByPage.length === 0) return null;
-
+  console.log(articles);
   return (
     <section className="py-16 bg-main/10 dark:bg-[#1a1a1a]">
       <AnimatedSectionHeader
         title="أنشطة المحكمة العليا"
         textClassName="text-foreground"
       />
-      <div className="mt-7 flex flex-col items-center justify-center lg:flex-row box-container ">
+      <div className="mt-7 flex flex-col items-center justify-center lg:flex-row box-container gap-4 ">
         <div className="flex w-full flex-col items-start text-right lg:w-[50%]">
-          <div className="flex w-full text-right">
+          <div className="flex w-full text-right  max-w-xl">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
+              className="w-full"
             >
               <StaggeredNavigationCarousel
                 testimonials={itemsByPage}

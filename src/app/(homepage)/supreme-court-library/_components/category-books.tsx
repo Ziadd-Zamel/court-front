@@ -13,7 +13,11 @@ type Props = {
   };
   search?: string;
 };
-export default async function CategoryBooks({ categoryUuid, pagination, search }: Props) {
+export default async function CategoryBooks({
+  categoryUuid,
+  pagination,
+  search,
+}: Props) {
   const [data, error] = await catchError(() =>
     getBooksByCategory(pagination.currentPage, 40, categoryUuid, search),
   );
@@ -29,15 +33,17 @@ export default async function CategoryBooks({ categoryUuid, pagination, search }
   return (
     <>
       <div className="flex w-full justify-center lg:justify-start mt-10">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 min-[1150px]:grid-cols-4! min-[1300px]:grid-cols-5! gap-y-16 lg:mt-10">
-          {data?.data.map((book, index) => (
-            <BookCard
-              type={"book"}
-              key={book.uuid}
-              book={book}
-              issueNumber={index + 1}
-            />
-          ))}
+        <div className="flex justify-center w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 min-[1150px]:grid-cols-4! min-[1300px]:grid-cols-5! min-[1700px]:grid-cols-6! gap-y-16 lg:mt-10">
+            {data?.data.map((book, index) => (
+              <BookCard
+                type={"book"}
+                key={book.uuid}
+                book={book}
+                issueNumber={index + 1}
+              />
+            ))}
+          </div>
         </div>
       </div>
       {data.data.length >= 20 && (

@@ -25,7 +25,7 @@ export default function SecondaryHeading({
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-1/2 lg:w-1/4 ps-5 lg:ps-13"
+          className="w-1/2 lg:w-1/4 ps-5 lg:ps-13 xl:ps-20 2xl:ps-32 min-[1700px]:!ps-40"
         >
           <h2 className="font-bold text-white md:whitespace-nowrap text-sm sm:text-2xl lg:text-3xl">
             {title}
@@ -33,7 +33,7 @@ export default function SecondaryHeading({
         </motion.div>
 
         {/*Second Part */}
-        <div className="w-1/2 lg:w-1/2 flex justify-start pr-10 lg:pr-54">
+        <div className="w-1/2 lg:w-1/2 flex justify-start pr-10 lg:pr-54 xl:pr-60 2xl:pr-80">
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}

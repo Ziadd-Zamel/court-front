@@ -44,7 +44,7 @@ export const metadata = {
   description: "الموقع الرسمي للمحكمة العليا الليبية",
   keywords: "ليبيا, المحكمة العليا, القضاء, قانون",
   charset: "utf-8",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/faviconss.ico" },
   openGraph: {
     title: "المحكمة العليا الليبية",
     description: "الموقع الرسمي للمحكمة العليا الليبية",

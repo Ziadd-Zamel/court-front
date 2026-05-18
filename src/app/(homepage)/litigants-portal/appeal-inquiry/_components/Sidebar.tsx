@@ -30,17 +30,17 @@ function buildProgressFromCase(caseItem: CaseDataType | undefined) {
       color: STAGE_COLORS[0],
     },
     {
-      stage: "فحص الطعن",
-      progress: clampPercent(caseItem.appeals_review?.[0]?.percentage),
-      color: STAGE_COLORS[1],
-    },
-    {
       stage: "رأي نيابة النقض",
       progress: avgPercent(
         caseItem.niaba?.date_of_move_percentage,
         caseItem.niaba?.date_of_filing_percentage,
       ),
       color: STAGE_COLORS[2],
+    },
+    {
+      stage: "فحص الطعن",
+      progress: clampPercent(caseItem.appeals_review?.[0]?.percentage),
+      color: STAGE_COLORS[1],
     },
     {
       stage: "نظر الطعن",
