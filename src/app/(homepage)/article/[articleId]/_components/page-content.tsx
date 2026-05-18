@@ -148,81 +148,83 @@ export default function PageContent({ article }: { article: Article }) {
   }
   return (
     <section className="pt-20 w-full lg:w-3/4 md:px-10 px-5 lg:px-13! pb-40 dark:bg-[#121212]">
-      <div className="flex flex-col items-start">
-        <h3 className="text-xl font-semibold md:text-md lg:text-2xl mb-5 flex items-center gap-1 text-gray-900 dark:text-white">
-          <div className="flex items-center flex-row-reverse gap-1">
-            <span>
-              <HighlightedText text={String(article.principle_year)} />
-            </span>
-            <span className="-mx-1">/</span>
-            <span>
-              <HighlightedText text={String(article.principle_number)} />
-            </span>
-          </div>
-          <span className="font-semibold text-xl">
-            <HighlightedText text={article.principle_type} />
-          </span>
-          {article.paper_classification ? (
-            <p className="text-base">{article.paper_classification}</p>
-          ) : (
-            <div className="flex items-center text-sm">
-              (
+      <div className=" max-w-5xl mx-auto">
+        <div className="flex flex-col items-start">
+          <h3 className="text-xl font-semibold md:text-md lg:text-2xl mb-5 flex items-center gap-1 text-gray-900 dark:text-white">
+            <div className="flex items-center flex-row-reverse gap-1">
               <span>
-                <HighlightedText text={article.ruling_type} />
+                <HighlightedText text={String(article.principle_year)} />
               </span>
-              <div className="flex items-center ms-1">
-                <span>
-                  <HighlightedText text={String(article.number)} />
-                </span>
-                <span className="">/</span>
-                <span className="">
-                  <HighlightedText text={String(article.judicial_year)} />
-                </span>
-                <span>
-                  <HighlightedText text={article.sign} />
-                </span>
-                )
-              </div>
+              <span className="-mx-1">/</span>
+              <span>
+                <HighlightedText text={String(article.principle_number)} />
+              </span>
             </div>
-          )}
-        </h3>
-        <h4 className="text-right text-sm font-bold sm:text-xl flex items-center gap-2 text-gray-900 dark:text-white">
-          <HighlightedText text={article.title} />
-        </h4>
-        <div className="mt-5 flex items-center justify-end gap-5">
-          <div className="font-semibold text-main text-sm">
-            <HighlightedText text={formatDate(article.publish_date)} />
-          </div>
-          <div className="text-right text-sm font-semibold text-main">
-            <HighlightedText text={article.author} />
+            <span className="font-semibold text-xl">
+              <HighlightedText text={article.principle_type} />
+            </span>
+            {article.paper_classification ? (
+              <p className="text-base">{article.paper_classification}</p>
+            ) : (
+              <div className="flex items-center text-sm">
+                (
+                <span>
+                  <HighlightedText text={article.ruling_type} />
+                </span>
+                <div className="flex items-center ms-1">
+                  <span>
+                    <HighlightedText text={String(article.number)} />
+                  </span>
+                  <span className="">/</span>
+                  <span className="">
+                    <HighlightedText text={String(article.judicial_year)} />
+                  </span>
+                  <span>
+                    <HighlightedText text={article.sign} />
+                  </span>
+                  )
+                </div>
+              </div>
+            )}
+          </h3>
+          <h4 className="text-right text-sm font-bold sm:text-xl flex items-center gap-2 text-gray-900 dark:text-white">
+            <HighlightedText text={article.title} />
+          </h4>
+          <div className="mt-5 flex items-center justify-end gap-5">
+            <div className="font-semibold text-main text-sm">
+              <HighlightedText text={formatDate(article.publish_date)} />
+            </div>
+            <div className="text-right text-sm font-semibold text-main">
+              <HighlightedText text={article.author} />
+            </div>
           </div>
         </div>
+
+        {article.audio_file && (
+          <div className="mt-6 flex justify-center">
+            <CustomAudioPlayer
+              audioUrl={article.audio_file}
+              className="max-w-xl"
+            />
+          </div>
+        )}
+
+        {/* Article brief */}
+        <HighlightedHtml
+          html={article.brief_html}
+          className="text-gray-500 dark:text-white/70 leading-relaxed text-sm text-justify font-normal mt-16 mb-6"
+          style={{ direction: "rtl" }}
+        />
+
+        <hr className=" border-main" />
+
+        <SecondaryTabs
+          tabs={contentTabs}
+          defaultValue={contentTabs[0]?.value || ""}
+          className="w-full flex justify-center items-center mt-16 "
+          tabListClassName="mb-7 max-w-none flex-wrap"
+        />
       </div>
-
-      {article.audio_file && (
-        <div className="mt-6 flex justify-center">
-          <CustomAudioPlayer
-            audioUrl={article.audio_file}
-            className="max-w-xl"
-          />
-        </div>
-      )}
-
-      {/* Article brief */}
-      <HighlightedHtml
-        html={article.brief_html}
-        className="text-gray-500 dark:text-white/70 leading-relaxed text-sm text-justify font-normal mt-16 mb-6"
-        style={{ direction: "rtl" }}
-      />
-
-      <hr className=" border-main" />
-
-      <SecondaryTabs
-        tabs={contentTabs}
-        defaultValue={contentTabs[0]?.value || ""}
-        className="w-full flex justify-center items-center mt-16 "
-        tabListClassName="mb-7 max-w-none flex-wrap"
-      />
     </section>
   );
 }

@@ -74,16 +74,18 @@ export default async function SearchContent({
     : null;
 
   const bookGrid = (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 min-[1150px]:grid-cols-4! min-[1300px]:grid-cols-5! min-[1500px]:grid-cols-6! min-[1700px]:grid-cols-7! gap-y-16 lg:mt-10">
-      {books.map((book, index) => (
-        <BookCard
-          type="book"
-          key={book.uuid}
-          book={book}
-          issueNumber={index + 1}
-          openInNewTab
-        />
-      ))}
+    <div className="flex justify-center w-full">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 min-[1150px]:grid-cols-4! min-[1300px]:grid-cols-5! min-[1700px]:grid-cols-6! gap-y-16 lg:mt-10">
+        {books.map((book, index) => (
+          <BookCard
+            type="book"
+            key={book.uuid}
+            book={book}
+            issueNumber={index + 1}
+            openInNewTab
+          />
+        ))}
+      </div>
     </div>
   );
 
@@ -103,7 +105,7 @@ export default async function SearchContent({
                 >
                   {authorName}
                 </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 min-[1150px]:grid-cols-4! min-[1300px]:grid-cols-5! min-[1500px]:grid-cols-6! min-[1700px]:grid-cols-7! gap-y-16 lg:mt-10">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 min-[1150px]:grid-cols-4! min-[1300px]:grid-cols-5! min-[1700px]:grid-cols-6! gap-y-16 lg:mt-10">
                   {authorBooks.map((book, index) => (
                     <BookCard
                       type="book"

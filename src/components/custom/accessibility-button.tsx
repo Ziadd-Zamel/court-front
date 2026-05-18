@@ -18,7 +18,7 @@ export default function AccessibilityButton({
   const [isReadingMaskActive, setIsReadingMaskActive] = useState(false);
   const readingMaskHeight = 80; // Fixed height in px
   const [baseFontSizes, setBaseFontSizes] = useState<Map<Element, number>>(
-    new Map()
+    new Map(),
   );
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
@@ -459,7 +459,10 @@ export default function AccessibilityButton({
       >
         {/* Icon */}
         <div className="relative z-10">
-          <Settings className="h-4 w-4 transition-transform duration-200 group-hover:rotate-90" strokeWidth={2.25} />
+          <Settings
+            className="h-4 w-4 transition-transform duration-200 group-hover:rotate-90"
+            strokeWidth={2.25}
+          />
         </div>
       </button>
 
@@ -515,7 +518,7 @@ export default function AccessibilityButton({
                     "flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 shadow-sm border hover:scale-105",
                     isDarkTheme
                       ? "bg-slate-800 text-yellow-400 border-slate-700 hover:bg-slate-700 hover:border-yellow-300"
-                      : "bg-white text-slate-700 border-slate-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300"
+                      : "bg-white text-slate-700 border-slate-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300",
                   )}
                   aria-label={
                     isDarkTheme
@@ -539,7 +542,7 @@ export default function AccessibilityButton({
                 "w-full py-2 px-2 rounded-xl text-sm font-semibold transition-all duration-200 border-2 shadow-sm",
                 isReadingMaskActive
                   ? "bg-green-100 text-green-800 border-green-300 hover:bg-green-200 hover:border-green-400"
-                  : "bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200 hover:border-slate-400"
+                  : "bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200 hover:border-slate-400",
               )}
             >
               القناع

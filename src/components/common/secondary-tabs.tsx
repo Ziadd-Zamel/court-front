@@ -37,7 +37,7 @@ export default function SecondaryTabs({
       className={`w-full ${className} pt-4`}
     >
       <div
-        className={`flex items-center justify-start 2xl:justify-center w-full ${tabListClassName}`}
+        className={`flex items-center justify-start min-[1700px]:justify-center w-full ${tabListClassName}`}
       >
         <div
           className={`max-w-[880px] w-full overflow-x-auto scrollbar-tabs pb-1 ${maxwidth}`}
