@@ -259,7 +259,6 @@ export default function AccessibilityButton({
        border-bottom: 4px solid #D4AF37;
        pointer-events: none;
        z-index: 9998;
-       transition: top 0.1s ease;
        box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
      `;
 
@@ -292,38 +291,29 @@ export default function AccessibilityButton({
     document.body.appendChild(overlay);
     document.body.appendChild(mask);
 
+    const setMaskPosition = (topPx: number) => {
+      const finalTop = Math.max(0, topPx);
+      mask.style.top = `${finalTop}px`;
+      overlay.style.setProperty("--mask-top", `${finalTop}px`);
+    };
+
     // Add scroll event listener to move mask with scroll
     const handleScroll = () => {
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
       const maskTop =
         scrollTop + window.innerHeight / 2 - readingMaskHeight / 2;
-      const finalTop = Math.max(0, maskTop);
-      mask.style.top = `${finalTop}px`;
-
-      // Update overlay clip-path to create hole for reading mask
-      const overlay = document.getElementById("reading-mask-overlay");
-      if (overlay) {
-        overlay.style.setProperty("--mask-top", `${finalTop}px`);
-      }
+      setMaskPosition(maskTop);
     };
 
     // Add mouse move event listener for manual control
     const handleMouseMove = (e: MouseEvent) => {
-      const maskTop = e.clientY - readingMaskHeight / 2;
-      const finalTop = Math.max(0, maskTop);
-      mask.style.top = `${finalTop}px`;
-
-      // Update overlay clip-path to create hole for reading mask
-      const overlay = document.getElementById("reading-mask-overlay");
-      if (overlay) {
-        overlay.style.setProperty("--mask-top", `${finalTop}px`);
-      }
+      setMaskPosition(e.clientY - readingMaskHeight / 2);
     };
 
     // Add keyboard navigation
     const handleKeyDown = (e: KeyboardEvent) => {
-      const currentTop = parseInt(mask.style.top) || 0;
+      const currentTop = parseInt(mask.style.top, 10) || 0;
       let newTop = currentTop;
 
       switch (e.key) {
@@ -341,19 +331,14 @@ export default function AccessibilityButton({
           break;
         case "End":
           e.preventDefault();
-          const maxTop =
-            document.documentElement.scrollHeight - readingMaskHeight;
-          newTop = Math.max(0, maxTop);
+          newTop = Math.max(
+            0,
+            document.documentElement.scrollHeight - readingMaskHeight,
+          );
           break;
       }
 
-      mask.style.top = `${newTop}px`;
-
-      // Update overlay clip-path to create hole for reading mask
-      const overlay = document.getElementById("reading-mask-overlay");
-      if (overlay) {
-        overlay.style.setProperty("--mask-top", `${newTop}px`);
-      }
+      setMaskPosition(newTop);
     };
 
     // Store event listeners for cleanup
