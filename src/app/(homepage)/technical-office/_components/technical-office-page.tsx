@@ -4,6 +4,7 @@ import ArticlePage from "@/components/custom/article-page";
 import CourtPublications from "@/components/custom/court-publications";
 import PrintingPublishingService from "@/components/custom/printing-publishing-service";
 import { getTechnicalOfficeSub } from "@/lib/api/subcategories";
+import { SearchParamsRecord } from "@/lib/utils/tab-pagination";
 import { Suspense } from "react";
 
 type Props = {
@@ -11,11 +12,13 @@ type Props = {
     currentPage: number;
     limit: number;
   };
+  searchParams: SearchParamsRecord;
   search?: string;
 };
 
 export default async function TechnicalOfficePage({
   pagination,
+  searchParams,
   search,
 }: Props) {
   const data = await getTechnicalOfficeSub();
@@ -27,7 +30,7 @@ export default async function TechnicalOfficePage({
       label: "إصدارات المحكمة",
       value: "court-publications",
       heading: "إصدارات المحكمة",
-      component: <CourtPublications pagination={pagination} search={search} />,
+      component: <CourtPublications searchParams={searchParams} search={search} />,
     },
     {
       label: "خدمة الطباعة والنشر",

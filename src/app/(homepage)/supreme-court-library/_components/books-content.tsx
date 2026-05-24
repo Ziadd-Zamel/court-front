@@ -3,19 +3,19 @@ import ErrorState from "@/components/custom/error-state";
 import NoDataState from "@/components/custom/no-data-state";
 import { TabItem } from "@/components/common/reusable-tabs";
 import catchError from "@/lib/utils/catch-error";
+import {
+  parseTabPagination,
+  SearchParamsRecord,
+} from "@/lib/utils/tab-pagination";
 import CategoryBooks from "./category-books";
 import SecondaryTabs from "@/components/common/secondary-tabs";
 
 type Props = {
-  pagination: {
-    currentPage: number;
-    limit: number;
-  };
+  searchParams: SearchParamsRecord;
   search?: string;
 };
 
-export default async function BooksContent({ pagination, search }: Props) {
-  // Fetch categories
+export default async function BooksContent({ searchParams, search }: Props) {
   const [categoriesData, categoriesError] = await catchError(() =>
     getBookCategories(),
   );
@@ -28,12 +28,16 @@ export default async function BooksContent({ pagination, search }: Props) {
     return <NoDataState />;
   }
 
-  // Map categories to tabs
   const categoryTabs: TabItem[] = categoriesData.data.map((category) => ({
     label: category.name,
     value: category.uuid,
     component: (
-      <CategoryBooks categoryUuid={category.uuid} pagination={pagination} search={search} />
+      <CategoryBooks
+        categoryUuid={category.uuid}
+        pageKey={category.uuid}
+        pagination={parseTabPagination(searchParams, category.uuid, 40)}
+        search={search}
+      />
     ),
   }));
 

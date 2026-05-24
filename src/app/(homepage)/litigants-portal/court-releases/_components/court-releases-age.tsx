@@ -2,14 +2,17 @@ import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
 import AvailablePublications from "./available-publications";
 import PrintingPublishingService from "@/components/custom/printing-publishing-service";
 import CourtPublications from "@/components/custom/court-publications";
+import { SearchParamsRecord } from "@/lib/utils/tab-pagination";
+
 type Props = {
   pagination: {
     currentPage: number;
     limit: number;
   };
+  searchParams: SearchParamsRecord;
 };
 
-export default function CourtReleasesPage({ pagination }: Props) {
+export default function CourtReleasesPage({ pagination, searchParams }: Props) {
   // Tabs data configuration
   const courtReleaseTabs: TabItem[] = [
     {
@@ -21,7 +24,7 @@ export default function CourtReleasesPage({ pagination }: Props) {
       label: "إصدارات المحكمة",
       value: "court-publications",
       heading: "إصدارات المحكمة",
-      component: <CourtPublications pagination={pagination} />,
+      component: <CourtPublications searchParams={searchParams} />,
     },
 
     {

@@ -1,4 +1,4 @@
-import { NuqsAdapter } from "nuqs/adapters/react";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import ReactQueryProvider from "./components/react-query.provider";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "sonner";

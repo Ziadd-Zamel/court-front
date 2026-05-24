@@ -1,21 +1,22 @@
 import SecondaryTabs from "@/components/common/secondary-tabs";
 import catchError from "@/lib/utils/catch-error";
+import {
+  parseTabPagination,
+  SearchParamsRecord,
+} from "@/lib/utils/tab-pagination";
 import ErrorState from "./error-state";
 import NoDataState from "./no-data-state";
 import { TabItem } from "../common/reusable-tabs";
 import PublicationsContent from "./publications-content";
 import PendingPublicationsContent from "./pending-publications-content";
 import { getPublicationCategories } from "@/lib/api/publication.api";
+
 type Props = {
-  pagination: {
-    currentPage: number;
-    limit: number;
-  };
+  searchParams: SearchParamsRecord;
   search?: string;
 };
 
-export default async function CourtPublications({ pagination, search }: Props) {
-  // Fetch categories
+export default async function CourtPublications({ searchParams, search }: Props) {
   const [categoriesData, categoriesError] = await catchError(() =>
     getPublicationCategories(),
   );
@@ -28,7 +29,6 @@ export default async function CourtPublications({ pagination, search }: Props) {
     return <NoDataState />;
   }
 
-  // Map categories to tabs
   const categoryTabs: TabItem[] = categoriesData.data
     .reverse()
     .map((category) => ({
@@ -37,7 +37,8 @@ export default async function CourtPublications({ pagination, search }: Props) {
       component: (
         <PublicationsContent
           categoryUuid={category.uuid}
-          pagination={pagination}
+          pageKey={category.uuid}
+          pagination={parseTabPagination(searchParams, category.uuid, 40)}
           search={search}
         />
       ),
@@ -47,13 +48,18 @@ export default async function CourtPublications({ pagination, search }: Props) {
     label: "إصدارات قيد الطباعة",
     value: "pending-publications",
     component: (
-      <PendingPublicationsContent pagination={pagination} search={search} />
+      <PendingPublicationsContent
+        pageKey="pending-publications"
+        pagination={parseTabPagination(searchParams, "pending-publications", 40)}
+        search={search}
+      />
     ),
   };
 
-  const allTabs = [...categoryTabs, pendingTab];
-
   return (
-    <SecondaryTabs tabs={allTabs} defaultValue={categoriesData.data[0].uuid} />
+    <SecondaryTabs
+      tabs={[...categoryTabs, pendingTab]}
+      defaultValue={categoriesData.data[0].uuid}
+    />
   );
 }

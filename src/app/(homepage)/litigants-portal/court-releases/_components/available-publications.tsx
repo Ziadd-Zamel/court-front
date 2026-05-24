@@ -47,7 +47,7 @@ export default async function AvailablePublications({ pagination }: Props) {
         </div>
       </div>
 
-      {data.data.length >= 20 && (
+      {data.meta.last_page > 1 && (
         <div className="flex justify-center mt-8">
           <CourtPagination
             pagination={pagination}

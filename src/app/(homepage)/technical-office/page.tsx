@@ -38,6 +38,7 @@ export default async function Page({
           currentPage: mainPage,
           limit: mainLimit,
         }}
+        searchParams={resolvedSearchParams}
         search={resolvedSearchParams.search}
       />
     </>

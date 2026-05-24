@@ -7,6 +7,7 @@ import catchError from "@/lib/utils/catch-error";
 
 type Props = {
   categoryUuid: string;
+  pageKey: string;
   pagination: {
     currentPage: number;
     limit: number;
@@ -15,6 +16,7 @@ type Props = {
 };
 export default async function CategoryBooks({
   categoryUuid,
+  pageKey,
   pagination,
   search,
 }: Props) {
@@ -46,9 +48,10 @@ export default async function CategoryBooks({
           </div>
         </div>
       </div>
-      {data.data.length >= 20 && (
+      {data.meta.last_page > 1 && (
         <div className="flex justify-center mt-8">
           <CourtPagination
+            pageKey={pageKey}
             pagination={pagination}
             totalPages={data.meta.last_page}
           />

@@ -1,27 +1,36 @@
 import ReusableTabs, { TabItem } from "@/components/common/reusable-tabs";
 import CourtPublications from "@/components/custom/court-publications";
+import { SearchParamsRecord } from "@/lib/utils/tab-pagination";
 import BooksContent from "./books-content";
 import SearchBooks from "./search-books";
 import VistorServices from "./vistor-services";
+
 type Props = {
   pagination: {
     currentPage: number;
     limit: number;
   };
+  searchParams: SearchParamsRecord;
   searchQueries: {
     search?: string;
     search_type?: string;
   };
 };
 
-export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
+export default function SupermeCourtPage({
+  pagination,
+  searchParams,
+  searchQueries,
+}: Props) {
   // Tabs data configuration
   const courtReleaseTabs: TabItem[] = [
     {
       label: "الكتب",
       value: "all-books",
       heading: "الكتب",
-      component: <BooksContent pagination={pagination} search={searchQueries.search} />,
+      component: (
+        <BooksContent searchParams={searchParams} search={searchQueries.search} />
+      ),
     },
     {
       label: "البحث في الكتب",
@@ -34,7 +43,12 @@ export default function SupermeCourtPage({ pagination, searchQueries }: Props) {
       label: "إصدارات المحكمة",
       value: "court-publications",
       heading: "إصدارات المحكمة",
-      component: <CourtPublications pagination={pagination} search={searchQueries.search} />,
+      component: (
+        <CourtPublications
+          searchParams={searchParams}
+          search={searchQueries.search}
+        />
+      ),
     },
 
     {

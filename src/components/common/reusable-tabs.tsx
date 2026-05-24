@@ -85,7 +85,7 @@ export default function ReusableTabs({
         </TabsList>
 
         {/* Tab content */}
-        <div className="w-full">
+        <div className="w-full" id="main-tab-content">
           {tabs.map((tab) => (
             <TabsContent
               key={tab.value}

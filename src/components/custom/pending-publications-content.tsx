@@ -6,6 +6,7 @@ import NoDataState from "@/components/custom/no-data-state";
 import { getPendingPublications } from "@/lib/api/publication.api";
 
 type Props = {
+  pageKey: string;
   pagination: {
     currentPage: number;
     limit: number;
@@ -14,6 +15,7 @@ type Props = {
 };
 
 export default async function PendingPublicationsContent({
+  pageKey,
   pagination,
   search,
 }: Props) {
@@ -37,9 +39,10 @@ export default async function PendingPublicationsContent({
         </div>
       </div>
 
-      {data.data.length >= 20 && (
+      {data.meta.last_page > 1 && (
         <div className="flex justify-center mt-8">
           <CourtPagination
+            pageKey={pageKey}
             pagination={pagination}
             totalPages={data.meta.last_page}
           />
