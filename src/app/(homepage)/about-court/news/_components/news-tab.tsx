@@ -34,9 +34,9 @@ export default async function NewsTab({
   }
 
   return (
-    <section className="box-container">
+    <section className="box-container pb-32">
       {/** Main content */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-y-28">
+      <div className="grid grid-cols-1 gap-6 overflow-visible md:grid-cols-2 lg:grid-cols-3 lg:gap-y-28">
         {data?.data.map((article, index) => (
           <NewsCard key={article.uuid} article={article} index={index} />
         ))}

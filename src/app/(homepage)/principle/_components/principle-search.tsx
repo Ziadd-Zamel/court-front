@@ -99,7 +99,7 @@ export default function PrincipleSearch({
         <div className="mt-2 h-[2px] w-56 bg-main" />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-3">
         {/* ROW 1 - Include Terms & Exclude Terms */}
         <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
           <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
@@ -169,26 +169,6 @@ export default function PrincipleSearch({
           />
         </div>
 
-        {/* ROW 5 - Appeal Number */}
-        <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
-          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
-            برقم الطعن:
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <SearchInput
-              value={appealNumber}
-              onChange={handleStringChange(setAppealNumber)}
-              placeholder="أدرج الرقم دون السنة. مثال: 1234"
-            />
-            <SearchInput
-              value={appealYear}
-              onChange={handleStringChange(setAppealYear)}
-              placeholder={`أدرج السنة القضائية. مثال: ${YEARS_SINCE_FOUNDING}`}
-            />
-          </div>
-        </div>
-
         {/* ROW 6 - Principle Number */}
         <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
           <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
@@ -205,6 +185,26 @@ export default function PrincipleSearch({
               value={principleYear}
               onChange={handleStringChange(setPrincipleYear)}
               placeholder={`أدرج السنة الميلادية. مثال: ${CURRENT_YEAR}`}
+            />
+          </div>
+        </div>
+
+        {/* ROW 5 - Appeal Number */}
+        <div className="grid grid-cols-1 lg:grid-cols-[230px_1fr]">
+          <div className="text-right text-lg font-semibold mt-2 text-gray-800 dark:text-white">
+            برقم الطعن:
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <SearchInput
+              value={appealNumber}
+              onChange={handleStringChange(setAppealNumber)}
+              placeholder="أدرج الرقم دون السنة. مثال: 1234"
+            />
+            <SearchInput
+              value={appealYear}
+              onChange={handleStringChange(setAppealYear)}
+              placeholder={`أدرج السنة القضائية. مثال: ${YEARS_SINCE_FOUNDING}`}
             />
           </div>
         </div>

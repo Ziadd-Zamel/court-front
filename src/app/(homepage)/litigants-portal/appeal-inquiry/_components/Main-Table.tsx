@@ -33,10 +33,12 @@ function TableSection({
   title,
   rows,
   className = "",
+  compact = false,
 }: {
   title: string;
   rows: TableRow[];
   className?: string;
+  compact?: boolean;
 }) {
   const visibleRows = rows.filter((row) => hasValue(row.value));
   if (visibleRows.length === 0) return null;
@@ -45,62 +47,96 @@ function TableSection({
     <>
       {title ? (
         <h5
-          className={`text-2xl font-medium text-right pb-5 w-full dark:text-white ${className}`}
+          className={`font-medium text-right w-full dark:text-white ${
+            compact ? "pb-2 text-sm" : "pb-5 text-2xl"
+          } ${className}`}
         >
           {title}
         </h5>
       ) : null}
-      <table className="w-full border-collapse mb-4">
-      <tbody>
-        {visibleRows.map((row, index) =>
-          row.custom ? (
-            <CustomRow key={row.label} label={row.label} value={row.value} />
-          ) : (
-            <SimpleTableRow
-              key={row.label}
-              label={row.label}
-              value={row.value}
-              white={row.white ?? index % 2 === 0}
-            />
-          ),
-        )}
-      </tbody>
-    </table>
-  </>
+      <table
+        className={`w-full border-collapse ${compact ? "mb-2" : "mb-4"}`}
+      >
+        <tbody>
+          {visibleRows.map((row, index) =>
+            row.custom ? (
+              <CustomRow
+                key={row.label}
+                label={row.label}
+                value={row.value}
+                compact={compact}
+              />
+            ) : (
+              <SimpleTableRow
+                key={row.label}
+                label={row.label}
+                value={row.value}
+                white={row.white ?? index % 2 === 0}
+                compact={compact}
+              />
+            ),
+          )}
+        </tbody>
+      </table>
+    </>
   );
 }
 
-export default function MainTable({ caseData }: PageContentProps) {
+export default function MainTable({
+  caseData,
+  compact = false,
+}: PageContentProps & { compact?: boolean }) {
   const caseItem = caseData?.[0];
 
   if (!caseItem) return null;
 
   const fj = caseItem.final_judgment;
   const niaba = caseItem.niaba;
+  const sectionGap = compact ? "mt-4" : "mt-12";
 
   return (
     <section className="">
       <TableSection
+        compact={compact}
         title="البيانات العامة"
         rows={[
-          { label: "رقم الطعن", value: displayValue(caseItem.rippId), white: false },
+          {
+            label: "رقم الطعن",
+            value: displayValue(caseItem.rippId),
+            white: false,
+          },
           { label: "السنة القضائية", value: displayValue(caseItem.year) },
-          { label: "نوع الطعن", value: displayValue(caseItem.classname), white: false },
+          {
+            label: "نوع الطعن",
+            value: displayValue(caseItem.classname),
+            white: false,
+          },
           { label: "تاريخ التقرير", value: displayValue(caseItem.receiptdate) },
           {
             label: "تاريخ ورود الطعن",
             value: displayValue(caseItem.incoming_date),
             white: false,
           },
-          { label: "تاريخ الحكم المطعون فيه", value: displayValue(caseItem.concluDate) },
-          { label: "البند", value: displayValue(caseItem.itemname), white: false },
+          {
+            label: "تاريخ الحكم المطعون فيه",
+            value: displayValue(caseItem.concluDate),
+          },
+          {
+            label: "البند",
+            value: displayValue(caseItem.itemname),
+            white: false,
+          },
           { label: "الجزء", value: displayValue(caseItem.partNumber) },
           {
             label: "رقم الدعوى",
             value: displayValue(caseItem.issueId),
             custom: true,
           },
-          { label: "المحكمة", value: displayValue(caseItem.orgname), custom: true },
+          {
+            label: "المحكمة",
+            value: displayValue(caseItem.orgname),
+            custom: true,
+          },
           {
             label: "منطوق الحكم",
             value: displayValue(caseItem.conclusion),
@@ -119,7 +155,8 @@ export default function MainTable({ caseData }: PageContentProps) {
       />
 
       <TableSection
-        className="mt-12"
+        compact={compact}
+        className={sectionGap}
         title="بيانات الطاعن/الطاعنين"
         rows={[
           { label: "الاسم", value: displayValue(caseItem.appellant) },
@@ -141,7 +178,8 @@ export default function MainTable({ caseData }: PageContentProps) {
       />
 
       <TableSection
-        className="mt-12"
+        compact={compact}
+        className={sectionGap}
         title="بيانات المطعون ضده/ضدهم"
         rows={[
           { label: "الاسم", value: displayValue(caseItem.ripper) },
@@ -169,7 +207,8 @@ export default function MainTable({ caseData }: PageContentProps) {
         .map((appeal, index) => (
           <TableSection
             key={`urgent-${index}`}
-            className="mt-12"
+            compact={compact}
+            className={sectionGap}
             title={index === 0 ? "الشق المستعجل" : ""}
             rows={[
               {
@@ -197,7 +236,8 @@ export default function MainTable({ caseData }: PageContentProps) {
         .map((review, index) => (
           <TableSection
             key={`review-${index}`}
-            className="mt-12"
+            compact={compact}
+            className={sectionGap}
             title={index === 0 ? "فحص الطعن" : ""}
             rows={[
               {
@@ -219,7 +259,8 @@ export default function MainTable({ caseData }: PageContentProps) {
         ))}
 
       <TableSection
-        className="mt-12"
+        compact={compact}
+        className={sectionGap}
         title="نيابة النقض"
         rows={[
           {
@@ -256,7 +297,8 @@ export default function MainTable({ caseData }: PageContentProps) {
         .map((session, index) => (
           <TableSection
             key={`session-${index}`}
-            className="mt-12"
+            compact={compact}
+            className={sectionGap}
             title={index === 0 ? "نظر الطعن" : ""}
             rows={[
               {
@@ -284,7 +326,8 @@ export default function MainTable({ caseData }: PageContentProps) {
         ))}
 
       <TableSection
-        className="mt-12"
+        compact={compact}
+        className={sectionGap}
         title="الحكم السابق على الفصل في الطعن"
         rows={[
           {
@@ -300,7 +343,8 @@ export default function MainTable({ caseData }: PageContentProps) {
       />
 
       <TableSection
-        className="mt-12"
+        compact={compact}
+        className={sectionGap}
         title="الفصل في الطعن"
         rows={[
           {

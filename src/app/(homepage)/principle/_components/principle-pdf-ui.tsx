@@ -91,13 +91,18 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
           unoptimized
           className="mt-5"
         />
-        <div className="flex items-center">
-          <p dir="rtl" className="text-xl font-bold mt-5 text-[#d4a96a]">
-            {topMeta}
-          </p>
-          <p dir="ltr" className="text-xl font-bold mt-5 text-[#d4a96a]">
-            /{serialNumber}
-          </p>
+        <div className="flex items-center justify-center gap-1">
+          <div className="flex items-center">
+            <p dir="rtl" className="text-xl font-bold mt-5 text-[#d4a96a]">
+              {topMeta}
+            </p>
+            <p dir="ltr" className="text-xl font-bold mt-5 text-[#d4a96a]">
+              /{serialNumber}
+            </p>
+          </div>
+          <span className="text-xl font-bold mt-5 text-[#d4a96a]">
+            :رقم المبدأ
+          </span>
         </div>
         <div className="flex items-center gap-1 mt-5">
           <div className="w-10 h-[1px] bg-gray-300" />

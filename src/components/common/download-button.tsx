@@ -18,8 +18,8 @@ interface DownloadButtonProps {
 export function DownloadButton({
   url,
   filename = "document.pdf",
-  size = 16,
-  className = "p-1",
+  size = 20,
+  className = "p-2",
   successMessage = "جاري التحميل...",
   errorMessage = "فشل التحميل",
   variant = "default",

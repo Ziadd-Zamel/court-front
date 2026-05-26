@@ -17,7 +17,7 @@ interface AllTabProps {
 export default async function AllTab({ pagination, searchQuery }: AllTabProps) {
   // Get all the data (same as news tab for now)
   const [data, error] = await catchError(() =>
-    getNewsArticles(pagination.currentPage, pagination.limit, searchQuery)
+    getNewsArticles(pagination.currentPage, pagination.limit, searchQuery),
   );
 
   // Empty data State
@@ -31,9 +31,9 @@ export default async function AllTab({ pagination, searchQuery }: AllTabProps) {
   }
 
   return (
-    <section className="box-container">
+    <section className="box-container pb-32">
       {/** Main content */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-y-28">
+      <div className="grid grid-cols-1 gap-6 overflow-visible md:grid-cols-2 lg:grid-cols-3 lg:gap-y-28">
         {data?.data.map((article, index) => (
           <NewsCard key={article.uuid} article={article} index={index} />
         ))}

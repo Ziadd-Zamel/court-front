@@ -59,6 +59,20 @@ export default function AccessibilityButton({
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isReadingMaskActive) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsReadingMaskActive(false);
+        removeReadingMask();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isReadingMaskActive]);
+
   const storeBaseFontSizes = () => {
     const newBaseFontSizes = new Map<Element, number>();
 

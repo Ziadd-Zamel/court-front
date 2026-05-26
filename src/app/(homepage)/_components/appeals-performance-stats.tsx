@@ -17,9 +17,25 @@ const SLICE_COLORS = [
   "#930F0F",
 ];
 
-const PIE_ANIM_MS = 550;
+const PROGRESS_ANIM_MS = 1400;
+const PIE_ANIM_MS = 1000;
+const PROGRESS_STAGGER_MS = 80;
 
-function useAnimatedPercentages(targets: number[]) {
+function easeOutCubic(t: number) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+function formatAnimatedPercent(value: number | undefined) {
+  const n = value ?? 0;
+  const rounded = Math.round(n * 10) / 10;
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+}
+
+function useAnimatedPercentages(
+  targets: number[],
+  durationMs = PROGRESS_ANIM_MS,
+  staggerMs = 0,
+) {
   const targetsKey = targets.join(",");
   const displayRef = useRef<number[]>([]);
   const [display, setDisplay] = useState<number[]>([]);
@@ -32,12 +48,18 @@ function useAnimatedPercentages(targets: number[]) {
     }
 
     const next = targets;
-    const from = displayRef.current;
+    let from = displayRef.current;
 
     if (from.length !== next.length) {
-      displayRef.current = next;
-      setDisplay(next);
-      return;
+      if (from.length === 0) {
+        from = next.map(() => 0);
+        displayRef.current = from;
+        setDisplay(from);
+      } else {
+        displayRef.current = next;
+        setDisplay(next);
+        return;
+      }
     }
 
     if (from.every((v, i) => v === next[i])) return;
@@ -47,20 +69,25 @@ function useAnimatedPercentages(targets: number[]) {
     const startValues = [...from];
 
     const tick = (now: number) => {
-      const elapsed = now - start;
-      const t = Math.min(1, elapsed / PIE_ANIM_MS);
-      const eased = t * t * (3 - 2 * t);
       const interpolated = next.map((target, i) => {
-        const a = startValues[i] ?? target;
-        return a + (target - a) * eased;
+        const delay = i * staggerMs;
+        const elapsed = Math.max(0, now - start - delay);
+        const t = Math.min(1, elapsed / durationMs);
+        const eased = easeOutCubic(t);
+        const from = startValues[i] ?? target;
+        return from + (target - from) * eased;
       });
       displayRef.current = interpolated;
       setDisplay(interpolated);
-      if (t < 1) rafId = requestAnimationFrame(tick);
+
+      const totalDuration = durationMs + staggerMs * Math.max(0, next.length - 1);
+      if (now - start < totalDuration) {
+        rafId = requestAnimationFrame(tick);
+      }
     };
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, [targetsKey, targets]);
+  }, [targetsKey, targets, durationMs, staggerMs]);
 
   return display;
 }
@@ -133,8 +160,12 @@ export default function AppealsPerformanceStats({
     [rows, useDecidedForPie],
   );
 
-  const displayProgress = useAnimatedPercentages(progressTargets);
-  const displayPie = useAnimatedPercentages(pieTargets);
+  const displayProgress = useAnimatedPercentages(
+    progressTargets,
+    PROGRESS_ANIM_MS,
+    PROGRESS_STAGGER_MS,
+  );
+  const displayPie = useAnimatedPercentages(pieTargets, PIE_ANIM_MS);
 
   if (isLoading) return <AppealsPerformanceStatsSkeleton />;
   if (!rows?.length) return null;
@@ -165,13 +196,13 @@ export default function AppealsPerformanceStats({
         </h2>
         <div className="space-y-5">
           {rows.map((row, index) => {
-            const pct = displayProgress[index];
+            const pct = displayProgress[index] ?? 0;
             const fill = row.color ?? SLICE_COLORS[index % SLICE_COLORS.length];
             return (
               <div key={row.classId} className="space-y-3">
                 <div className="flex flex-row-reverse items-center justify-between gap-3 text-black dark:text-white">
-                  <span className="shrink-0 text-[14px] font-bold">
-                    %{Math.floor(parseFloat(row.completion_rate) * 10) / 10}
+                  <span className="shrink-0 tabular-nums text-[14px] font-bold">
+                    %{formatAnimatedPercent(pct)}
                   </span>
                   <div className="flex min-w-0 items-center gap-2">
                     <span
@@ -184,7 +215,7 @@ export default function AppealsPerformanceStats({
                 </div>
                 <Progress
                   value={pct}
-                  className="!important [&>div]:!border-b-none border-b-transparent h-2 rotate-180 border-t-2 bg-transparent [&>div]:!bg-main"
+                  className="h-2 rotate-180 border-b-transparent border-t-2 bg-transparent [&>div]:!border-b-none [&>div]:!bg-main [&>div]:!transition-none"
                 />
               </div>
             );

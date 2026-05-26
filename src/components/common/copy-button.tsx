@@ -15,8 +15,8 @@ interface CopyButtonProps {
 
 export function CopyButton({
   text,
-  size = 16,
-  className = "p-1",
+  size = 20,
+  className = "p-2",
   successMessage = "تم نسخ النص",
   errorMessage = "فشل النسخ",
   variant = "default",

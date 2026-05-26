@@ -4,6 +4,7 @@ import { getArticleByID } from "@/lib/api/articles";
 import NoDataState from "@/components/custom/no-data-state";
 import ErrorState from "@/components/custom/error-state";
 import SecondaryHeading from "@/components/common/seondary-heading";
+import ArticleMobilePanel from "./article-mobile-panel";
 import Sidebar from "./Sidebar";
 import { BookmarkButton } from "@/components/common/bookmark-button";
 import { ShareButton } from "@/components/common/share-button";
@@ -43,8 +44,11 @@ export default async function LegalCasePage({
       />
 
       <div className="min-h-screen lg:flex lg:flex-row dark:bg-[#121212]">
-        <PageContent article={article} />
-        <div className="hidden min-h-screen lg:block w-1/4 dark:bg-[#1a1a1a]">
+        <div className="min-w-0 flex-1">
+          <PageContent article={article} />
+          <ArticleMobilePanel article={article} />
+        </div>
+        <div className="hidden min-h-screen w-1/4 lg:block dark:bg-[#1a1a1a]">
           <Sidebar article={article} />
         </div>
       </div>

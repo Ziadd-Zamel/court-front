@@ -68,7 +68,7 @@ const RecentNews = ({ articles = [] }: { articles?: NewsArticle[] }) => {
   };
 
   if (itemsByPage.length === 0) return null;
-  console.log(articles);
+
   return (
     <section className="py-16 bg-main/10 dark:bg-[#1a1a1a]">
       <AnimatedSectionHeader
@@ -124,6 +124,14 @@ const RecentNews = ({ articles = [] }: { articles?: NewsArticle[] }) => {
                     }}
                   />
                   <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white dark:from-[#121212] to-transparent" />
+                </div>
+                <div className="flex w-full justify-end pt-1">
+                  <Link
+                    href={`/about-court/news/${SelectedNew.uuid}`}
+                    className="text-sm font-bold text-main transition-colors hover:text-main/80"
+                  >
+                    المزيد
+                  </Link>
                 </div>
               </motion.div>
             )}

@@ -7,6 +7,7 @@ import ActionButtons from "./_components/ActionButtons";
 import SearchOverlay from "./_components/SearchOverlay";
 import MenuOverlay from "./_components/MenuOverlay";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Header({ opacity = false }: NavbarProps) {
   const {
@@ -47,13 +48,15 @@ export default function Header({ opacity = false }: NavbarProps) {
           isSearchOpen={isSearchOpen}
           isMenuOpen={isMenuOpen}
         />
-        <Image
-          src="/assets/nav-logo.svg"
-          alt="شعار المحكمة"
-          width={120}
-          height={0}
-          className=" w-[100px] sm:w-[250px] -ml-2 -mt-0.5"
-        />
+        <Link href="/" className="shrink-0" aria-label="الصفحة الرئيسية">
+          <Image
+            src="/assets/nav-logo.svg"
+            alt="شعار المحكمة"
+            width={120}
+            height={0}
+            className="-ml-2 -mt-0.5 w-[100px] sm:w-[250px]"
+          />
+        </Link>
       </NavbarContainer>
 
       {/* Search Overlay */}

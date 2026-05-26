@@ -1,19 +1,5 @@
-import SecondaryHeading from "@/components/common/seondary-heading";
-import AppealInquiryPage from "./_components/appealInquiry-page";
+import AppealInquiryLayout from "./_components/appeal-inquiry-layout";
 
-// interface PageProps {
-//   searchParams: Promise<{
-//     appealNumber?: string;
-//     judicialYear?: string;
-//     appealType?: string;
-//   }>;
-// }
-
-export default async function Page() {
-  return (
-    <>
-      <SecondaryHeading title="الاستعلام عن طعن" breadcrumb />
-      <AppealInquiryPage />
-    </>
-  );
+export default function Page() {
+  return <AppealInquiryLayout />;
 }

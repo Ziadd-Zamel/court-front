@@ -1,13 +1,47 @@
-export default function CustomRow({ label = "", value = "" }) {
+import { cn } from "@/lib/utils";
+
+export default function CustomRow({
+  label = "",
+  value = "",
+  compact = false,
+}: {
+  label?: string;
+  value?: string;
+  compact?: boolean;
+}) {
   return (
     <tr>
-      <td className="border border-gray-300 dark:border-white/10 h-12 text-right bg-white dark:bg-[#121212]"></td>
-      <td className="border border-gray-300 dark:border-white/10 h-12 bg-white dark:bg-[#121212]">
-        <div className="w-full flex items-center h-full">
-          <p className="w-[150px] border-l border-gray-300 dark:border-white/10 h-12 text-xs font-semibold text-gray-700 dark:text-white/90 sm:text-base flex-center justify-start pr-3">
+      <td
+        className={cn(
+          "border border-gray-300 text-right bg-white dark:border-white/10 dark:bg-[#121212]",
+          compact ? "h-7" : "h-12",
+        )}
+      />
+      <td
+        className={cn(
+          "border border-gray-300 bg-white dark:border-white/10 dark:bg-[#121212]",
+          compact ? "h-7" : "h-12",
+        )}
+      >
+        <div className="flex h-full w-full items-center">
+          <p
+            className={cn(
+              "flex-center justify-start border-l border-gray-300 font-semibold text-gray-700 dark:border-white/10 dark:text-white/90",
+              compact
+                ? "h-7 w-[90px] pr-2 text-[10px]"
+                : "h-12 w-[150px] pr-3 text-xs sm:text-base",
+            )}
+          >
             {label}
           </p>
-          <p className=" text-sm text-gray-500 dark:text-white/70 pr-3">{value}</p>
+          <p
+            className={cn(
+              "text-gray-500 dark:text-white/70",
+              compact ? "pr-2 text-[10px]" : "pr-3 text-sm",
+            )}
+          >
+            {value}
+          </p>
         </div>
       </td>
     </tr>
