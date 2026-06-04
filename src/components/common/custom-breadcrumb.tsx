@@ -26,7 +26,7 @@ const routeNameMap: { [key: string]: string } = {
   "/about-court/counselors": "المستشارون بالمحكمة",
   "/about-court/general-assembly": "الجمعية العمومية",
   "/about-court/structure-court": "الهيكل التنظيمي للمحكمة العليا",
-  "/about-court/courts-law": "القوانين الخاصة بالمحكمة",
+  "/about-court/courts-law": "القوانين",
   "/about-court/performance-metrics": "مؤشرات أداء الدوائر",
   "/about-court/news": "الأخبار",
   "/favorite": "مجلدي",
@@ -52,6 +52,7 @@ const dynamicSegmentMap: { [key: string]: string } = {
   "/litigants-portal/important-notices": "تفاصيل الإشعار",
   "/litigants-portal/court-releases": "تفاصيل الإصدار",
   "/supreme-court-library": "تفاصيل الكتاب",
+  "/books": "تفاصيل الكتاب",
 };
 
 interface CustomBreadcrumbProps {

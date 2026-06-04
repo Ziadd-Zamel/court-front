@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useMemo } from "react";
 import Link from "next/link";
 import { BookmarkButton } from "./bookmark-button";
-import { PrintButton } from "./print-button";
 import { ShareButton } from "./share-button";
 
 type BookCardProps = {
@@ -15,6 +14,8 @@ type BookCardProps = {
   type?: string;
   issueNumber?: number;
   openInNewTab?: boolean;
+  /** Path for breadcrumb on book page (e.g. /supreme-court-library) */
+  from?: string;
 };
 
 /** Default cover when `type="magazine"` and no `image` override. */
@@ -26,6 +27,7 @@ export default function BookCard({
   image,
   type,
   openInNewTab,
+  from,
 }: BookCardProps) {
   // Generate a consistent random book image number (1-12)
   const randomBookImageNumber = useMemo(() => {
@@ -41,7 +43,11 @@ export default function BookCard({
 
   const isMagazine = type === "magazine";
   console.log(book);
-  const bookHref = isMagazine ? (book.pdf_file ?? "#") : `/books/${book.uuid}`;
+  const bookHref = isMagazine
+    ? (book.pdf_file ?? "#")
+    : from
+      ? `/books/${book.uuid}?from=${encodeURIComponent(from)}`
+      : `/books/${book.uuid}`;
 
   const linkProps = isMagazine
     ? { target: "_blank", rel: "noopener noreferrer" as const }
@@ -50,58 +56,60 @@ export default function BookCard({
       : {};
 
   return (
-    <Link
-      href={bookHref}
-      className="cursor-pointer w-[140px] sm:w-[160px] relative block "
-      {...linkProps}
-    >
-      <div className="relative h-45 sm:h-50 w-full mb-2 transition-shadow duration-300 hover:shadow-[0_0_6px_4px_rgba(0,0,0,0.85)]  hover:border-black border-transparent border-1">
-        <Image
-          src={bookImage}
-          alt={book.title}
-          fill
-          className="object-cover "
-        />
-      </div>
+    <div className="relative w-[140px] sm:w-[160px]">
+      <Link
+        href={bookHref}
+        className="relative block cursor-pointer"
+        {...linkProps}
+      >
+        <div className="relative h-45 sm:h-50 w-full mb-2 border border-transparent  transition-shadow duration-300 hover:border-black hover:shadow-[0_0_6px_4px_rgba(0,0,0,0.85)]">
+          <Image
+            src={bookImage}
+            alt={book.title}
+            fill
+            className="object-cover "
+          />
+        </div>
+        {isMagazine && (
+          <>
+            <p className="absolute top-[130px] right-3 text-main text-xs">
+              السنة
+            </p>
+            <p className="absolute top-[145px] right-3 text-white text-base">
+              {book.judicial_year || 0}
+            </p>
+            <p className="absolute bottom-17 right-3 text-main text-xs">
+              العدد
+            </p>
+            <p className="absolute bottom-12 right-3 text-white text-base">
+              {book.number || 0}
+            </p>
+          </>
+        )}
+        {type === "ruling" && (
+          <>
+            <p className="absolute top-[160px] left-[43%] -translate-1/2 text-white text-[10px]">
+              {book.category}
+            </p>
+            <div className="flex flex-col items-center gap-2 absolute bottom-16 left-[43%] -translate-1/2">
+              <p className=" text-main text-[10px]">السنة</p>
+              <p className=" text-white text-xs">{book.published_year || 0}</p>
+            </div>
+            <div className="flex flex-col items-center gap-2 absolute bottom-5 left-[43%] -translate-1/2">
+              <p className=" text-main text-[10px]">الجزء</p>
+              <p className=" text-white text-xs">
+                {book.release_type_value || 0}
+              </p>
+            </div>
+          </>
+        )}
+      </Link>
       {!hideIcons && (
         <div className="flex justify-start gap-1">
-          {/* Favorite */}
           <BookmarkButton item={book} type="book" />
-          {/* Share */}
           <ShareButton item={book} type="book" />
         </div>
       )}
-      {isMagazine && (
-        <>
-          <p className="absolute top-[130px] right-3 text-main text-xs">
-            السنة
-          </p>
-          <p className="absolute top-[145px] right-3 text-white text-base">
-            {book.judicial_year || 0}
-          </p>
-          <p className="absolute bottom-17 right-3 text-main text-xs">العدد</p>
-          <p className="absolute bottom-12 right-3 text-white text-base">
-            {book.number || 0}
-          </p>
-        </>
-      )}
-      {type === "ruling" && (
-        <>
-          <p className="absolute top-[160px] left-[43%] -translate-1/2 text-white text-[10px]">
-            {book.category}
-          </p>
-          <div className="flex flex-col items-center gap-2 absolute bottom-16 left-[43%] -translate-1/2">
-            <p className=" text-main text-[10px]">السنة</p>
-            <p className=" text-white text-xs">{book.published_year || 0}</p>
-          </div>
-          <div className="flex flex-col items-center gap-2 absolute bottom-5 left-[43%] -translate-1/2">
-            <p className=" text-main text-[10px]">الجزء</p>
-            <p className=" text-white text-xs">
-              {book.release_type_value || 0}
-            </p>
-          </div>
-        </>
-      )}
-    </Link>
+    </div>
   );
 }

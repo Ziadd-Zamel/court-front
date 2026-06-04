@@ -60,10 +60,10 @@ export default function PerformanceTrackLine({
               type="button"
               key={`${item.year}-${item.month}`}
               onClick={() => selectSlot(index)}
-              className="group relative w-fit cursor-pointer"
+              className="group relative w-fit cursor-pointer before:absolute before:-inset-4 before:content-[''] sm:before:-inset-8"
             >
               <div
-                className={`h-1 w-1 rounded-full transition-all duration-300 sm:h-2 sm:w-2 ${
+                className={`relative h-1 w-1 rounded-full transition-all duration-300 sm:h-2 sm:w-2 ${
                   slotIndex === index
                     ? "bg-main ring-4 ring-[#3e5481] dark:ring-main sm:ring-8"
                     : "bg-main ring-4 ring-[#e4e4e4] dark:ring-white/30 hover:ring-4 hover:ring-[#3e5481] dark:hover:ring-main sm:ring-8"

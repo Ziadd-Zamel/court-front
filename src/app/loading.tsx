@@ -6,7 +6,7 @@ export default function Loading() {
       className="fixed inset-0 z-[9999] flex min-h-screen items-center justify-center bg-background/95 backdrop-blur-sm"
       role="status"
       aria-live="polite"
-      aria-label="جاري التحميل"
+      aria-label="حارٍ التحميل"
     >
       <div className="flex flex-col items-center gap-6">
         <div className="relative flex size-36 items-center justify-center">
@@ -26,7 +26,7 @@ export default function Loading() {
         </div>
 
         <div className="flex flex-col items-center gap-3 text-center">
-          <p className="font-zain text-xl font-bold text-main">جاري التحميل</p>
+          <p className="font-zain text-xl font-bold text-main">حارٍ التحميل</p>
           <div className="flex items-center gap-2" aria-hidden="true">
             <span className="size-2 animate-bounce rounded-full bg-main [animation-delay:-0.3s]" />
             <span className="size-2 animate-bounce rounded-full bg-main [animation-delay:-0.15s]" />

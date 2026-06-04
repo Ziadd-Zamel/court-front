@@ -60,8 +60,8 @@ interface ShareButtonProps {
 export function ShareButton({
   item,
   type,
-  size = 20,
-  className = "p-2",
+  size = 21,
+  className = "p-1",
   variant = "default",
 }: ShareButtonProps) {
   const [showShareDropdown, setShowShareDropdown] = useState(false);

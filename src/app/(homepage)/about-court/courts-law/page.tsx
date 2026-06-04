@@ -5,7 +5,7 @@ export default async function Page() {
   return (
     <>
       {/** Heading */}
-      <SecondaryHeading title="قوانين المحكمة العليا" breadcrumb />
+      <SecondaryHeading title="القوانين" breadcrumb />
 
       {/** Main page content */}
       <CourtLawsPage />

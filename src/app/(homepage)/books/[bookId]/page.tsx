@@ -6,7 +6,7 @@ export default async function Page({
   searchParams,
 }: {
   params: Promise<{ bookId?: string }>;
-  searchParams: Promise<{ type?: string }>;
+  searchParams: Promise<{ type?: string; from?: string }>;
 }) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
@@ -14,5 +14,11 @@ export default async function Page({
   const isMagazine = resolvedSearchParams.type === "magazine";
 
   if (!bookId) return <ErrorState />;
-  return <BookPage id={bookId} isMagazine={isMagazine} />;
+  return (
+    <BookPage
+      id={bookId}
+      isMagazine={isMagazine}
+      from={resolvedSearchParams.from}
+    />
+  );
 }

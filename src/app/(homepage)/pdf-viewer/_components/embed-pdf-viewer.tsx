@@ -1,7 +1,10 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { createPluginRegistration, setScale } from "@embedpdf/core";
+import {
+  createPluginRegistration,
+  setScale as setPdfScale,
+} from "@embedpdf/core";
 import { EmbedPDF, useRegistry } from "@embedpdf/core/react";
 import { usePdfiumEngine } from "@embedpdf/engines/react";
 import {
@@ -22,7 +25,11 @@ import {
   RenderLayer,
   RenderPluginPackage,
 } from "@embedpdf/plugin-render/react";
-import { Download, Loader2, X } from "lucide-react";
+import { Download, Loader2, Minus, Plus, X } from "lucide-react";
+
+const MIN_ZOOM = 0.4;
+const MAX_ZOOM = 3;
+const ZOOM_STEP = 0.2;
 
 type Props = {
   src: string;
@@ -169,9 +176,26 @@ function ViewerSurface({
   title?: string;
   src: string;
 }) {
+  const { registry } = useRegistry();
+  const [scale, setScaleState] = useState(1);
+
+  const applyZoom = (next: number) => {
+    const clamped =
+      Math.round(Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, next)) * 100) / 100;
+    setScaleState(clamped);
+    registry?.getStore().dispatch(setPdfScale(clamped, documentId));
+  };
+
   return (
     <>
-      <PdfToolbar documentId={documentId} title={title} src={src} />
+      <PdfToolbar
+        documentId={documentId}
+        title={title}
+        src={src}
+        scale={scale}
+        onZoomIn={() => applyZoom(scale + ZOOM_STEP)}
+        onZoomOut={() => applyZoom(scale - ZOOM_STEP)}
+      />
       <div className="relative flex-1 min-h-0">
         <Viewport
           documentId={documentId}
@@ -191,7 +215,10 @@ function ViewerSurface({
           />
         </Viewport>
 
-        <FitToHeightEffect documentId={documentId} />
+        <FitToHeightEffect
+          documentId={documentId}
+          onInitialScale={setScaleState}
+        />
         <PageJumpEffect documentId={documentId} targetPage={targetPage} />
       </div>
     </>
@@ -202,10 +229,16 @@ function PdfToolbar({
   documentId,
   title,
   src,
+  scale,
+  onZoomIn,
+  onZoomOut,
 }: {
   documentId: string;
   title?: string;
   src: string;
+  scale?: number;
+  onZoomIn?: () => void;
+  onZoomOut?: () => void;
 }) {
   const { provides: scroll, state } = useScroll(documentId);
   const [pageInput, setPageInput] = useState<string>("");
@@ -237,6 +270,34 @@ function PdfToolbar({
       <h1 className="line-clamp-1 min-w-0 flex-1 text-xs font-bold text-main sm:text-sm">
         {title?.trim() || "عارض الملف"}
       </h1>
+
+      {onZoomIn && onZoomOut && scale !== undefined ? (
+        <div className="flex shrink-0 items-center gap-0.5 rounded-md border border-gray-200 bg-gray-50 px-0.5 py-0.5 text-xs dark:border-white/10 dark:bg-white/5">
+          <button
+            type="button"
+            onClick={onZoomOut}
+            disabled={scale <= MIN_ZOOM}
+            className="inline-flex items-center justify-center rounded-sm p-1 text-gray-700 hover:bg-white disabled:opacity-40 dark:text-white/80 dark:hover:bg-zinc-900"
+            aria-label="تصغير"
+            title="تصغير"
+          >
+            <Minus size={14} />
+          </button>
+          <span className="min-w-[2.75rem] text-center tabular-nums text-gray-600 dark:text-white/70">
+            {Math.round(scale * 100)}%
+          </span>
+          <button
+            type="button"
+            onClick={onZoomIn}
+            disabled={scale >= MAX_ZOOM}
+            className="inline-flex items-center justify-center rounded-sm p-1 text-gray-700 hover:bg-white disabled:opacity-40 dark:text-white/80 dark:hover:bg-zinc-900"
+            aria-label="تكبير"
+            title="تكبير"
+          >
+            <Plus size={14} />
+          </button>
+        </div>
+      ) : null}
 
       <form
         onSubmit={handleJumpSubmit}
@@ -335,7 +396,13 @@ function FallbackToolbar({ title, src }: { title?: string; src: string }) {
   );
 }
 
-function FitToHeightEffect({ documentId }: { documentId: string }) {
+function FitToHeightEffect({
+  documentId,
+  onInitialScale,
+}: {
+  documentId: string;
+  onInitialScale?: (scale: number) => void;
+}) {
   const { provides: scrollCap } = useScrollCapability();
   const { registry } = useRegistry();
   const hasFitRef = useRef(false);
@@ -368,11 +435,12 @@ function FitToHeightEffect({ documentId }: { documentId: string }) {
       const clamped = Math.max(0.4, Math.min(2.5, fit));
 
       hasFitRef.current = true;
-      registry.getStore().dispatch(setScale(clamped, documentId));
+      registry.getStore().dispatch(setPdfScale(clamped, documentId));
+      onInitialScale?.(clamped);
     });
 
     return () => unsubscribe?.();
-  }, [scrollCap, registry, documentId]);
+  }, [scrollCap, registry, documentId, onInitialScale]);
 
   return null;
 }

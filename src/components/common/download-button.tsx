@@ -18,9 +18,9 @@ interface DownloadButtonProps {
 export function DownloadButton({
   url,
   filename = "document.pdf",
-  size = 20,
-  className = "p-2",
-  successMessage = "جاري التحميل...",
+  size = 21,
+  className = "p-1",
+  successMessage = "حارٍ التحميل...",
   errorMessage = "فشل التحميل",
   variant = "default",
 }: DownloadButtonProps) {
@@ -78,7 +78,7 @@ export function DownloadButton({
         downloading ? downloadingStyles : buttonStyles
       } disabled:cursor-not-allowed disabled:opacity-70`}
       aria-label="Download PDF"
-      title={downloading ? "جاري التحميل..." : "تحميل PDF"}
+      title={downloading ? "حارٍ التحميل..." : "تحميل PDF"}
     >
       {downloading ? (
         <FaCheck size={size} className="text-white" />

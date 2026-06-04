@@ -37,7 +37,7 @@ export default async function CounselorPage({
 
         <div className="flex flex-col -mt-10 flex-1">
           <h2 className="text-xl font-medium border-b-3 w-fit border-b-main pb-3">
-            المستشار: {counselor.name} ( عدد الأعمال:{" "}
+            المستشار: {counselor.name} ( الأعمال:{" "}
             {counselor.rulings?.length || 0})
           </h2>
 

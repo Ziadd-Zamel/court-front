@@ -89,7 +89,11 @@ export default function FavoriteBooksPage() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: index * 0.05 }}
                       >
-                        <BookCard type="book" book={book} />
+                        <BookCard
+                          type="book"
+                          book={book}
+                          from="/favorite/books"
+                        />
                       </motion.div>
                     ))}
                   </div>

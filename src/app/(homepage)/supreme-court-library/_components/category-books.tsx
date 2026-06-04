@@ -43,6 +43,7 @@ export default async function CategoryBooks({
                 key={book.uuid}
                 book={book}
                 issueNumber={index + 1}
+                from="/supreme-court-library"
               />
             ))}
           </div>

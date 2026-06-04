@@ -147,7 +147,7 @@ export default function PageContent({ article }: { article: Article }) {
     });
   }
   return (
-    <section className="pt-20 w-full lg:w-3/4 md:px-10 px-5 lg:px-13! pb-40 dark:bg-[#121212]">
+    <section className="pt-20 w-full min-[1700px]:w-3/4! md:px-10 px-5 lg:px-13! pb-40 dark:bg-[#121212]">
       <div className=" max-w-5xl mx-auto">
         <div className="flex flex-col items-start">
           <h3 className="text-xl font-semibold md:text-md lg:text-2xl mb-5 flex items-center gap-1 text-gray-900 dark:text-white">

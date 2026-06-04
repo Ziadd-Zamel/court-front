@@ -21,9 +21,11 @@ function resolveBookPdfUrl(pdfUrl: string | null | undefined): string | null {
 export default async function BookPage({
   id,
   isMagazine,
+  from,
 }: {
   id: string;
   isMagazine?: boolean;
+  from?: string;
 }) {
   const [data, error] = await catchError(() =>
     isMagazine ? getPublicationsByID(id) : getBookByID(id),
@@ -41,6 +43,8 @@ export default async function BookPage({
   return (
     <>
       <SecondaryHeading
+        breadcrumb
+        fromPath={from}
         IconSecyion={
           <div className="flex items-center gap-3 w-full h-full">
             <BookmarkButton item={Book} type="book" />

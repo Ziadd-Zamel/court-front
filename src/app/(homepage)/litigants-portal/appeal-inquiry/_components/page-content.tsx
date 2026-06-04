@@ -134,7 +134,7 @@ export default function PageContent({
 
     // If search failed with API/validation error (wrong input)
     if (hasSearched && !isLoading && caseError) {
-      return <NoSearchResults box={false} message="خطأ في الإدخال" />;
+      return <NoSearchResults message="خطأ في الإدخال" />;
     }
 
     // If search completed but no appeal data available yet
@@ -144,10 +144,7 @@ export default function PageContent({
       (!caseData?.data || caseData.data.length === 0)
     ) {
       return (
-        <NoSearchResults
-          box={false}
-          message="المعذرة، بيانات الطعن المحدد ليست متاحة بعد"
-        />
+        <NoSearchResults message="المعذرة، بيانات الطعن المحدد ليست متاحة بعد" />
       );
     }
 

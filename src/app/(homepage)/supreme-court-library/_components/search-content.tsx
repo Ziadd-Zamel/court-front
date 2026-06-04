@@ -82,6 +82,7 @@ export default async function SearchContent({
             key={book.uuid}
             book={book}
             issueNumber={index + 1}
+            from="/supreme-court-library"
             openInNewTab
           />
         ))}
@@ -112,6 +113,7 @@ export default async function SearchContent({
                       key={book.uuid}
                       book={book}
                       issueNumber={index + 1}
+                      from="/supreme-court-library"
                       openInNewTab
                     />
                   ))}

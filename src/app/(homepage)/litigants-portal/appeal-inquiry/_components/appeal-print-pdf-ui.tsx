@@ -1,4 +1,5 @@
 import PrinciplePrintHeader from "@/components/common/principle-print-header";
+import Image from "next/image";
 import MainTable from "./Main-Table";
 
 type Props = {
@@ -32,6 +33,19 @@ export default function AppealPrintPdfUI({ caseData }: Props) {
       <PrinciplePrintHeader title="الاستعلام عن الطعون" subtitle={subtitle} />
       <div className="mt-4 w-full">
         <MainTable caseData={caseData} error={null} compact />
+      </div>
+
+      <div className="mt-6 flex w-full items-center justify-center gap-2">
+        <div className="h-px w-14 bg-gray-300" />
+        <Image
+          src="/assets/ShortLogoB.jpg"
+          alt="logo"
+          width={36}
+          height={36}
+          loading="eager"
+          unoptimized
+        />
+        <div className="h-px w-14 bg-gray-300" />
       </div>
     </div>
   );

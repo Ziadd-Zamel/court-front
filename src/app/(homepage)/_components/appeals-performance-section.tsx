@@ -22,6 +22,7 @@ export default function AppealsPerformanceSection() {
   const { month, year } = window[slotIndex];
 
   const { data, isLoading, isSuccess } = useBasicInfoByStats({ month, year });
+  console.log(data);
   const showStatsEmpty =
     isSuccess &&
     Array.isArray(data) &&

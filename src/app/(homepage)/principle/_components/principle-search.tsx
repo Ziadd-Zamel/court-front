@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useQueryStates, parseAsString } from "nuqs";
 import { Button } from "@/components/ui/button";
+import { MULTI_KEYWORD_HELP, OR_KEYWORD_HELP } from "@/lib/constants/personal.constnat";
 import {
-  KEYWORD_HELP,
-  MULTI_KEYWORD_HELP,
-  OR_KEYWORD_HELP,
-  PHRASE_HELP,
-} from "@/lib/constants/personal.constnat";
+  PRINCIPLE_EXACT_PHRASE_HELP,
+  PRINCIPLE_KEYWORD_HELP,
+  PRINCIPLE_SIMILAR_PHRASE_HELP,
+} from "@/lib/constants/principle-search-help";
 import { CURRENT_YEAR, YEARS_SINCE_FOUNDING } from "@/lib/constants/app-years";
 import { SearchInput } from "../../supreme-court-library/_components/search-Input";
 import DatePicker from "@/components/common/date-picker";
@@ -111,7 +111,7 @@ export default function PrincipleSearch({
               value={includeTerms}
               onChange={handleStringChange(setIncludeTerms)}
               placeholder="في المبادئ والموجز"
-              help={KEYWORD_HELP}
+              help={PRINCIPLE_KEYWORD_HELP}
               disabled={hasAnyTerms || hasSimilarPhrase || hasExactPhrase}
             />
             <SearchInput
@@ -149,7 +149,7 @@ export default function PrincipleSearch({
             value={exactPhrase}
             onChange={handleStringChange(setExactPhrase)}
             placeholder="ابحث في المبادئ بجملة مطابقة لهذه الجملة"
-            help={PHRASE_HELP}
+            help={PRINCIPLE_EXACT_PHRASE_HELP}
             disabled={hasIncludeExclude || hasAnyTerms || hasSimilarPhrase}
           />
         </div>
@@ -164,7 +164,7 @@ export default function PrincipleSearch({
             value={similarPhrase}
             onChange={handleStringChange(setSimilarPhrase)}
             placeholder="في المبادئ والموجز"
-            help={PHRASE_HELP}
+            help={PRINCIPLE_SIMILAR_PHRASE_HELP}
             disabled={hasIncludeExclude || hasAnyTerms || hasExactPhrase}
           />
         </div>
