@@ -7,7 +7,9 @@ import ErrorState from "@/components/custom/error-state";
 import { usePrincipleSearch } from "@/hooks/use-principle-search";
 
 import PrincipleSearch from "./principle-search";
-import PrincipleList from "./principle-list";
+import PrincipleList, {
+  formatSearchResultsCount,
+} from "./principle-list";
 
 type Props = {
   rulingTypeUuids: string[];
@@ -25,7 +27,7 @@ export default function PrinciplesContent({
     pagination,
     rulingTypeUuids,
   });
-
+  const totalActive = data?.total_active;
   const clientPagination = {
     currentPage: params.page,
     limit: params.per_page,
@@ -100,7 +102,7 @@ export default function PrinciplesContent({
               />
             </div>
             <p className="font-zain text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
-              نتائج البحث: {resultCount}
+              {formatSearchResultsCount(resultCount, totalActive)}
             </p>
             <p className="mt-3 max-w-lg text-sm text-gray-600 dark:text-white/70 sm:text-base">
               تأكد من سلامة الإدخال، أو حاول البحث بمفاتيح أخرى
@@ -120,6 +122,7 @@ export default function PrinciplesContent({
           title="المقالات"
           pagination={clientPagination}
           totalItems={data.meta.total}
+          totalActive={totalActive}
           totalPages={data.meta.last_page}
         />
       </div>

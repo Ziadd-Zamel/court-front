@@ -1,12 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaFacebookF, FaWhatsapp } from "react-icons/fa";
 import { SiMessenger } from "react-icons/si";
 import { BsTwitterX } from "react-icons/bs";
-import { motion, AnimatePresence } from "framer-motion";
 import { Share2 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 function principleShareTitle(principle: Principle): string {
   const norm = (value: unknown) => {
@@ -57,6 +63,12 @@ interface ShareButtonProps {
   variant?: "default" | "light";
 }
 
+const shareItemClass =
+  "h-12 w-12 rounded-none border-b border-gray-200 p-0 last:border-b-0 dark:border-gray-600";
+
+const shareIconClass =
+  "text-gray-600 transition-transform group-hover:scale-110 dark:text-gray-300";
+
 export function ShareButton({
   item,
   type,
@@ -64,11 +76,9 @@ export function ShareButton({
   className = "p-1",
   variant = "default",
 }: ShareButtonProps) {
-  const [showShareDropdown, setShowShareDropdown] = useState(false);
-
   const getItemDetails = () => {
     switch (type) {
-      case "article":
+      case "article": {
         const article = item as Article;
         return {
           title: article.title,
@@ -77,7 +87,8 @@ export function ShareButton({
             "",
           url: window.location.href,
         };
-      case "book":
+      }
+      case "book": {
         const book = item as BookData;
         return {
           title: book.title,
@@ -86,7 +97,8 @@ export function ShareButton({
           }`,
           url: window.location.href,
         };
-      case "news":
+      }
+      case "news": {
         const news = item as NewsArticle;
         return {
           title: news.title,
@@ -94,14 +106,16 @@ export function ShareButton({
             news.content_text?.substring(0, 200) + "..." || news.category || "",
           url: window.location.href,
         };
-      case "question":
+      }
+      case "question": {
         const question = item as Iquestion;
         return {
           title: question.title,
           description: question.answer?.substring(0, 200) + "..." || "",
           url: window.location.href,
         };
-      case "principle":
+      }
+      case "principle": {
         const principle = item as Principle;
         return {
           title: principleShareTitle(principle),
@@ -110,7 +124,8 @@ export function ShareButton({
               "..." || "",
           url: window.location.href,
         };
-      case "assembly":
+      }
+      case "assembly": {
         const assembly = item as Assembly;
         return {
           title: assembly.title,
@@ -119,13 +134,31 @@ export function ShareButton({
             "",
           url: window.location.href,
         };
-      case "law":
+      }
+      case "law": {
         const law = item as { uuid: string; title: string | null };
         return {
           title: law.title || "قانون",
           description: "",
           url: window.location.href,
         };
+      }
+    }
+  };
+
+  const handleFallbackShare = (
+    url: string,
+    title: string,
+    description: string,
+  ) => {
+    const fallbackText = `${title}\n\n${description}\n\n${url}`;
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(fallbackText).then(() => {
+        toast.error("حدث خطأ في المشاركة. تم نسخ المحتوى إلى الحافظة");
+      });
+    } else {
+      toast.error("حدث خطأ في المشاركة");
     }
   };
 
@@ -137,7 +170,7 @@ export function ShareButton({
 
     try {
       switch (platform) {
-        case "facebook":
+        case "facebook": {
           const facebookShareUrl =
             `https://www.facebook.com/sharer/sharer.php?` +
             `u=${encodeURIComponent(url)}&` +
@@ -153,8 +186,9 @@ export function ShareButton({
             handleFallbackShare(url, title, cleanDescription);
           }
           break;
+        }
 
-        case "messenger":
+        case "messenger": {
           const messengerText = `${title}\n\n${cleanDescription}\n\n${url}`;
           const messengerUrl = `https://m.me/?text=${encodeURIComponent(
             messengerText,
@@ -176,8 +210,9 @@ export function ShareButton({
             }
           }
           break;
+        }
 
-        case "twitter":
+        case "twitter": {
           const twitterText = `${title}\n\n${cleanDescription}`;
           const twitterUrl =
             `https://twitter.com/intent/tweet?` +
@@ -186,8 +221,9 @@ export function ShareButton({
 
           window.open(twitterUrl, "_blank", "width=550,height=420");
           break;
+        }
 
-        case "whatsapp":
+        case "whatsapp": {
           const whatsappText = `*${title}*\n\n${cleanDescription}\n\n${url}`;
           const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
             whatsappText,
@@ -195,29 +231,14 @@ export function ShareButton({
 
           window.open(whatsappUrl, "_blank");
           break;
+        }
       }
     } catch (error) {
       console.error("Share error:", error);
       handleFallbackShare(url, title, cleanDescription);
     }
 
-    setShowShareDropdown(false);
-  };
-
-  const handleFallbackShare = (
-    url: string,
-    title: string,
-    description: string,
-  ) => {
-    const fallbackText = `${title}\n\n${description}\n\n${url}`;
-
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(fallbackText).then(() => {
-        toast.error("حدث خطأ في المشاركة. تم نسخ المحتوى إلى الحافظة");
-      });
-    } else {
-      toast.error("حدث خطأ في المشاركة");
-    }
+    setOpen(false);
   };
 
   const buttonStyles =
@@ -228,79 +249,86 @@ export function ShareButton({
   const iconStyles =
     variant === "light" ? "text-main" : "text-gray-700 dark:!text-main";
 
+  const [open, setOpen] = useState(false);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimerRef.current = setTimeout(() => setOpen(false), 120);
+  };
+
   return (
-    <div
-      className="inline-block relative"
-      onMouseEnter={() => setShowShareDropdown(true)}
-      onMouseLeave={() => setShowShareDropdown(false)}
-    >
-      <button
-        className={`${className} flex cursor-pointer items-center justify-center rounded-full size-5 md:size-8 transition-all duration-200 border ${buttonStyles}`}
-        title="مشاركة"
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
+      <div
+        className="inline-block"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        <Share2 size={size} className={`transition-colors ${iconStyles}`} />
-      </button>
-
-      <AnimatePresence>
-        {showShareDropdown && (
-          <motion.div
-            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 flex flex-col bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden backdrop-blur-sm"
-            style={{ zIndex: 99999 }}
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
+        <DropdownMenuTrigger asChild>
+          <button
+            type="button"
+            className={cn(
+              className,
+              "group flex size-5 cursor-pointer items-center justify-center rounded-full border transition-all duration-200 md:size-8",
+              buttonStyles,
+            )}
+            title="مشاركة"
+            aria-label="مشاركة"
           >
-            {/* Facebook */}
-            <div
-              className="flex w-12 h-12 cursor-pointer items-center justify-center border-b border-gray-200 dark:border-gray-600 transition-all hover:bg-blue-50 dark:hover:bg-gray-700 group"
-              onClick={() => handleShare("facebook")}
-              title="مشاركة على فيسبوك"
-            >
-              <FaFacebookF
-                size={18}
-                className="text-gray-600 dark:text-gray-300 group-hover:text-blue-600 group-hover:scale-110 transition-all"
-              />
-            </div>
+            <Share2
+              size={size}
+              className={cn("transition-colors", iconStyles)}
+            />
+          </button>
+        </DropdownMenuTrigger>
+      </div>
 
-            {/* Messenger */}
-            <div
-              className="flex w-12 h-12 cursor-pointer items-center justify-center border-b border-gray-200 dark:border-gray-600 transition-all hover:bg-blue-50 dark:hover:bg-gray-700 group"
-              onClick={() => handleShare("messenger")}
-              title="مشاركة على ماسنجر"
-            >
-              <SiMessenger
-                size={18}
-                className="text-gray-600 dark:text-gray-300 group-hover:text-blue-500 group-hover:scale-110 transition-all"
-              />
-            </div>
+      <DropdownMenuContent
+        align="center"
+        sideOffset={8}
+        className="w-12 min-w-12 rounded-lg p-0"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <DropdownMenuItem
+          className={cn(shareItemClass, "group hover:bg-blue-50")}
+          onClick={() => handleShare("facebook")}
+          title="مشاركة على فيسبوك"
+        >
+          <FaFacebookF size={18} className={shareIconClass} />
+        </DropdownMenuItem>
 
-            {/* Twitter */}
-            <div
-              className="flex w-12 h-12 cursor-pointer items-center justify-center border-b border-gray-200 dark:border-gray-600 transition-all hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              onClick={() => handleShare("twitter")}
-              title="مشاركة على تويتر"
-            >
-              <BsTwitterX
-                size={18}
-                className="text-gray-600 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white group-hover:scale-110 transition-all"
-              />
-            </div>
+        <DropdownMenuItem
+          className={cn(shareItemClass, "group hover:bg-blue-50")}
+          onClick={() => handleShare("messenger")}
+          title="مشاركة على ماسنجر"
+        >
+          <SiMessenger size={18} className={shareIconClass} />
+        </DropdownMenuItem>
 
-            {/* WhatsApp */}
-            <div
-              className="flex w-12 h-12 cursor-pointer items-center justify-center transition-all hover:bg-green-50 dark:hover:bg-gray-700 group"
-              onClick={() => handleShare("whatsapp")}
-              title="مشاركة على واتساب"
-            >
-              <FaWhatsapp
-                size={18}
-                className="text-gray-600 dark:text-gray-300 group-hover:text-green-500 group-hover:scale-110 transition-all"
-              />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+        <DropdownMenuItem
+          className={cn(shareItemClass, "group hover:bg-gray-100")}
+          onClick={() => handleShare("twitter")}
+          title="مشاركة على تويتر"
+        >
+          <BsTwitterX size={18} className={shareIconClass} />
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          className={cn(shareItemClass, "group hover:bg-green-50")}
+          onClick={() => handleShare("whatsapp")}
+          title="مشاركة على واتساب"
+        >
+          <FaWhatsapp size={18} className={shareIconClass} />
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

@@ -8,6 +8,10 @@ declare type SuccessfulResponse<T> = {
   meta: PaginationMeta;
 };
 
+declare type PrincipleSearchResponse<T> = SuccessfulResponse<T> & {
+  total_active?: number;
+};
+
 declare type APIResponse<T> = SuccessfulResponse<T> | ErrorResponse;
 
 // Database base properties

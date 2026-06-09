@@ -66,7 +66,6 @@ export default async function CounselorsContent({
   const featuredRole = featuredCounselor?.tasks || "------";
   const fields =
     featuredCounselor?.fields?.map((f) => f.field).filter(Boolean) || [];
-
   return (
     <>
       {/* Featured president card */}

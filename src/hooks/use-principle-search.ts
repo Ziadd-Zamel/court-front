@@ -76,7 +76,7 @@ export const principleSearchQueryKey = (params: PrincipleSearchParams) =>
 
 async function fetchPrincipleSearch(
   params: PrincipleSearchParams,
-): Promise<SuccessfulResponse<Principle[]>> {
+): Promise<PrincipleSearchResponse<Principle[]>> {
   const query = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
     if (value === undefined || value === null || value === "") return;
@@ -97,7 +97,7 @@ async function fetchPrincipleSearch(
     throw new Error(message);
   }
 
-  return payload as SuccessfulResponse<Principle[]>;
+  return payload as PrincipleSearchResponse<Principle[]>;
 }
 
 type UsePrincipleSearchOptions = {

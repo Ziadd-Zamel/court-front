@@ -15,5 +15,15 @@ declare type Counselor = {
   image: string | null;
   status: string | null;
   tasks: string | null;
-  rulings: Article[];
+  rulings?: Article[] | CounselorRulingsPage;
+};
+
+declare type CounselorRulingsPage = {
+  data: Article[];
+  meta: PaginationMeta;
+};
+
+declare type CounselorDetail = Omit<Counselor, "rulings"> & {
+  rulings: CounselorRulingsPage;
+  rulings_count?: number;
 };

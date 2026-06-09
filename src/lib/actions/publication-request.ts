@@ -10,7 +10,7 @@ export async function submitPublicationRequest(data: PublicationRequestData) {
 
     // Send to your API
     const response = await fetch(
-      `http://M.Dirbal.ly/api/publication-requests`,
+      `${process.env.NEXT_PUBLIC_API}publication-requests`,
       {
         method: "POST",
         headers: {
@@ -18,7 +18,7 @@ export async function submitPublicationRequest(data: PublicationRequestData) {
           Accept: "application/json",
         },
         body: JSON.stringify(validatedData),
-      }
+      },
     );
 
     if (!response.ok) {

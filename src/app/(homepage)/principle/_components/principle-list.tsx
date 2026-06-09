@@ -12,20 +12,31 @@ type ArticlesListProps = {
   };
   totalPages: number;
   totalItems: number;
+  totalActive?: number;
 };
+
+export function formatSearchResultsCount(
+  resultCount: number,
+  totalActive?: number,
+) {
+  if (totalActive !== undefined) {
+    return `نتائج البحث: ${resultCount} من ${totalActive}`;
+  }
+  return `نتائج البحث: ${resultCount}`;
+}
 
 export default function PrincipleList({
   articles,
   pagination,
   totalItems,
   totalPages,
+  totalActive,
 }: ArticlesListProps) {
-  console.log(articles);
   return (
     <section>
       <div className="mb-8 mt-16 text-right">
         <h2 className="text-2xl font-bold text-main">
-          نتائج البحث: {totalItems}
+          {formatSearchResultsCount(totalItems, totalActive)}
         </h2>
         <div className="mt-2 h-[2px] w-56 bg-main" />
       </div>

@@ -6,7 +6,7 @@ export async function submitContactForm(data: ContactFormData) {
     const validatedData = contactFormSchema.parse(data);
 
     // Send to your API
-    const response = await fetch("http://M.Dirbal.ly/api/suggestions", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API}suggestions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

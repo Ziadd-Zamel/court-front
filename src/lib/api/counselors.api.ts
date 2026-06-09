@@ -24,15 +24,16 @@ export const getAllCounselors = async (
   return payload;
 };
 
-type Response = Counselor & {
-  rulings_count: number;
-  rulings: Article[];
-};
-
 export const getCounselorByID = async (
   CounselorId: string,
-): Promise<APIResponse<Response>> => {
-  const url = `${process.env.API}counselors/${CounselorId}`;
+  page: number = 1,
+  perPage: number = 10,
+): Promise<APIResponse<CounselorDetail>> => {
+  const params = new URLSearchParams({
+    page: page.toString(),
+    per_page: perPage.toString(),
+  });
+  const url = `${process.env.API}counselors/${CounselorId}?${params.toString()}`;
 
   const response = await fetch(url, {
     next: { revalidate: 600 },
@@ -42,7 +43,7 @@ export const getCounselorByID = async (
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  const payload: APIResponse<Response> = await response.json();
+  const payload: APIResponse<CounselorDetail> = await response.json();
 
   return payload;
 };
