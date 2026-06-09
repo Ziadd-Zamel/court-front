@@ -161,7 +161,7 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
                     rel="noopener noreferrer"
                     className="cursor-pointer text-sm text-main hover:underline"
                   >
-                    نقر للانتقال إلى صفحة الحكم
+                    انقر للانتقال إلى صفحة الحكم
                   </Link>
                 ) : hasPublicationPdf ? (
                   <button
