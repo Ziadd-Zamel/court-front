@@ -26,7 +26,7 @@ export default function Loading() {
         </div>
 
         <div className="flex flex-col items-center gap-3 text-center">
-          <p className="font-zain text-xl font-bold text-main">جاري التحميل</p>
+          <p className="font-zain text-xl font-bold text-main">جارٍ التحميل</p>
           <div className="flex items-center gap-2" aria-hidden="true">
             <span className="size-2 animate-bounce rounded-full bg-main [animation-delay:-0.3s]" />
             <span className="size-2 animate-bounce rounded-full bg-main [animation-delay:-0.15s]" />
