@@ -16,6 +16,7 @@
     "@embedpdf/plugin-render": "^2.14.2",
     "@embedpdf/plugin-scroll": "^2.14.2",
     "@embedpdf/plugin-viewport": "^2.14.2",
+    "@embedpdf/plugin-zoom": "^2.14.2",
     "@hookform/resolvers": "^5.2.1",
     "@pdf-viewer/react": "~1.17.0",
     "@radix-ui/react-accordion": "^1.2.12",

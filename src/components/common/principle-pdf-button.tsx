@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Download } from "lucide-react";
 import { FaCheck } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
 import PrinciplePdfUI from "@/app/(homepage)/principle/_components/principle-pdf-ui";
+import { BsFiletypePdf } from "react-icons/bs";
 
 interface PrinciplePdfButtonProps {
   principle: Principle;
@@ -15,7 +15,7 @@ interface PrinciplePdfButtonProps {
 
 export function PrinciplePdfButton({
   principle,
-  size = 16,
+  size = 21,
   className = "p-1",
   variant = "default",
 }: PrinciplePdfButtonProps) {
@@ -70,7 +70,10 @@ export function PrinciplePdfButton({
         {printing ? (
           <FaCheck size={size} className="text-white" />
         ) : (
-          <Download size={size} className={`transition-colors ${iconStyles}`} />
+          <BsFiletypePdf
+            size={size}
+            className={`transition-colors ${iconStyles}`}
+          />
         )}
       </button>
     </>

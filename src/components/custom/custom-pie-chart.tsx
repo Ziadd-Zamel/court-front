@@ -229,53 +229,25 @@ export default function CustomPieChart({
 
       {tooltip && (
         <div
+          className="pointer-events-none absolute z-10 min-w-40 rounded-[5px] border border-border bg-white px-3 py-2 shadow-sm dark:border-white/10 dark:bg-gray-800"
           style={{
-            position: "absolute",
             left: tooltip.x + 12,
             top: tooltip.y - 10,
-            background: "white",
-            border: "0.5px solid var(--color-border-secondary)",
-            borderRadius: "5px",
-            padding: "8px 12px",
-            pointerEvents: "none",
-            minWidth: 160,
             direction: "rtl",
-            zIndex: 10,
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              marginBottom: 6,
-            }}
-          >
+          <div className="mb-1.5 flex items-center gap-1.5">
             <span
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                background: tooltip.slice.color,
-                flexShrink: 0,
-              }}
+              className="size-2.5 shrink-0 rounded-full"
+              style={{ background: tooltip.slice.color }}
             />
-            <span
-              style={{
-                fontSize: 13,
-                fontWeight: 500,
-                color: "var(--color-text-primary)",
-                whiteSpace: "nowrap",
-              }}
-            >
+            <span className="whitespace-nowrap text-[13px] font-medium text-gray-900 dark:text-white">
               {tooltip.slice.name}
             </span>
           </div>
-          <div style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>
+          <div className="text-xs text-gray-600 dark:text-gray-300">
             النسبة:{" "}
-            <span
-              style={{ fontWeight: 500, color: "var(--color-text-primary)" }}
-            >
+            <span className="font-medium text-gray-900 dark:text-white">
               {Number(tooltip.slice.value).toFixed(1)}%
             </span>
           </div>

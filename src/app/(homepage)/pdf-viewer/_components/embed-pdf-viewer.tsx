@@ -1,11 +1,8 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import {
-  createPluginRegistration,
-  setScale as setPdfScale,
-} from "@embedpdf/core";
-import { EmbedPDF, useRegistry } from "@embedpdf/core/react";
+import { createPluginRegistration } from "@embedpdf/core";
+import { EmbedPDF } from "@embedpdf/core/react";
 import { usePdfiumEngine } from "@embedpdf/engines/react";
 import {
   DocumentContent,
@@ -25,6 +22,12 @@ import {
   RenderLayer,
   RenderPluginPackage,
 } from "@embedpdf/plugin-render/react";
+import {
+  useZoom,
+  useZoomCapability,
+  ZoomMode,
+  ZoomPluginPackage,
+} from "@embedpdf/plugin-zoom/react";
 import { Download, Loader2, Minus, Plus, X } from "lucide-react";
 
 const MIN_ZOOM = 0.4;
@@ -93,6 +96,14 @@ export default function EmbedPdfViewer({ src, targetPage, title }: Props) {
       createPluginRegistration(ViewportPluginPackage, { viewportGap: 12 }),
       createPluginRegistration(ScrollPluginPackage, { defaultPageGap: 8 }),
       createPluginRegistration(RenderPluginPackage),
+      createPluginRegistration(ZoomPluginPackage, {
+        // Numeric default never triggers recalcAuto on load, leaving the
+        // viewport gated (blank) until the first manual zoom.
+        defaultZoomLevel: ZoomMode.FitPage,
+        minZoom: MIN_ZOOM,
+        maxZoom: MAX_ZOOM,
+        zoomStep: ZOOM_STEP,
+      }),
     ];
   }, [pdfUrl]);
 
@@ -176,15 +187,8 @@ function ViewerSurface({
   title?: string;
   src: string;
 }) {
-  const { registry } = useRegistry();
-  const [scale, setScaleState] = useState(1);
-
-  const applyZoom = (next: number) => {
-    const clamped =
-      Math.round(Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, next)) * 100) / 100;
-    setScaleState(clamped);
-    registry?.getStore().dispatch(setPdfScale(clamped, documentId));
-  };
+  const { state: zoomState, provides: zoom } = useZoom(documentId);
+  const scale = zoomState.currentZoomLevel;
 
   return (
     <>
@@ -193,8 +197,8 @@ function ViewerSurface({
         title={title}
         src={src}
         scale={scale}
-        onZoomIn={() => applyZoom(scale + ZOOM_STEP)}
-        onZoomOut={() => applyZoom(scale - ZOOM_STEP)}
+        onZoomIn={() => zoom?.zoomIn()}
+        onZoomOut={() => zoom?.zoomOut()}
       />
       <div className="relative flex-1 min-h-0">
         <Viewport
@@ -215,10 +219,7 @@ function ViewerSurface({
           />
         </Viewport>
 
-        <FitToHeightEffect
-          documentId={documentId}
-          onInitialScale={setScaleState}
-        />
+        <FitToHeightEffect documentId={documentId} />
         <PageJumpEffect documentId={documentId} targetPage={targetPage} />
       </div>
     </>
@@ -396,19 +397,13 @@ function FallbackToolbar({ title, src }: { title?: string; src: string }) {
   );
 }
 
-function FitToHeightEffect({
-  documentId,
-  onInitialScale,
-}: {
-  documentId: string;
-  onInitialScale?: (scale: number) => void;
-}) {
+function FitToHeightEffect({ documentId }: { documentId: string }) {
   const { provides: scrollCap } = useScrollCapability();
-  const { registry } = useRegistry();
+  const { provides: zoomCap } = useZoomCapability();
   const hasFitRef = useRef(false);
 
   useEffect(() => {
-    if (!scrollCap || !registry) return;
+    if (!scrollCap || !zoomCap) return;
     if (hasFitRef.current) return;
 
     const unsubscribe = scrollCap.onLayoutReady((event) => {
@@ -420,27 +415,44 @@ function FitToHeightEffect({
       const firstPage = layout.virtualItems?.[0]?.pageLayouts?.[0];
       if (!firstPage) return;
 
-      // Pages in the layout already include current scale (default 1).
-      // Compute the scale needed to fit the viewport height with some gap.
-      const viewportEl = document.querySelector<HTMLElement>(".pdf-viewport");
-      const viewportHeight = viewportEl?.clientHeight ?? window.innerHeight;
-      const viewportWidth = viewportEl?.clientWidth ?? window.innerWidth;
-      const targetHeight = Math.max(200, viewportHeight - 40);
-      const targetWidth = Math.max(200, viewportWidth - 40);
+      const computeClamped = () => {
+        const viewportEl = document.querySelector<HTMLElement>(".pdf-viewport");
+        const viewportHeight = viewportEl?.clientHeight ?? window.innerHeight;
+        const viewportWidth = viewportEl?.clientWidth ?? window.innerWidth;
+        const targetHeight = Math.max(200, viewportHeight - 40);
+        const targetWidth = Math.max(200, viewportWidth - 40);
 
-      const scaleByHeight = targetHeight / firstPage.rotatedHeight;
-      const scaleByWidth = targetWidth / firstPage.rotatedWidth;
-      const fit = Math.min(scaleByHeight, scaleByWidth);
-      // Clamp to a sane range so we don't render absurdly large/small.
-      const clamped = Math.max(0.4, Math.min(2.5, fit));
+        const scaleByHeight = targetHeight / firstPage.rotatedHeight;
+        const scaleByWidth = targetWidth / firstPage.rotatedWidth;
+        const fit = Math.min(scaleByHeight, scaleByWidth);
+        return Math.max(0.4, Math.min(2.5, fit));
+      };
 
-      hasFitRef.current = true;
-      registry.getStore().dispatch(setPdfScale(clamped, documentId));
-      onInitialScale?.(clamped);
+      let attempts = 0;
+      const applyFit = () => {
+        const viewportEl = document.querySelector<HTMLElement>(".pdf-viewport");
+        const hasSize =
+          !!viewportEl?.clientWidth &&
+          !!viewportEl?.clientHeight &&
+          viewportEl.clientWidth > 0 &&
+          viewportEl.clientHeight > 0;
+
+        if (!hasSize && attempts < 40) {
+          attempts += 1;
+          requestAnimationFrame(applyFit);
+          return;
+        }
+
+        if (hasFitRef.current) return;
+        hasFitRef.current = true;
+        zoomCap.forDocument(documentId).requestZoom(computeClamped());
+      };
+
+      applyFit();
     });
 
     return () => unsubscribe?.();
-  }, [scrollCap, registry, documentId, onInitialScale]);
+  }, [scrollCap, zoomCap, documentId]);
 
   return null;
 }

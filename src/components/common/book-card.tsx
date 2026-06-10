@@ -78,10 +78,8 @@ export default function BookCard({
             <p className="absolute top-[145px] right-3 text-white text-base">
               {book.judicial_year || 0}
             </p>
-            <p className="absolute bottom-17 right-3 text-main text-xs">
-              العدد
-            </p>
-            <p className="absolute bottom-12 right-3 text-white text-base">
+            <p className="absolute bottom-8 right-3 text-main text-xs">العدد</p>
+            <p className="absolute bottom-3 right-3 text-white text-base">
               {book.number || 0}
             </p>
           </>

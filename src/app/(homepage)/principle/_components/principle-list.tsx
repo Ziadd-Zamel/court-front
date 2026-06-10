@@ -20,9 +20,9 @@ export function formatSearchResultsCount(
   totalActive?: number,
 ) {
   if (totalActive !== undefined) {
-    return `نتائج البحث: ${resultCount} من ${totalActive}`;
+    return `نتائج البحث: ${resultCount} من ${totalActive} مبدأ`;
   }
-  return `نتائج البحث: ${resultCount}`;
+  return `نتائج البحث: ${resultCount} مبدأ`;
 }
 
 export default function PrincipleList({
