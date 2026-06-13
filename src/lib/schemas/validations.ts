@@ -10,6 +10,12 @@ export const contactFormSchema = z.object({
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
+export const subscriberSchema = z.object({
+  email: z.string().email("البريد الإلكتروني غير صالح"),
+});
+
+export type SubscriberFormData = z.infer<typeof subscriberSchema>;
+
 export const publicationRequestSchema = z.object({
   book_title: z.string().min(1, "عنوان الكتاب/المقال مطلوب"),
   subject: z.string().min(1, "الموضوع مطلوب"),
