@@ -44,7 +44,7 @@ export const metadata = {
   description: "الموقع الرسمي للمحكمة العليا الليبية",
   keywords: "ليبيا, المحكمة العليا, القضاء, قانون",
   charset: "utf-8",
-  icons: { icon: "/faviconx.ico" },
+  icons: { icon: "/favicon.ico" },
   openGraph: {
     title: "المحكمة العليا الليبية",
     description: "الموقع الرسمي للمحكمة العليا الليبية",
@@ -67,7 +67,6 @@ export default function RootLayout({
       </head>
 
       <body className="font-zain antialiased bg-background">
-        {/* ✅ TopLoader OUTSIDE Providers, at top level */}
         <NextTopLoader
           color="#C8A96E"
           height={3}

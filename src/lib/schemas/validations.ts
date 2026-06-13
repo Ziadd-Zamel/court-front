@@ -31,7 +31,11 @@ export const publicationRequestSchema = z.object({
   phone: z.string().min(1, "رقم الهاتف مطلوب"),
   summary: z
     .string()
-    .min(300, "الملخص يجب أن يحتوي على 150–200 كلمة")
+    .min(1, "الملخص مطلوب")
+    .refine(
+      (val) => val.trim().split(/\s+/).filter(Boolean).length >= 10,
+      "الملخص يجب أن يحتوي على 10 كلمات على الأقل",
+    )
     .max(1200, "الملخص يجب ألا يزيد عن 200 كلمة"),
 });
 

@@ -34,6 +34,7 @@ import { CheckCircle, XCircle, Loader2 } from "lucide-react";
 import AnimatedSectionHeader from "../common/AnimatedSectionHeader";
 import { ContactFormData, contactFormSchema } from "@/lib/schemas/validations";
 import { submitContactForm } from "@/lib/actions/contact";
+import { useSuggestionRoles } from "@/hooks/use-suggestion-roles";
 
 const FALLBACK_DESCRIPTION =
   "إذا لم تجد ضالتك في قوائم أصناف الأسئلة، لك أن ترسل استفهامك. لك أيضاً أن تقترح إضافات مفيدة.";
@@ -51,6 +52,9 @@ export default function ContactSection({
 }) {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
+
+  const { data: suggestionRoles = [], isLoading: isLoadingRoles } =
+    useSuggestionRoles();
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -72,22 +76,16 @@ export default function ContactSection({
         setErrorDialogOpen(true);
       }
     },
-    onError: (error) => {
+    onError: () => {
       setErrorDialogOpen(true);
-      console.log(error);
     },
   });
 
   const onSubmit = (data: ContactFormData) => {
-    const senddata: ContactFormData = {
-      email: data.email,
-      message: data.message,
-      name: data.name,
-      suggestion_role_id: "95cb3675-802e-420c-b104-a2b26d0b3e27",
+    mutation.mutate({
+      ...data,
       type: "accepted_lawyers",
-    };
-    console.log(senddata);
-    mutation.mutate(senddata);
+    });
   };
 
   return (
@@ -165,32 +163,34 @@ export default function ContactSection({
                     <FormItem>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
+                        disabled={isLoadingRoles}
                       >
                         <FormControl>
                           <SelectTrigger
                             className="w-full rounded border-none bg-white/20 px-4 py-2 text-right text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50"
                             style={{ direction: "rtl" }}
                           >
-                            <SelectValue placeholder="الصفة" />
+                            <SelectValue
+                              placeholder={
+                                isLoadingRoles ? "جاري التحميل..." : "الصفة"
+                              }
+                            />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent
                           className="border border-gray-200 bg-white"
                           style={{ direction: "rtl" }}
                         >
-                          <SelectItem value="فرد" className="text-right">
-                            فرد
-                          </SelectItem>
-                          <SelectItem value="محام" className="text-right">
-                            محام
-                          </SelectItem>
-                          <SelectItem value="قانوني" className="text-right">
-                            قانوني
-                          </SelectItem>
-                          <SelectItem value="آخر" className="text-right">
-                            آخر
-                          </SelectItem>
+                          {suggestionRoles.map((role) => (
+                            <SelectItem
+                              key={role.uuid}
+                              value={role.uuid}
+                              className="text-right"
+                            >
+                              {role.title}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                       <FormMessage className="text-right text-red-400" />
@@ -253,22 +253,14 @@ export default function ContactSection({
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <DialogTitle className="text-xl font-bold text-gray-900">
+            <DialogTitle className="text-center text-xl font-bold text-gray-900">
               تم إرسال رسالتك بنجاح!
             </DialogTitle>
-            <DialogDescription className="text-gray-600 text-center">
+            <DialogDescription className="text-center text-gray-600">
               شكراً لك على التواصل معنا. سنقوم بمراجعة رسالتك والرد عليك في أقرب
               وقت ممكن.
             </DialogDescription>
           </DialogHeader>
-          <div className="flex justify-center">
-            <Button
-              onClick={() => setSuccessDialogOpen(false)}
-              className="px-6"
-            >
-              موافق
-            </Button>
-          </div>
         </DialogContent>
       </Dialog>
 

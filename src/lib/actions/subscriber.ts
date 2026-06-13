@@ -1,5 +1,10 @@
 import { SubscriberFormData, subscriberSchema } from "../schemas/validations";
 
+type ApiErrorResponse = {
+  message?: string;
+  errors?: Record<string, string[]>;
+};
+
 export async function submitSubscriber(data: SubscriberFormData) {
   try {
     const validatedData = subscriberSchema.parse(data);
@@ -13,17 +18,23 @@ export async function submitSubscriber(data: SubscriberFormData) {
       body: JSON.stringify(validatedData),
     });
 
+    const result = await response.json().catch(() => null);
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorBody = result as ApiErrorResponse | null;
+      return {
+        success: false as const,
+        message: errorBody?.message ?? "حدث خطأ غير متوقع",
+        fieldErrors: errorBody?.errors,
+      };
     }
 
-    const result = await response.json();
-    return { success: true, data: result };
+    return { success: true as const, data: result };
   } catch (error) {
     console.error("Subscriber submission error:", error);
     return {
-      success: false,
-      error: error instanceof Error ? error.message : "حدث خطأ غير متوقع",
+      success: false as const,
+      message: error instanceof Error ? error.message : "حدث خطأ غير متوقع",
     };
   }
 }

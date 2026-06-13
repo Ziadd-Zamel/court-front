@@ -375,7 +375,7 @@ export default function PrintingPublishingService() {
               <textarea
                 value={form.watch("summary")}
                 onChange={(e) => form.setValue("summary", e.target.value)}
-                placeholder="اكتب ملخصاً عن موضوع الكتاب/البحث في فقرة من 150–200 كلمة، توجز فيها موضوعه، وتبيّن مواطن قيمته العلمية"
+                placeholder="اكتب ملخصاً عن موضوع الكتاب/البحث في فقرة من 10 كلمات على الأقل، توجز فيها موضوعه، وتبيّن مواطن قيمته العلمية"
                 className="w-full sm:w-3/4 rounded-md bg-[#FBF3E0] dark:bg-white/10 dark:border dark:border-white/10 dark:text-white px-3 py-2 placeholder:text-xs placeholder:text-gray-400 dark:placeholder-white/50 sm:py-[12px] sm:placeholder:text-xs sm:text-xs lg:text-sm text-right placeholder:text-[10px]"
                 rows={5}
               />

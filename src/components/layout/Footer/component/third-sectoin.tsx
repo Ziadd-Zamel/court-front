@@ -36,6 +36,7 @@ const ThirdSectoin = () => {
   const [copied, setCopied] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const form = useForm<SubscriberFormData>({
     resolver: zodResolver(subscriberSchema),
@@ -51,15 +52,23 @@ const ThirdSectoin = () => {
         setSuccessDialogOpen(true);
         form.reset();
       } else {
-        setErrorDialogOpen(true);
+        const emailError = result.fieldErrors?.email?.[0];
+        if (emailError) {
+          form.setError("email", { message: emailError });
+        } else {
+          setErrorMessage(result.message);
+          setErrorDialogOpen(true);
+        }
       }
     },
     onError: () => {
+      setErrorMessage("حدث خطأ غير متوقع");
       setErrorDialogOpen(true);
     },
   });
 
   const onSubmit = (data: SubscriberFormData) => {
+    form.clearErrors();
     mutation.mutate(data);
   };
 
@@ -161,7 +170,9 @@ const ThirdSectoin = () => {
                       )}
                     </Button>
                   </div>
-                  <FormMessage className="text-right text-red-400" />
+                  <div className="min-h-6 pt-1">
+                    <FormMessage className="text-right text-red-400" />
+                  </div>
                 </FormItem>
               )}
             />
@@ -237,7 +248,13 @@ const ThirdSectoin = () => {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={errorDialogOpen} onOpenChange={setErrorDialogOpen}>
+      <Dialog
+        open={errorDialogOpen}
+        onOpenChange={(open) => {
+          setErrorDialogOpen(open);
+          if (!open) setErrorMessage(null);
+        }}
+      >
         <DialogContent className="sm:max-w-md" style={{ direction: "rtl" }}>
           <DialogHeader className="text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
@@ -247,8 +264,8 @@ const ThirdSectoin = () => {
               فشل في الاشتراك
             </DialogTitle>
             <DialogDescription className="text-center text-gray-600">
-              عذراً، حدث خطأ أثناء تسجيل بريدك الإلكتروني. يرجى المحاولة مرة
-              أخرى.
+              {errorMessage ??
+                "عذراً، حدث خطأ أثناء تسجيل بريدك الإلكتروني. يرجى المحاولة مرة أخرى."}
             </DialogDescription>
           </DialogHeader>
         </DialogContent>
