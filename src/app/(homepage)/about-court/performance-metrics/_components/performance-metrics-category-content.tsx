@@ -57,7 +57,11 @@ export default function PerformanceMetricsCategoryContent({
 
   return (
     <div className="w-full space-y-5 pb-10">
-      <div className="min-h-[80vh] flex flex-col items-center justify-center">
+      <div
+        className={`flex flex-col items-center justify-center ${
+          showPie !== false ? "min-h-[80vh]" : "py-8"
+        }`}
+      >
         {showStatsEmpty ? (
           <div
             className="flex w-full h-full flex-col items-center justify-center gap-3 px-4 pt-12 pb-4 text-center"
@@ -81,10 +85,27 @@ export default function PerformanceMetricsCategoryContent({
             text={mainLabel}
             description={pieLabel}
             showPie={showPie}
+            mobileTimeline={
+              <PerformanceTrackLine
+                mobileOnly
+                compact={showPie !== false}
+              />
+            }
           />
         )}
       </div>
-      <PerformanceTrackLine />
+      {showStatsEmpty ? (
+        <PerformanceTrackLine />
+      ) : (
+        <PerformanceTrackLine
+          desktopOnly
+          className={
+            showPie === false
+              ? "relative mt-10 px-16 sm:mt-14"
+              : "relative mt-[130px] px-16"
+          }
+        />
+      )}
     </div>
   );
 }

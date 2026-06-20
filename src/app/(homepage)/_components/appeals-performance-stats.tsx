@@ -185,14 +185,14 @@ export default function AppealsPerformanceStats({
 
   return (
     <div
-      className={`flex w-full flex-col items-center justify-between gap-10 pt-12 ${
-        hidePie ? "" : "lg:flex-row-reverse"
-      }`}
+      className={`flex w-full flex-col items-center justify-between pt-12 ${
+        hidePie ? "gap-12 pb-4 sm:gap-14" : "gap-10"
+      } ${hidePie ? "" : "lg:flex-row-reverse"}`}
     >
       {/* Progress bars */}
       <div
         className={`space-y-8 ${
-          hidePie ? "w-full max-w-2xl mx-auto" : "w-full lg:w-1/2"
+          hidePie ? "mx-auto w-full max-w-2xl" : "w-full lg:w-1/2"
         }`}
       >
         <h2 className="text-right font-zain text-2xl font-bold text-black dark:text-white sm:text-4xl lg:text-3xl">
@@ -225,9 +225,18 @@ export default function AppealsPerformanceStats({
             );
           })}
         </div>
+        {hidePie && description ? (
+          <p className="pt-4 text-center text-sm leading-relaxed text-black dark:text-white sm:text-base">
+            {description}
+          </p>
+        ) : null}
       </div>
 
-      {mobileTimeline}
+      {mobileTimeline ? (
+        <div className={hidePie ? "mt-2 w-full sm:mt-4" : "w-full"}>
+          {mobileTimeline}
+        </div>
+      ) : null}
 
       {/* Pie chart */}
       {!hidePie && (

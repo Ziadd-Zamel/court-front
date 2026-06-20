@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useQueryStates, parseAsString } from "nuqs";
+import { parseAsNormalizedNumericString } from "@/lib/nuqs/parse-as-normalized-numeric-string";
+import { normalizeNumericParam } from "@/lib/utils/normalize-numeric-param";
 import { Button } from "@/components/ui/button";
 import {
   MULTI_KEYWORD_HELP,
@@ -23,11 +25,11 @@ const formParsers = {
   include_terms: parseAsString,
   exclude_terms: parseAsString,
   any_terms: parseAsString,
-  appeal_number: parseAsString,
-  appeal_year: parseAsString,
-  principle_number: parseAsString,
-  principle_year: parseAsString,
-  page: parseAsString,
+  appeal_number: parseAsNormalizedNumericString,
+  appeal_year: parseAsNormalizedNumericString,
+  principle_number: parseAsNormalizedNumericString,
+  principle_year: parseAsNormalizedNumericString,
+  page: parseAsNormalizedNumericString,
 };
 
 export default function PrincipleSearch({
@@ -57,14 +59,16 @@ export default function PrincipleSearch({
   );
   const [anyTerms, setAnyTerms] = useState(committed.any_terms ?? "");
   const [appealNumber, setAppealNumber] = useState(
-    committed.appeal_number ?? "",
+    () => normalizeNumericParam(committed.appeal_number) ?? "",
   );
-  const [appealYear, setAppealYear] = useState(committed.appeal_year ?? "");
+  const [appealYear, setAppealYear] = useState(
+    () => normalizeNumericParam(committed.appeal_year) ?? "",
+  );
   const [principleNumber, setPrincipleNumber] = useState(
-    committed.principle_number ?? "",
+    () => normalizeNumericParam(committed.principle_number) ?? "",
   );
   const [principleYear, setPrincipleYear] = useState(
-    committed.principle_year ?? "",
+    () => normalizeNumericParam(committed.principle_year) ?? "",
   );
 
   const hasIncludeExclude = !!(includeTerms || excludeTerms);
@@ -80,10 +84,10 @@ export default function PrincipleSearch({
       include_terms: includeTerms || null,
       exclude_terms: excludeTerms || null,
       any_terms: anyTerms || null,
-      appeal_number: appealNumber || null,
-      appeal_year: appealYear || null,
-      principle_number: principleNumber || null,
-      principle_year: principleYear || null,
+      appeal_number: normalizeNumericParam(appealNumber) || null,
+      appeal_year: normalizeNumericParam(appealYear) || null,
+      principle_number: normalizeNumericParam(principleNumber) || null,
+      principle_year: normalizeNumericParam(principleYear) || null,
       page: "1",
     });
   };
@@ -91,6 +95,10 @@ export default function PrincipleSearch({
   const handleStringChange =
     (setter: (v: string) => void) => (v: string | null) =>
       setter(v ?? "");
+
+  const handleNumericChange =
+    (setter: (v: string) => void) => (v: string | null) =>
+      setter(normalizeNumericParam(v) ?? "");
 
   return (
     <div className="w-full mt-4">
@@ -181,12 +189,12 @@ export default function PrincipleSearch({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SearchInput
               value={principleNumber}
-              onChange={handleStringChange(setPrincipleNumber)}
+              onChange={handleNumericChange(setPrincipleNumber)}
               placeholder="أدرج الرقم دون السنة. مثال: 12"
             />
             <SearchInput
               value={principleYear}
-              onChange={handleStringChange(setPrincipleYear)}
+              onChange={handleNumericChange(setPrincipleYear)}
               placeholder={`أدرج السنة الميلادية. مثال: ${CURRENT_YEAR}`}
             />
           </div>
@@ -201,12 +209,12 @@ export default function PrincipleSearch({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <SearchInput
               value={appealNumber}
-              onChange={handleStringChange(setAppealNumber)}
+              onChange={handleNumericChange(setAppealNumber)}
               placeholder="أدرج الرقم دون السنة. مثال: 1234"
             />
             <SearchInput
               value={appealYear}
-              onChange={handleStringChange(setAppealYear)}
+              onChange={handleNumericChange(setAppealYear)}
               placeholder={`أدرج السنة القضائية. مثال: ${YEARS_SINCE_FOUNDING}`}
             />
           </div>

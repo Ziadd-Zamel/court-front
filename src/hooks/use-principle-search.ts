@@ -3,6 +3,8 @@
 import { useMemo } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useQueryStates, parseAsString, parseAsArrayOf } from "nuqs";
+import { parseAsNormalizedNumericString } from "@/lib/nuqs/parse-as-normalized-numeric-string";
+import { normalizeNumericSearchParams } from "@/lib/utils/normalize-numeric-param";
 
 /**
  * Shared parsers for every URL key the principle search reads/writes.
@@ -15,10 +17,10 @@ export const principleSearchParsers = {
   include_terms: parseAsString,
   exclude_terms: parseAsString,
   any_terms: parseAsString,
-  appeal_number: parseAsString,
-  appeal_year: parseAsString,
-  principle_number: parseAsString,
-  principle_year: parseAsString,
+  appeal_number: parseAsNormalizedNumericString,
+  appeal_year: parseAsNormalizedNumericString,
+  principle_number: parseAsNormalizedNumericString,
+  principle_year: parseAsNormalizedNumericString,
   session_date: parseAsString,
   strict_alef: parseAsString,
   strict_ya: parseAsString,
@@ -67,8 +69,8 @@ export function hasAnyPrincipleSearchInput(params: PrincipleSearchParams) {
 const rulingTypeUrlParser = parseAsArrayOf(parseAsString).withDefault([]);
 
 export const principlePaginationParsers = {
-  page: parseAsString.withDefault("1"),
-  limit: parseAsString.withDefault("15"),
+  page: parseAsNormalizedNumericString.withDefault("1"),
+  limit: parseAsNormalizedNumericString.withDefault("15"),
 };
 
 export const principleSearchQueryKey = (params: PrincipleSearchParams) =>
@@ -133,24 +135,25 @@ export function usePrincipleSearch({
   ).join(",");
 
   const params = useMemo<PrincipleSearchParams>(
-    () => ({
-      page,
-      per_page: perPage,
-      principle_type_uuids: rulingTypeKey || undefined,
-      exact_phrase: urlValues.exact_phrase ?? undefined,
-      similar_phrase: urlValues.similar_phrase ?? undefined,
-      include_terms: urlValues.include_terms ?? undefined,
-      exclude_terms: urlValues.exclude_terms ?? undefined,
-      any_terms: urlValues.any_terms ?? undefined,
-      appeal_number: urlValues.appeal_number ?? undefined,
-      appeal_year: urlValues.appeal_year ?? undefined,
-      principle_number: urlValues.principle_number ?? undefined,
-      principle_year: urlValues.principle_year ?? undefined,
-      session_date: urlValues.session_date ?? undefined,
-      strict_alef: urlValues.strict_alef ?? undefined,
-      strict_ya: urlValues.strict_ya ?? undefined,
-      strict_ta: urlValues.strict_ta ?? undefined,
-    }),
+    () =>
+      normalizeNumericSearchParams({
+        page,
+        per_page: perPage,
+        principle_type_uuids: rulingTypeKey || undefined,
+        exact_phrase: urlValues.exact_phrase ?? undefined,
+        similar_phrase: urlValues.similar_phrase ?? undefined,
+        include_terms: urlValues.include_terms ?? undefined,
+        exclude_terms: urlValues.exclude_terms ?? undefined,
+        any_terms: urlValues.any_terms ?? undefined,
+        appeal_number: urlValues.appeal_number ?? undefined,
+        appeal_year: urlValues.appeal_year ?? undefined,
+        principle_number: urlValues.principle_number ?? undefined,
+        principle_year: urlValues.principle_year ?? undefined,
+        session_date: urlValues.session_date ?? undefined,
+        strict_alef: urlValues.strict_alef ?? undefined,
+        strict_ya: urlValues.strict_ya ?? undefined,
+        strict_ta: urlValues.strict_ta ?? undefined,
+      }),
     [urlValues, page, perPage, rulingTypeKey],
   );
 

@@ -1,4 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import {
+  normalizeNumericParam,
+  PRINCIPLE_NUMERIC_PARAM_KEYS,
+} from "@/lib/utils/normalize-numeric-param";
 
 // Forwarded query parameters from the client (matches the principle search UI).
 const FORWARDED_PARAMS = [
@@ -27,7 +31,14 @@ export async function GET(request: NextRequest) {
   for (const key of FORWARDED_PARAMS) {
     const value = searchParams.get(key);
     if (value !== null && value !== "") {
-      upstreamParams.append(key, value);
+      const normalized = (PRINCIPLE_NUMERIC_PARAM_KEYS as readonly string[]).includes(
+        key,
+      )
+        ? normalizeNumericParam(value)
+        : value;
+      if (normalized) {
+        upstreamParams.append(key, normalized);
+      }
     }
   }
 

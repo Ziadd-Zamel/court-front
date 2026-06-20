@@ -2,6 +2,7 @@
 import MainHeading from "@/components/common/main-heading";
 import PrinciplePage from "./_components/principle-page";
 import { getSiteSettings } from "@/lib/api/site-settings.api";
+import { normalizeNumericParam } from "@/lib/utils/normalize-numeric-param";
 
 const FALLBACK_BACKGROUND = "/assets/technical-office.png";
 const FALLBACK_DESCRIPTION =
@@ -34,10 +35,16 @@ export default async function Page({
   const resolvedSearchParams = await searchParams;
 
   // destructure page and limit from search param
-  const mainPage = Math.max(1, Number(resolvedSearchParams.page) || 1);
+  const mainPage = Math.max(
+    1,
+    Number(normalizeNumericParam(resolvedSearchParams.page)) || 1,
+  );
   const mainLimit = Math.max(
     1,
-    Math.min(50, Number(resolvedSearchParams.limit) || 15),
+    Math.min(
+      50,
+      Number(normalizeNumericParam(resolvedSearchParams.limit)) || 15,
+    ),
   );
 
   const { data } = await getSiteSettings();
