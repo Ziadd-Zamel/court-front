@@ -49,7 +49,7 @@ export default function RtlSelectField({
   };
 
   return (
-    <div className="flex sm:flex-row flex-col sm:items-center gap-5">
+    <div className="flex sm:flex-row flex-col sm:items-center sm:gap-5 gap-2">
       <label className="w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] dark:bg-white/10 dark:border dark:border-white/10 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-white sm:py-[14px] sm:text-xs lg:text-sm">
         {label}
       </label>

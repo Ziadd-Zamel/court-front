@@ -15,7 +15,6 @@ const LawyerSearchForm = ({ circles, fields }: Props) => {
   const [keyword, setKeyword] = useState("");
   const [circle1, setCircle1] = useState("");
   const [field, setField] = useState("");
-  console.log(circles);
   // URL state management for tab switching
   const [activeTab, setActiveTab] = useQueryState("tab");
 

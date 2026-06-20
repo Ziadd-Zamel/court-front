@@ -84,7 +84,6 @@ export const getPrincipleBySearch = async (
     strict_ya,
     strict_ta,
   });
-  console.log(queryString);
   const url = `${process.env.API}principles/advanced-search?${queryString}`;
 
   const response = await fetch(url, {
@@ -93,8 +92,6 @@ export const getPrincipleBySearch = async (
 
   const payload: APIResponse<any[]> = await response.json();
 
-  console.log("responseresponseresponse", payload);
-  console.log("responseresponseresponse", response);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }

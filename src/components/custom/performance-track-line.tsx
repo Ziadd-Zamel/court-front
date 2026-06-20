@@ -10,6 +10,12 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 type PerformanceTrackLineProps = {
   className?: string;
+  /** Render only the compact mobile timeline (< sm) */
+  mobileOnly?: boolean;
+  /** Render only the desktop timeline (sm+) */
+  desktopOnly?: boolean;
+  /** Tighter spacing when placed between progress bars and chart */
+  compact?: boolean;
 };
 
 function formatMonthLabelNumeric(year: number, month: number) {
@@ -18,6 +24,9 @@ function formatMonthLabelNumeric(year: number, month: number) {
 
 export default function PerformanceTrackLine({
   className = "relative mt-[130px] px-16",
+  mobileOnly = false,
+  desktopOnly = false,
+  compact = false,
 }: PerformanceTrackLineProps) {
   const [params, setParams] = useMonthYearParams();
   const window = getRollingFiveMonths(new Date());
@@ -29,9 +38,16 @@ export default function PerformanceTrackLine({
     void setParams({ year: slot.year, month: slot.month });
   };
 
+  const showMobile = !desktopOnly;
+  const showDesktop = !mobileOnly;
+  const mobileWrapperClass = compact
+    ? "relative mt-2 w-full pb-2 pt-4 sm:hidden"
+    : "relative mt-16 w-full pb-6 pt-8 sm:hidden";
+
   return (
     <>
-      <div className="relative mt-16 w-full pb-6 pt-8 sm:hidden">
+      {showMobile && (
+      <div className={mobileWrapperClass}>
         <div
           style={{ direction: "rtl" }}
           className="relative flex items-center justify-between px-7"
@@ -94,7 +110,9 @@ export default function PerformanceTrackLine({
           </button>
         </div>
       </div>
+      )}
 
+      {showDesktop && (
       <div className={`hidden sm:block ${className}`}>
         <div
           style={{ direction: "rtl" }}
@@ -156,6 +174,7 @@ export default function PerformanceTrackLine({
           </button>
         </div>
       </div>
+      )}
     </>
   );
 }

@@ -4,6 +4,7 @@ import CustomPieChart, { PieSlice } from "@/components/custom/custom-pie-chart";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { BasicInfoByStatsRow } from "@/hooks/use-basic-info-by-stats";
+import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const SLICE_COLORS = [
@@ -132,6 +133,7 @@ type Props = {
   description?: string;
   useDecidedForPie?: boolean;
   showPie?: boolean;
+  mobileTimeline?: ReactNode;
 };
 
 export default function AppealsPerformanceStats({
@@ -141,6 +143,7 @@ export default function AppealsPerformanceStats({
   description = "تعبر المؤشرات عن نسبة القضايا المفصول فيها من إجمالي القضايا المعروضة خلال الشهر",
   useDecidedForPie = false,
   showPie,
+  mobileTimeline,
 }: Props) {
   const progressTargets = useMemo(
     () => (rows?.length ? rows.map((r) => parseFloat(r.completion_rate)) : []),
@@ -223,6 +226,8 @@ export default function AppealsPerformanceStats({
           })}
         </div>
       </div>
+
+      {mobileTimeline}
 
       {/* Pie chart */}
       {!hidePie && (

@@ -18,7 +18,6 @@ export default async function ImportantInfo({ pagination, search }: Props) {
   const [categoriesData, categoriesError] = await catchError(() =>
     getConstitutionalCategories(),
   );
-  console.log(categoriesData);
   if (categoriesError) return <ErrorState />;
 
   if (!categoriesData?.data || !categoriesData.data.length)

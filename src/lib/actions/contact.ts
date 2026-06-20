@@ -14,7 +14,6 @@ export async function submitContactForm(data: ContactFormData) {
       },
       body: JSON.stringify({ ...validatedData }),
     });
-    console.log(response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

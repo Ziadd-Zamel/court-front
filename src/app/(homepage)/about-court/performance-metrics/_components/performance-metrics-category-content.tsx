@@ -41,7 +41,6 @@ export default function PerformanceMetricsCategoryContent({
     Array.isArray(data) && data.length > 0 && !("message" in data[0])
       ? (data[0] as BasicInfoByClassRow)
       : null;
-  console.log(firstRow);
   const mainLabel = firstRow?.main_label;
   const pieLabel = firstRow?.pie_label;
   const showPie = firstRow ? firstRow.show_pie === "true" : undefined;

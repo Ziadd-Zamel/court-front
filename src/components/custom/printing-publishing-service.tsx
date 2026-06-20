@@ -201,9 +201,8 @@ export default function PrintingPublishingService() {
           setErrorDialogOpen(true);
         }
       },
-      onError: (error) => {
+      onError: () => {
         setErrorDialogOpen(true);
-        console.log(error);
       },
     });
   };

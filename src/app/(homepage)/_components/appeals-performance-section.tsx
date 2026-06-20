@@ -59,9 +59,16 @@ export default function AppealsPerformanceSection() {
             description="تعبر المؤشرات عن نسبة إسهام كل طائفة من دوائر المحكمة في إجمالي المفصول فيه خلال الشهر"
             rows={data}
             isLoading={isLoading}
+            mobileTimeline={
+              <PerformanceTrackLine mobileOnly compact />
+            }
           />
         )}
-        <PerformanceTrackLine />
+        {showStatsEmpty ? (
+          <PerformanceTrackLine />
+        ) : (
+          <PerformanceTrackLine desktopOnly />
+        )}
         <Link
           href="/about-court/performance-metrics"
           className="block w-full text-end text-base font-semibold text-main sm:hidden"

@@ -21,7 +21,6 @@ export default async function SupremeCourtMagazine({ pagination }: Props) {
       "928ad31a-78bb-4202-b56b-abf7dd2356f9",
     ),
   );
-  console.log(data);
   // Empty data State
   if (!data || data.data.length === 0) {
     return <NoDataState />;
@@ -31,7 +30,6 @@ export default async function SupremeCourtMagazine({ pagination }: Props) {
   if (error) {
     return <ErrorState />;
   }
-  console.log(data);
   return (
     <>
       {/** Main content */}

@@ -19,7 +19,6 @@ const AssemblyList = ({
   pagination,
   totalPages,
 }: ArticlesListProps) => {
-  console.log(articles);
   return (
     <section>
       <Accordion style={{ direction: "rtl" }} type="single" collapsible>

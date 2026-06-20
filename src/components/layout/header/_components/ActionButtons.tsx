@@ -76,7 +76,7 @@ export default function ActionButtons({
         aria-label="المفضلة"
       >
         <TiFolderOpen className="size-4 text-white transition-colors hover:text-main sm:size-6" />
-        <div className="absolute left-2.5 top-2.5 hidden aspect-square size-2.5 rounded-full bg-red-500 text-white sm:flex sm:flex-center" />
+        <div className="absolute left-2 top-2 aspect-square size-2 rounded-full bg-red-500 sm:left-2.5 sm:top-2.5 sm:size-2.5" />
       </Button>
     </div>
   );

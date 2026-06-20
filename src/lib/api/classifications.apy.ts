@@ -4,8 +4,6 @@ export const getClassificationsData = async () => {
     cache: "no-store",
   });
 
-  console.log(response);
-
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }

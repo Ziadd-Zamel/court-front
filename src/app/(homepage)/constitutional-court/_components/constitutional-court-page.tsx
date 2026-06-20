@@ -3,7 +3,6 @@ import ImportantInfo from "./important-info";
 import ConstitutionalCourtSessions from "./constitutional-court-sessions";
 import AboutConstitutionalCourt from "./about-constitutional-court";
 import ArticlePage from "@/components/custom/article-page";
-import { getRulingCategory } from "@/lib/api/subcategories";
 
 type Props = {
   pagination: {
@@ -17,8 +16,6 @@ export default async function ConstitutionalCourtPage({
   pagination,
   search,
 }: Props) {
-  const categories = await getRulingCategory();
-  console.log(categories);
   const tabs: TabItem[] = [
     {
       label: "القضاء الدستوري",

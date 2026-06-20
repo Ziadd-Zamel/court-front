@@ -13,7 +13,6 @@ export const getAllFields = async () => {
     const response = await fetch(url, {
       cache: "no-store",
     });
-    console.log(response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -32,7 +31,6 @@ export const getAllCircles = async () => {
     const response = await fetch(url, {
       cache: "no-store",
     });
-    console.log(response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -51,7 +49,7 @@ export const getAllLawyers = async (
   search?: string,
   office_circle?: string,
   per_page?: number,
-  page?: number
+  page?: number,
 ) => {
   const baseUrl = `/api/lawyers`;
   const params = new URLSearchParams();

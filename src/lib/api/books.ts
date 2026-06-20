@@ -169,7 +169,6 @@ export const getBooksByCategory = async (
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-  console.log(response);
   const payload: APIResponse<BookData[]> = await response.json();
 
   return payload;

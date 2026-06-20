@@ -26,7 +26,6 @@ export default async function RulingsSet({ pagination }: Props) {
   if (error) {
     return <ErrorState />;
   }
-  console.log(data);
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16 mt-10">

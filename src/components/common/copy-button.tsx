@@ -58,9 +58,15 @@ export function CopyButton({
       title={copied ? "تم النسخ" : "نسخ النص"}
     >
       {copied ? (
-        <FaCheck size={size} className="text-main" />
+        <FaCheck
+          size={size}
+          className="max-md:scale-[1.2] text-main md:scale-100"
+        />
       ) : (
-        <Files size={size} className={`transition-colors ${iconStyles}`} />
+        <Files
+          size={size}
+          className={`max-md:scale-[1.2] transition-colors md:scale-100 ${iconStyles}`}
+        />
       )}
     </button>
   );

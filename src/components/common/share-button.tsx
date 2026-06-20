@@ -284,7 +284,10 @@ export function ShareButton({
           >
             <Share2
               size={size}
-              className={cn("transition-colors", iconStyles)}
+              className={cn(
+                "max-md:scale-[1.2] transition-colors md:scale-100",
+                iconStyles,
+              )}
             />
           </button>
         </DropdownMenuTrigger>

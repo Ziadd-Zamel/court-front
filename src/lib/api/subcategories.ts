@@ -51,8 +51,7 @@ export const getLegalPrinciplesSub = async () => {
   }
 
   const payload: response = await response.json();
-  console.log("responseresponse", response);
-  console.log("responseresponse", payload);
+
   return payload;
 };
 export const getAssemblySub = async () => {
@@ -60,13 +59,10 @@ export const getAssemblySub = async () => {
   const response = await fetch(url, {
     next: { revalidate: 600 },
   });
-  console.log(response);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-  console.log(response);
   const payload: response = await response.json();
-  console.log(payload);
 
   return payload;
 };

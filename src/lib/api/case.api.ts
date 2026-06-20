@@ -1,7 +1,7 @@
 export const getCaseData = async (
   rippId?: string,
   year?: string,
-  classId?: string
+  classId?: string,
 ) => {
   const params = new URLSearchParams();
 
@@ -13,7 +13,6 @@ export const getCaseData = async (
   const response = await fetch(`/api/case?${params.toString()}`, {
     cache: "no-store",
   });
-  console.log(response);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }

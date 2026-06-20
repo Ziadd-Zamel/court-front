@@ -42,7 +42,6 @@ export default function BookCard({
   }, [image, type, randomBookImageNumber, book.book_image]);
 
   const isMagazine = type === "magazine";
-  console.log(book);
   const bookHref = isMagazine
     ? (book.pdf_file ?? "#")
     : from

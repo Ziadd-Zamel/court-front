@@ -5,7 +5,6 @@ import MainHeading from "./_components/main-heading";
 
 export default async function AboutCourtPage() {
   const { data } = await getSiteSettings();
-  console.log(data);
   const backgroundImage = data?.about_background ?? "/assets/about.png";
   const backgroundImageSupreme =
     data?.about_supreme_court_background ?? "/assets/about.png";

@@ -12,7 +12,6 @@ export const getQuestionCategories = async () => {
     const response = await fetch(url, {
       cache: "no-store",
     });
-    console.log(response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -55,7 +54,7 @@ export const getAllQuestion = async (
   category_id?: string,
   per_page?: number,
   page?: number,
-  search?: string
+  search?: string,
 ) => {
   const baseUrl = `/api/questions`;
   const params = new URLSearchParams();

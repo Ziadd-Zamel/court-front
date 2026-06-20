@@ -1,7 +1,7 @@
 "use client";
 import AnimatedSectionHeader from "@/components/common/AnimatedSectionHeader";
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import StaggeredNavigationCarousel from "./TestimonialCarousel";
 import { cleanHtmlStyles } from "@/lib/utils/clean-html-styles";
 import Link from "next/link";
@@ -62,10 +62,26 @@ const RecentNews = ({ articles = [] }: { articles?: NewsArticle[] }) => {
   const [SelectedNew, setSelectedNew] = useState<NewsCarouselItem | null>(
     firstItem,
   );
+  const detailBoxRef = useRef<HTMLDivElement>(null);
+  const shouldScrollToDetailRef = useRef(false);
 
   const handleCardClick = (item: NewsCarouselItem) => {
     setSelectedNew(item);
+
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 1023px)").matches
+    ) {
+      shouldScrollToDetailRef.current = true;
+    }
   };
+
+  useEffect(() => {
+    if (!shouldScrollToDetailRef.current || !SelectedNew) return;
+
+    shouldScrollToDetailRef.current = false;
+    detailBoxRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [SelectedNew]);
 
   if (itemsByPage.length === 0) return null;
 
@@ -100,7 +116,10 @@ const RecentNews = ({ articles = [] }: { articles?: NewsArticle[] }) => {
           </Link>
         </div>
 
-        <div className="order-2 mb-0 w-full min-w-0 lg:mb-20 lg:mt-0 lg:w-[50%]">
+        <div
+          ref={detailBoxRef}
+          className="order-2 mb-0 w-full min-w-0 scroll-mt-4 lg:mb-20 lg:mt-0 lg:w-[50%]"
+        >
           {SelectedNew && (
             <>
               <motion.article

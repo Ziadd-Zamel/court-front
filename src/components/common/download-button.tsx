@@ -81,11 +81,14 @@ export function DownloadButton({
       title={downloading ? "جارٍ التحميل..." : "تحميل PDF"}
     >
       {downloading ? (
-        <FaCheck size={size} className="text-white" />
+        <FaCheck
+          size={size}
+          className="max-md:scale-[1.2] text-white md:scale-100"
+        />
       ) : (
         <BsFiletypePdf
           size={size}
-          className={`transition-colors ${iconStyles}`}
+          className={`max-md:scale-[1.2] transition-colors md:scale-100 ${iconStyles}`}
         />
       )}
     </button>

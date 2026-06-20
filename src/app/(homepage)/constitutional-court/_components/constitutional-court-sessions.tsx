@@ -14,7 +14,10 @@ type Props = {
   search?: string;
 };
 
-export default async function ConstitutionalCourtSessions({ pagination, search }: Props) {
+export default async function ConstitutionalCourtSessions({
+  pagination,
+  search,
+}: Props) {
   const [data, error] = await catchError(() =>
     getConstitutionalSessions(pagination.currentPage, pagination.limit, search),
   );
@@ -22,12 +25,15 @@ export default async function ConstitutionalCourtSessions({ pagination, search }
   if (error) return <ErrorState />;
 
   if (!data || !data.data.length) return <NoDataState />;
-  console.log(data);
   return (
     <section>
       <Accordion style={{ direction: "rtl" }} type="single" collapsible>
         {data.data.map((session, index) => (
-          <AssemblySessionCard key={session.uuid} assembly={session} index={index} />
+          <AssemblySessionCard
+            key={session.uuid}
+            assembly={session}
+            index={index}
+          />
         ))}
       </Accordion>
 
