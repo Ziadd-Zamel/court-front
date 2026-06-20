@@ -26,7 +26,7 @@ export default function FooterContent() {
       <div className="mt-auto justify-self-start bg-black py-5">
         <div
           style={{ direction: "rtl" }}
-          className="text-center font-zain text-[14px] font-[300] text-white"
+          className="text-center font-zain text-[12px] font-[300] text-white sm:text-[14px]"
         >
           <p className="font-zain">
             ﺟﻤﻴﻊ الحقوق ﻣﺤﻔﻮﻇﺔ،{" "}

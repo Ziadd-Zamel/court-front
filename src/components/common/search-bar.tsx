@@ -1,57 +1,71 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { Search, X } from "lucide-react";
+import { parseAsString, useQueryStates } from "nuqs";
 import { cn } from "@/lib/utils";
 
-const SearchBar = ({ className }: { className?: string }) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [value, setValue] = useState(searchParams.get("search") ?? "");
+const searchBarParsers = {
+  search: parseAsString,
+  page: parseAsString,
+  perpage: parseAsString,
+  per_page: parseAsString,
+  limit: parseAsString,
+};
 
-  const isSearchActive = Boolean(searchParams.get("search"));
+function SearchBarInner({ className }: { className?: string }) {
+  const [params, setParams] = useQueryStates(searchBarParsers, {
+    history: "push",
+    scroll: false,
+    shallow: false,
+  });
 
-  const handleSearch = () => {
-    if (value.trim()) {
-      const params = new URLSearchParams(searchParams.toString());
-      // Reset pagination when a new search is triggered
-      params.delete("page");
-      params.delete("perpage");
-      params.delete("per_page");
-      params.delete("limit");
-      params.set("search", value.trim());
-      // Explicitly preserve 'from' for breadcrumb (e.g. from=legal-principles)
-      const fromVal = searchParams.get("from");
-      if (fromVal) params.set("from", fromVal);
-      router.push(`${pathname}?${params.toString()}`, {
-        scroll: false,
-      });
-    }
-  };
+  const [value, setValue] = useState(params.search ?? "");
+  const committedSearch = params.search?.trim() ?? "";
+  const draftSearch = value.trim();
+  const hasPendingChange = draftSearch !== committedSearch;
+  const showSearchButton =
+    Boolean(draftSearch) && (!committedSearch || hasPendingChange);
+  const showClearButton =
+    Boolean(committedSearch) && (!hasPendingChange || !draftSearch);
+  const showIdleSearch = !committedSearch && !draftSearch;
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") handleSearch();
+  useEffect(() => {
+    setValue(params.search ?? "");
+  }, [params.search]);
+
+  const commitSearch = () => {
+    const trimmed = value.trim();
+    if (!trimmed) return;
+
+    setParams({
+      search: trimmed,
+      page: null,
+      perpage: null,
+      per_page: null,
+      limit: null,
+    });
   };
 
   const handleClear = () => {
     setValue("");
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("search");
-    // Explicitly preserve 'from' for breadcrumb
-    const fromVal = searchParams.get("from");
-    if (fromVal) params.set("from", fromVal);
-    const query = params.toString();
-    router.push(query ? `${pathname}?${query}` : pathname, {
-      scroll: false,
+    setParams({
+      search: null,
+      page: null,
+      perpage: null,
+      per_page: null,
+      limit: null,
     });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") commitSearch();
   };
 
   return (
     <div
       className={cn(
-        "flex items-center gap-2 rounded-sm border border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-main",
+        "flex items-center gap-2 rounded-sm border border-gray-200 bg-white px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-main dark:border-white/10 dark:bg-white/10",
         className,
       )}
     >
@@ -61,9 +75,9 @@ const SearchBar = ({ className }: { className?: string }) => {
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="ابحث في هذه الصفحة"
-        className="w-full text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-white/50 outline-none placeholder:text-sm bg-transparent"
+        className="w-full bg-transparent text-gray-800 outline-none placeholder:text-sm placeholder:text-gray-400 dark:text-white dark:placeholder-white/50"
       />
-      {isSearchActive ? (
+      {showClearButton ? (
         <button
           type="button"
           className="cursor-pointer"
@@ -72,20 +86,40 @@ const SearchBar = ({ className }: { className?: string }) => {
         >
           <X
             size={16}
-            className="text-gray-400 dark:text-white/50 hover:text-gray-600 dark:hover:text-white"
+            className="text-gray-400 hover:text-gray-600 dark:text-white/50 dark:hover:text-white"
           />
         </button>
-      ) : (
+      ) : null}
+      {showSearchButton || showIdleSearch ? (
         <button
           type="button"
           className="cursor-pointer"
-          onClick={handleSearch}
+          onClick={commitSearch}
           aria-label="بحث"
         >
           <Search size={16} className="text-main hover:text-main/70" />
         </button>
-      )}
+      ) : null}
     </div>
+  );
+}
+
+const SearchBar = ({ className }: { className?: string }) => {
+  return (
+    <Suspense
+      fallback={
+        <div
+          className={cn(
+            "flex items-center gap-2 rounded-sm border border-gray-200 bg-white px-3 py-2 shadow-sm dark:border-white/10 dark:bg-white/10",
+            className,
+          )}
+        >
+          <div className="h-5 w-full rounded bg-gray-100 dark:bg-white/10" />
+        </div>
+      }
+    >
+      <SearchBarInner className={className} />
+    </Suspense>
   );
 };
 

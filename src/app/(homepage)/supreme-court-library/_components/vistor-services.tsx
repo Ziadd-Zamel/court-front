@@ -1,14 +1,14 @@
 export default function VistorServices() {
   return (
     <section className="-mt-9">
-      <h2 className="text-main font-semibold text-2xl pb-4 border-b-3 border-b-main pe-10 w-fit  mb-8">
+      <h2 className="mb-6 w-fit border-b-3 border-b-main pe-10 pb-3 text-xl font-semibold text-main sm:mb-8 sm:pb-4 sm:text-2xl">
         دليل الاستخدام
       </h2>
 
       {/* هدف المكتبة */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">هدف المكتبة:</h3>
-        <p className="text-gray-600 dark:text-white/70 font-medium">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">هدف المكتبة:</h3>
+        <p className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base">
           تهدف مكتبة المحكمة العليا إلى توفير بيئة علمية مناسبة للبحث القانوني،
           وإتاحة المراجع والدراسات القانونية لرجال القضاء والباحثين والطلبة، بما
           يسهم في تطوير المعرفة القانونية وتعزيز البحث العلمي.
@@ -18,11 +18,11 @@ export default function VistorServices() {
 
       {/* خدمات المكتبة */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">خدمات المكتبة:</h3>
-        <p className="text-gray-600 dark:text-white/70 font-medium mb-4">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">خدمات المكتبة:</h3>
+        <p className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base mb-4">
           تقدم المكتبة الخدمات الآتية:
         </p>
-        <ol className="text-gray-600 dark:text-white/70 font-medium list-decimal list-inside space-y-2 marker:text-main">
+        <ol className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base list-decimal list-inside space-y-2 marker:text-main">
           <li>
             إتاحة الاطلاع على الكتب والمراجع القانونية داخل قاعات المطالعة.
           </li>
@@ -35,10 +35,10 @@ export default function VistorServices() {
 
       {/* مواعيد استقبال الزوار */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">
           مواعيد استقبال الزوار:
         </h3>
-        <ol className="text-gray-600 dark:text-white/70 font-medium list-decimal list-inside space-y-4 marker:text-main">
+        <ol className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base list-decimal list-inside space-y-4 marker:text-main">
           <li>
             <span className="font-semibold">
               العاملون بالمحكمة العليا وأعضاء الهيئات القضائية
@@ -56,7 +56,7 @@ export default function VistorServices() {
             من الساعة 09:00 صباحاً إلى 14:00 ظهراً.
           </li>
         </ol>
-        <p className="text-gray-600 dark:text-white/70 font-medium mt-4">
+        <p className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base mt-4">
           يجوز لإدارة المكتبة تعديل هذه المواعيد متى اقتضت الحاجة.
         </p>
         <div className="w-full h-px bg-main mt-8" />
@@ -64,8 +64,8 @@ export default function VistorServices() {
 
       {/* التسجيل والدخول */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">التسجيل والدخول:</h3>
-        <ol className="text-gray-600 dark:text-white/70 font-medium list-decimal list-inside space-y-2 marker:text-main">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">التسجيل والدخول:</h3>
+        <ol className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base list-decimal list-inside space-y-2 marker:text-main">
           <li>
             يتعين على الزائر تسجيل حضوره عند الدخول باستخدام بطاقة تعريف سارية.
           </li>
@@ -77,8 +77,8 @@ export default function VistorServices() {
 
       {/* نظام الاطلاع */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">نظام الاطلاع:</h3>
-        <ol className="text-gray-600 dark:text-white/70 font-medium list-decimal list-inside space-y-2 marker:text-main">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">نظام الاطلاع:</h3>
+        <ol className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base list-decimal list-inside space-y-2 marker:text-main">
           <li>يقتصر الاطلاع على الكتب والمراجع داخل قاعات المكتبة.</li>
           <li>يجب تسليم الكتب إلى موظف المكتبة بعد الانتهاء منها.</li>
           <li>لا يجوز للزائر إعادة الكتب إلى الرفوف بنفسه.</li>
@@ -88,8 +88,8 @@ export default function VistorServices() {
 
       {/* التصوير والنسخ */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">التصوير والنسخ:</h3>
-        <ol className="text-gray-600 dark:text-white/70 font-medium list-decimal list-inside space-y-2 marker:text-main">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">التصوير والنسخ:</h3>
+        <ol className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base list-decimal list-inside space-y-2 marker:text-main">
           <li>
             يمنع تصوير الكتب أو الوثائق أو نسخها حفاظاً على حقوق الملكية
             الفكرية.
@@ -103,8 +103,8 @@ export default function VistorServices() {
 
       {/* نظام الاستعارة */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">نظام الاستعارة:</h3>
-        <ol className="text-gray-600 dark:text-white/70 font-medium list-decimal list-inside space-y-2 marker:text-main">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">نظام الاستعارة:</h3>
+        <ol className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base list-decimal list-inside space-y-2 marker:text-main">
           <li>
             خدمة الاستعارة الخارجية معلّقة في الوقت الحالي إلى حين إشعار آخر.
           </li>
@@ -114,11 +114,11 @@ export default function VistorServices() {
 
       {/* المحافظة على مقتنيات المكتبة */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">
           المحافظة على مقتنيات المكتبة:
         </h3>
-        <p className="text-gray-600 dark:text-white/70 font-medium mb-4">يلتزم الزائر بما يأتي:</p>
-        <ul className="text-gray-600 dark:text-white/70 font-medium list-disc list-inside space-y-2 marker:text-main">
+        <p className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base mb-4">يلتزم الزائر بما يأتي:</p>
+        <ul className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base list-disc list-inside space-y-2 marker:text-main">
           <li>المحافظة على الكتب والمراجع.</li>
           <li>
             المحافظة على سلامة صفحات الكتب والمراجع، وعدم طيّها أو الكتابة عليها
@@ -132,11 +132,11 @@ export default function VistorServices() {
 
       {/* النظام داخل قاعات المطالعة */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">
           النظام داخل قاعات المطالعة:
         </h3>
-        <p className="text-gray-600 dark:text-white/70 font-medium mb-4">يلتزم الزائر بما يأتي:</p>
-        <ul className="text-gray-600 dark:text-white/70 font-medium list-disc list-inside space-y-2 marker:text-main">
+        <p className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base mb-4">يلتزم الزائر بما يأتي:</p>
+        <ul className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base list-disc list-inside space-y-2 marker:text-main">
           <li>المحافظة على الهدوء داخل قاعات المطالعة.</li>
           <li>احترام خصوصية الباحثين الآخرين.</li>
           <li>ضبط الهاتف المحمول على الوضع الصامت.</li>
@@ -147,8 +147,8 @@ export default function VistorServices() {
 
       {/* الطعام والتدخين */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">الطعام والتدخين:</h3>
-        <ol className="text-gray-600 dark:text-white/70 font-medium list-decimal list-inside space-y-2 marker:text-main">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">الطعام والتدخين:</h3>
+        <ol className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base list-decimal list-inside space-y-2 marker:text-main">
           <li>يمنع إدخال الأطعمة إلى قاعات المكتبة.</li>
           <li>يسمح بالمشروبات فقط بما لا يضر بالمقتنيات.</li>
           <li>يمنع التدخين منعاً باتاً في جميع مرافق المكتبة.</li>
@@ -158,8 +158,8 @@ export default function VistorServices() {
 
       {/* إدارة المكتبة */}
       <div className=" mb-8">
-        <h3 className="text-xl font-bold text-main mb-6">إدارة المكتبة:</h3>
-        <p className="text-gray-600 dark:text-white/70 font-medium">
+        <h3 className="mb-4 text-lg font-bold text-main sm:mb-6 sm:text-xl">إدارة المكتبة:</h3>
+        <p className="text-sm font-medium text-gray-600 dark:text-white/70 sm:text-base">
           يعدّ ضمان حسن استخدام المكتبة والمحافظة على مواردها العلمية من
           المقومات الأساسية لاستمرار عملها بفاعلية. ولذلك، يحق لإدارة المكتبة
           اتخاذ الإجراءات المناسبة في حال مخالفة هذه التعليمات.

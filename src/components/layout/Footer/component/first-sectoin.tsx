@@ -5,7 +5,7 @@ const FirstSectoin = () => {
   return (
     <div className="flex w-full justify-start">
       <div
-        className="relative h-[550px] w-full max-w-[300px]"
+        className="relative mx-auto h-[550px] w-full max-w-[300px] sm:mx-0"
         style={{
           backgroundImage: "url('/assets/orbd.jpg')",
           backgroundPosition: "center",

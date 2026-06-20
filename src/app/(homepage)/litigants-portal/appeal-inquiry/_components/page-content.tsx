@@ -97,11 +97,11 @@ export default function PageContent({
     // If no search has been performed yet, show instructions
     if (!hasSearched && !caseData) {
       return (
-        <div className="pt-20 pb-40">
-          <h3 className="text-2xl sm:text-3xl font-bold text-zinc-800 dark:text-white mb-4 text-right">
+        <div className="pt-20 sm:pb-40 pb-20">
+          <h3 className="text-xl sm:text-3xl font-bold text-zinc-800 dark:text-white mb-4 text-right">
             إضاءات:
           </h3>
-          <ul className="text-gray-600 dark:text-white/70 text-sm space-y-4 list-disc list-inside text-right">
+          <ul className="text-gray-600 dark:text-white/70 text-xs sm:text-sm space-y-4 list-disc list-inside text-right">
             <li className="marker:text-main">
               للحصول على نتائج سريعة ودقيقة، يُراعى إدخال بيانات قضيتك إدخالاً
               صحيحاً. يُرجى الانتباه إلى أنه في حالات نادرة، قد يتأخر تحديث
@@ -203,7 +203,7 @@ export default function PageContent({
         </Button>
       </div>
 
-      <div className="min-h-[40vh] pb-40 pt-10">{renderContent()}</div>
+      <div className="min-h-[40vh] sm:pb-40 pb-20 pt-10">{renderContent()}</div>
     </div>
   );
 }

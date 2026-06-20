@@ -2,12 +2,15 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import HTMLFlipBook from "react-pageflip";
+import HTMLFlipBook from "react-pageflip-rtl";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+
+const DESKTOP_PAGE_WIDTH = 400;
+const PAGE_ASPECT = 550 / 400;
 
 type BookFlipProps = {
   pdfUrl: string;
@@ -18,8 +21,10 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
   const [currentPage, setCurrentPage] = useState(0);
   const [pdfUrls, setPdfUrls] = useState<string | null>(null);
   const [isPortrait, setIsPortrait] = useState(false);
+  const [pageWidth, setPageWidth] = useState(DESKTOP_PAGE_WIDTH);
 
   const bookRef = useRef<any>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const trimmed = pdfUrl.trim();
@@ -38,8 +43,6 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
       .catch(() => setPdfUrls(null));
   }, [pdfUrl]);
 
-  // Below the Tailwind `lg` breakpoint (1024px) we render as a single page
-  // so the flipbook fits inside narrower containers.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const mql = window.matchMedia("(max-width: 1023px)");
@@ -48,46 +51,63 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
     mql.addEventListener("change", update);
     return () => mql.removeEventListener("change", update);
   }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const updateSize = () => {
+      const available = container.clientWidth;
+      const maxWidth = isPortrait
+        ? Math.min(available, 320)
+        : Math.min(available / 2, DESKTOP_PAGE_WIDTH);
+      setPageWidth(Math.max(220, Math.floor(maxWidth)));
+    };
+
+    updateSize();
+    const observer = new ResizeObserver(updateSize);
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [isPortrait]);
+
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
   }
 
+  const pageHeight = Math.round(pageWidth * PAGE_ASPECT);
+
   const goToNextPage = () => {
-    if (bookRef.current) {
-      bookRef.current.pageFlip().flipNext();
-    }
+    bookRef.current?.pageFlip().flipNext();
   };
 
   const goToPrevPage = () => {
-    if (bookRef.current) {
-      bookRef.current.pageFlip().flipPrev();
-    }
+    bookRef.current?.pageFlip().flipPrev();
   };
 
   return (
-    <div className="w-full relative px-5">
-      <div className="flex-1 flex items-center justify-center px-8">
+    <div ref={containerRef} className="relative w-full px-8 sm:px-10 lg:px-12">
+      <div className="flex items-center justify-center">
         <Document
           file={pdfUrls}
           onLoadSuccess={onDocumentLoadSuccess}
           loading={
-            <div className="flex items-center justify-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+            <div className="flex min-h-[280px] items-center justify-center sm:min-h-[400px]">
+              <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-white sm:h-16 sm:w-16" />
             </div>
           }
         >
-          {/* @ts-expect-error react-pageflip has incorrect typings */}
-
+          {/* @ts-expect-error react-pageflip-rtl has incorrect typings */}
           <HTMLFlipBook
-            key={isPortrait ? "portrait" : "landscape"}
+            key={`${isPortrait ? "portrait" : "landscape"}-${pageWidth}`}
             ref={bookRef}
-            width={400}
-            height={550}
+            rtl={true}
+            width={pageWidth}
+            height={pageHeight}
             size="fixed"
-            minWidth={300}
-            maxWidth={600}
-            minHeight={400}
-            maxHeight={800}
+            minWidth={pageWidth}
+            maxWidth={pageWidth}
+            minHeight={pageHeight}
+            maxHeight={pageHeight}
             showCover={true}
             mobileScrollSupport={true}
             onFlip={(e) => setCurrentPage(e.data)}
@@ -101,14 +121,14 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
             disableFlipByClick={false}
             style={{}}
           >
-            {Array.from(new Array(numPages), (el, index) => (
+            {Array.from(new Array(numPages), (_, index) => (
               <div
                 key={`page_${index + 1}`}
-                className="w-full h-full bg-white flex items-center justify-center overflow-hidden"
+                className="flex h-full w-full items-center justify-center overflow-hidden bg-white"
               >
                 <Page
                   pageNumber={index + 1}
-                  width={400}
+                  width={pageWidth}
                   renderTextLayer={true}
                   renderAnnotationLayer={true}
                 />
@@ -119,18 +139,22 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
       </div>
 
       <button
+        type="button"
         onClick={goToPrevPage}
         disabled={currentPage === 0}
-        className="px-6 py-3 text-white cursor-pointer  disabled:cursor-not-allowed  absolute top-1/2 -translate-y-1/2 -right-13 "
+        className="absolute top-1/2 right-0 -translate-y-1/2 cursor-pointer p-1 text-white disabled:cursor-not-allowed sm:right-1 sm:p-2 lg:-right-2"
+        aria-label="الصفحة السابقة"
       >
-        <ChevronRight size={40} />
+        <ChevronRight className="size-7 sm:size-9 lg:size-10" />
       </button>
       <button
+        type="button"
         onClick={goToNextPage}
         disabled={currentPage >= numPages - 1}
-        className="px-6 py-3 text-white cursor-pointer  disabled:cursor-not-allowed absolute top-1/2 -translate-y-1/2 -left-13"
+        className="absolute top-1/2 left-0 -translate-y-1/2 cursor-pointer p-1 text-white disabled:cursor-not-allowed sm:left-1 sm:p-2 lg:-left-2"
+        aria-label="الصفحة التالية"
       >
-        <ChevronLeft size={40} />
+        <ChevronLeft className="size-7 sm:size-9 lg:size-10" />
       </button>
     </div>
   );

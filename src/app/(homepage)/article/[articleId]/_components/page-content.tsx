@@ -29,7 +29,7 @@ export default function PageContent({ article }: { article: Article }) {
           </h4>
           <HighlightedHtml
             html={article.rule.body_html}
-            className="text-gray-500 dark:text-white/70 leading-relaxed text-sm text-justify font-normal"
+            className="text-gray-500 dark:text-white/70 leading-relaxed text-xs sm:text-sm text-justify font-normal"
             style={{ direction: "rtl" }}
           />
         </div>
@@ -147,36 +147,38 @@ export default function PageContent({ article }: { article: Article }) {
     });
   }
   return (
-    <section className="pt-20 w-full min-[1700px]:w-3/4! md:px-10 px-5 lg:px-13! pb-40 dark:bg-[#121212]">
+    <section className="w-full px-5 sm:pb-40 pb-20 pt-12 dark:bg-[#121212] sm:pt-16 md:px-10 md:pt-20 lg:px-13! min-[1700px]:w-3/4!">
       <div className=" max-w-5xl mx-auto">
-        <div className="flex flex-col items-start">
-          <h3 className="text-xl font-semibold md:text-md lg:text-2xl mb-5 flex items-center gap-1 text-gray-900 dark:text-white">
-            <div className="flex items-center flex-row-reverse gap-1">
+        <div className="flex w-full flex-col items-start">
+          <h3 className="mb-3 flex flex-wrap items-center gap-x-1 gap-y-1 text-sm font-semibold leading-snug text-gray-900 dark:text-white sm:mb-5 sm:text-base md:text-md lg:text-2xl">
+            <div className="flex flex-row-reverse items-center gap-0.5 sm:gap-1">
               <span>
                 <HighlightedText text={String(article.principle_year)} />
               </span>
-              <span className="-mx-1">/</span>
+              <span className="-mx-0.5">/</span>
               <span>
                 <HighlightedText text={String(article.principle_number)} />
               </span>
             </div>
-            <span className="font-semibold text-xl">
+            <span className="text-sm font-semibold sm:text-base md:text-md lg:text-xl">
               <HighlightedText text={article.principle_type} />
             </span>
             {article.paper_classification ? (
-              <p className="text-base">{article.paper_classification}</p>
+              <p className="text-xs sm:text-base">
+                {article.paper_classification}
+              </p>
             ) : (
-              <div className="flex items-center text-sm">
+              <div className="flex flex-wrap items-center text-[10px] sm:text-sm">
                 (
                 <span>
                   <HighlightedText text={article.ruling_type} />
                 </span>
-                <div className="flex items-center ms-1">
+                <div className="ms-1 flex items-center">
                   <span>
                     <HighlightedText text={String(article.number)} />
                   </span>
-                  <span className="">/</span>
-                  <span className="">
+                  <span>/</span>
+                  <span>
                     <HighlightedText text={String(article.judicial_year)} />
                   </span>
                   <span>
@@ -187,14 +189,14 @@ export default function PageContent({ article }: { article: Article }) {
               </div>
             )}
           </h3>
-          <h4 className="text-right text-sm font-bold sm:text-xl flex items-center gap-2 text-gray-900 dark:text-white">
+          <h4 className="flex items-center gap-2 text-right text-xs font-bold leading-snug text-gray-900 dark:text-white sm:text-sm md:text-xl">
             <HighlightedText text={article.title} />
           </h4>
-          <div className="mt-5 flex items-center justify-end gap-5">
-            <div className="font-semibold text-main text-sm">
+          <div className="mt-3 flex items-center justify-end gap-3 sm:mt-5 sm:gap-5">
+            <div className="text-xs font-semibold text-main sm:text-sm">
               <HighlightedText text={formatDate(article.publish_date)} />
             </div>
-            <div className="text-right text-sm font-semibold text-main">
+            <div className="text-right text-xs font-semibold text-main sm:text-sm">
               <HighlightedText text={article.author} />
             </div>
           </div>
@@ -212,7 +214,7 @@ export default function PageContent({ article }: { article: Article }) {
         {/* Article brief */}
         <HighlightedHtml
           html={article.brief_html}
-          className="text-gray-500 dark:text-white/70 leading-relaxed text-sm text-justify font-normal mt-16 mb-6"
+          className="mb-6 mt-10 font-normal leading-relaxed text-xs text-justify text-gray-500 dark:text-white/70 sm:mt-16 sm:text-sm"
           style={{ direction: "rtl" }}
         />
 

@@ -91,22 +91,24 @@ export default function ContactSection({
   return (
     <>
       <section
-        className="relative h-full bg-cover bg-center pb-32 pt-[55px]"
+        className="relative h-full bg-cover bg-center pb-20 pt-10 sm:pb-32 sm:pt-[55px]"
         style={{ backgroundImage: 'url("/assets/contact.png")' }}
       >
-        <div className="pb-10  box-container">
+        <div className="pb-6 box-container sm:pb-10">
           <AnimatedSectionHeader title="" />
         </div>
-        <div className=" box-container flex flex-col items-stretch justify-between gap-10 text-gray-400 md:flex-row">
+        <div className="box-container flex flex-col items-stretch justify-between gap-6 text-gray-400 sm:gap-10 md:flex-row">
           {/* Info Text */}
           <div className="w-full md:w-1/2">
-            <h2 className="pb-12 text-3xl font-bold text-white">{title} </h2>
-            <p className="mb-5 font-zain leading-relaxed text-gray-400">
+            <h2 className="pb-6 text-xl font-bold text-white sm:pb-12 sm:text-3xl">
+              {title}{" "}
+            </h2>
+            <p className="mb-4 text-sm font-zain leading-relaxed text-gray-400 sm:mb-5 sm:text-base">
               {description}
             </p>
             <p
               style={{ direction: "rtl" }}
-              className="font-zain leading-relaxed text-gray-400"
+              className="text-sm font-zain leading-relaxed text-gray-400 sm:text-base"
             >
               {subDescription}
             </p>
@@ -117,7 +119,7 @@ export default function ContactSection({
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
+                className="space-y-3 sm:space-y-4"
               >
                 <FormField
                   control={form.control}
@@ -128,7 +130,7 @@ export default function ContactSection({
                         <Input
                           {...field}
                           placeholder="الاسم (اختياري)"
-                          className="w-full rounded bg-white/20 dark:bg-white/10 dark:border dark:border-white/10 px-4 py-2 text-right text-gray-400 dark:text-white placeholder-gray-400 dark:placeholder-white/50 border-none focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 dark:focus:ring-main/50"
+                          className="w-full rounded border-none bg-white/20 px-3 py-1.5 text-right text-sm text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 dark:border dark:border-white/10 dark:bg-white/10 dark:text-white dark:placeholder-white/50 dark:focus:ring-main/50 placeholder-gray-400 sm:px-4 sm:py-2 sm:text-base"
                           style={{ direction: "rtl" }}
                         />
                       </FormControl>
@@ -147,7 +149,7 @@ export default function ContactSection({
                           {...field}
                           type="email"
                           placeholder="البريد الإلكتروني"
-                          className="w-full rounded bg-white/20 dark:bg-white/10 dark:border dark:border-white/10 px-4 py-2 text-right text-gray-400 dark:text-white placeholder-gray-400 dark:placeholder-white/50 border-none focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 dark:focus:ring-main/50"
+                          className="w-full rounded border-none bg-white/20 px-3 py-1.5 text-right text-sm text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 dark:border dark:border-white/10 dark:bg-white/10 dark:text-white dark:placeholder-white/50 dark:focus:ring-main/50 placeholder-gray-400 sm:px-4 sm:py-2 sm:text-base"
                           style={{ direction: "rtl" }}
                         />
                       </FormControl>
@@ -168,7 +170,7 @@ export default function ContactSection({
                       >
                         <FormControl>
                           <SelectTrigger
-                            className="w-full rounded border-none bg-white/20 px-4 py-2 text-right text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50"
+                            className="w-full rounded border-none bg-white/20 px-3 py-1.5 text-right text-sm text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 sm:px-4 sm:py-2 sm:text-base"
                             style={{ direction: "rtl" }}
                           >
                             <SelectValue
@@ -207,7 +209,7 @@ export default function ContactSection({
                         <Textarea
                           {...field}
                           placeholder="اكتب رسالتك هنا"
-                          className="h-24 w-full rounded bg-white/20 dark:bg-white/10 dark:border dark:border-white/10 px-4 py-2 text-right text-gray-400 dark:text-white placeholder-gray-400 dark:placeholder-white/50 border-none focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 dark:focus:ring-main/50 resize-none"
+                          className="h-20 w-full resize-none rounded border-none bg-white/20 px-3 py-1.5 text-right text-sm text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F3E5CA]/50 dark:border dark:border-white/10 dark:bg-white/10 dark:text-white dark:placeholder-white/50 dark:focus:ring-main/50 placeholder-gray-400 sm:h-24 sm:px-4 sm:py-2 sm:text-base"
                           style={{ direction: "rtl" }}
                           maxLength={250}
                         />
@@ -220,7 +222,7 @@ export default function ContactSection({
                 <div className="flex justify-end">
                   <Button
                     type="submit"
-                    className="text-base min-w-20 py-1 "
+                    className="min-w-20 py-1 text-sm sm:text-base"
                     disabled={mutation.isPending}
                   >
                     {mutation.isPending ? (
@@ -237,7 +239,7 @@ export default function ContactSection({
             {mutation.isError && (
               <Alert className="mt-4 border-red-500 bg-red-50">
                 <XCircle className="h-4 w-4" />
-                <AlertDescription className="text-right text-red-700">
+                <AlertDescription className="text-right text-xs text-red-700 sm:text-sm">
                   حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.
                 </AlertDescription>
               </Alert>

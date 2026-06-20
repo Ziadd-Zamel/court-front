@@ -35,7 +35,7 @@ export default function AppealsPerformanceSection() {
         Number(data[0]?.completion_rate ?? 0) === 0 &&
         Number(data[0]?.decided_percentage ?? 0) === 0));
   return (
-    <div className="flex w-full flex-col items-center justify-center bg-white pb-40 pt-16 dark:bg-[#121212]">
+    <div className="flex w-full flex-col items-center justify-center bg-white sm:pb-40 pb-20 pt-16 dark:bg-[#121212]">
       <AnimatedSectionHeader title="مؤشرات الأداء" />
       <div className="box-container w-full space-y-5 ">
         {showStatsEmpty ? (
@@ -62,9 +62,15 @@ export default function AppealsPerformanceSection() {
           />
         )}
         <PerformanceTrackLine />
+        <Link
+          href="/about-court/performance-metrics"
+          className="block w-full text-end text-base font-semibold text-main sm:hidden"
+        >
+          التفاصيل
+        </Link>
       </div>
       <Link
-        className="me-18 -mb-16 mt-26 self-end text-lg font-semibold text-main"
+        className="me-18 -mb-16 mt-26 hidden self-end text-lg font-semibold text-main sm:block"
         href="/about-court/performance-metrics"
       >
         التفاصيل

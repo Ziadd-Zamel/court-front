@@ -88,11 +88,11 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
       value={`item-${article.uuid}`}
       className="border-b-0"
     >
-      <div className="flex flex-col items-start md:flex-row gap-5">
+      <div className="flex flex-col items-start gap-3 md:flex-row md:gap-5">
         {/* Left meta block: principle number + year/classification */}
-        <div className="flex flex-col text-center shrink-0 px-3 mt-3">
+        <div className="mt-3 flex w-full shrink-0 flex-col items-center px-3 text-center md:w-auto">
           {principleNumber && (
-            <p className="text-[40px] text-main mb-2 font-bold">
+            <p className="mb-1 text-[32px] font-bold text-main sm:text-[40px] md:mb-2">
               <HighlightedText
                 text={
                   principleNumber.includes("-")
@@ -103,62 +103,62 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
             </p>
           )}
           {principleMeta && (
-            <p className="text-md md:text-xs">
+            <p className="text-sm text-gray-700 dark:text-white/70 md:text-xs">
               <HighlightedText text={principleMeta} />
             </p>
           )}
         </div>
 
         {/* Main content block: publish info, ruling meta, title, and expandable body */}
-        <div className="flex-1 border-b border-main">
-          <AccordionTrigger className="rounded-none justify-normal flex w-full cursor-pointer flex-col items-start gap-5  text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center">
-            <div className="flex flex-col gap-2 text-start min-w-[130px]">
+        <div className="w-full flex-1 border-b border-main">
+          <AccordionTrigger className="flex w-full cursor-pointer flex-col items-start gap-3 rounded-none text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center md:gap-5">
+            <div className="flex min-w-[130px] flex-col gap-1 text-start md:gap-2">
               {publishDate && (
-                <p className="text-gray-500 dark:text-white/70 sm:text-lg md:text-xs flex items-center gap-1">
-                  <Calendar size={14} className="text-main -mt-1" />
+                <p className="flex items-center gap-1 text-gray-500 dark:text-white/70 sm:text-lg md:text-xs">
+                  <Calendar size={14} className="-mt-0.5 text-main" />
                   <span>
                     <HighlightedText text={publishDate} />
                   </span>
                 </p>
               )}
               {author && (
-                <p className="sm:text-lg md:text-xs">
+                <p className="text-sm text-gray-700 dark:text-white/70 sm:text-lg md:text-xs">
                   <HighlightedText text={author} />
                 </p>
               )}
             </div>
-            <div className="flex flex-col gap-2 text-start">
+            <div className="flex flex-col gap-1 text-start md:gap-2">
               {rulingMeta && (
-                <p className="text-xl font-bold md:text-md lg:text-xl flex items-center gap-1">
+                <p className="flex items-center gap-1 text-lg font-bold text-gray-900 dark:text-white md:text-md lg:text-xl">
                   <HighlightedText text={rulingMeta} />
                 </p>
               )}
               {title && (
-                <p className="min-h-[30px] text-md md:text-xs lg:text-sm leading-6">
+                <p className="min-h-[24px] text-sm leading-6 text-gray-800 dark:text-white md:min-h-[30px] md:text-xs lg:text-sm">
                   <HighlightedText text={title} />
                 </p>
               )}
             </div>
           </AccordionTrigger>
 
-          <AccordionContent className="pb-10">
+          <AccordionContent className="pb-8 md:pb-10">
             {article.audio_file && (
-              <div className="mt-6 flex justify-center">
+              <div className="mt-4 flex justify-center md:mt-6">
                 <CustomAudioPlayer
                   audioUrl={article.audio_file}
                   className="max-w-xl"
                 />
               </div>
             )}
-            <h6 className="mt-5 text-center font-zain text-xl font-bold text-main">
+            <h6 className="mt-4 text-center font-zain text-xl font-bold text-main md:mt-5">
               <HighlightedText text={article.rule.title} />
             </h6>
             <HighlightedHtml
               html={article.rule.body_html}
               style={{ direction: "rtl" }}
-              className="mt-5 !text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white/70"
+              className="mt-6 !text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white/70 md:mt-10"
             />
-            <div className="mt-5 flex w-full items-end justify-end">
+            <div className="mt-4 flex w-full items-end justify-end md:mt-5">
               <Link
                 href={
                   from
@@ -175,7 +175,7 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
           </AccordionContent>
 
           {/* Action row: bookmark/share/copy */}
-          <div className="flex justify-end items-center gap-3 mb-2.5 -mt-2 me-11">
+          <div className="mb-2.5 flex items-center justify-end gap-3 sm:-mt-2 sm:me-11">
             <BookmarkButton item={article} type={bookmarkType} />
             <ShareButton item={article} type="article" />
             <CopyButton text={article.rule.body_text} />

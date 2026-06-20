@@ -39,8 +39,8 @@ interface BookmarkButtonProps {
 export function BookmarkButton({
   item,
   type,
-  size = 19,
-  className = "p-2",
+  size = 20,
+  className = "p-1",
   variant = "default",
 }: BookmarkButtonProps) {
   const [isSaved, setIsSaved] = useState(false);

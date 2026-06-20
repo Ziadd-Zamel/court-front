@@ -48,7 +48,7 @@ function TableSection({
       {title ? (
         <h5
           className={`font-medium text-right w-full dark:text-white ${
-            compact ? "pb-2 text-sm" : "pb-5 text-2xl"
+            compact ? "pb-2 text-sm" : "pb-3 text-lg sm:pb-5 sm:text-2xl"
           } ${className}`}
         >
           {title}
@@ -92,7 +92,7 @@ export default function MainTable({
 
   const fj = caseItem.final_judgment;
   const niaba = caseItem.niaba;
-  const sectionGap = compact ? "mt-4" : "mt-12";
+  const sectionGap = compact ? "mt-4" : "mt-8 sm:mt-12";
 
   return (
     <section className="">
@@ -159,29 +159,6 @@ export default function MainTable({
         className={sectionGap}
         title="بيانات الطاعن/الطاعنين"
         rows={[
-          { label: "الاسم", value: displayValue(caseItem.appellant) },
-          {
-            label: "الصفة",
-            value: displayValue(caseItem.appellant_adjective),
-            white: false,
-          },
-          {
-            label: "الجنسية",
-            value: displayValue(caseItem.appellant_nationality),
-          },
-          {
-            label: "المحامي/المحامون",
-            value: displayValue(caseItem.appellant_lawyername),
-            white: false,
-          },
-        ]}
-      />
-
-      <TableSection
-        compact={compact}
-        className={sectionGap}
-        title="بيانات المطعون ضده/ضدهم"
-        rows={[
           { label: "الاسم", value: displayValue(caseItem.ripper) },
           {
             label: "الصفة",
@@ -195,6 +172,29 @@ export default function MainTable({
           {
             label: "المحامي/المحامون",
             value: displayValue(caseItem.ripper_lawyername),
+            white: false,
+          },
+        ]}
+      />
+
+      <TableSection
+        compact={compact}
+        className={sectionGap}
+        title="بيانات المطعون ضده/ضدهم"
+        rows={[
+          { label: "الاسم", value: displayValue(caseItem.appellant) },
+          {
+            label: "الصفة",
+            value: displayValue(caseItem.appellant_adjective),
+            white: false,
+          },
+          {
+            label: "الجنسية",
+            value: displayValue(caseItem.appellant_nationality),
+          },
+          {
+            label: "المحامي/المحامون",
+            value: displayValue(caseItem.appellant_lawyername),
             white: false,
           },
         ]}

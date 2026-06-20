@@ -132,10 +132,10 @@ const ThirdSectoin = () => {
     <>
       <div className="w-full">
         <div className="mb-6 text-right">
-          <h2 className="mb-8 text-2xl font-bold text-main">
+          <h2 className="mb-4 text-lg font-bold text-main sm:mb-8 sm:text-2xl">
             اشترك في نشرة أخبار الموقع
           </h2>
-          <p className="text-md leading-relaxed text-gray-300">
+          <p className="text-xs leading-relaxed text-gray-300 sm:text-md">
             سجل بريدك الإلكتروني لاستقبال إشعارات فورية بتحديثات الموقع والموضوعات
             الجديدة.
           </p>
@@ -148,19 +148,19 @@ const ThirdSectoin = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex w-full max-w-[400px] items-center gap-0 overflow-hidden rounded-md border border-white/10 bg-white/10 focus-within:ring-1 focus-within:ring-main">
+                  <div className="flex w-full max-w-full items-center gap-0 overflow-hidden rounded-md border border-white/10 bg-white/10 focus-within:ring-1 focus-within:ring-main sm:max-w-[400px]">
                     <FormControl>
                       <Input
                         {...field}
                         type="email"
                         placeholder="البريد الإلكتروني"
-                        className="h-auto flex-1 rounded-none border-none bg-transparent px-4 py-2 text-right text-white shadow-none placeholder-white/50 focus-visible:ring-0"
+                        className="h-auto flex-1 rounded-none border-none bg-transparent px-4 py-2 text-right text-xs text-white shadow-none placeholder-white/50 focus-visible:ring-0 sm:text-sm"
                         style={{ direction: "rtl" }}
                       />
                     </FormControl>
                     <Button
                       type="submit"
-                      className="h-full shrink-0 rounded-none"
+                      className="h-full shrink-0 rounded-none text-xs sm:text-sm"
                       disabled={mutation.isPending}
                     >
                       {mutation.isPending ? (
@@ -179,10 +179,10 @@ const ThirdSectoin = () => {
           </form>
         </Form>
 
-        <h3 className="mb-8 mt-16 text-xl font-semibold text-main">
+        <h3 className="mb-6 mt-8 text-base font-semibold text-main sm:mb-8 sm:mt-16 sm:text-xl">
           شارك هذه الصفحة عبر:
         </h3>
-        <div className="flex w-full flex-row-reverse justify-end gap-8">
+        <div className="flex w-full flex-row-reverse justify-end gap-5 sm:gap-8">
           <button
             type="button"
             onClick={handleCopyLink}
@@ -190,7 +190,7 @@ const ThirdSectoin = () => {
             className="text-white transition hover:text-main"
             title={copied ? "Copied" : "Copy link"}
           >
-            <IoMdCopy size={"35px"} />
+            <IoMdCopy className="size-6 sm:size-[35px]" />
           </button>
           <button
             type="button"
@@ -199,7 +199,7 @@ const ThirdSectoin = () => {
             className="text-white transition hover:text-main"
             title="Share by email"
           >
-            <MdOutlineMail size={"35px"} />
+            <MdOutlineMail className="size-6 sm:size-[35px]" />
           </button>
           <button
             type="button"
@@ -208,7 +208,7 @@ const ThirdSectoin = () => {
             className="text-white transition hover:text-main"
             title="Share on WhatsApp"
           >
-            <FaWhatsapp size={"35px"} />
+            <FaWhatsapp className="size-6 sm:size-[35px]" />
           </button>
           <button
             type="button"
@@ -217,7 +217,7 @@ const ThirdSectoin = () => {
             className="text-white transition hover:text-main"
             title="Share on Messenger"
           >
-            <SiMessenger size={"35px"} />
+            <SiMessenger className="size-6 sm:size-[35px]" />
           </button>
           <button
             type="button"
@@ -226,7 +226,7 @@ const ThirdSectoin = () => {
             className="text-white transition hover:text-main"
             title="Share on Facebook"
           >
-            <FaFacebookF size={"35px"} />
+            <FaFacebookF className="size-6 sm:size-[35px]" />
           </button>
         </div>
       </div>

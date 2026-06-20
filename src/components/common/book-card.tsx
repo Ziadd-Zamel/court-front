@@ -72,16 +72,18 @@ export default function BookCard({
         </div>
         {isMagazine && (
           <>
-            <p className="absolute top-[130px] right-3 text-main text-xs">
-              السنة
-            </p>
-            <p className="absolute top-[145px] right-3 text-white text-base">
-              {book.judicial_year || 0}
-            </p>
-            <p className="absolute bottom-8 right-3 text-main text-xs">العدد</p>
-            <p className="absolute bottom-3 right-3 text-white text-base">
-              {book.number || 0}
-            </p>
+            <div className="absolute sm:bottom-12 bottom-10 right-3 flex flex-col items-start">
+              <p className="text-[10px] text-main sm:text-xs">السنة</p>
+              <p className="text-xs text-white sm:text-base">
+                {book.judicial_year || 0}
+              </p>
+            </div>
+            <div className="absolute sm:bottom-1 bottom-2 right-3 flex flex-col items-start">
+              <p className="text-[10px] text-main sm:text-xs">العدد</p>
+              <p className="text-xs text-white sm:text-base">
+                {book.number || 0}
+              </p>
+            </div>
           </>
         )}
         {type === "ruling" && (

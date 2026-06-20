@@ -80,7 +80,8 @@ function useAnimatedPercentages(
       displayRef.current = interpolated;
       setDisplay(interpolated);
 
-      const totalDuration = durationMs + staggerMs * Math.max(0, next.length - 1);
+      const totalDuration =
+        durationMs + staggerMs * Math.max(0, next.length - 1);
       if (now - start < totalDuration) {
         rafId = requestAnimationFrame(tick);
       }
@@ -225,17 +226,29 @@ export default function AppealsPerformanceStats({
 
       {/* Pie chart */}
       {!hidePie && (
-        <div className="flex w-full max-w-lg flex-col items-center -mt-7">
-          <div className="mr-10 shrink-0">
+        <>
+          <div className="flex w-full flex-col items-center sm:hidden">
             <CustomPieChart
               slices={pieSlices as unknown as PieSlice[]}
-              size={400}
+              size={260}
             />
+            <p className="mt-4 px-2 text-center text-sm leading-relaxed text-black dark:text-white">
+              {description}
+            </p>
           </div>
-          <p className="mr-10 mt-4 text-center self-start text-sm leading-relaxed text-black dark:text-white">
-            {description}
-          </p>
-        </div>
+
+          <div className="hidden w-full max-w-lg flex-col items-center -mt-7 sm:flex">
+            <div className="mr-10 shrink-0">
+              <CustomPieChart
+                slices={pieSlices as unknown as PieSlice[]}
+                size={400}
+              />
+            </div>
+            <p className="mr-10 mt-4 text-center self-start text-sm leading-relaxed text-black dark:text-white">
+              {description}
+            </p>
+          </div>
+        </>
       )}
     </div>
   );

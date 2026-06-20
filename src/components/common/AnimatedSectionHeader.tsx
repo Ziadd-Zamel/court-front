@@ -54,7 +54,7 @@ const AnimatedSectionHeader: React.FC<AnimatedSectionHeaderProps> = ({
 
       <div className="mt-2">
         <motion.h2
-          className={`-mt-1 font-zain text-2xl font-bold text-main sm:text-4xl ${textClassName}`}
+          className={`-mt-1 font-zain text-xl font-bold text-main sm:text-4xl ${textClassName}`}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
@@ -65,7 +65,7 @@ const AnimatedSectionHeader: React.FC<AnimatedSectionHeaderProps> = ({
 
         {subtitle ? (
           <motion.p
-            className={`mt-1 font-zain font-normal text-black sm:text-xl ${textClassName}`}
+            className={`mt-1 font-zain font-normal text-black text-sm sm:text-xl ${textClassName}`}
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.6 }}

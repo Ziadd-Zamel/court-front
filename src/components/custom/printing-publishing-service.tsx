@@ -243,7 +243,7 @@ export default function PrintingPublishingService() {
 
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="mt-12 flex flex-col gap-12 sm:gap-6"
+          className="mt-12 flex flex-col gap-8 sm:gap-6"
         >
           <div>
             <RtlInputField
@@ -389,7 +389,7 @@ export default function PrintingPublishingService() {
 
           <Button
             type="submit"
-            className="self-end mt-10 px-16"
+            className="self-end mt-10 px-10"
             disabled={mutation.isPending}
           >
             {mutation.isPending ? (

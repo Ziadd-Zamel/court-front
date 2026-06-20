@@ -26,7 +26,6 @@ export default function CourtReleasesPage({ pagination, searchParams }: Props) {
       heading: "إصدارات المحكمة",
       component: <CourtPublications searchParams={searchParams} />,
     },
-
     {
       label: "الإصدارات المتوفرة",
       value: "available-publications",
@@ -38,7 +37,7 @@ export default function CourtReleasesPage({ pagination, searchParams }: Props) {
     <section
       id="ImportantNotices"
       aria-labelledby="Important Notices Page"
-      className="relative pt-20 pb-40 w-full box-container"
+      className="relative pt-20 sm:pb-40 pb-20 w-full box-container"
     >
       <ReusableTabs
         tabs={courtReleaseTabs}

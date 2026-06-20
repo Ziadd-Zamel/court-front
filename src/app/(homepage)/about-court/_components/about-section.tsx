@@ -4,13 +4,13 @@ import { YEARS_SINCE_FOUNDING } from "@/lib/constants/app-years";
 export default function AboutSection({ bg }: { bg: string }) {
   return (
     <section className="py-20 flex items-start lg:flex-row flex-col gap-25 box-container ">
-      <div className="border-1 border-main dark:border-main/50 w-full md:w-1/3 lg:w-[35%] h-[250px] sm:h-[350px] md:h-[700px] p-2 sm:p-4 self-center">
+      <div className="mx-auto w-full max-w-[220px] self-center border-1 border-main p-2 dark:border-main/50 sm:max-w-[280px] sm:p-4 md:max-w-none md:w-1/3 lg:w-[35%]">
         <Image
           src={bg}
           alt="abpute image"
           width={500}
           height={500}
-          className="w-full h-full"
+          className="h-auto w-full object-contain"
         />
       </div>
       <div className="flex flex-col w-full lg:w-2/3 -mt-3">

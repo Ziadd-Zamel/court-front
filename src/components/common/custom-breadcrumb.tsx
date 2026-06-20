@@ -40,6 +40,33 @@ const routeNameMap: { [key: string]: string } = {
   "/principle": "منصة المبادئ القانونية",
 };
 
+const routeMobileNameMap: { [key: string]: string } = {
+  "/litigants-portal": "البوابة",
+  "/about-court": "المحكمة",
+  "/supreme-court-library": "المكتبة",
+  "/legal-principles": "قضاء النقض",
+  "/constitutional-court": "الدائرة الدستورية",
+  "/technical-office": "المكتب الفني",
+  "/favorite": "مجلدي",
+};
+
+function BreadcrumbLabel({
+  full,
+  mobile,
+}: {
+  full: string;
+  mobile?: string;
+}) {
+  if (!mobile || mobile === full) return <>{full}</>;
+
+  return (
+    <>
+      <span className="sm:hidden">{mobile}</span>
+      <span className="hidden sm:inline">{full}</span>
+    </>
+  );
+}
+
 // UUID pattern — matches any segment that looks like a UUID or long ID
 const UUID_REGEX =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -60,12 +87,28 @@ interface CustomBreadcrumbProps {
   black?: boolean;
   /** When provided (e.g. from article page), use this path for breadcrumb + "المبدأ" as last */
   fromPath?: string;
+  /** Optional path → short label overrides for mobile screens */
+  mobileLabels?: Record<string, string>;
+}
+
+function resolveMobileLabel(
+  href: string,
+  mobileLabels?: Record<string, string>,
+): string | undefined {
+  const normalizedHref = href.replace(/\/$/, "");
+  return (
+    mobileLabels?.[href] ??
+    mobileLabels?.[normalizedHref] ??
+    routeMobileNameMap[href] ??
+    routeMobileNameMap[normalizedHref]
+  );
 }
 
 export default function CustomBreadcrumb({
   className,
   black,
   fromPath,
+  mobileLabels,
 }: CustomBreadcrumbProps) {
   const pathname = usePathname();
 
@@ -119,16 +162,27 @@ export default function CustomBreadcrumb({
               routeNameMap[href.replace(/\/$/, "")] ||
               segment.charAt(0).toUpperCase() +
                 segment.slice(1).replace(/-/g, " ");
+          const mobileDisplayName = isId
+            ? undefined
+            : resolveMobileLabel(href, mobileLabels);
 
           return (
             <div key={href} className="flex items-center">
               <BreadcrumbItem>
                 {isLast ? (
                   <BreadcrumbPage className="text-white">
-                    {displayName}
+                    <BreadcrumbLabel
+                      full={displayName}
+                      mobile={mobileDisplayName}
+                    />
                   </BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink href={href}>{displayName}</BreadcrumbLink>
+                  <BreadcrumbLink href={href}>
+                    <BreadcrumbLabel
+                      full={displayName}
+                      mobile={mobileDisplayName}
+                    />
+                  </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
               {(!isLast || fromPath) && (

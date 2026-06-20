@@ -35,11 +35,11 @@ export default function NavbarContainer({
       }}
       transition={{ duration: 0.3 }}
     >
-      <div className="box-container relative flex w-full items-center justify-between">
+      <div className="box-container relative flex w-full items-center justify-between max-sm:gap-3 max-sm:py-1">
         {children}
 
         {isScrolled && visible && (
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 sm:block">
             <p className="text-base sm:text-sm font-bold tracking-wide text-[#e6c599] md:text-base">
               نسخة تجريبية
             </p>

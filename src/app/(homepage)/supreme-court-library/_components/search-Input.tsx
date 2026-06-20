@@ -44,7 +44,7 @@ export function SearchInput({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         disabled={disabled}
-        className="w-full text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-white/50 outline-none placeholder:text-sm disabled:cursor-not-allowed"
+        className="w-full text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-white/50 outline-none placeholder:text-xs sm:placeholder:text-sm disabled:cursor-not-allowed"
       />
 
       {hasValue && !disabled && (
@@ -54,7 +54,7 @@ export function SearchInput({
           className="shrink-0 cursor-pointer p-0.5 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 dark:text-white/50 hover:text-gray-600 dark:hover:text-white transition-colors"
           aria-label="مسح"
         >
-          <X className="size-6" />
+          <X className="size-5 sm:size-6" />
         </button>
       )}
 

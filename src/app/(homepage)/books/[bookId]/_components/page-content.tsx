@@ -33,18 +33,18 @@ export default function PageContent({
 
   if (isMagazine) {
     return (
-      <section className="box-container h-full w-full py-20" dir="rtl">
-        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[340px_1fr]">
+      <section className="box-container h-full w-full py-10 sm:py-16 lg:py-20" dir="rtl">
+        <div className="grid grid-cols-1 items-start gap-6 sm:gap-8 lg:grid-cols-[340px_1fr]">
           <Image
             src={coverSrc}
             alt={Book.title || "غلاف المجلة"}
             width={340}
             height={480}
-            className="mx-auto h-[480px] w-[340px] rounded-lg object-cover shadow-lg lg:row-span-2 lg:mx-0"
+            className="mx-auto h-[320px] w-[220px] rounded-lg object-cover shadow-lg sm:h-[400px] sm:w-[280px] lg:mx-0 lg:h-[480px] lg:w-[340px] lg:row-span-2"
           />
 
           <div className="flex min-w-0 flex-col gap-2">
-            <h2 className="mb-10 text-center text-2xl font-bold text-main sm:text-2xl lg:text-right lg:text-3xl">
+            <h2 className="mb-6 text-center text-xl font-bold text-main sm:mb-10 sm:text-2xl lg:text-right lg:text-3xl">
               {displayValue(Book.title)}
             </h2>
 
@@ -75,18 +75,18 @@ export default function PageContent({
   }
 
   return (
-    <section className="box-container h-full w-full py-20" dir="rtl">
-      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[340px_1fr]">
+    <section className="box-container h-full w-full py-10 sm:py-16 lg:py-20" dir="rtl">
+      <div className="grid grid-cols-1 items-start gap-6 sm:gap-8 lg:grid-cols-[340px_1fr]">
         <Image
           src={coverSrc}
           alt={Book.title || "غلاف الكتاب"}
           width={340}
           height={480}
-          className="mx-auto h-[480px] w-[340px] rounded-lg object-cover shadow-lg lg:row-span-2 lg:mx-0"
+          className="mx-auto h-[320px] w-[220px] rounded-lg object-cover shadow-lg sm:h-[400px] sm:w-[280px] lg:mx-0 lg:h-[480px] lg:w-[340px] lg:row-span-2"
         />
 
         <div className="flex min-w-0 flex-col gap-2">
-          <h2 className="mb-10 text-2xl font-bold text-main sm:text-2xl lg:text-3xl">
+          <h2 className="mb-6 text-xl font-bold text-main sm:mb-10 sm:text-2xl lg:text-3xl">
             {displayValue(Book.title)}
           </h2>
 
@@ -109,7 +109,7 @@ export default function PageContent({
 
 function FlipBookSlot({ pdfUrl }: { pdfUrl: string }) {
   return (
-    <div className="mt-2 w-full overflow-y-hidden rounded-lg bg-main p-6 overflow-hidden">
+    <div className="mt-2 w-full rounded-lg bg-main p-3 sm:p-5 lg:p-6">
       <BookFlip pdfUrl={pdfUrl} />
     </div>
   );

@@ -34,7 +34,7 @@ export default function HighlightCard({
 
   return (
     <div
-      className={cn("grid pb-20 pt-20 bg-transparent")}
+      className={cn("grid sm:py-20 py-12 bg-transparent")}
       style={{ gridRow: "span 4", gridTemplateRows: "subgrid" }}
     >
       {/* Row 1: pin + category */}
@@ -45,15 +45,15 @@ export default function HighlightCard({
           width={50}
           height={50}
         />
-        <h3 className="text-center text-lg font-bold my-5 text-main">
+        <h3 className="my-5 text-center text-base font-bold text-main sm:text-lg">
           {article.sub_category}
         </h3>
       </div>
 
       {/* Row 2: title */}
-      <h4 className="my-3 text-right text-md font-medium text-black dark:text-foreground lg:text-base">
+      <h4 className="my-3 text-right text-sm font-medium text-black dark:text-foreground sm:text-md lg:text-base">
         {headMeta && (
-          <span className="text-base font-bold text-main">{headMeta}: </span>
+          <span className="text-sm font-bold text-main sm:text-base">{headMeta}: </span>
         )}
         {headingText && headMeta && " "}
         {headingText && !headMeta ? headingText : title}
@@ -63,7 +63,7 @@ export default function HighlightCard({
       <div className="relative mt-5 h-[13.75rem] overflow-hidden">
         <div
           style={{ direction: "rtl" }}
-          className="!text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-card-foreground"
+          className="!text-justify !font-zain !font-normal !text-xs text-gray-500 dark:text-card-foreground sm:!text-sm"
           dangerouslySetInnerHTML={{ __html: cleanedBodyHtml }}
         />
         <div
@@ -78,7 +78,7 @@ export default function HighlightCard({
       <div className="flex justify-end w-full">
         <Link
           href={`/article/${article.uuid}?from=${encodeURIComponent("/")}`}
-          className="mt-5 text-left text-base font-[500] text-main hover:text-main/80 px-3 py-1 h-auto"
+          className="mt-5 h-auto px-3 py-1 text-left text-sm font-[500] text-main hover:text-main/80 sm:text-base"
         >
           المزيد
         </Link>

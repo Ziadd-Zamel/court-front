@@ -1,7 +1,7 @@
 "use client";
 
 import { slides } from "@/lib/constants";
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import HeroSlides1 from "./HeroSlides/HeroSlides1";
 import HeroSlides2 from "./HeroSlides/HeroSlides2";
@@ -86,6 +86,58 @@ const useSlider = (slides: SlideData[], autoPlayInterval: number = 5000) => {
     goToSlide,
     stopAutoPlay,
   };
+};
+
+const SWIPE_THRESHOLD = 50;
+
+const useMobileTouchSwipe = (
+  onSwipeLeft: () => void,
+  onSwipeRight: () => void,
+) => {
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 639px)");
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateIsMobile();
+    mediaQuery.addEventListener("change", updateIsMobile);
+    return () => mediaQuery.removeEventListener("change", updateIsMobile);
+  }, []);
+
+  const onTouchStart = useCallback(
+    (event: React.TouchEvent) => {
+      if (!isMobile) return;
+
+      const touch = event.touches[0];
+      touchStart.current = { x: touch.clientX, y: touch.clientY };
+    },
+    [isMobile],
+  );
+
+  const onTouchEnd = useCallback(
+    (event: React.TouchEvent) => {
+      if (!isMobile || !touchStart.current) return;
+
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - touchStart.current.x;
+      const deltaY = touch.clientY - touchStart.current.y;
+      touchStart.current = null;
+
+      if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
+      if (Math.abs(deltaX) <= Math.abs(deltaY)) return;
+
+      if (deltaX < 0) {
+        onSwipeLeft();
+      } else {
+        onSwipeRight();
+      }
+    },
+    [isMobile, onSwipeLeft, onSwipeRight],
+  );
+
+  return { onTouchStart, onTouchEnd, isMobile };
 };
 
 // Slide content component with key-based remounting for animations
@@ -259,8 +311,17 @@ const HeroSlider = ({
     [goToSlide],
   );
 
+  const { onTouchStart, onTouchEnd } = useMobileTouchSwipe(
+    goToNextUser,
+    goToPrevious,
+  );
+
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div
+      className="relative h-screen w-full overflow-hidden touch-pan-y"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       {/* Slides */}
       {slidesWithImages.map((slide, index) => (
         <div

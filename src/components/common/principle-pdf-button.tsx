@@ -52,8 +52,8 @@ export function PrinciplePdfButton({
     variant === "light" ? "text-main" : "text-gray-700 dark:!text-main";
 
   return (
-    <>
-      <div className="overflow-hidden h-0">
+    <span className="relative inline-flex shrink-0 items-center">
+      <div className="pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0">
         <div ref={printRef}>
           <PrinciplePdfUI principle={principle} index={0} />
         </div>
@@ -76,6 +76,6 @@ export function PrinciplePdfButton({
           />
         )}
       </button>
-    </>
+    </span>
   );
 }

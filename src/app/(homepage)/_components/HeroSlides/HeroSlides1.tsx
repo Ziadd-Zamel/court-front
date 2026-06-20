@@ -15,7 +15,7 @@ const HeroSlides1 = () => {
         />
         <div className="flex w-full flex-col items-center justify-center">
           <motion.h1
-            className=" text-3xl sm:text-5xl font-bold lg:text-5xl"
+            className=" text-2xl sm:text-5xl font-bold lg:text-5xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -23,7 +23,7 @@ const HeroSlides1 = () => {
             المحكمة العليا
           </motion.h1>
           <motion.p
-            className=" text-lg sm:text-2xl lg:text-3xl mt-3"
+            className=" text-base sm:text-2xl lg:text-3xl mt-3"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2, delay: 0.6 }}
@@ -38,7 +38,7 @@ const HeroSlides1 = () => {
             transition={{ duration: 0.2, delay: 0.8 }}
           />
           <motion.p
-            className="text-center text-xs sm:text-sm text-main lg:text-lg"
+            className="text-center text-[10px] sm:text-sm text-main lg:text-lg"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2, delay: 1 }}
@@ -47,7 +47,7 @@ const HeroSlides1 = () => {
             لجميع المحاكم وكافّة الجهات الأخرى في ليبيا"
           </motion.p>
           <motion.p
-            className="mt-4 text-sm text-white lg:text-lg"
+            className="mt-4 text-xs text-white lg:text-lg"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2, delay: 1.2 }}
