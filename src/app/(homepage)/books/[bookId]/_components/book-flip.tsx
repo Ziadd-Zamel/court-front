@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import HTMLFlipBook from "react-pageflip-rtl";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -96,7 +96,6 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
             </div>
           }
         >
-          {/* @ts-expect-error react-pageflip-rtl has incorrect typings */}
           <HTMLFlipBook
             key={`${isPortrait ? "portrait" : "landscape"}-${pageWidth}`}
             ref={bookRef}
@@ -110,7 +109,9 @@ export default function BookFlip({ pdfUrl }: BookFlipProps) {
             maxHeight={pageHeight}
             showCover={true}
             mobileScrollSupport={true}
-            onFlip={(e) => setCurrentPage(e.data)}
+            onFlip={(e: { data: SetStateAction<number> }) =>
+              setCurrentPage(e.data)
+            }
             drawShadow={true}
             flippingTime={800}
             usePortrait={isPortrait}
