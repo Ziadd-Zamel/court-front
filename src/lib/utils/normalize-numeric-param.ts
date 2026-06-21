@@ -53,7 +53,7 @@ export function normalizeNumericParam(
 }
 
 export function normalizeNumericSearchParams<
-  T extends Record<string, string | undefined>,
+  T extends Record<string, string | number | undefined>,
 >(params: T, keys: readonly string[] = PRINCIPLE_NUMERIC_PARAM_KEYS): T {
   const next = { ...params };
 
