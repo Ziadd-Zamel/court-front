@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useQueryStates, parseAsString, parseAsArrayOf } from "nuqs";
 import { parseAsNormalizedNumericString } from "@/lib/nuqs/parse-as-normalized-numeric-string";
+import { normalizeNumericSearchParams } from "@/lib/utils/normalize-numeric-param";
 
 /**
  * Shared parsers for every URL key the principle search reads/writes.
@@ -169,24 +170,4 @@ export function usePrincipleSearch({
   });
 
   return { ...query, params, enabled };
-}
-function normalizeNumericSearchParams(arg0: {
-  page: number;
-  per_page: number;
-  principle_type_uuids: string | undefined;
-  exact_phrase: string | undefined;
-  similar_phrase: string | undefined;
-  include_terms: string | undefined;
-  exclude_terms: string | undefined;
-  any_terms: string | undefined;
-  appeal_number: string | undefined;
-  appeal_year: string | undefined;
-  principle_number: string | undefined;
-  principle_year: string | undefined;
-  session_date: string | undefined;
-  strict_alef: string | undefined;
-  strict_ya: string | undefined;
-  strict_ta: string | undefined;
-}): PrincipleSearchParams {
-  throw new Error("Function not implemented.");
 }

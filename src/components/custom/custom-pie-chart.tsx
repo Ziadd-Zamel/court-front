@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
 
 export type PieSlice = {
   id: string;
@@ -38,10 +38,13 @@ type ComputedSlice = {
 };
 
 type Tooltip = {
-  x: number;
-  y: number;
+  clientX: number;
+  clientY: number;
   slice: ComputedSlice;
 };
+
+const TOOLTIP_MARGIN = 8;
+const TOOLTIP_OFFSET = 12;
 
 type Props = {
   slices: PieSlice[];
@@ -55,8 +58,11 @@ export default function CustomPieChart({
   singleMode = false,
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const computedRef = useRef<ComputedSlice[]>([]);
   const [tooltip, setTooltip] = useState<Tooltip | null>(null);
+  const [tooltipPos, setTooltipPos] = useState({ left: 0, top: 0 });
+  const [tooltipReady, setTooltipReady] = useState(false);
 
   // build computed slices and draw — same logic as before
   useEffect(() => {
@@ -189,30 +195,79 @@ export default function CustomPieChart({
     [size],
   );
 
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLCanvasElement>) => {
-      const rect = canvasRef.current!.getBoundingClientRect();
-      // scale mouse coords to canvas resolution
-      const scaleX = size / rect.width;
-      const scaleY = size / rect.height;
-      const offsetX = (e.clientX - rect.left) * scaleX;
-      const offsetY = (e.clientY - rect.top) * scaleY;
-
+  const updateTooltipFromPoint = useCallback(
+    (clientX: number, clientY: number, offsetX: number, offsetY: number) => {
       const slice = getSliceAtPoint(offsetX, offsetY);
       if (slice) {
-        setTooltip({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-          slice,
-        });
+        setTooltipReady(false);
+        setTooltip({ clientX, clientY, slice });
       } else {
         setTooltip(null);
+        setTooltipReady(false);
       }
     },
-    [getSliceAtPoint, size],
+    [getSliceAtPoint],
   );
 
-  const handleMouseLeave = useCallback(() => setTooltip(null), []);
+  const handlePointerMove = useCallback(
+    (clientX: number, clientY: number, target: HTMLCanvasElement) => {
+      const rect = target.getBoundingClientRect();
+      const scaleX = size / rect.width;
+      const scaleY = size / rect.height;
+      const offsetX = (clientX - rect.left) * scaleX;
+      const offsetY = (clientY - rect.top) * scaleY;
+      updateTooltipFromPoint(clientX, clientY, offsetX, offsetY);
+    },
+    [size, updateTooltipFromPoint],
+  );
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLCanvasElement>) => {
+      handlePointerMove(e.clientX, e.clientY, e.currentTarget);
+    },
+    [handlePointerMove],
+  );
+
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent<HTMLCanvasElement>) => {
+      const touch = e.touches[0];
+      if (!touch) return;
+      handlePointerMove(touch.clientX, touch.clientY, e.currentTarget);
+    },
+    [handlePointerMove],
+  );
+
+  const handleMouseLeave = useCallback(() => {
+    setTooltip(null);
+    setTooltipReady(false);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!tooltip || !tooltipRef.current) return;
+
+    const el = tooltipRef.current;
+    const { width, height } = el.getBoundingClientRect();
+
+    let left = tooltip.clientX + TOOLTIP_OFFSET;
+    let top = tooltip.clientY - 10;
+
+    if (left + width > window.innerWidth - TOOLTIP_MARGIN) {
+      left = tooltip.clientX - width - TOOLTIP_OFFSET;
+    }
+    if (left < TOOLTIP_MARGIN) {
+      left = TOOLTIP_MARGIN;
+    }
+
+    if (top + height > window.innerHeight - TOOLTIP_MARGIN) {
+      top = window.innerHeight - height - TOOLTIP_MARGIN;
+    }
+    if (top < TOOLTIP_MARGIN) {
+      top = TOOLTIP_MARGIN;
+    }
+
+    setTooltipPos({ left, top });
+    setTooltipReady(true);
+  }, [tooltip]);
 
   return (
     <div style={{ position: "relative", display: "inline-block" }}>
@@ -224,16 +279,20 @@ export default function CustomPieChart({
         aria-label="مخطط دائري لتوزيع النسب"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={{ cursor: tooltip ? "pointer" : "default", display: "block" }}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleMouseLeave}
+        style={{ cursor: tooltip ? "pointer" : "default", display: "block", touchAction: "none" }}
       />
 
       {tooltip && (
         <div
-          className="pointer-events-none absolute z-10 min-w-40 rounded-[5px] border border-border bg-white px-3 py-2 shadow-sm dark:border-white/10 dark:bg-gray-800"
+          ref={tooltipRef}
+          className="pointer-events-none fixed z-50 max-w-[calc(100vw-16px)] rounded-[5px] border border-border bg-white px-3 py-2 shadow-sm dark:border-white/10 dark:bg-gray-800"
           style={{
-            left: tooltip.x + 12,
-            top: tooltip.y - 10,
+            left: tooltipPos.left,
+            top: tooltipPos.top,
             direction: "rtl",
+            visibility: tooltipReady ? "visible" : "hidden",
           }}
         >
           <div className="mb-1.5 flex items-center gap-1.5">
@@ -241,7 +300,7 @@ export default function CustomPieChart({
               className="size-2.5 shrink-0 rounded-full"
               style={{ background: tooltip.slice.color }}
             />
-            <span className="whitespace-nowrap text-[13px] font-medium text-gray-900 dark:text-white">
+            <span className="text-[13px] font-medium text-gray-900 dark:text-white">
               {tooltip.slice.name}
             </span>
           </div>

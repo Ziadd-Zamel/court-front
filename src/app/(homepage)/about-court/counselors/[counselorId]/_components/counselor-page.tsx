@@ -42,7 +42,7 @@ export default async function CounselorPage({
 
         <div className="flex min-w-0 flex-1 flex-col md:-mt-10">
           <h2 className="w-full max-w-full border-b-3 border-b-main pb-3 text-base font-medium leading-relaxed sm:text-xl md:w-fit">
-            المستشار: {counselor.name} ( الأعمال: {rulingsTotal})
+            المستشار: {counselor.name} (الأعمال: {rulingsTotal})
           </h2>
 
           <div className="mt-6 flex w-full min-w-0 flex-col items-center justify-center md:mt-10">

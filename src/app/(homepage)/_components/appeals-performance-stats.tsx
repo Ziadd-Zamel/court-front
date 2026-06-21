@@ -185,85 +185,98 @@ export default function AppealsPerformanceStats({
 
   return (
     <div
-      className={`flex w-full flex-col items-center justify-between pt-12 ${
+      className={`flex w-full flex-col pt-12 ${
         hidePie ? "gap-12 pb-4 sm:gap-14" : "gap-10"
-      } ${hidePie ? "" : "lg:flex-row-reverse"}`}
+      }`}
     >
-      {/* Progress bars */}
       <div
-        className={`space-y-8 ${
-          hidePie ? "mx-auto w-full max-w-2xl" : "w-full lg:w-1/2"
+        className={`flex w-full flex-col ${
+          hidePie ? "" : "lg:flex-row-reverse lg:items-start lg:gap-10 xl:gap-14"
         }`}
       >
-        <h2 className="text-right font-zain text-2xl font-bold text-black dark:text-white sm:text-4xl lg:text-3xl">
-          {text}
-        </h2>
-        <div className="space-y-5">
-          {rows.map((row, index) => {
-            const pct = displayProgress[index] ?? 0;
-            const fill = row.color ?? SLICE_COLORS[index % SLICE_COLORS.length];
-            return (
-              <div key={row.classId} className="space-y-3">
-                <div className="flex flex-row-reverse items-center justify-between gap-3 text-black dark:text-white">
-                  <span className="shrink-0 tabular-nums text-[14px] font-bold">
-                    %{formatAnimatedPercent(pct)}
-                  </span>
-                  <div className="flex min-w-0 items-center gap-2">
-                    <span
-                      className="size-4 aspect-square rounded-full"
-                      style={{ backgroundColor: fill }}
-                      aria-hidden
-                    />
-                    <span className="text-sm font-medium">{row.className}</span>
+        {/* Progress bars */}
+        <div
+          className={`min-w-0 space-y-8 ${
+            hidePie
+              ? "mx-auto w-full max-w-2xl"
+              : "w-full lg:w-1/2 lg:flex-none"
+          }`}
+        >
+          <h2 className="text-right font-zain text-2xl font-bold text-black dark:text-white sm:text-4xl lg:text-3xl">
+            {text}
+          </h2>
+          <div className="w-full space-y-5">
+            {rows.map((row, index) => {
+              const pct = displayProgress[index] ?? 0;
+              const fill =
+                row.color ?? SLICE_COLORS[index % SLICE_COLORS.length];
+              return (
+                <div key={row.classId} className="w-full space-y-3">
+                  <div className="flex w-full flex-row-reverse items-center justify-between gap-3 text-black dark:text-white">
+                    <span className="shrink-0 tabular-nums text-[14px] font-bold">
+                      %{formatAnimatedPercent(pct)}
+                    </span>
+                    <div className="flex min-w-0 flex-1 items-center gap-2">
+                      <span
+                        className="size-4 aspect-square shrink-0 rounded-full"
+                        style={{ backgroundColor: fill }}
+                        aria-hidden
+                      />
+                      <span className="min-w-0 text-sm font-medium">
+                        {row.className}
+                      </span>
+                    </div>
                   </div>
+                  <Progress
+                    value={pct}
+                    className="h-2 w-full rotate-180 border-b-transparent border-t-2 bg-transparent [&>div]:!border-b-none [&>div]:!bg-main [&>div]:!transition-none"
+                  />
                 </div>
-                <Progress
-                  value={pct}
-                  className="h-2 rotate-180 border-b-transparent border-t-2 bg-transparent [&>div]:!border-b-none [&>div]:!bg-main [&>div]:!transition-none"
-                />
-              </div>
-            );
-          })}
-        </div>
-        {hidePie && description ? (
-          <p className="pt-4 text-center text-sm leading-relaxed text-black dark:text-white sm:text-base">
-            {description}
-          </p>
-        ) : null}
-      </div>
-
-      {mobileTimeline ? (
-        <div className={hidePie ? "mt-2 w-full sm:mt-4" : "w-full"}>
-          {mobileTimeline}
-        </div>
-      ) : null}
-
-      {/* Pie chart */}
-      {!hidePie && (
-        <>
-          <div className="flex w-full flex-col items-center sm:hidden">
-            <CustomPieChart
-              slices={pieSlices as unknown as PieSlice[]}
-              size={260}
-            />
-            <p className="mt-4 px-2 text-center text-sm leading-relaxed text-black dark:text-white">
+              );
+            })}
+          </div>
+          {hidePie && description ? (
+            <p className="pt-4 text-center text-sm leading-relaxed text-black dark:text-white sm:text-base">
               {description}
             </p>
-          </div>
+          ) : null}
+        </div>
 
-          <div className="hidden w-full max-w-lg flex-col items-center -mt-7 sm:flex">
-            <div className="mr-10 shrink-0">
+        {mobileTimeline ? (
+          <div
+            className={`w-full sm:hidden ${hidePie ? "mt-2" : ""}`}
+          >
+            {mobileTimeline}
+          </div>
+        ) : null}
+
+        {/* Pie chart */}
+        {!hidePie && (
+          <>
+            <div className="flex w-full flex-col items-center sm:hidden">
               <CustomPieChart
                 slices={pieSlices as unknown as PieSlice[]}
-                size={400}
+                size={260}
               />
+              <p className="mt-4 px-2 text-center text-sm leading-relaxed text-black dark:text-white">
+                {description}
+              </p>
             </div>
-            <p className="mr-10 mt-4 text-center self-start text-sm leading-relaxed text-black dark:text-white">
-              {description}
-            </p>
-          </div>
-        </>
-      )}
+
+            <div className="hidden min-w-0 w-full flex-col items-center justify-center sm:flex lg:w-1/2 lg:flex-none lg:items-center">
+              <div className="shrink-0">
+                <CustomPieChart
+                  slices={pieSlices as unknown as PieSlice[]}
+                  size={400}
+                />
+              </div>
+              <p className="mt-4 max-w-md px-2 text-center text-sm leading-relaxed text-black dark:text-white lg:px-4">
+                {description}
+              </p>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
