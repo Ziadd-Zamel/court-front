@@ -51,6 +51,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --animate-eclipse-spin: eclipse-spin 1.35s linear infinite;
+  --animate-eclipse-spin-reverse: eclipse-spin-reverse 1.9s linear infinite;
 }
 
 :root {
@@ -229,4 +231,16 @@
   width: 0;
   height: 0;
   display: none;
+}
+
+@keyframes eclipse-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes eclipse-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
 }

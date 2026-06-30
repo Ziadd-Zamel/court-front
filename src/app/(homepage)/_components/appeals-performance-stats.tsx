@@ -191,7 +191,9 @@ export default function AppealsPerformanceStats({
     >
       <div
         className={`flex w-full flex-col ${
-          hidePie ? "" : "lg:flex-row-reverse lg:items-start lg:gap-10 xl:gap-14"
+          hidePie
+            ? ""
+            : "lg:flex-row-reverse lg:items-start lg:gap-10 xl:gap-14"
         }`}
       >
         {/* Progress bars */}
@@ -243,17 +245,12 @@ export default function AppealsPerformanceStats({
         </div>
 
         {mobileTimeline ? (
-          <div
-            className={`w-full sm:hidden ${hidePie ? "mt-2" : ""}`}
-          >
-            {mobileTimeline}
-          </div>
+          <div className="my-2 w-full sm:hidden">{mobileTimeline}</div>
         ) : null}
-
         {/* Pie chart */}
         {!hidePie && (
           <>
-            <div className="flex w-full flex-col items-center sm:hidden">
+            <div className="mt-2 flex w-full flex-col items-center sm:hidden">
               <CustomPieChart
                 slices={pieSlices as unknown as PieSlice[]}
                 size={260}
