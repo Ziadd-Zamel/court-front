@@ -2,14 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    formats: ["image/webp", "image/avif"],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    domains: [
-      "m.dirbal.ly",
-      "dashboard.alolya.gov.ly",
-      "images.unsplash.com",
-      "www.pokemon.com",
-      "flagcdn.com",
+    unoptimized: true,
+    remotePatterns: [
+      { hostname: "m.dirbal.ly" },
+      { hostname: "dashboard.alolya.gov.ly" },
+      { hostname: "images.unsplash.com" },
+      { hostname: "www.pokemon.com" },
+      { hostname: "flagcdn.com" },
     ],
   },
 };

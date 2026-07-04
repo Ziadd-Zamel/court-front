@@ -9,6 +9,8 @@ import ScrollToTopButton from "@/components/custom/scroll-to-top-button";
 import Footer from "@/components/layout/Footer";
 import NextTopLoader from "nextjs-toploader";
 import NavigationLoader from "@/components/common/navigation-loader";
+import OrganizationJsonLd from "@/components/seo/organization-json-ld";
+import { globalMetadata } from "@/lib/seo/metadata";
 
 const zain = Zain({
   subsets: ["arabic"],
@@ -39,18 +41,7 @@ export const viewport = {
   initialScale: 1,
 };
 
-export const metadata = {
-  title: "المحكمة العليا الليبية",
-  description: "الموقع الرسمي للمحكمة العليا الليبية",
-  keywords: "ليبيا, المحكمة العليا, القضاء, قانون",
-  charset: "utf-8",
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "المحكمة العليا الليبية",
-    description: "الموقع الرسمي للمحكمة العليا الليبية",
-    locale: "ar_AR",
-  },
-};
+export const metadata = globalMetadata;
 
 export default function RootLayout({
   children,
@@ -64,6 +55,7 @@ export default function RootLayout({
     >
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/yts8tvr.css" />
+        <OrganizationJsonLd />
       </head>
 
       <body className="font-zain antialiased bg-background">
