@@ -214,18 +214,15 @@ export default function PrintingPublishingService() {
         <div className="mt-2 h-[2px] w-70 bg-main" />
       </div>
       <p className="mt-3 text-sm text-gray-500 dark:text-white/70 text-justify">
-        تقدّم المحكمة العليا، من خلال خدمة الطباعة والنشر، إنتاج المواد المطبوعة
-        للقانونيين والمهتمين بالمسائل القانونية، بما في ذلك الكتب والبحوث
-        القانونية والرسائل الجامعية. وتشمل الخدمة جميع المراحل قبل الطباعة، مثل
-        التصميم والتحرير والتنسيق، بالإضافة إلى عملية الطباعة نفسها للأوراق
-        والبحوث القانونية. كما تمتد الخدمة إلى ما بعد الطباعة، بما في ذلك
-        التغليف الاحترافي، ووصولاً إلى التوزيع والنشر في نسخ ورقية، أو إلكترونية
-        عبر موقع المحكمة العليا.
+        تتيح المحكمة العليا خدمة الطباعة والنشر للمواد القانونية، بما في ذلك
+        الكتب والبحوث والدراسات والرسائل الجامعية، وفق الضوابط المعتمدة لديها.
+        تشمل الخدمة مراجعة المادة المقدَّمة، وتقدير مدى استيفائها للضوابط
+        العلمية، ومدى ملاءمتها للطباعة أو للنشر الورقي أو الإلكتروني على موقع
+        المحكمة العليا، ثم التواصل مع مقدم الطلب بشأن ما يلزم من إجراءات.
       </p>
       <p className="mt-1 text-sm text-gray-500 dark:text-white/70 text-justify">
-        تقوم اللجنة العلمية بالمكتب الفني بالمحكمة بتقييم المواد العلمية
-        المقدمة، لتحديد قيمتها العلمية، وأصالتها، ومشروعيتها، قبل اعتمادها
-        للطباعة والنشر.
+        إذا تم اعتماد الطلب، ستمتد الخدمة إلى مراحل ما قبل الطباعة، كالتصميم
+        والتحرير والتنسيق، وما يليها من إجراءات الطباعة والتوزيع والنشر.
       </p>
 
       <div className="mt-12">
@@ -234,10 +231,10 @@ export default function PrintingPublishingService() {
           <div className="mt-2 h-[2px] w-70 bg-main" />
         </div>
         <p className="mt-4 text-sm text-gray-500 dark:text-white/70 text-justify">
-          تبدأ إجراءات طلب الطباعة والنشر بإرسال النموذج التالي بعد ملء كل
-          الحقول المطلوبة. ستتلقى رسالة تلقائية تؤكد استلام طلبك. وبعد مراجعته
-          من المكتب الفني بالمحكمة، سيتم إشعارك -بإذن الله- بنتيجة الفحص
-          والخطوات التالية، وذلك عبر رسالة نصية أو بريد إلكتروني.
+          تبدأ إجراءات طلب الطباعة والنشر بتعبئة النموذج الآتي بالبيانات الصحيحة
+          وإرساله. بعد تمام الإرسال، ستتلقى رسالة تلقائية تؤكد استلام طلبك، ثم
+          يتولى المكتب الفني بالمحكمة مراجعته، والتواصل معك عند الحاجة، عبر
+          رسالة نصية أو بريد إلكتروني.
         </p>
 
         <form
@@ -246,10 +243,10 @@ export default function PrintingPublishingService() {
         >
           <div>
             <RtlInputField
-              label="عنوان الكتاب/المقال"
+              label="عنوان المصنَّف"
               value={form.watch("book_title")}
               onChange={(e) => form.setValue("book_title", e.target.value)}
-              placeholder="أدخل عنوان الكتاب كاملاً"
+              placeholder="دخل عنوان مصنَّفك"
             />
             {form.formState.errors.book_title && (
               <p className="mt-1 text-sm text-red-500 text-right">
@@ -260,10 +257,10 @@ export default function PrintingPublishingService() {
 
           <div>
             <RtlInputField
-              label="الموضوع"
+              label="المجال الموضوعي"
               value={form.watch("subject")}
               onChange={(e) => form.setValue("subject", e.target.value)}
-              placeholder="أدخل مجال الموضوع. مثال: (الشريعة-المدني–التجاري–الجنائي–المالي–الدولي)"
+              placeholder="أدخل مجال الموضوع. مثال: الشريعة الإسلامية – القانون المدني – القانون الدستوري – القانون الدولي"
             />
             {form.formState.errors.subject && (
               <p className="mt-1 text-sm text-red-500 text-right">
@@ -290,10 +287,10 @@ export default function PrintingPublishingService() {
 
           <div>
             <RtlInputField
-              label="حجم الكتاب"
+              label="المقاس (خاص بالكتب)"
               value={form.watch("book_size")}
               onChange={(e) => form.setValue("book_size", e.target.value)}
-              placeholder="(خاص بالكتب) كبر/متوسط/صغر"
+              placeholder="صغير (حتى 13×20سم) / متوسط (من 14×20 إلى 16×24سم) / كبير (أكبر من 16×20سم)"
             />
             {form.formState.errors.book_size && (
               <p className="mt-1 text-sm text-red-500 text-right">
@@ -304,10 +301,10 @@ export default function PrintingPublishingService() {
 
           <div>
             <RtlInputField
-              label="اسم المؤلف"
+              label="اسم الكاتب"
               value={form.watch("author_name")}
               onChange={(e) => form.setValue("author_name", e.target.value)}
-              placeholder="أدخل اسم المؤلف رباعياً"
+              placeholder="أدخل اسم الكاتب ثلاثياً"
             />
             {form.formState.errors.author_name && (
               <p className="mt-1 text-sm text-red-500 text-right">
@@ -321,7 +318,7 @@ export default function PrintingPublishingService() {
               label="الدرجة العلمية"
               value={form.watch("academic_degree")}
               onChange={(e) => form.setValue("academic_degree", e.target.value)}
-              placeholder="إجازة/ماجستير/دكتوراه/كاتب"
+              placeholder="إجازة / ماجستير / دكتوراه"
             />
             {form.formState.errors.academic_degree && (
               <p className="mt-1 text-sm text-red-500 text-right">
@@ -374,9 +371,9 @@ export default function PrintingPublishingService() {
               <textarea
                 value={form.watch("summary")}
                 onChange={(e) => form.setValue("summary", e.target.value)}
-                placeholder="اكتب ملخصاً عن موضوع الكتاب/البحث في فقرة من 10 كلمات على الأقل، توجز فيها موضوعه، وتبيّن مواطن قيمته العلمية"
                 className="w-full sm:w-3/4 rounded-md bg-[#FBF3E0] dark:bg-white/10 dark:border dark:border-white/10 dark:text-white px-3 py-2 placeholder:text-xs placeholder:text-gray-400 dark:placeholder-white/50 sm:py-[12px] sm:placeholder:text-xs sm:text-xs lg:text-sm text-right placeholder:text-[10px]"
                 rows={5}
+                placeholder="اكتب نبذة موجزة عن موضوع المصنّف ومنهجه وأهميته، في حدود 100 إلى 150 كلمة."
               />
             </div>
             {form.formState.errors.summary && (
@@ -411,11 +408,11 @@ export default function PrintingPublishingService() {
               <CheckCircle className="w-12 h-12 text-green-500" />
             </div>
             <DialogTitle className="text-center font-zain text-lg font-bold">
-              تم إرسال الطلب بنجاح
+              تم إرسال طلب الطباعة والنشر بنجاح
             </DialogTitle>
             <DialogDescription className="text-center font-zain text-sm text-gray-600">
-              شكراً لك، تم استلام طلب الطباعة والنشر بنجاح. سيتم مراجعته من قبل
-              المكتب المختص وإشعارك بالنتيجة قريباً.
+              شكراً لك، لقد استلمنا طلبك، وستتولى اللجنة المختصة بالمحكمة، بإذنه
+              تعالى، مراجعته قريباً، والتواصل معك عند الحاجة.
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

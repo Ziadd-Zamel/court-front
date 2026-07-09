@@ -54,9 +54,7 @@ function TableSection({
           {title}
         </h5>
       ) : null}
-      <table
-        className={`w-full border-collapse ${compact ? "mb-2" : "mb-4"}`}
-      >
+      <table className={`w-full border-collapse ${compact ? "mb-2" : "mb-4"}`}>
         <tbody>
           {visibleRows.map((row, index) =>
             row.custom ? (
@@ -122,11 +120,10 @@ export default function MainTable({
             value: displayValue(caseItem.concluDate),
           },
           {
-            label: "البند",
+            label: "موضوع الدعوي",
             value: displayValue(caseItem.itemname),
             white: false,
           },
-          { label: "الجزء", value: displayValue(caseItem.partNumber) },
           {
             label: "رقم الدعوى",
             value: displayValue(caseItem.issueId),
@@ -221,7 +218,7 @@ export default function MainTable({
                 value: displayValue(appeal.session_date),
               },
               {
-                label: "منطوق الحكم",
+                label: "القرار",
                 value: displayValue(appeal.ruling),
                 white: false,
               },
