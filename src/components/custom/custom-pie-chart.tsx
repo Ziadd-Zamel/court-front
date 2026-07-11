@@ -132,14 +132,20 @@ export default function CustomPieChart({
 
     computedRef.current = computed;
 
+    // Clamp the gap so it never exceeds a slice's own sweep. Without this,
+    // a slice narrower than GAP would produce an end angle smaller than its
+    // start angle, causing ctx.arc to draw almost the entire circle.
+    const halfGapFor = (sweep: number) => Math.min(GAP / 2, sweep * 0.25);
+
     computed.forEach((s) => {
+      const halfGap = halfGapFor(s.sweep);
       ctx.beginPath();
       ctx.arc(
         cx,
         cy,
         ECHO_R,
-        s.startAngle + GAP / 2,
-        s.startAngle + s.sweep - GAP / 2,
+        s.startAngle + halfGap,
+        s.startAngle + s.sweep - halfGap,
       );
       ctx.strokeStyle = s.color;
       ctx.lineWidth = ECHO_W;
@@ -147,6 +153,7 @@ export default function CustomPieChart({
     });
 
     computed.forEach((s) => {
+      const halfGap = halfGapFor(s.sweep);
       const CENTER_GAP = 1; // ← increase this to push slices further from center
       const midAngle = s.startAngle + s.sweep / 2;
       const ox = cx + Math.cos(midAngle) * CENTER_GAP;
@@ -158,8 +165,8 @@ export default function CustomPieChart({
         cx,
         cy,
         R,
-        s.startAngle + GAP / 2,
-        s.startAngle + s.sweep - GAP / 2,
+        s.startAngle + halfGap,
+        s.startAngle + s.sweep - halfGap,
       );
       ctx.closePath();
       ctx.fillStyle = s.color;
