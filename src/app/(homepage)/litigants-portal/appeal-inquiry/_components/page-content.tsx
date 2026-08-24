@@ -124,10 +124,16 @@ export default function PageContent({
 
     // If search has been performed and there are results
     if (hasSearched && caseData?.data && caseData.data.length > 0) {
+      const selectedAppealTypeName =
+        classificationsData?.data?.find(
+          (classification) => classification.id.toString() === appealTypeId,
+        )?.classname ?? "";
+
       return (
         <MainTable
           caseData={caseData.data}
           error={caseError?.message || null}
+          appealTypeName={selectedAppealTypeName}
         />
       );
     }

@@ -1,9 +1,26 @@
 import CustomRow from "./custom-table-row";
 import SimpleTableRow from "./simple-table-row";
 
+const SPECIAL_APPEAL_TYPE_NAMES = [
+  "دستوري",
+  "الدوائر مجتمعة",
+  "تنازع الاختصاص",
+] as const;
+
 interface PageContentProps {
   caseData: CaseDataType[] | undefined;
   error: string | null;
+  appealTypeName?: string;
+}
+
+function isSpecialAppealType(...names: Array<string | undefined | null>) {
+  return names.some((name) => {
+    const normalized = String(name ?? "").trim();
+    if (!normalized) return false;
+    return SPECIAL_APPEAL_TYPE_NAMES.some(
+      (special) => normalized === special || normalized.includes(special),
+    );
+  });
 }
 
 function hasValue(value: unknown): boolean {
@@ -83,6 +100,7 @@ function TableSection({
 export default function MainTable({
   caseData,
   compact = false,
+  appealTypeName,
 }: PageContentProps & { compact?: boolean }) {
   const caseItem = caseData?.[0];
 
@@ -91,6 +109,10 @@ export default function MainTable({
   const fj = caseItem.final_judgment;
   const niaba = caseItem.niaba;
   const sectionGap = compact ? "mt-4" : "mt-8 sm:mt-12";
+  const hideCaseAndCourt = isSpecialAppealType(
+    caseItem.classname,
+    appealTypeName,
+  );
 
   return (
     <section className="">
@@ -124,18 +146,22 @@ export default function MainTable({
             value: displayValue(caseItem.itemname),
             white: false,
           },
+          ...(!hideCaseAndCourt
+            ? [
+                {
+                  label: "رقم الدعوى",
+                  value: displayValue(caseItem.issueId),
+                  custom: true,
+                },
+                {
+                  label: "المحكمة",
+                  value: displayValue(caseItem.orgname),
+                  custom: true,
+                },
+              ]
+            : []),
           {
-            label: "رقم الدعوى",
-            value: displayValue(caseItem.issueId),
-            custom: true,
-          },
-          {
-            label: "المحكمة",
-            value: displayValue(caseItem.orgname),
-            custom: true,
-          },
-          {
-            label: "منطوق الحكم",
+            label: hideCaseAndCourt ? "الطلب/الطلبات" : "منطوق الحكم",
             value: displayValue(caseItem.conclusion),
             custom: true,
           },
