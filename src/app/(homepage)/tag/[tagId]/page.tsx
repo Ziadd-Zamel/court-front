@@ -1,6 +1,4 @@
-import { Suspense } from "react";
 import SecondaryHeading from "@/components/common/seondary-heading";
-import ArticleListSkeleton from "@/components/custom/article-list-skeleton";
 import ErrorState from "@/components/custom/error-state";
 import ArticlesByTag from "./_components/articles-by-tag";
 
@@ -34,15 +32,13 @@ export default async function Page({
 
       <div className="min-h-screen bg-gray-50 pt-20 pb-40 box-container dark:bg-gray-900">
         <div className="mx-auto max-w-5xl">
-          <Suspense fallback={<ArticleListSkeleton />}>
-            <ArticlesByTag
-              tagId={tagId}
-              pagination={{
-                currentPage,
-                limit,
-              }}
-            />
-          </Suspense>
+          <ArticlesByTag
+            tagId={tagId}
+            pagination={{
+              currentPage,
+              limit,
+            }}
+          />
         </div>
       </div>
     </>

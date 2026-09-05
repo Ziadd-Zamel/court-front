@@ -139,8 +139,8 @@ export default function CustomBreadcrumb({
               src={"/assets/HomePage.svg"}
               alt="Home Icon"
               width={20}
-              height={0}
-              className="md:size-5 size-4"
+              height={20}
+              className="size-4 md:size-5"
             />
           </BreadcrumbLink>
         </BreadcrumbItem>
