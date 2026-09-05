@@ -101,6 +101,32 @@ export const getAvailableBooks = async (
   return payload;
 };
 
+export const getAvailableLibraryBooks = async (
+  page: number = 1,
+  perPage: number = 15,
+  search?: string,
+) => {
+  const params = new URLSearchParams({
+    page: page.toString(),
+    per_page: perPage.toString(),
+  });
+  if (search) {
+    params.append("search", search.trim());
+  }
+
+  const url = `${process.env.API}books/available?${params.toString()}`;
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: APIResponse<BookData[]> = await response.json();
+  return payload;
+};
+
 export const getBookByID = async (uuid: string) => {
   const url = `${process.env.API}books/${uuid}`;
 

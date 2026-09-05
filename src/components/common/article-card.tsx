@@ -151,10 +151,10 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
               </div>
             )}
             <h6 className="mt-4 text-center font-zain text-xl font-bold text-main md:mt-5">
-              <HighlightedText text={article.rule.title} />
+              <HighlightedText text={article.rule?.title ?? ""} />
             </h6>
             <HighlightedHtml
-              html={article.rule.body_html}
+              html={article.rule?.body_html ?? ""}
               style={{ direction: "rtl" }}
               className="mt-6 !text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white/70 md:mt-10"
             />
@@ -178,7 +178,7 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
           <div className="mb-2.5 flex items-center justify-end gap-3 sm:-mt-2 sm:me-11">
             <BookmarkButton item={article} type={bookmarkType} />
             <ShareButton item={article} type="article" />
-            <CopyButton text={article.rule.body_text} />
+            <CopyButton text={article.rule?.body_text ?? ""} />
           </div>
         </div>
       </div>

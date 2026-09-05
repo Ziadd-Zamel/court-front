@@ -1,10 +1,23 @@
 "use client";
 
+import { Suspense, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, Search } from "lucide-react";
+import { X } from "lucide-react";
 import { SearchOverlayProps } from "../types/navbar.types";
+import SiteSearchBar from "@/components/common/site-search-bar";
 
 export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -16,7 +29,6 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
           transition={{ duration: 0.3 }}
           onClick={onClose}
         >
-          {/* Close Button */}
           <motion.button
             className="absolute right-8 top-8 focus:outline-none"
             onClick={onClose}
@@ -29,26 +41,20 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             <X className="h-10 w-10 text-white" />
           </motion.button>
 
-          {/* Search Input */}
           <motion.div
-            className="relative w-full max-w-2xl px-4"
+            className="relative w-full max-w-3xl px-4"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
-            transition={{ delay: 0.2 }}
-            onClick={(e) => e.stopPropagation()}
+            transition={{ delay: 0.15 }}
+            onClick={(event) => event.stopPropagation()}
           >
-            <div className="relative flex items-center rounded-md border border-white/10 bg-white/10 px-4 focus-within:ring-1 focus-within:ring-main">
-              <input
-                dir="rtl"
-                type="text"
-                placeholder="ابحث في الموقع"
-                className="w-full bg-transparent pl-12 pr-4 text-right text-lg text-white placeholder:text-right placeholder:text-lg placeholder:text-white/50 focus:outline-none"
-                autoFocus
-              />
-              <Search className="absolute left-4 top-1/2 h-8 w-8 -translate-y-1/2 text-main" />
-
-            </div>
+            <p className="mb-5 text-center text-xl font-semibold text-white">
+              ابحث في الموقع
+            </p>
+            <Suspense fallback={null}>
+              <SiteSearchBar variant="overlay" onSubmitted={onClose} />
+            </Suspense>
           </motion.div>
         </motion.div>
       )}

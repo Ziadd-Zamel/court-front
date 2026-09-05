@@ -50,6 +50,30 @@ export const getQuestionsByCategory = async (
   return payload;
 };
 
+export const searchQuestions = async (
+  search: string,
+  page: number = 1,
+  perPage: number = 15,
+) => {
+  const params = new URLSearchParams({
+    page: page.toString(),
+    per_page: perPage.toString(),
+    search: search.trim(),
+  });
+
+  const response = await fetch(
+    `${process.env.API}questions?${params.toString()}`,
+    { next: { revalidate: 600 } },
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: questionResponseType = await response.json();
+  return payload;
+};
+
 export const getAllQuestion = async (
   category_id?: string,
   per_page?: number,

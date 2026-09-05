@@ -23,6 +23,7 @@ const routeNameMap: { [key: string]: string } = {
   "/constitutional-court": "الدائرة الدستورية",
   "/legal-principles": "قضاء النقض",
   "/tag": "روابط موضوعية",
+  "/search": "نتائج البحث",
   "/about-court": "التنظيم وشؤون المحكمة",
   "/about-court/counselors": "المستشارون بالمحكمة",
   "/about-court/general-assembly": "الجمعية العمومية",

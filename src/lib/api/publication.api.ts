@@ -60,3 +60,28 @@ export const getPublicationByCategory = async (
 
   return payload;
 };
+
+export const getPublicationsByQuery = async (
+  search: string,
+  page: number = 1,
+  perPage: number = 15,
+) => {
+  const queryString = buildQueryParams({
+    search: search.trim(),
+    page,
+    per_page: perPage,
+  });
+
+  const url = `${process.env.API}publications?${queryString}`;
+
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: APIResponse<BookData[]> = await response.json();
+  return payload;
+};

@@ -53,6 +53,31 @@ export const getArticlesByTag = async (
   return payload;
 };
 
+export const getRulingsByQuery = async (
+  search: string,
+  page: number = 1,
+  perPage: number = 15,
+) => {
+  const params = new URLSearchParams({
+    page: page.toString(),
+    per_page: perPage.toString(),
+    search: search.trim(),
+  });
+
+  const url = `${process.env.API}rulings?${params.toString()}`;
+
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: APIResponse<Article[]> = await response.json();
+  return payload;
+};
+
 export const getArticleByID = async (uuid: string) => {
   const url = `${process.env.API}rulings/${uuid}`;
 
