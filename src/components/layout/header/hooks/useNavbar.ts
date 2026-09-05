@@ -35,6 +35,7 @@ export const useNavbar = () => {
     pathname.includes("/favorite/books") ||
     pathname.includes("/favorite/news") ||
     pathname.includes("/favorite/questions") ||
+    pathname.startsWith("/tag") ||
     // Litigants portal paths with SecondaryHeading
     pathname.includes("/litigants-portal/important-notices") ||
     pathname.includes("/litigants-portal/litigation-services") ||

@@ -25,6 +25,34 @@ export const getArticlesByCategory = async (
   const payload: APIResponse<Article[]> = await response.json();
   return payload;
 };
+export const getArticlesByTag = async (
+  tagUuid: string,
+  page: number = 1,
+  perPage: number = 15,
+  search?: string,
+) => {
+  const params = new URLSearchParams({
+    page: page.toString(),
+    per_page: perPage.toString(),
+  });
+  if (search) {
+    params.append("search", search);
+  }
+
+  const url = `${process.env.API}rulings/by-tag/${tagUuid}?${params.toString()}`;
+
+  const response = await fetch(url, {
+    next: { revalidate: 600 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const payload: APIResponse<Article[]> = await response.json();
+  return payload;
+};
+
 export const getArticleByID = async (uuid: string) => {
   const url = `${process.env.API}rulings/${uuid}`;
 

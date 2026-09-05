@@ -22,6 +22,7 @@ const routeNameMap: { [key: string]: string } = {
   "/supreme-court-library": "مكتبة المحكمة العليا",
   "/constitutional-court": "الدائرة الدستورية",
   "/legal-principles": "قضاء النقض",
+  "/tag": "روابط موضوعية",
   "/about-court": "التنظيم وشؤون المحكمة",
   "/about-court/counselors": "المستشارون بالمحكمة",
   "/about-court/general-assembly": "الجمعية العمومية",
@@ -76,6 +77,7 @@ const dynamicSegmentMap: { [key: string]: string } = {
   "/about-court/news": "تفاصيل الخبر",
   "/about-court/counselors": "أعمال المستشار",
   "/legal-principles": "تفاصيل المبدأ",
+  "/tag": "المقالات",
   "/litigants-portal/important-notices": "تفاصيل الإشعار",
   "/litigants-portal/court-releases": "تفاصيل الإصدار",
   "/supreme-court-library": "تفاصيل الكتاب",
@@ -87,6 +89,8 @@ interface CustomBreadcrumbProps {
   black?: boolean;
   /** When provided (e.g. from article page), use this path for breadcrumb + "المبدأ" as last */
   fromPath?: string;
+  /** Use this path instead of the current pathname, without adding a details suffix */
+  pathOverride?: string;
   /** Optional path → short label overrides for mobile screens */
   mobileLabels?: Record<string, string>;
 }
@@ -108,13 +112,14 @@ export default function CustomBreadcrumb({
   className,
   black,
   fromPath,
+  pathOverride,
   mobileLabels,
 }: CustomBreadcrumbProps) {
   const pathname = usePathname();
 
-  const pathSegments = fromPath
-    ? fromPath.split("/").filter((segment) => segment !== "")
-    : pathname.split("/").filter((segment) => segment !== "");
+  const pathSegments = (fromPath || pathOverride || pathname)
+    .split("/")
+    .filter((segment) => segment !== "");
 
   if (pathname === "/") return null;
 

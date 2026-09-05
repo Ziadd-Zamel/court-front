@@ -8,6 +8,8 @@ interface Props {
   breadcrumb?: boolean;
   /** When provided (e.g. on article page), breadcrumb uses this path instead of pathname */
   fromPath?: string;
+  /** Use this path for breadcrumb without adding a trailing details segment */
+  breadcrumbPath?: string;
   /** Path → short label for breadcrumb on mobile only (e.g. { "/litigants-portal": "البوابة" }) */
   breadcrumbMobileLabels?: Record<string, string>;
   IconSecyion?: ReactNode;
@@ -16,6 +18,7 @@ export default function SecondaryHeading({
   title,
   breadcrumb,
   fromPath,
+  breadcrumbPath,
   breadcrumbMobileLabels,
   IconSecyion,
 }: Props) {
@@ -46,6 +49,7 @@ export default function SecondaryHeading({
               <CustomBreadcrumb
                 black
                 fromPath={fromPath}
+                pathOverride={breadcrumbPath}
                 mobileLabels={breadcrumbMobileLabels}
               />
             )}
