@@ -4,13 +4,14 @@ import SiteSearchBar from "@/components/common/site-search-bar";
 import NoSearchQuery from "@/components/custom/no-search";
 import ArticleListSkeleton from "@/components/custom/article-list-skeleton";
 import SiteSearchResults from "./_components/site-search-results";
-import { isSiteSearchType } from "@/lib/constants/site-search";
+import { isSiteSearchScope } from "@/lib/constants/site-search";
 
 export default async function Page({
   searchParams,
 }: {
   searchParams: Promise<{
     search?: string;
+    scope?: string;
     type?: string;
     page?: string;
     limit?: string;
@@ -18,9 +19,8 @@ export default async function Page({
 }) {
   const resolvedSearchParams = await searchParams;
   const search = resolvedSearchParams.search?.trim() ?? "";
-  const type = isSiteSearchType(resolvedSearchParams.type)
-    ? resolvedSearchParams.type
-    : undefined;
+  const scopeValue = resolvedSearchParams.scope ?? resolvedSearchParams.type;
+  const scope = isSiteSearchScope(scopeValue) ? scopeValue : undefined;
   const currentPage = Math.max(1, Number(resolvedSearchParams.page) || 1);
   const limit = Math.max(
     1,
@@ -39,16 +39,16 @@ export default async function Page({
         </div>
 
         <div className="mt-16">
-          {search && type ? (
+          {search && scope ? (
             <Suspense fallback={<ArticleListSkeleton />}>
               <SiteSearchResults
                 search={search}
-                type={type}
+                scope={scope}
                 pagination={{ currentPage, limit }}
               />
             </Suspense>
           ) : (
-            <NoSearchQuery message="اختر النوع ثم اكتب كلمة البحث للعثور على المقالات، أو الكتب، أو المعلومات المهمة، أو الإصدارات" />
+            <NoSearchQuery message="اختر النطاق ثم اكتب كلمة البحث للعثور على النتائج" />
           )}
         </div>
       </div>

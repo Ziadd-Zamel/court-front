@@ -13,9 +13,9 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import {
-  SITE_SEARCH_TYPES,
-  isSiteSearchType,
-  type SiteSearchType,
+  SITE_SEARCH_SCOPES,
+  isSiteSearchScope,
+  type SiteSearchScope,
 } from "@/lib/constants/site-search";
 import { cn } from "@/lib/utils";
 
@@ -30,35 +30,35 @@ export default function SiteSearchBar({
 }: SiteSearchBarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const typeFromUrl = searchParams.get("type");
+  const scopeFromUrl = searchParams.get("scope") ?? searchParams.get("type");
   const searchFromUrl = searchParams.get("search") ?? "";
   const isOverlay = variant === "overlay";
 
   const [query, setQuery] = useState("");
-  const [selectedType, setSelectedType] = useState<SiteSearchType | "">("");
+  const [selectedScope, setSelectedScope] = useState<SiteSearchScope | "">("");
 
   useEffect(() => {
-    if (isSiteSearchType(typeFromUrl)) {
-      setSelectedType(typeFromUrl);
+    if (isSiteSearchScope(scopeFromUrl)) {
+      setSelectedScope(scopeFromUrl);
     } else if (!isOverlay) {
-      setSelectedType("");
+      setSelectedScope("");
     }
     if (!isOverlay) {
       setQuery(searchFromUrl);
     }
-  }, [typeFromUrl, searchFromUrl, isOverlay]);
+  }, [scopeFromUrl, searchFromUrl, isOverlay]);
 
-  const currentOption = SITE_SEARCH_TYPES.find(
-    (option) => option.value === selectedType,
+  const currentOption = SITE_SEARCH_SCOPES.find(
+    (option) => option.value === selectedScope,
   );
 
   const handleSearch = () => {
     const trimmed = query.trim();
-    if (!trimmed || !isSiteSearchType(selectedType)) return;
+    if (!trimmed || !isSiteSearchScope(selectedScope)) return;
 
     const params = new URLSearchParams();
     params.set("search", trimmed);
-    params.set("type", selectedType);
+    params.set("scope", selectedScope);
     router.push(`/search?${params.toString()}`);
     onSubmitted?.();
   };
@@ -84,9 +84,9 @@ export default function SiteSearchBar({
           )}
         >
           <Select
-            value={selectedType || undefined}
+            value={selectedScope || undefined}
             onValueChange={(value) => {
-              if (isSiteSearchType(value)) setSelectedType(value);
+              if (isSiteSearchScope(value)) setSelectedScope(value);
             }}
           >
             <SelectTrigger
@@ -98,14 +98,14 @@ export default function SiteSearchBar({
                   : "bg-gray-50 text-gray-700 dark:bg-transparent dark:text-white",
               )}
             >
-              <SelectValue placeholder="اختر النوع" />
+              <SelectValue placeholder="اختر النطاق" />
             </SelectTrigger>
             <SelectContent
               dir="rtl"
               className="z-[120] text-right"
               align="center"
             >
-              {SITE_SEARCH_TYPES.map((option) => (
+              {SITE_SEARCH_SCOPES.map((option) => (
                 <SelectItem
                   className="cursor-pointer text-right"
                   key={option.value}
@@ -150,9 +150,9 @@ export default function SiteSearchBar({
       <div className="sm:hidden">
         <div className="flex flex-col gap-2 p-3">
           <Select
-            value={selectedType || undefined}
+            value={selectedScope || undefined}
             onValueChange={(value) => {
-              if (isSiteSearchType(value)) setSelectedType(value);
+              if (isSiteSearchScope(value)) setSelectedScope(value);
             }}
           >
             <SelectTrigger
@@ -164,10 +164,10 @@ export default function SiteSearchBar({
                   : "border-gray-200 bg-gray-50 text-gray-700 dark:border-white/10 dark:bg-white/10 dark:text-white",
               )}
             >
-              <SelectValue placeholder="اختر النوع" />
+              <SelectValue placeholder="اختر النطاق" />
             </SelectTrigger>
             <SelectContent dir="rtl" className="z-[120] text-right" align="end">
-              {SITE_SEARCH_TYPES.map((option) => (
+              {SITE_SEARCH_SCOPES.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label}
                 </SelectItem>
