@@ -45,12 +45,6 @@ export const postSiteSearch = async ({
     }),
     next: { revalidate: 0 },
   });
-  console.log({
-    search: search.trim(),
-    scope,
-    page,
-    per_page: perPage,
-  });
   const payload: SiteSearchApiResponse = await response.json();
 
   if (!response.ok || !payload.success || Array.isArray(payload.data)) {

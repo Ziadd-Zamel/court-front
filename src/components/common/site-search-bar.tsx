@@ -1,8 +1,8 @@
 "use client";
 
-import { Search } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { Loader2, Search } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -17,6 +17,10 @@ import {
   isSiteSearchScope,
   type SiteSearchScope,
 } from "@/lib/constants/site-search";
+import {
+  useSiteSearch,
+  useSiteSearchUrlState,
+} from "@/hooks/use-site-search";
 import { cn } from "@/lib/utils";
 
 type SiteSearchBarProps = {
@@ -29,28 +33,33 @@ export default function SiteSearchBar({
   onSubmitted,
 }: SiteSearchBarProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const scopeFromUrl = searchParams.get("scope") ?? searchParams.get("type");
-  const searchFromUrl = searchParams.get("search") ?? "";
   const isOverlay = variant === "overlay";
+  const [, startTransition] = useTransition();
+
+  const [url, setUrl] = useSiteSearchUrlState();
+  const { isFetching, enabled } = useSiteSearch();
+  const showLoading = !isOverlay && enabled && isFetching;
 
   const desktopInputRef = useRef<HTMLInputElement>(null);
   const mobileInputRef = useRef<HTMLInputElement>(null);
   const shouldFocusInputRef = useRef(false);
 
-  const [query, setQuery] = useState("");
-  const [selectedScope, setSelectedScope] = useState<SiteSearchScope | "">("");
+  // Draft query while typing; committed value lives in the URL.
+  const [draftQuery, setDraftQuery] = useState(url.search);
+  // Overlay keeps its own draft scope until submit.
+  const [overlayScope, setOverlayScope] = useState<SiteSearchScope | "">("");
+
+  const selectedScope: SiteSearchScope | "" = isOverlay
+    ? overlayScope
+    : isSiteSearchScope(url.scope)
+      ? url.scope
+      : "";
 
   useEffect(() => {
-    if (isSiteSearchScope(scopeFromUrl)) {
-      setSelectedScope(scopeFromUrl);
-    } else if (!isOverlay) {
-      setSelectedScope("");
-    }
     if (!isOverlay) {
-      setQuery(searchFromUrl);
+      setDraftQuery(url.search);
     }
-  }, [scopeFromUrl, searchFromUrl, isOverlay]);
+  }, [url.search, isOverlay]);
 
   const currentOption = SITE_SEARCH_SCOPES.find(
     (option) => option.value === selectedScope,
@@ -62,30 +71,65 @@ export default function SiteSearchBar({
     input?.focus({ preventScroll: true });
   };
 
-  const handleScopeChange = (value: string) => {
-    if (!isSiteSearchScope(value)) return;
-    setSelectedScope(value);
-    shouldFocusInputRef.current = true;
-  };
-
-  const handleSelectCloseAutoFocus = (
-    event: Event,
-  ) => {
+  const handleSelectCloseAutoFocus = (event: Event) => {
     if (!shouldFocusInputRef.current) return;
     event.preventDefault();
     shouldFocusInputRef.current = false;
     focusSearchInput();
   };
 
-  const handleSearch = () => {
-    const trimmed = query.trim();
-    if (!trimmed || !isSiteSearchScope(selectedScope)) return;
+  const commitSearch = (next: {
+    search: string;
+    scope: SiteSearchScope;
+  }) => {
+    const trimmed = next.search.trim();
+    if (!trimmed) return;
 
-    const params = new URLSearchParams();
-    params.set("search", trimmed);
-    params.set("scope", selectedScope);
-    router.push(`/search?${params.toString()}`);
-    onSubmitted?.();
+    if (isOverlay) {
+      const params = new URLSearchParams();
+      params.set("search", trimmed);
+      params.set("scope", next.scope);
+      params.set("page", "1");
+      router.push(`/search?${params.toString()}`);
+      onSubmitted?.();
+      return;
+    }
+
+    startTransition(() => {
+      void setUrl({
+        search: trimmed,
+        scope: next.scope,
+        page: "1",
+        limit: String(url.limit || 15),
+      });
+    });
+  };
+
+  const handleScopeChange = (value: string) => {
+    if (!isSiteSearchScope(value)) return;
+    shouldFocusInputRef.current = true;
+
+    if (isOverlay) {
+      setOverlayScope(value);
+      return;
+    }
+
+    const trimmed = draftQuery.trim();
+    startTransition(() => {
+      void setUrl({
+        scope: value,
+        // Re-run search immediately when query already exists
+        search: trimmed || url.search,
+        page: "1",
+        limit: String(url.limit || 15),
+      });
+    });
+  };
+
+  const handleSearch = () => {
+    if (showLoading) return;
+    if (!isSiteSearchScope(selectedScope)) return;
+    commitSearch({ search: draftQuery, scope: selectedScope });
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -146,8 +190,8 @@ export default function SiteSearchBar({
           <Input
             ref={desktopInputRef}
             type="text"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            value={draftQuery}
+            onChange={(event) => setDraftQuery(event.target.value)}
             onKeyDown={handleKeyDown}
             placeholder={currentOption?.placeholder ?? "اكتب كلمة البحث..."}
             className={cn(
@@ -161,14 +205,20 @@ export default function SiteSearchBar({
 
         <Button
           onClick={handleSearch}
+          disabled={showLoading}
           className={cn(
             "h-14 w-14 shrink-0 rounded-none bg-main text-primary-foreground hover:bg-main/90",
             isOverlay ? "border-l border-white/10" : "border-l border-main/20",
           )}
           size="icon"
           aria-label="بحث"
+          aria-busy={showLoading}
         >
-          <Search size={22} />
+          {showLoading ? (
+            <Loader2 size={22} className="animate-spin" />
+          ) : (
+            <Search size={22} />
+          )}
         </Button>
       </div>
 
@@ -214,8 +264,8 @@ export default function SiteSearchBar({
             <Input
               ref={mobileInputRef}
               type="text"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              value={draftQuery}
+              onChange={(event) => setDraftQuery(event.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={currentOption?.placeholder ?? "اكتب كلمة البحث..."}
               autoFocus={isOverlay}
@@ -229,11 +279,17 @@ export default function SiteSearchBar({
             />
             <Button
               onClick={handleSearch}
+              disabled={showLoading}
               className="h-10 w-10 shrink-0 rounded-lg bg-main hover:bg-main/90"
               size="icon"
               aria-label="بحث"
+              aria-busy={showLoading}
             >
-              <Search size={18} />
+              {showLoading ? (
+                <Loader2 size={18} className="animate-spin" />
+              ) : (
+                <Search size={18} />
+              )}
             </Button>
           </div>
         </div>

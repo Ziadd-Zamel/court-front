@@ -13,6 +13,8 @@ type ArticlesListProps = {
   totalPages: number;
   /** Path for breadcrumb on article page (e.g. /legal-principles) */
   from?: string;
+  /** Keep URL updates client-side (React Query pages) */
+  shallowUpdate?: boolean;
 };
 
 const ArticlesList = ({
@@ -20,6 +22,7 @@ const ArticlesList = ({
   pagination,
   totalPages,
   from,
+  shallowUpdate = false,
 }: ArticlesListProps) => {
   return (
     <section>
@@ -35,7 +38,11 @@ const ArticlesList = ({
       </Accordion>
 
       {totalPages > 1 && (
-        <CourtPagination pagination={pagination} totalPages={totalPages} />
+        <CourtPagination
+          pagination={pagination}
+          totalPages={totalPages}
+          shallowUpdate={shallowUpdate}
+        />
       )}
     </section>
   );

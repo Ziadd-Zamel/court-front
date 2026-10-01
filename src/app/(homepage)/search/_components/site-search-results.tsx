@@ -1,25 +1,18 @@
+"use client";
+
 import Link from "next/link";
-import catchError from "@/lib/utils/catch-error";
-import { postSiteSearch } from "@/lib/api/search.api";
 import ArticlesList from "@/components/custom/articlesL-list";
 import BookCard from "@/components/common/book-card";
 import CounselorCard from "@/components/common/counselor-card";
 import CourtPagination from "@/components/custom/court-pagination";
 import ErrorState from "@/components/custom/error-state";
 import NoSearchResults from "@/components/custom/no-result";
+import NoSearchQuery from "@/components/custom/no-search";
 import OtherLawCard from "@/app/(homepage)/about-court/courts-law/_components/other-law-card";
+import { useSiteSearch } from "@/hooks/use-site-search";
+import { cn } from "@/lib/utils";
 import type { SiteSearchScope } from "@/lib/constants/site-search";
-
-type Pagination = {
-  currentPage: number;
-  limit: number;
-};
-
-type Props = {
-  search: string;
-  scope: SiteSearchScope;
-  pagination: Pagination;
-};
+import SiteSearchSkeleton from "./site-search-skeleton";
 
 function ResultCount({ total }: { total: number }) {
   return (
@@ -98,32 +91,26 @@ function normalizeCounselor(item: Counselor): Counselor {
   };
 }
 
-export default async function SiteSearchResults({
-  search,
+function hasSectionResults(section?: SiteSearchSection) {
+  if (!section) return false;
+  const total = section.pagination?.total ?? section.total ?? 0;
+  return (section.items?.length ?? 0) > 0 && total > 0;
+}
+
+function SearchResultsBody({
   scope,
+  section,
   pagination,
-}: Props) {
-  const [data, error] = await catchError(() =>
-    postSiteSearch({
-      search,
-      scope,
-      page: pagination.currentPage,
-      perPage: pagination.limit,
-    }),
-  );
-
-  if (error) return <ErrorState />;
-
-  const section = data?.data.sections?.[0];
-  const items = section?.items ?? [];
-  const total = section?.pagination?.total ?? data?.data.total ?? 0;
-  const totalPages =
-    section?.pagination?.last_page ?? data?.meta.last_page ?? 1;
-  const sectionType = section?.type;
-
-  if (!section || items.length === 0 || total === 0) {
-    return <NoSearchResults />;
-  }
+  totalPages,
+}: {
+  scope: SiteSearchScope;
+  section: SiteSearchSection;
+  pagination: { currentPage: number; limit: number };
+  totalPages: number;
+}) {
+  const items = section.items ?? [];
+  const total = section.pagination?.total ?? section.total ?? 0;
+  const sectionType = section.type;
 
   if (sectionType === "ruling") {
     const from = scope === "research" ? "/technical-office" : "/search";
@@ -136,6 +123,7 @@ export default async function SiteSearchResults({
           pagination={pagination}
           totalPages={totalPages}
           from={from}
+          shallowUpdate
         />
       </div>
     );
@@ -148,7 +136,11 @@ export default async function SiteSearchResults({
         <BooksGrid books={items as BookData[]} from="/search" cardType="book" />
         {totalPages > 1 ? (
           <div className="mt-10 flex justify-center">
-            <CourtPagination pagination={pagination} totalPages={totalPages} />
+            <CourtPagination
+              pagination={pagination}
+              totalPages={totalPages}
+              shallowUpdate
+            />
           </div>
         ) : null}
       </>
@@ -164,7 +156,11 @@ export default async function SiteSearchResults({
         <BooksGrid books={books} from="/search" cardType="magazine" />
         {totalPages > 1 ? (
           <div className="mt-10 flex justify-center">
-            <CourtPagination pagination={pagination} totalPages={totalPages} />
+            <CourtPagination
+              pagination={pagination}
+              totalPages={totalPages}
+              shallowUpdate
+            />
           </div>
         ) : null}
       </>
@@ -182,7 +178,11 @@ export default async function SiteSearchResults({
         </div>
         {totalPages > 1 ? (
           <div className="mt-10 flex justify-center">
-            <CourtPagination pagination={pagination} totalPages={totalPages} />
+            <CourtPagination
+              pagination={pagination}
+              totalPages={totalPages}
+              shallowUpdate
+            />
           </div>
         ) : null}
       </div>
@@ -211,7 +211,11 @@ export default async function SiteSearchResults({
         </div>
         {totalPages > 1 ? (
           <div className="mt-10 flex justify-center">
-            <CourtPagination pagination={pagination} totalPages={totalPages} />
+            <CourtPagination
+              pagination={pagination}
+              totalPages={totalPages}
+              shallowUpdate
+            />
           </div>
         ) : null}
       </div>
@@ -219,4 +223,63 @@ export default async function SiteSearchResults({
   }
 
   return <NoSearchResults />;
+}
+
+export default function SiteSearchResults() {
+  const {
+    data,
+    error,
+    isLoading,
+    isFetching,
+    isPlaceholderData,
+    enabled,
+    scope,
+    page,
+    perPage,
+  } = useSiteSearch();
+
+  const section = data?.data.sections?.[0];
+  const hasResults = hasSectionResults(section);
+  const showingStale =
+    isPlaceholderData &&
+    Boolean(section) &&
+    section?.key !== scope &&
+    hasResults;
+
+  if (!enabled) {
+    return (
+      <NoSearchQuery message="اختر النطاق ثم اكتب كلمة البحث للعثور على النتائج" />
+    );
+  }
+
+  // Initial load, or fetching with no usable results — never flash empty state.
+  if (isLoading || (isFetching && (!hasResults || showingStale))) {
+    return <SiteSearchSkeleton scope={scope} />;
+  }
+
+  if (error && !hasResults) {
+    return <ErrorState />;
+  }
+
+  if (!section || !scope || !hasResults) {
+    return <NoSearchResults />;
+  }
+
+  const totalPages = section.pagination?.last_page ?? 1;
+
+  return (
+    <div
+      className={cn(
+        "relative transition-opacity duration-200",
+        isFetching && isPlaceholderData ? "opacity-55" : "opacity-100",
+      )}
+    >
+      <SearchResultsBody
+        scope={scope}
+        section={section}
+        pagination={{ currentPage: page, limit: perPage }}
+        totalPages={totalPages}
+      />
+    </div>
+  );
 }
