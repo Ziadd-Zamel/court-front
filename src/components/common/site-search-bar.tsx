@@ -2,7 +2,7 @@
 
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -34,6 +34,10 @@ export default function SiteSearchBar({
   const searchFromUrl = searchParams.get("search") ?? "";
   const isOverlay = variant === "overlay";
 
+  const desktopInputRef = useRef<HTMLInputElement>(null);
+  const mobileInputRef = useRef<HTMLInputElement>(null);
+  const shouldFocusInputRef = useRef(false);
+
   const [query, setQuery] = useState("");
   const [selectedScope, setSelectedScope] = useState<SiteSearchScope | "">("");
 
@@ -51,6 +55,27 @@ export default function SiteSearchBar({
   const currentOption = SITE_SEARCH_SCOPES.find(
     (option) => option.value === selectedScope,
   );
+
+  const focusSearchInput = () => {
+    const isMobile = window.matchMedia("(max-width: 639px)").matches;
+    const input = isMobile ? mobileInputRef.current : desktopInputRef.current;
+    input?.focus({ preventScroll: true });
+  };
+
+  const handleScopeChange = (value: string) => {
+    if (!isSiteSearchScope(value)) return;
+    setSelectedScope(value);
+    shouldFocusInputRef.current = true;
+  };
+
+  const handleSelectCloseAutoFocus = (
+    event: Event,
+  ) => {
+    if (!shouldFocusInputRef.current) return;
+    event.preventDefault();
+    shouldFocusInputRef.current = false;
+    focusSearchInput();
+  };
 
   const handleSearch = () => {
     const trimmed = query.trim();
@@ -85,9 +110,7 @@ export default function SiteSearchBar({
         >
           <Select
             value={selectedScope || undefined}
-            onValueChange={(value) => {
-              if (isSiteSearchScope(value)) setSelectedScope(value);
-            }}
+            onValueChange={handleScopeChange}
           >
             <SelectTrigger
               dir="rtl"
@@ -104,6 +127,7 @@ export default function SiteSearchBar({
               dir="rtl"
               className="z-[120] text-right"
               align="center"
+              onCloseAutoFocus={handleSelectCloseAutoFocus}
             >
               {SITE_SEARCH_SCOPES.map((option) => (
                 <SelectItem
@@ -120,6 +144,7 @@ export default function SiteSearchBar({
 
         <div className="min-w-0 flex-1 px-4 py-3" dir="rtl">
           <Input
+            ref={desktopInputRef}
             type="text"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
@@ -151,9 +176,7 @@ export default function SiteSearchBar({
         <div className="flex flex-col gap-2 p-3">
           <Select
             value={selectedScope || undefined}
-            onValueChange={(value) => {
-              if (isSiteSearchScope(value)) setSelectedScope(value);
-            }}
+            onValueChange={handleScopeChange}
           >
             <SelectTrigger
               dir="rtl"
@@ -166,7 +189,12 @@ export default function SiteSearchBar({
             >
               <SelectValue placeholder="اختر النطاق" />
             </SelectTrigger>
-            <SelectContent dir="rtl" className="z-[120] text-right" align="end">
+            <SelectContent
+              dir="rtl"
+              className="z-[120] text-right"
+              align="end"
+              onCloseAutoFocus={handleSelectCloseAutoFocus}
+            >
               {SITE_SEARCH_SCOPES.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label}
@@ -184,6 +212,7 @@ export default function SiteSearchBar({
             )}
           >
             <Input
+              ref={mobileInputRef}
               type="text"
               value={query}
               onChange={(event) => setQuery(event.target.value)}

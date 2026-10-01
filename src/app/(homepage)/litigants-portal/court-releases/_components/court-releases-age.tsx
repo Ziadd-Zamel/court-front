@@ -16,11 +16,6 @@ export default function CourtReleasesPage({ pagination, searchParams }: Props) {
   // Tabs data configuration
   const courtReleaseTabs: TabItem[] = [
     {
-      label: "خدمة الطباعة والنشر",
-      value: "printing",
-      component: <PrintingPublishingService />,
-    },
-    {
       label: "إصدارات المحكمة",
       value: "court-publications",
       heading: "إصدارات المحكمة",
@@ -31,6 +26,11 @@ export default function CourtReleasesPage({ pagination, searchParams }: Props) {
       value: "available-publications",
       heading: "الإصدارات المتوفرة",
       component: <AvailablePublications pagination={pagination} />,
+    },
+    {
+      label: "خدمة الطباعة والنشر",
+      value: "printing",
+      component: <PrintingPublishingService />,
     },
   ];
   return (

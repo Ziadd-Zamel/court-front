@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
 import PrinciplePdfUI from "@/app/(homepage)/principle/_components/principle-pdf-ui";
-import { BsFiletypePdf } from "react-icons/bs";
+import { BsFileEarmarkPdf } from "react-icons/bs";
 
 interface PrinciplePdfButtonProps {
   principle: Principle;
@@ -48,8 +48,6 @@ export function PrinciplePdfButton({
     "bg-white dark:bg-white/15 dark:hover:bg-white/20 dark:border-main/50 backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
   const printingStyles =
     "bg-main hover:bg-main border-main shadow-md scale-105";
-  const iconStyles =
-    variant === "light" ? "text-main" : "text-gray-700 dark:!text-main";
 
   return (
     <span className="relative inline-flex shrink-0 items-center">
@@ -73,9 +71,9 @@ export function PrinciplePdfButton({
             className="max-md:scale-[1.2] text-white md:scale-100"
           />
         ) : (
-          <BsFiletypePdf
+          <BsFileEarmarkPdf
             size={size}
-            className={`max-md:scale-[1.2] transition-colors md:scale-100 ${iconStyles}`}
+            className="max-md:scale-[1.2] text-main transition-colors md:scale-100"
           />
         )}
       </button>
