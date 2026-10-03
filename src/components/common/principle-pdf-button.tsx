@@ -48,6 +48,8 @@ export function PrinciplePdfButton({
     "bg-white dark:bg-white/15 dark:hover:bg-white/20 dark:border-main/50 backdrop-blur-sm hover:bg-white/80 border border-gray-200/50 hover:border-gray-300 shadow-sm hover:shadow";
   const printingStyles =
     "bg-main hover:bg-main border-main shadow-md scale-105";
+  const iconStyles =
+    variant === "light" ? "text-main" : "text-gray-700 dark:!text-main";
 
   return (
     <span className="relative inline-flex shrink-0 items-center">
@@ -73,7 +75,7 @@ export function PrinciplePdfButton({
         ) : (
           <BsFileEarmarkPdf
             size={size}
-            className="max-md:scale-[1.2] text-main transition-colors md:scale-100"
+            className={`max-md:scale-[1.2] transition-colors md:scale-100 ${iconStyles}`}
           />
         )}
       </button>
