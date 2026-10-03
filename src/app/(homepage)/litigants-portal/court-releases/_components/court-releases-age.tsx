@@ -41,7 +41,7 @@ export default function CourtReleasesPage({ pagination, searchParams }: Props) {
     >
       <ReusableTabs
         tabs={courtReleaseTabs}
-        defaultValue="printing"
+        defaultValue="court-publications"
         tabContentClassName=""
       />
     </section>
