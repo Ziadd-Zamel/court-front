@@ -19,7 +19,7 @@ export default async function Page({
         pagination={{ currentPage, limit }}
         search={resolvedSearchParams.search}
       />
-      <ContactSection />
+      <ContactSection type="important_information" />
     </>
   );
 }

@@ -84,7 +84,7 @@ export default async function CounselorsContent({
             <Link
               href={`/about-court/counselors/${featuredCounselor.uuid}`}
               key={featuredCounselor.uuid}
-              className="relative flex flex-col sm:flex-row items-center gap-8 p-8 sm:p-10"
+              className="relative flex flex-col items-stretch gap-5 p-5 sm:flex-row sm:items-center sm:gap-8 sm:p-10"
             >
               {/* Avatar */}
               <div className="shrink-0 flex flex-col items-center gap-3">
@@ -110,14 +110,14 @@ export default async function CounselorsContent({
                   {featuredCounselor.name}
                 </h3>
 
-                <ol className="flex flex-col gap-2">
+                <ol className="flex w-full flex-col gap-2 text-right">
                   {featuredInfoLines.map((item, index) => (
                     <li
                       key={`${index}-${item.slice(0, 32)}`}
-                      className="text-gray-600 text-sm flex items-center gap-2 justify-center sm:justify-start"
+                      className="flex items-start justify-start gap-2 text-sm text-gray-600 dark:text-white/70 sm:items-center"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-main shrink-0" />
-                      {item}
+                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-main sm:mt-0" />
+                      <span className="max-sm:min-w-0">{item}</span>
                     </li>
                   ))}
                 </ol>
@@ -125,11 +125,11 @@ export default async function CounselorsContent({
                 <div className="h-px bg-gradient-to-l from-transparent via-gray-200 dark:via-white/20 to-transparent" />
 
                 {/* Roles */}
-                <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+                <div className="flex flex-wrap justify-center gap-1.5 sm:justify-start sm:gap-2">
                   {[featuredRole, ...fields].filter(Boolean).map((role) => (
                     <span
                       key={role}
-                      className="text-xs font-medium bg-white dark:bg-white/10 border border-main/60 dark:border-white/20 shadow-sm text-main px-3 py-1.5 rounded-full"
+                      className="rounded-full border border-main/60 bg-white px-2.5 py-1 text-[11px] font-medium text-main shadow-sm dark:border-white/20 dark:bg-white/10 sm:px-3 sm:py-1.5 sm:text-xs"
                     >
                       {role}
                     </span>

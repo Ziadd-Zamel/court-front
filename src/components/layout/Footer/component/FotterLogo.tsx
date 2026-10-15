@@ -4,7 +4,7 @@ const FootrLogo = () => {
   return (
     <div className="flex items-center gap-5">
       <Image
-        className="w-[80px]"
+        className="w-[80px] max-[360px]:w-[64px]"
         src="/assets/shortLogoY.png"
         alt="شعار ليبرو"
         width={400}
@@ -15,7 +15,7 @@ const FootrLogo = () => {
         alt="شعار ليبرو"
         width={300}
         height={0}
-        className="w-[200px]"
+        className="w-[200px] max-[360px]:w-[160px]"
       />
     </div>
   );

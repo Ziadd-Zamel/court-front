@@ -40,7 +40,7 @@ export default async function Page({
         }}
         search={resolvedSearchParams.search}
       />
-      <ContactSection />
+      <ContactSection type="constitutional" />
     </>
   );
 }

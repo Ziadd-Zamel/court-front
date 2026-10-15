@@ -28,11 +28,15 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
 import AnimatedSectionHeader from "../common/AnimatedSectionHeader";
-import { ContactFormData, contactFormSchema } from "@/lib/schemas/validations";
+import {
+  ContactPageType,
+  contactFormSchema,
+} from "@/lib/schemas/validations";
 import { submitContactForm } from "@/lib/actions/contact";
 import { useSuggestionRoles } from "@/hooks/use-suggestion-roles";
 
@@ -41,14 +45,18 @@ const FALLBACK_DESCRIPTION =
 const FALLBACK_SUB_DESCRIPTION =
   "سندرس اقتراحك، و سنعمل، بإذنه تعالى، على إضافة المعلومات التي تجيب مسألتك في أقرب وقت، وذلك متى كانت من العموم بما يخدم الحق في التقاضي.";
 
+const contactFieldsSchema = contactFormSchema.omit({ type: true });
+
 export default function ContactSection({
   title = "اطرح استفهاماً أو اقتراحاً",
   description = FALLBACK_DESCRIPTION,
   subDescription = FALLBACK_SUB_DESCRIPTION,
+  type,
 }: {
   title?: string;
   description?: string;
   subDescription?: string;
+  type: ContactPageType;
 }) {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
@@ -56,8 +64,8 @@ export default function ContactSection({
   const { data: suggestionRoles = [], isLoading: isLoadingRoles } =
     useSuggestionRoles();
 
-  const form = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
+  const form = useForm<z.infer<typeof contactFieldsSchema>>({
+    resolver: zodResolver(contactFieldsSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -81,10 +89,10 @@ export default function ContactSection({
     },
   });
 
-  const onSubmit = (data: ContactFormData) => {
+  const onSubmit = (data: z.infer<typeof contactFieldsSchema>) => {
     mutation.mutate({
       ...data,
-      type: "accepted_lawyers",
+      type,
     });
   };
 

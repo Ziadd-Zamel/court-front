@@ -1,11 +1,34 @@
 import { z } from "zod";
 
+export const contactPageTypes = [
+  "home",
+  "litigants",
+  "appeal_inquiry",
+  "cassation",
+  "constitutional",
+  "principles",
+  "supreme_library",
+  "technical_office",
+  "visitor_services",
+  "about",
+  "general_assembly",
+  "performance_metrics",
+  "news",
+  "publications",
+  "important_information",
+  "accepted_lawyers",
+  "counselors",
+  "laws",
+] as const;
+
+export type ContactPageType = (typeof contactPageTypes)[number];
+
 export const contactFormSchema = z.object({
   name: z.string().optional(),
   email: z.string().email("البريد الإلكتروني غير صالح"),
   suggestion_role_id: z.string().min(1, "يرجى اختيار الصفة"),
   message: z.string().min(1, "يرجى كتابة رسالتك").min(10, "الرسالة قصيرة جداً"),
-  type: z.string().optional(),
+  type: z.enum(contactPageTypes),
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;

@@ -63,7 +63,7 @@ export default function MenuOverlay({
                   >
                     <div className="flex items-center justify-center gap-2">
                       <p
-                        className="font-normal text-2xl transition-colors hover:text-main"
+                        className="font-normal text-xl transition-colors hover:text-main sm:text-2xl"
                         onClick={(e) => {
                           if (item.children) {
                             e.preventDefault();
@@ -93,7 +93,7 @@ export default function MenuOverlay({
                             >
                               <Link
                                 href={subItem.path}
-                                className="font-arabic flex items-center justify-center gap-2 text-end text-[20px] font-[400] text-gray-300 transition-colors hover:text-main"
+                                className="font-arabic flex items-center justify-center gap-2 text-end text-lg font-[400] text-gray-300 transition-colors hover:text-main sm:text-[20px]"
                                 onClick={onClose}
                               >
                                 {subItem.name}
