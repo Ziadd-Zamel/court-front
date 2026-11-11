@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { FaCheck } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
 import PrinciplePdfUI from "@/app/(homepage)/principle/_components/principle-pdf-ui";
@@ -26,21 +26,26 @@ export function PrinciplePdfButton({
     contentRef: printRef,
     documentTitle: `principle-${principle.serial_number ?? "export"}`,
     pageStyle: `
-    @import url("https://use.typekit.net/yts8tvr.css");
-
-    .font-adobe-arabic {
-      font-family: "adobe-arabic", sans-serif !important;
-    }
-
-    @page { size: A4; margin: 7mm 18mm; }
+    @page { size: A4; margin: 0; }
     @media print {
+      html, body { margin: 0 !important; padding: 0 !important; }
       body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      * { visibility: visible !important; position: static !important; }
     }
   `,
     onBeforePrint: async () => {
       setPrinting(true);
       await document.fonts.ready;
+      const host = printRef.current?.querySelector<HTMLElement>(
+        "[data-print-ready]",
+      );
+      if (!host) return;
+      const deadline = Date.now() + 4000;
+      while (
+        host.dataset.printReady === "loading" &&
+        Date.now() < deadline
+      ) {
+        await new Promise((r) => setTimeout(r, 50));
+      }
     },
     onAfterPrint: () => setPrinting(false),
   });
@@ -54,7 +59,15 @@ export function PrinciplePdfButton({
   return (
     <span className="relative inline-flex shrink-0 items-center">
       <div className="pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0">
-        <div ref={printRef}>
+        <div
+          ref={printRef}
+          style={
+            {
+              "--platform-print-body-font":
+                '"adobe-arabic", "Adobe Arabic", "Noto Naskh Arabic", Arial, sans-serif',
+            } as CSSProperties
+          }
+        >
           <PrinciplePdfUI principle={principle} index={0} />
         </div>
       </div>
