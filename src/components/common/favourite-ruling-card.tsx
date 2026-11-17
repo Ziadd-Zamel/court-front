@@ -80,7 +80,7 @@ export function FavouriteRulingCard({ article }: FavouriteRulingCardProps) {
         ease: "easeOut",
       }}
     >
-      <Link href={`/article/${article.uuid}?from=${encodeURIComponent("/")}`}>
+      <Link href={`/article/${article.uuid}?from=${encodeURIComponent("/legal-principles")}`}>
         <div
           className={`service-card group relative h-36 cursor-pointer overflow-hidden p-2 transition-all duration-500 sm:h-40 sm:p-4 ${
             isHovered ? "bg-transparent" : "bg-[#bfb0854c]"

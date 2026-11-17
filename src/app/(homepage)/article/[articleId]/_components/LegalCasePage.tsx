@@ -27,11 +27,13 @@ export default async function LegalCasePage({
   if (!data) return <NoDataState />;
 
   const article = data?.data;
+  const breadcrumbFrom =
+    !from || from === "/" ? "/legal-principles" : from;
   return (
     <>
       <SecondaryHeading
         breadcrumb
-        fromPath={from}
+        fromPath={breadcrumbFrom}
         IconSecyion={
           <div className="flex items-center gap-3 w-full h-full">
             <BookmarkButton item={article} type="article" />

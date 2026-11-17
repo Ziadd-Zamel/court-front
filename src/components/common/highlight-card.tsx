@@ -77,7 +77,7 @@ export default function HighlightCard({
       {/* Row 4: link */}
       <div className="flex justify-end w-full">
         <Link
-          href={`/article/${article.uuid}?from=${encodeURIComponent("/")}`}
+          href={`/article/${article.uuid}?from=${encodeURIComponent("/legal-principles")}`}
           className="mt-5 h-auto px-3 py-1 text-left text-sm font-[500] text-main hover:text-main/80 sm:text-base"
         >
           المزيد
