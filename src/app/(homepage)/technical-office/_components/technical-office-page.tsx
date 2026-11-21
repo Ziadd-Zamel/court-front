@@ -29,7 +29,6 @@ export default async function TechnicalOfficePage({
     {
       label: "إصدارات المحكمة",
       value: "court-publications",
-      heading: "إصدارات المحكمة",
       component: <CourtPublications searchParams={searchParams} search={search} />,
     },
     {
@@ -43,8 +42,6 @@ export default async function TechnicalOfficePage({
   const dynamicTabs: TabItem[] = categoriesData.map((category) => ({
     label: category.name,
     value: category.uuid,
-    heading: category.name,
-
     component: (
       <Suspense fallback={<ArticleListSkeleton />}>
         <ArticlePage
@@ -52,6 +49,7 @@ export default async function TechnicalOfficePage({
           uuid={category.uuid}
           pagination={pagination}
           from="/technical-office"
+          heading={category.name}
         />
       </Suspense>
     ),

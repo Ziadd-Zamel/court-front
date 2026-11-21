@@ -27,7 +27,6 @@ export default function SupermeCourtPage({
     {
       label: "الكتب",
       value: "all-books",
-      heading: "الكتب",
       component: (
         <BooksContent searchParams={searchParams} search={searchQueries.search} />
       ),
@@ -42,7 +41,6 @@ export default function SupermeCourtPage({
     {
       label: "إصدارات المحكمة",
       value: "court-publications",
-      heading: "إصدارات المحكمة",
       component: (
         <CourtPublications
           searchParams={searchParams}

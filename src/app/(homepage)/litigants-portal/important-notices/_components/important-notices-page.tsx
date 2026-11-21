@@ -29,12 +29,12 @@ export default async function ImportantNoticesPage({
   const tabs: TabItem[] = categoriesData.data.map((category) => ({
     label: category.title,
     value: category.uuid,
-    heading: category.title,
     component: (
       <QuestionsContent
         categoryId={category.uuid}
         pagination={pagination}
         search={search}
+        heading={category.title}
       />
     ),
   }));

@@ -1,5 +1,3 @@
-import { SITE_URL } from "./site";
-
 function normShareValue(value: unknown) {
   if (value === null || value === undefined) return "";
   const text = String(value).trim();
@@ -40,10 +38,4 @@ export function buildArticleShareDescription(article: Article): string {
     .filter(Boolean)
     .join(" ");
   return body ? `رقم المبدأ: ${body}` : "";
-}
-
-export function buildArticleShareUrl(articleId: string, _origin?: string) {
-  const id = String(articleId ?? "").replace(/^\/+|\/+$/g, "");
-  // Always use canonical SITE_URL (www) so WhatsApp OG crawl matches og:url
-  return `${SITE_URL}/article/${id}`;
 }

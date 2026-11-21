@@ -5,6 +5,7 @@ import NoDataState from "@/components/custom/no-data-state";
 import { Accordion } from "@/components/ui/accordion";
 import CourtPagination from "@/components/custom/court-pagination";
 import AssemblySessionCard from "@/components/common/assembly-session-card";
+import SectionHeading from "@/components/common/section-heading";
 
 type Props = {
   pagination: {
@@ -12,21 +13,44 @@ type Props = {
     limit: number;
   };
   search?: string;
+  heading?: string;
 };
 
 export default async function ConstitutionalCourtSessions({
   pagination,
   search,
+  heading,
 }: Props) {
   const [data, error] = await catchError(() =>
     getConstitutionalSessions(pagination.currentPage, pagination.limit, search),
   );
 
-  if (error) return <ErrorState />;
+  const total = data?.meta?.total ?? 0;
+  const headingNode = heading ? (
+    <SectionHeading title={heading} count={total} />
+  ) : null;
 
-  if (!data || !data.data.length) return <NoDataState />;
+  if (error) {
+    return (
+      <>
+        {headingNode}
+        <ErrorState />
+      </>
+    );
+  }
+
+  if (!data || !data.data.length) {
+    return (
+      <>
+        {headingNode}
+        <NoDataState />
+      </>
+    );
+  }
+
   return (
     <section>
+      {headingNode}
       <Accordion style={{ direction: "rtl" }} type="single" collapsible>
         {data.data.map((session, index) => (
           <AssemblySessionCard

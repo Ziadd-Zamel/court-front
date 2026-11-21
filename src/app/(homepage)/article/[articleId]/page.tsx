@@ -23,7 +23,11 @@ export async function generateMetadata({
 
   try {
     const payload = await getArticleByID(articleId);
+    if (!payload || "success" in payload) return {};
+
     const article = payload.data;
+    if (!article) return {};
+
     const title = article.title?.trim() || SITE_NAME;
     const description =
       buildArticleShareDescription(article) || SITE_DESCRIPTION;

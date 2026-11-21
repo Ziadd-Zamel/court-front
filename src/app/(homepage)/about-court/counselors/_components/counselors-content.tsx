@@ -3,6 +3,7 @@ import CourtPagination from "@/components/custom/court-pagination";
 import ErrorState from "@/components/custom/error-state";
 import NoDataState from "@/components/custom/no-data-state";
 import NoSearchResults from "@/components/custom/no-result";
+import SearchBar from "@/components/common/search-bar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getAllCounselors } from "@/lib/api/counselors.api";
 import catchError from "@/lib/utils/catch-error";
@@ -13,6 +14,19 @@ type ArticlePageProps = {
   search?: string;
 };
 
+function CounselorsHeader({ total }: { total: number }) {
+  return (
+    <div className="flex md:flex-row flex-col-reverse items-center w-full justify-between box-container mt-16 gap-16">
+      <h2 className="text-2xl lg:text-4xl text-main font-semibold w-full md:w-1/2 self-start">
+        {`المستشارون بالمحكمة العليا (الأعمال: ${total})`}
+      </h2>
+      <div className=" w-full md:w-1/2 max-w-[400px] self-end">
+        <SearchBar />
+      </div>
+    </div>
+  );
+}
+
 export default async function CounselorsContent({
   search,
   pagination,
@@ -21,11 +35,28 @@ export default async function CounselorsContent({
     getAllCounselors(pagination.currentPage, 41, search),
   );
 
-  if (error) return <ErrorState />;
+  const total = CounselorsData?.meta?.total ?? 0;
+
+  if (error) {
+    return (
+      <>
+        <CounselorsHeader total={0} />
+        <ErrorState />
+      </>
+    );
+  }
 
   if (!CounselorsData || CounselorsData?.data.length === 0) {
-    if (search && search.trim() !== "") return <NoSearchResults />;
-    return <NoDataState />;
+    return (
+      <>
+        <CounselorsHeader total={total} />
+        {search && search.trim() !== "" ? (
+          <NoSearchResults />
+        ) : (
+          <NoDataState />
+        )}
+      </>
+    );
   }
 
   const hasSearch = Boolean(search?.trim());
@@ -68,6 +99,7 @@ export default async function CounselorsContent({
     featuredCounselor?.fields?.map((f) => f.field).filter(Boolean) || [];
   return (
     <>
+      <CounselorsHeader total={total} />
       {/* Featured president card */}
       {featuredCounselor && (
         <div className="box-container mt-16 mb-4" dir="rtl">

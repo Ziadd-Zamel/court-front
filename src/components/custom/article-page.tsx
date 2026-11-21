@@ -4,6 +4,7 @@ import ErrorState from "./error-state";
 import NoDataState from "./no-data-state";
 import ArticlesList from "./articlesL-list";
 import NoSearchResults from "./no-result";
+import SectionHeading from "@/components/common/section-heading";
 
 type ArticlePageProps = {
   uuid: string;
@@ -14,6 +15,9 @@ type ArticlePageProps = {
   search?: string;
   /** Path for breadcrumb on article page (e.g. /legal-principles) */
   from?: string;
+  /** Section title shown above the list, with total count */
+  heading?: string;
+  countLabel?: string;
 };
 
 export default async function ArticlePage({
@@ -21,32 +25,55 @@ export default async function ArticlePage({
   search,
   pagination,
   from,
+  heading,
+  countLabel,
 }: ArticlePageProps) {
-  // Get Articles
   const [articlesData, articlesError] = await catchError(() =>
     getArticlesByCategory(pagination.currentPage, 15, uuid, search),
   );
 
-  // Error state
-  if (articlesError) return <ErrorState />;
+  const total = articlesData?.meta?.total ?? 0;
+  const headingNode = heading ? (
+    <SectionHeading title={heading} count={total} countLabel={countLabel} />
+  ) : null;
 
-  // Empty State
+  if (articlesError) {
+    return (
+      <>
+        {headingNode}
+        <ErrorState />
+      </>
+    );
+  }
+
   if (!articlesData || articlesData?.data.length === 0) {
-    // If there's a search query but no results, show NoSearchResults
     if (search && search.trim() !== "") {
-      return <NoSearchResults />;
+      return (
+        <>
+          {headingNode}
+          <NoSearchResults />
+        </>
+      );
     }
 
-    // Otherwise, show NoDataState for general no data scenario
-    return <NoDataState />;
+    return (
+      <>
+        {headingNode}
+        <NoDataState />
+      </>
+    );
   }
+
   return (
-    <ArticlesList
-      articles={articlesData.data}
-      title={`المقالات - ${uuid}`}
-      pagination={pagination}
-      totalPages={articlesData.meta.last_page}
-      from={from}
-    />
+    <>
+      {headingNode}
+      <ArticlesList
+        articles={articlesData.data}
+        title={`المقالات - ${uuid}`}
+        pagination={pagination}
+        totalPages={articlesData.meta.last_page}
+        from={from}
+      />
+    </>
   );
 }

@@ -40,6 +40,7 @@ export default async function CourtPublications({ searchParams, search }: Props)
           pageKey={category.uuid}
           pagination={parseTabPagination(searchParams, category.uuid, 40)}
           search={search}
+          heading={category.name}
         />
       ),
     }));
@@ -52,6 +53,7 @@ export default async function CourtPublications({ searchParams, search }: Props)
         pageKey="pending-publications"
         pagination={parseTabPagination(searchParams, "pending-publications", 40)}
         search={search}
+        heading="إصدارات قيد الطباعة"
       />
     ),
   };

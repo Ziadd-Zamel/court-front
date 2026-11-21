@@ -13,10 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import {
-  buildArticleShareDescription,
-  buildArticleShareUrl,
-} from "@/lib/seo/article-share";
+import { buildArticleShareDescription } from "@/lib/seo/article-share";
 
 function normShareValue(value: unknown) {
   if (value === null || value === undefined) return "";
@@ -90,8 +87,7 @@ export function ShareButton({
         return {
           title: article.title,
           description: buildArticleShareDescription(article),
-          // Absolute article URL so WhatsApp/Facebook can fetch Open Graph tags
-          url: buildArticleShareUrl(article.uuid, window.location.origin),
+          url: window.location.href,
         };
       }
       case "book": {

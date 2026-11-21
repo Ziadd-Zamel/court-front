@@ -1,10 +1,13 @@
 "use client";
 import { ReactNode } from "react";
+import Link from "next/link";
 import CustomBreadcrumb from "./custom-breadcrumb";
 import { motion } from "framer-motion";
 
 interface Props {
   title: string;
+  /** When set, the title becomes a link (e.g. back to list with tab selected) */
+  titleHref?: string;
   breadcrumb?: boolean;
   /** When provided (e.g. on article page), breadcrumb uses this path instead of pathname */
   fromPath?: string;
@@ -16,12 +19,16 @@ interface Props {
 }
 export default function SecondaryHeading({
   title,
+  titleHref,
   breadcrumb,
   fromPath,
   breadcrumbPath,
   breadcrumbMobileLabels,
   IconSecyion,
 }: Props) {
+  const titleClassName =
+    "font-bold text-white md:whitespace-nowrap text-sm sm:text-2xl lg:text-3xl";
+
   return (
     <div className="relative h-[220px] w-full bg-main dark:bg-[#121212] pt-16">
       {/* Main content container */}
@@ -33,8 +40,14 @@ export default function SecondaryHeading({
           transition={{ duration: 0.8 }}
           className="w-1/2 lg:w-1/4 ps-5 lg:ps-13 xl:ps-20 2xl:ps-32 min-[1700px]:!ps-40"
         >
-          <h2 className="font-bold text-white md:whitespace-nowrap text-sm sm:text-2xl lg:text-3xl">
-            {title}
+          <h2 className={titleClassName}>
+            {titleHref ? (
+              <Link href={titleHref} className="hover:opacity-90">
+                {title}
+              </Link>
+            ) : (
+              title
+            )}
           </h2>
         </motion.div>
 

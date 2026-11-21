@@ -4,6 +4,7 @@ import NoSearchResults from "@/components/custom/no-result";
 import NoDataState from "@/components/custom/no-data-state";
 import AssemblyList from "./assembly-list";
 import { getAssemblyByCategory } from "@/lib/api/assembly.api";
+import SectionHeading from "@/components/common/section-heading";
 
 type AssemblyContentProps = {
   uuid: string;
@@ -12,34 +13,59 @@ type AssemblyContentProps = {
     limit: number;
   };
   search?: string;
+  heading?: string;
 };
 
 export default async function AssemblyContent({
   uuid,
   search,
   pagination,
+  heading,
 }: AssemblyContentProps) {
   const [articlesData, articlesError] = await catchError(() =>
-    getAssemblyByCategory(pagination.currentPage, 5, uuid, search)
+    getAssemblyByCategory(pagination.currentPage, 5, uuid, search),
   );
 
-  if (articlesError) return <ErrorState />;
+  const total = articlesData?.meta?.total ?? 0;
+  const headingNode = heading ? (
+    <SectionHeading title={heading} count={total} />
+  ) : null;
+
+  if (articlesError) {
+    return (
+      <>
+        {headingNode}
+        <ErrorState />
+      </>
+    );
+  }
 
   if (!articlesData || articlesData?.data.length === 0) {
-    // If there's a search query but no results, show NoSearchResults
     if (search && search.trim() !== "") {
-      return <NoSearchResults />;
+      return (
+        <>
+          {headingNode}
+          <NoSearchResults />
+        </>
+      );
     }
-    // Otherwise, show NoDataState for general no data scenario
-    return <NoDataState />;
+    return (
+      <>
+        {headingNode}
+        <NoDataState />
+      </>
+    );
   }
 
   return (
-    <AssemblyList
-      articles={articlesData.data}
-      title={`المقالات - ${uuid}`}
-      pagination={pagination}
-      totalPages={articlesData.meta.last_page}
-    />
+    <>
+      {headingNode}
+      <AssemblyList
+        articles={articlesData.data}
+        title={`المقالات - ${uuid}`}
+        pagination={pagination}
+        totalPages={articlesData.meta.last_page}
+      />
+    </>
   );
 }

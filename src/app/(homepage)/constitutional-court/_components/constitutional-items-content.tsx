@@ -5,6 +5,7 @@ import NoDataState from "@/components/custom/no-data-state";
 import { Accordion } from "@/components/ui/accordion";
 import ConstitutionalItemCard from "./constitutional-item-card";
 import CourtPagination from "@/components/custom/court-pagination";
+import SectionHeading from "@/components/common/section-heading";
 
 type Props = {
   categoryId: string;
@@ -13,9 +14,15 @@ type Props = {
     limit: number;
   };
   search?: string;
+  heading?: string;
 };
 
-export default async function ConstitutionalItemsContent({ categoryId, pagination, search }: Props) {
+export default async function ConstitutionalItemsContent({
+  categoryId,
+  pagination,
+  search,
+  heading,
+}: Props) {
   const [data, error] = await catchError(() =>
     getConstitutionalItemsByCategory(
       categoryId,
@@ -25,13 +32,32 @@ export default async function ConstitutionalItemsContent({ categoryId, paginatio
     ),
   );
 
-  if (error) return <ErrorState />;
+  const total = data && "meta" in data ? (data.meta?.total ?? 0) : 0;
+  const headingNode = heading ? (
+    <SectionHeading title={heading} count={total} className="mb-4" />
+  ) : null;
 
-  if (!data || !("data" in data) || data.data.length === 0)
-    return <NoDataState />;
+  if (error) {
+    return (
+      <>
+        {headingNode}
+        <ErrorState />
+      </>
+    );
+  }
+
+  if (!data || !("data" in data) || data.data.length === 0) {
+    return (
+      <>
+        {headingNode}
+        <NoDataState />
+      </>
+    );
+  }
 
   return (
     <section>
+      {headingNode}
       <Accordion
         type="single"
         collapsible

@@ -31,6 +31,7 @@ export default async function ImportantInfo({ pagination, search }: Props) {
         categoryId={category.uuid}
         pagination={pagination}
         search={search}
+        heading={category.title}
       />
     ),
   }));

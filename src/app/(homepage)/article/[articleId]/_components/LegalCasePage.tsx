@@ -29,11 +29,18 @@ export default async function LegalCasePage({
   const article = data?.data;
   const breadcrumbFrom =
     !from || from === "/" ? "/legal-principles" : from;
+  const listPath = breadcrumbFrom.split("?")[0] || "/legal-principles";
+  const tabId = article.sub_category_uuid?.trim();
+  const titleHref = tabId
+    ? `${listPath}?tab=${encodeURIComponent(tabId)}`
+    : listPath;
+
   return (
     <>
       <SecondaryHeading
         breadcrumb
         fromPath={breadcrumbFrom}
+        titleHref={titleHref}
         IconSecyion={
           <div className="flex items-center gap-3 w-full h-full">
             <BookmarkButton item={article} type="article" />

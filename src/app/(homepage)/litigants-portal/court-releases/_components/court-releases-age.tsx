@@ -18,14 +18,17 @@ export default function CourtReleasesPage({ pagination, searchParams }: Props) {
     {
       label: "إصدارات المحكمة",
       value: "court-publications",
-      heading: "إصدارات المحكمة",
       component: <CourtPublications searchParams={searchParams} />,
     },
     {
       label: "الإصدارات المتوفرة",
       value: "available-publications",
-      heading: "الإصدارات المتوفرة",
-      component: <AvailablePublications pagination={pagination} />,
+      component: (
+        <AvailablePublications
+          pagination={pagination}
+          heading="الإصدارات المتوفرة"
+        />
+      ),
     },
     {
       label: "خدمة الطباعة والنشر",

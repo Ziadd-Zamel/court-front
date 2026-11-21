@@ -33,12 +33,12 @@ export default async function GeneralAssemblyPage({
   const dynamicTabs: TabItem[] = categoriesData.map((category) => ({
     label: category.name,
     value: category.uuid,
-    heading: category.name,
     component: (
       <AssemblyContent
         search={search}
         uuid={category.uuid}
         pagination={pagination}
+        heading={category.name}
       />
     ),
   }));

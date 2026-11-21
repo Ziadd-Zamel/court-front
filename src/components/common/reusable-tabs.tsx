@@ -1,10 +1,11 @@
 "use client";
 
-import { ReactNode, Suspense } from "react";
+import { ReactNode, Suspense, useEffect, useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronLeft } from "lucide-react";
 import SearchBar from "@/components/common/search-bar";
-import { usePathname, useRouter } from "next/navigation";
+import SectionHeading from "@/components/common/section-heading";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export interface TabItem {
   label: string;
@@ -26,7 +27,7 @@ interface ReusableTabsProps {
   tablistDownContent?: ReactNode;
 }
 
-export default function ReusableTabs({
+function ReusableTabsInner({
   tabs,
   defaultValue,
   showSearch = true,
@@ -38,23 +39,42 @@ export default function ReusableTabs({
   tablistUpContent,
   tablistDownContent,
 }: ReusableTabsProps) {
-  const defaultTab = defaultValue || tabs[0]?.value || "";
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const fallbackTab = defaultValue || tabs[0]?.value || "";
+  const tabValues = useMemo(() => new Set(tabs.map((t) => t.value)), [tabs]);
 
-  const handleTabChange = () => {
-    router.replace(pathname, { scroll: false });
+  const tabFromUrl = searchParams.get("tab");
+  const initialTab =
+    tabFromUrl && tabValues.has(tabFromUrl) ? tabFromUrl : fallbackTab;
+
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  useEffect(() => {
+    const next =
+      tabFromUrl && tabValues.has(tabFromUrl) ? tabFromUrl : fallbackTab;
+    setActiveTab(next);
+  }, [tabFromUrl, fallbackTab, tabValues]);
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("tab", value);
+    // Reset list pagination when switching tabs
+    params.delete("page");
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   };
 
   return (
     <Tabs
       dir={direction}
       className={`w-full ${className}`}
-      defaultValue={defaultTab}
+      value={activeTab}
       onValueChange={handleTabChange}
     >
       <div className="flex flex-col min-[1150px]:flex-row! md:items-start gap-10 lg:gap-16 w-full">
-        {/* Tab list */}
         <TabsList
           className={`flex flex-col relative items-center gap-1 md:px-20 lg:px-0  min-[1150px]:max-w-[330px]! w-full bg-transparent${tabListClassName}`}
         >
@@ -84,7 +104,6 @@ export default function ReusableTabs({
           )}
         </TabsList>
 
-        {/* Tab content */}
         <div className="w-full" id="main-tab-content">
           {tabs.map((tab) => (
             <TabsContent
@@ -93,18 +112,23 @@ export default function ReusableTabs({
               value={tab.value}
             >
               {showHeading && tab.heading && (
-                <div className="mb-10 text-right">
-                  <h3 className="text-2xl font-bold text-main">
-                    {tab.heading}
-                  </h3>
-                  <div className="mt-2 h-[2px] w-56 bg-main" />
-                </div>
+                <SectionHeading title={tab.heading} />
               )}
-              <div className="mt-6">{tab.component}</div>
+              <div className={showHeading && tab.heading ? "" : "mt-6"}>
+                {tab.component}
+              </div>
             </TabsContent>
           ))}
         </div>
       </div>
     </Tabs>
+  );
+}
+
+export default function ReusableTabs(props: ReusableTabsProps) {
+  return (
+    <Suspense fallback={null}>
+      <ReusableTabsInner {...props} />
+    </Suspense>
   );
 }

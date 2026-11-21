@@ -20,28 +20,30 @@ export default async function ConstitutionalCourtPage({
     {
       label: "القضاء الدستوري",
       value: "dfd472f3-aa70-40f4-bdfa-245a2940eb52",
-      heading: "القضاء الدستوري",
       component: (
         <ArticlePage
           pagination={pagination}
           uuid="dfd472f3-aa70-40f4-bdfa-245a2940eb52"
           search={search}
           from="/constitutional-court"
+          heading="القضاء الدستوري"
         />
       ),
     },
     {
       label: "معلومات مهمة",
       value: "important-info",
-      heading: "معلومات مهمة",
       component: <ImportantInfo pagination={pagination} search={search} />,
     },
     {
       label: "جلسات الدائرة الدستورية",
       value: "constitutional-court-sessions",
-      heading: "جلسات الدائرة الدستورية",
       component: (
-        <ConstitutionalCourtSessions pagination={pagination} search={search} />
+        <ConstitutionalCourtSessions
+          pagination={pagination}
+          search={search}
+          heading="جلسات الدائرة الدستورية"
+        />
       ),
     },
     {

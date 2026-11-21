@@ -2,9 +2,11 @@ import catchError from "@/lib/utils/catch-error";
 import { getQuestionsByCategory } from "@/lib/api/question.api";
 import ErrorState from "@/components/custom/error-state";
 import NoDataState from "@/components/custom/no-data-state";
+import NoSearchResults from "@/components/custom/no-result";
 import { Accordion } from "@/components/ui/accordion";
 import QuestionCard from "@/components/common/question-card";
 import CourtPagination from "@/components/custom/court-pagination";
+import SectionHeading from "@/components/common/section-heading";
 
 type Props = {
   categoryId: string;
@@ -13,12 +15,14 @@ type Props = {
     limit: number;
   };
   search?: string;
+  heading?: string;
 };
 
 export default async function QuestionsContent({
   categoryId,
   pagination,
   search,
+  heading,
 }: Props) {
   const [data, error] = await catchError(() =>
     getQuestionsByCategory(
@@ -29,12 +33,32 @@ export default async function QuestionsContent({
     ),
   );
 
-  if (error) return <ErrorState />;
+  const total = data?.meta?.total ?? 0;
+  const headingNode = heading ? (
+    <SectionHeading title={heading} count={total} />
+  ) : null;
 
-  if (!data || data.data.length === 0) return <NoDataState />;
+  if (error) {
+    return (
+      <>
+        {headingNode}
+        <ErrorState />
+      </>
+    );
+  }
+
+  if (!data || data.data.length === 0) {
+    return (
+      <>
+        {headingNode}
+        {search && search.trim() !== "" ? <NoSearchResults /> : <NoDataState />}
+      </>
+    );
+  }
 
   return (
     <section>
+      {headingNode}
       <Accordion
         type="single"
         collapsible

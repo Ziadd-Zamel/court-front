@@ -23,7 +23,6 @@ export default async function LegalPrinciplesPage({
   const dynamicTabs: TabItem[] = categoriesData.map((category) => ({
     label: category.name,
     value: category.uuid,
-    heading: category.name,
     component: (
       <Suspense fallback={<ArticleListSkeleton />}>
         <ArticlePage
@@ -31,6 +30,7 @@ export default async function LegalPrinciplesPage({
           uuid={category.uuid}
           pagination={pagination}
           from="/legal-principles"
+          heading={category.name}
         />
       </Suspense>
     ),

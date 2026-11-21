@@ -23,7 +23,7 @@ const SecondeSectoin = () => {
           </p>
         </div>
       </div>
-      <div className="mt-6 flex w-full flex-col justify-start gap-4 max-sm:mr-0 max-sm:gap-3 sm:mt-8 sm:gap-5 sm:-mr-6">
+      <div className="mt-6 flex w-full flex-col justify-start gap-4  max-sm:gap-3 sm:mt-8 sm:gap-5">
         <h4 className="text-right text-sm font-medium text-main sm:text-lg">
           بنغازي
         </h4>

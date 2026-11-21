@@ -37,6 +37,7 @@ export default async function BooksContent({ searchParams, search }: Props) {
         pageKey={category.uuid}
         pagination={parseTabPagination(searchParams, category.uuid, 40)}
         search={search}
+        heading={category.name}
       />
     ),
   }));
