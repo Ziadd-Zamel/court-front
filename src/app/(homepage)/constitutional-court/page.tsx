@@ -40,7 +40,12 @@ export default async function Page({
         }}
         search={resolvedSearchParams.search}
       />
-      <ContactSection type="constitutional" />
+      <ContactSection
+        type="constitutional"
+        title="اطرح استفهاماً أو اقتراحاً"
+        description="إذا لم تجد ضالتك في قوائم أصناف الأسئلة، لك أن ترسل استفهامك. لك أيضاً أن تقترح إضافات مفيدة."
+        subDescription="سندرس اقتراحك، وسنعمل، بإذنه تعالى، على إضافة المعلومات التي تجيب مسألتك في أقرب وقت، وذلك متى كانت من العموم بما يخدم الحقَّ في التقاضي."
+      />
     </>
   );
 }

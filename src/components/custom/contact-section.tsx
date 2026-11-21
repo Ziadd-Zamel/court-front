@@ -43,7 +43,9 @@ import { useSuggestionRoles } from "@/hooks/use-suggestion-roles";
 const FALLBACK_DESCRIPTION =
   "إذا لم تجد ضالتك في قوائم أصناف الأسئلة، لك أن ترسل استفهامك. لك أيضاً أن تقترح إضافات مفيدة.";
 const FALLBACK_SUB_DESCRIPTION =
-  "سندرس اقتراحك، و سنعمل، بإذنه تعالى، على إضافة المعلومات التي تجيب مسألتك في أقرب وقت، وذلك متى كانت من العموم بما يخدم الحق في التقاضي.";
+  "سندرس اقتراحك، وسنعمل، بإذنه تعالى، على إضافة المعلومات التي تجيب مسألتك في أقرب وقت، وذلك متى كانت من العموم بما يخدم الحق في التقاضي.";
+const MSA_NOTE =
+  "حرصاً على وضوح الرسالة، وضماناً لدراستها، نرجو تدوينها باللغة العربية الفصحى.";
 
 const contactFieldsSchema = contactFormSchema.omit({ type: true });
 
@@ -116,9 +118,15 @@ export default function ContactSection({
             </p>
             <p
               style={{ direction: "rtl" }}
-              className="text-sm font-zain leading-relaxed text-gray-400 sm:text-base"
+              className="mb-4 text-sm font-zain leading-relaxed text-gray-400 sm:mb-5 sm:text-base"
             >
               {subDescription}
+            </p>
+            <p
+              style={{ direction: "rtl" }}
+              className="text-sm font-zain leading-relaxed text-gray-400 sm:text-base"
+            >
+              {MSA_NOTE}
             </p>
           </div>
 
