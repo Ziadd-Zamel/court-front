@@ -39,7 +39,7 @@ export default function ArticleMobilePanel({ article }: { article: Article }) {
         ) : null}
       </div>
 
-      <div className="mx-2 mb-10 rounded-sm border border-gray-200/60 bg-[#F1E2CE] px-5 py-6 dark:border-white/10 dark:bg-[#1a1a1a]">
+      <div className="mx-2 mb-10 rounded-sm border border-gray-200/60 bg-[#F1E2CE] px-5 py-6 dark:border-white/10 dark:bg-[#252525]">
         <ArticleSidebarContent article={article} compact />
       </div>
     </div>

@@ -52,12 +52,12 @@ export default async function LegalCasePage({
         title={article.sub_category}
       />
 
-      <div className="min-h-screen lg:flex lg:flex-row dark:bg-[#121212]">
+      <div className="min-h-screen lg:flex lg:flex-row dark:bg-[#1a1a1a]">
         <div className="min-w-0 flex-1">
           <PageContent article={article} />
           <ArticleMobilePanel article={article} />
         </div>
-        <div className="hidden min-h-screen w-1/4 lg:block dark:bg-[#1a1a1a]">
+        <div className="hidden min-h-screen w-1/4 lg:block dark:bg-[#252525]">
           <Sidebar article={article} />
         </div>
       </div>
