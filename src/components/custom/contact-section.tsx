@@ -267,8 +267,8 @@ export default function ContactSection({
               تم إرسال رسالتك بنجاح!
             </DialogTitle>
             <DialogDescription className="text-center text-gray-600">
-              شكراً لك على التواصل معنا. سنقوم بمراجعة رسالتك والرد عليك في أقرب
-              وقت ممكن.
+              نشكر تواصلك معنا. سنراجع رسالتك، ونوافيك بالرد إن لزم في أقرب وقت
+              بإذن الله تعالى.
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

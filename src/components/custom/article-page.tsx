@@ -17,7 +17,6 @@ type ArticlePageProps = {
   from?: string;
   /** Section title shown above the list, with total count */
   heading?: string;
-  countLabel?: string;
 };
 
 export default async function ArticlePage({
@@ -26,7 +25,6 @@ export default async function ArticlePage({
   pagination,
   from,
   heading,
-  countLabel,
 }: ArticlePageProps) {
   const [articlesData, articlesError] = await catchError(() =>
     getArticlesByCategory(pagination.currentPage, 15, uuid, search),
@@ -34,7 +32,7 @@ export default async function ArticlePage({
 
   const total = articlesData?.meta?.total ?? 0;
   const headingNode = heading ? (
-    <SectionHeading title={heading} count={total} countLabel={countLabel} />
+    <SectionHeading title={heading} count={total} />
   ) : null;
 
   if (articlesError) {

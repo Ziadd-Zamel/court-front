@@ -13,7 +13,6 @@ import { CopyButton } from "./copy-button";
 import CustomAudioPlayer from "@/components/custom/custom-audio-player";
 import { HighlightedHtml } from "./highlighted-html";
 import { HighlightedText } from "./highlighted-text";
-import { formatPrincipleNumberForDisplay } from "@/lib/seo/article-share";
 
 type ArticleCardProps = {
   article: Article;
@@ -74,11 +73,6 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
   const principleMeta = [principleYear, principleType]
     .filter(Boolean)
     .join(" ");
-  // LTR contexts (tooltip) need the formatted order; the big number keeps
-  // the existing card display so RTL layout stays unchanged.
-  const tooltipPrincipleNumber = formatPrincipleNumberForDisplay(
-    article.principle_number,
-  );
   const displayedPrincipleNumber = principleNumber.includes("-")
     ? principleNumber.split("-").reverse().join("-")
     : principleNumber;
@@ -107,15 +101,10 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
               </p>
               <div
                 role="tooltip"
-                dir="ltr"
-                className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1.5 flex w-max max-w-[220px] -translate-x-1/2 items-center gap-1 rounded-md border border-[#d4b896] bg-[#FBF3E0] px-2 py-1 text-[10px] font-medium leading-snug text-gray-800 opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 dark:border-white/15 dark:bg-white/10 dark:text-white"
+                dir="rtl"
+                className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1.5 w-max -translate-x-1/2 rounded-md border border-[#d4b896] bg-[#FBF3E0] px-3 py-1.5 text-xs font-semibold leading-snug text-gray-800 opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 dark:border-white/15 dark:bg-white/10 dark:text-white sm:text-sm"
               >
-                <span>رقم المبدأ:</span>
-                <span dir="ltr" style={{ unicodeBidi: "isolate" }}>
-                  {tooltipPrincipleNumber}
-                </span>
-                {principleType && <span>{principleType}</span>}
-                {principleYear && <span>{principleYear}</span>}
+                رقم المبدأ
               </div>
             </div>
           )}
