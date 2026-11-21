@@ -42,7 +42,10 @@ export type SubscriberFormData = z.infer<typeof subscriberSchema>;
 export const publicationRequestSchema = z.object({
   book_title: z.string().min(1, "عنوان الكتاب/المقال مطلوب"),
   subject: z.string().min(1, "الموضوع مطلوب"),
-  page_count: z.number().min(1, "عدد الصفحات يجب أن يكون أكبر من 0"),
+  page_count: z
+    .number({ error: "عدد الصفحات مطلوب" })
+    .int("عدد الصفحات يجب أن يكون رقماً صحيحاً")
+    .min(1, "عدد الصفحات يجب أن يكون 1 أو أكثر"),
   book_size: z.string().min(1, "حجم الكتاب مطلوب"),
   author_name: z.string().min(1, "اسم المؤلف مطلوب"),
   academic_degree: z.string().min(1, "الدرجة العلمية مطلوبة"),

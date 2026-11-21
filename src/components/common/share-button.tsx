@@ -13,17 +13,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import {
+  buildArticleShareDescription,
+  buildArticleShareUrl,
+} from "@/lib/seo/article-share";
+
+function normShareValue(value: unknown) {
+  if (value === null || value === undefined) return "";
+  const text = String(value).trim();
+  if (!text || text.toLowerCase() === "null") return "";
+  return text;
+}
 
 function principleShareTitle(principle: Principle): string {
-  const norm = (value: unknown) => {
-    if (value === null || value === undefined) return "";
-    const text = String(value).trim();
-    if (!text || text.toLowerCase() === "null") return "";
-    return text;
-  };
-  const serial = norm(principle.serial_number) || norm(principle.number);
-  const year = norm(principle.gregorian_year);
-  const principleType = norm(principle.principle_type);
+  const serial =
+    normShareValue(principle.serial_number) ||
+    normShareValue(principle.number);
+  const year = normShareValue(principle.gregorian_year);
+  const principleType = normShareValue(principle.principle_type);
   const numYear = [serial, year].filter(Boolean).join("-");
   const body = [numYear, principleType].filter(Boolean).join(" ");
   return body ? `المبدأ القانوني: ${body}` : "المبدأ القانوني";
@@ -82,10 +89,9 @@ export function ShareButton({
         const article = item as Article;
         return {
           title: article.title,
-          description:
-            article.brief?.replace(/<[^>]*>/g, "").substring(0, 200) + "..." ||
-            "",
-          url: window.location.href,
+          description: buildArticleShareDescription(article),
+          // Absolute article URL so WhatsApp/Facebook can fetch Open Graph tags
+          url: buildArticleShareUrl(article.uuid, window.location.origin),
         };
       }
       case "book": {
@@ -224,7 +230,10 @@ export function ShareButton({
         }
 
         case "whatsapp": {
-          const whatsappText = `*${title}*\n\n${cleanDescription}\n\n${url}`;
+          // Title/description first (Arabic reads naturally), article URL last for link preview
+          const whatsappText = cleanDescription
+            ? `*${title}*\n${cleanDescription}\n\n${url}`
+            : `*${title}*\n\n${url}`;
           const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
             whatsappText,
           )}`;

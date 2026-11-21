@@ -18,3 +18,15 @@ export const SITE_KEYWORDS = [
 export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.alolya.gov.ly"
 ).replace(/\/$/, "");
+
+/**
+ * Square court emblem — better for WhatsApp/Facebook link-preview thumbnails
+ * than the wide header logo (wrong declared size was also breaking crawlers).
+ */
+export const OG_IMAGE = {
+  url: `${SITE_URL}/assets/ShortLogoB.jpg`,
+  width: 1068,
+  height: 1080,
+  alt: SITE_NAME,
+  type: "image/jpeg" as const,
+};

@@ -13,6 +13,7 @@ import { CopyButton } from "./copy-button";
 import CustomAudioPlayer from "@/components/custom/custom-audio-player";
 import { HighlightedHtml } from "./highlighted-html";
 import { HighlightedText } from "./highlighted-text";
+import { formatPrincipleNumberForDisplay } from "@/lib/seo/article-share";
 
 type ArticleCardProps = {
   article: Article;
@@ -73,6 +74,14 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
   const principleMeta = [principleYear, principleType]
     .filter(Boolean)
     .join(" ");
+  // LTR contexts (tooltip) need the formatted order; the big number keeps
+  // the existing card display so RTL layout stays unchanged.
+  const tooltipPrincipleNumber = formatPrincipleNumberForDisplay(
+    article.principle_number,
+  );
+  const displayedPrincipleNumber = principleNumber.includes("-")
+    ? principleNumber.split("-").reverse().join("-")
+    : principleNumber;
 
   const number = formatMaybeNumber(article.number);
   const judicialYear = formatMaybeNumber(article.judicial_year);
@@ -92,15 +101,23 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
         {/* Left meta block: principle number + year/classification */}
         <div className="mt-3 flex w-full shrink-0 flex-col items-center px-3 text-center md:w-auto">
           {principleNumber && (
-            <p className="mb-1 text-[32px] font-bold text-main sm:text-[40px] md:mb-2">
-              <HighlightedText
-                text={
-                  principleNumber.includes("-")
-                    ? principleNumber.split("-").reverse().join("-")
-                    : principleNumber
-                }
-              />
-            </p>
+            <div className="group relative mb-1 md:mb-2">
+              <p className="text-[32px] font-bold text-main sm:text-[40px]">
+                <HighlightedText text={displayedPrincipleNumber} />
+              </p>
+              <div
+                role="tooltip"
+                dir="ltr"
+                className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1.5 flex w-max max-w-[220px] -translate-x-1/2 items-center gap-1 rounded-md border border-[#d4b896] bg-[#FBF3E0] px-2 py-1 text-[10px] font-medium leading-snug text-gray-800 opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 dark:border-white/15 dark:bg-white/10 dark:text-white"
+              >
+                <span>رقم المبدأ:</span>
+                <span dir="ltr" style={{ unicodeBidi: "isolate" }}>
+                  {tooltipPrincipleNumber}
+                </span>
+                {principleType && <span>{principleType}</span>}
+                {principleYear && <span>{principleYear}</span>}
+              </div>
+            </div>
           )}
           {principleMeta && (
             <p className="text-sm text-gray-700 dark:text-white/70 md:text-xs">
@@ -114,12 +131,21 @@ const ArticleCard = ({ article, from }: ArticleCardProps) => {
           <AccordionTrigger className="flex w-full cursor-pointer flex-col items-start gap-3 rounded-none text-start hover:no-underline data-[state=open]:border-transparent md:flex-row md:items-center md:gap-5">
             <div className="flex min-w-[130px] flex-col gap-1 text-start md:gap-2">
               {publishDate && (
-                <p className="flex items-center gap-1 text-gray-500 dark:text-white/70 sm:text-lg md:text-xs">
-                  <Calendar size={14} className="-mt-0.5 text-main" />
-                  <span>
-                    <HighlightedText text={publishDate} />
-                  </span>
-                </p>
+                <div className="group/date relative w-fit">
+                  <p className="flex items-center gap-1 text-gray-500 dark:text-white/70 sm:text-lg md:text-xs">
+                    <Calendar size={14} className="-mt-0.5 text-main" />
+                    <span>
+                      <HighlightedText text={publishDate} />
+                    </span>
+                  </p>
+                  <div
+                    role="tooltip"
+                    dir="rtl"
+                    className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1.5 w-max -translate-x-1/2 rounded-md border border-[#d4b896] bg-[#FBF3E0] px-2 py-1 text-[10px] font-medium leading-snug text-gray-800 opacity-0 shadow-sm transition-opacity duration-200 group-hover/date:opacity-100 dark:border-white/15 dark:bg-white/10 dark:text-white"
+                  >
+                    تاريخ النشر
+                  </div>
+                </div>
               )}
               {author && (
                 <p className="text-sm text-gray-700 dark:text-white/70 sm:text-lg md:text-xs">

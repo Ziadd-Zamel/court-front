@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import RtlInputField from "@/components/common/RtlInputField";
 import {
@@ -19,6 +19,10 @@ import {
 } from "@/lib/schemas/validations";
 import { Button } from "@/components/ui/button";
 import { usePublicationRequest } from "@/app/(homepage)/litigants-portal/court-releases/_hooks/use-publication-request";
+
+type PublicationFormValues = Omit<PublicationRequestData, "page_count"> & {
+  page_count: number | undefined;
+};
 
 const FLAG_CDN = "https://flagcdn.com";
 const COUNTRY_CODES = [
@@ -86,84 +90,84 @@ function PhoneInputWithCountryCode({
   };
 
   return (
-    <div className="flex sm:flex-row flex-col sm:items-center gap-5">
-      <label className="w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] dark:bg-white/10 dark:border dark:border-white/10 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-white sm:py-[14px] sm:text-xs lg:text-sm">
-        {label}
-      </label>
-      <div className="relative sm:w-3/4 flex flex-row-reverse rounded-md bg-[#FBF3E0] dark:bg-white/10 dark:border dark:border-white/10 border border-[#FBF3E0]">
-        <input
-          type="tel"
-          value={phoneNumber}
-          onChange={handlePhoneChange}
-          placeholder="1234-123-91"
-          className="flex-1 min-w-0 bg-transparent px-3 py-2 placeholder:text-xs placeholder:text-gray-400 dark:placeholder-white/50 sm:py-[10px] sm:text-xs lg:text-sm text-right outline-none text-gray-800 dark:text-white"
-          style={{ direction: "rtl" }}
-        />
-        <div className="relative shrink-0">
-          <button
-            type="button"
-            onClick={() => setIsOpen((prev) => !prev)}
-            className="flex h-full min-w-[5rem] cursor-pointer items-center gap-2 rounded-none border-0 border-r border-gray-300/50 dark:border-white/10 bg-transparent px-3 py-2 hover:bg-[#f5ecd0] dark:hover:bg-white/10 focus:outline-none focus:ring-0"
-          >
-            {selectedCountry && (
+    <div>
+      <div className="flex sm:flex-row flex-col sm:items-center gap-5">
+        <label className="w-fit sm:w-1/4 rounded-md bg-[#FBF3E0] dark:bg-white/10 dark:border dark:border-white/10 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-white sm:py-[14px] sm:text-xs lg:text-sm">
+          {label}
+        </label>
+        <div className="relative sm:w-3/4 flex flex-row-reverse rounded-md bg-[#FBF3E0] dark:bg-white/10 dark:border dark:border-white/10 border border-[#FBF3E0]">
+          <input
+            type="tel"
+            value={phoneNumber}
+            onChange={handlePhoneChange}
+            placeholder="1234-123-91"
+            className="flex-1 min-w-0 bg-transparent px-3 py-2 placeholder:text-xs placeholder:text-gray-400 dark:placeholder-white/50 sm:py-[10px] sm:text-xs lg:text-sm text-right outline-none text-gray-800 dark:text-white"
+            style={{ direction: "rtl" }}
+          />
+          <div className="relative shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsOpen((prev) => !prev)}
+              className="flex h-full min-w-[5rem] cursor-pointer items-center gap-2 rounded-none border-0 border-r border-gray-300/50 dark:border-white/10 bg-transparent px-3 py-2 hover:bg-[#f5ecd0] dark:hover:bg-white/10 focus:outline-none focus:ring-0"
+            >
+              {selectedCountry && (
+                <>
+                  <span className="flex h-4 w-6 shrink-0 overflow-hidden rounded-px">
+                    <Image
+                      src={`${FLAG_CDN}/w40/${selectedCountry.iso2}.png`}
+                      alt={selectedCountry.country}
+                      width={36}
+                      height={28}
+                      className="h-full w-full object-cover"
+                    />
+                  </span>
+                  <span className="font-medium text-gray-800 text-sm mt-0.5">
+                    {selectedCountry.code}
+                  </span>
+                </>
+              )}
+            </button>
+
+            {isOpen && (
               <>
-                <span className="flex h-4 w-6 shrink-0 overflow-hidden rounded-px">
-                  <Image
-                    src={`${FLAG_CDN}/w40/${selectedCountry.iso2}.png`}
-                    alt={selectedCountry.country}
-                    width={36}
-                    height={28}
-                    className="h-full w-full object-cover"
-                  />
-                </span>
-                <span className="font-medium text-gray-800 text-sm mt-0.5">
-                  {selectedCountry.code}
-                </span>
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={() => setIsOpen(false)}
+                  aria-hidden="true"
+                />
+                <div
+                  className="absolute left-0 top-full z-50 mt-1 max-h-[280px] min-w-[12rem] overflow-auto rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 py-1 shadow-lg"
+                  style={{ direction: "rtl" }}
+                >
+                  {COUNTRY_CODES.map(({ code, country, iso2 }) => (
+                    <button
+                      key={code}
+                      type="button"
+                      onClick={() => handleCountryChange(code)}
+                      className="flex w-full cursor-pointer items-center gap-3 px-3 py-2.5 text-right hover:bg-amber-50 dark:hover:bg-white/10 focus:bg-amber-50 dark:focus:bg-white/10 focus:outline-none text-gray-800 dark:text-white"
+                    >
+                      <span className="flex h-4 w-6 shrink-0 overflow-hidden rounded">
+                        <Image
+                          src={`${FLAG_CDN}/w40/${iso2}.png`}
+                          alt={country}
+                          width={32}
+                          height={24}
+                          className="h-full w-full object-cover"
+                        />
+                      </span>
+                      <span className="text-sm">
+                        {code} {country}
+                      </span>
+                    </button>
+                  ))}
+                </div>
               </>
             )}
-          </button>
-
-          {isOpen && (
-            <>
-              <div
-                className="fixed inset-0 z-40"
-                onClick={() => setIsOpen(false)}
-                aria-hidden="true"
-              />
-              <div
-                className="absolute left-0 top-full z-50 mt-1 max-h-[280px] min-w-[12rem] overflow-auto rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-white/10 py-1 shadow-lg"
-                style={{ direction: "rtl" }}
-              >
-                {COUNTRY_CODES.map(({ code, country, iso2 }) => (
-                  <button
-                    key={code}
-                    type="button"
-                    onClick={() => handleCountryChange(code)}
-                    className="flex w-full cursor-pointer items-center gap-3 px-3 py-2.5 text-right hover:bg-amber-50 dark:hover:bg-white/10 focus:bg-amber-50 dark:focus:bg-white/10 focus:outline-none text-gray-800 dark:text-white"
-                  >
-                    <span className="flex h-4 w-6 shrink-0 overflow-hidden rounded">
-                      <Image
-                        src={`${FLAG_CDN}/w40/${iso2}.png`}
-                        alt={country}
-                        width={32}
-                        height={24}
-                        className="h-full w-full object-cover"
-                      />
-                    </span>
-                    <span className="text-sm">
-                      {code} {country}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
+          </div>
         </div>
       </div>
       {error && (
-        <p className="mt-1 text-sm text-red-500 text-right w-full sm:ml-[calc(25%+0.5rem)]">
-          {error}
-        </p>
+        <p className="mt-1 text-sm text-red-500 text-right">{error}</p>
       )}
     </div>
   );
@@ -173,12 +177,14 @@ export default function PrintingPublishingService() {
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
 
-  const form = useForm<PublicationRequestData>({
-    resolver: zodResolver(publicationRequestSchema),
+  const form = useForm<PublicationFormValues, unknown, PublicationRequestData>({
+    resolver: zodResolver(
+      publicationRequestSchema,
+    ) as Resolver<PublicationFormValues, unknown, PublicationRequestData>,
     defaultValues: {
       book_title: "",
       subject: "",
-      page_count: 0,
+      page_count: undefined,
       book_size: "",
       author_name: "",
       academic_degree: "",
@@ -272,10 +278,27 @@ export default function PrintingPublishingService() {
           <div>
             <RtlInputField
               label="عدد الصفحات"
-              value={form.watch("page_count").toString()}
-              onChange={(e) =>
-                form.setValue("page_count", parseInt(e.target.value) || 0)
+              type="number"
+              value={
+                form.watch("page_count") != null
+                  ? String(form.watch("page_count"))
+                  : ""
               }
+              onChange={(e) => {
+                const raw = e.target.value;
+                if (raw === "") {
+                  form.setValue("page_count", undefined, {
+                    shouldValidate: true,
+                  });
+                  return;
+                }
+                const parsed = parseInt(raw, 10);
+                form.setValue(
+                  "page_count",
+                  Number.isNaN(parsed) ? undefined : parsed,
+                  { shouldValidate: true },
+                );
+              }}
               placeholder="أدرج عدد الصفحات بالأرقام"
             />
             {form.formState.errors.page_count && (
@@ -290,7 +313,7 @@ export default function PrintingPublishingService() {
               label="المقاس (خاص بالكتب)"
               value={form.watch("book_size")}
               onChange={(e) => form.setValue("book_size", e.target.value)}
-              placeholder="صغير (حتى 13×20سم) / متوسط (من 14×20 إلى 16×24سم) / كبير (أكبر من 16×20سم)"
+              placeholder="صغير (حتى 13×20سم) / متوسط (من 14×20 إلى 16×24سم) / كبير (أكبر من 16×24سم)"
             />
             {form.formState.errors.book_size && (
               <p className="mt-1 text-sm text-red-500 text-right">
