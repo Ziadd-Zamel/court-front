@@ -26,10 +26,18 @@ export function PrinciplePdfButton({
     contentRef: printRef,
     documentTitle: `principle-${principle.serial_number ?? "export"}`,
     pageStyle: `
-    @page { size: A4; margin: 0; }
+    @page { size: A4; margin: 0 !important; }
     @media print {
-      html, body { margin: 0 !important; padding: 0 !important; }
+      html, body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
       body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      [data-principle-ribbon] {
+        position: fixed !important;
+        left: 0 !important;
+        right: auto !important;
+        top: var(--ribbon-top) !important;
+        margin: 0 !important;
+        transform: translateX(0) !important;
+      }
     }
   `,
     onBeforePrint: async () => {
@@ -63,6 +71,10 @@ export function PrinciplePdfButton({
           ref={printRef}
           style={
             {
+              width: "210mm",
+              maxWidth: "210mm",
+              margin: 0,
+              padding: 0,
               "--platform-print-body-font":
                 '"adobe-arabic", "Adobe Arabic", "Noto Naskh Arabic", Arial, sans-serif',
             } as CSSProperties
