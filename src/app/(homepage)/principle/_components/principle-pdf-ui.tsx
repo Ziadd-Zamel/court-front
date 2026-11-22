@@ -1,11 +1,11 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
-import type { CSSProperties } from "react";
-
+import { useEffect, useState, type CSSProperties } from "react";
 type ArticleCardProps = {
   principle: Principle;
   index: number;
+  /** Set at print time so the footer link matches the current results page. */
+  pageHref?: string;
 };
 
 const FIELDS = [
@@ -42,17 +42,47 @@ function field(value: unknown) {
 const RIBBON_STEP_MM = 6;
 const RIBBON_BASE_TOP_MM = 70;
 
-export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
+function formatFooterUrlLabel(href: string): string {
+  if (!href) return "";
+  try {
+    return decodeURI(href);
+  } catch {
+    return href;
+  }
+}
+
+export default function PrinciplePdfUI({
+  principle,
+  pageHref: pageHrefProp,
+}: ArticleCardProps) {
+  const [browserPageHref, setBrowserPageHref] = useState("");
+
+  useEffect(() => {
+    setBrowserPageHref(window.location.href);
+  }, []);
+
+  useEffect(() => {
+    if (pageHrefProp) setBrowserPageHref(pageHrefProp);
+  }, [pageHrefProp]);
+
   const firstPublication = principle.publications?.[0];
-  const websiteUrl = principle.website_url?.trim() ?? "";
-  const hasWebsiteUrl = Boolean(websiteUrl);
+  const websiteUrlRaw = principle.website_url;
+  const websiteUrl =
+    typeof websiteUrlRaw === "string"
+      ? websiteUrlRaw.trim()
+      : websiteUrlRaw != null
+        ? String(websiteUrlRaw).trim()
+        : "";
+  const websiteUrlClean =
+    websiteUrl && websiteUrl.toLowerCase() !== "null" ? websiteUrl : "";
+  const footerHref =
+    websiteUrlClean || pageHrefProp || browserPageHref;
+  const footerUrlLabel = formatFooterUrlLabel(footerHref);
   const publicationPdfUrl =
     typeof firstPublication?.pdf_file === "string"
       ? firstPublication.pdf_file.trim()
       : "";
   const hasPublicationPdf = Boolean(publicationPdfUrl);
-  const pdfPageForAnchor =
-    firstPublication?.page_number ?? principle.page_number ?? 231;
 
   const normalize = (value: unknown) => {
     if (value === null || value === undefined) return "";
@@ -90,11 +120,6 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
   const headingMeta =
     `${[judicialYear, number].filter(Boolean).join("/")}${sign}`.trim();
   const brief = normalize(principle.brief);
-
-  const handlePublicationPdfClick = () => {
-    if (!publicationPdfUrl) return;
-    window.open(`${publicationPdfUrl}#page=${pdfPageForAnchor}`, "_blank");
-  };
 
   return (
     <div className="relative w-full overflow-visible" style={{ width: "210mm" }}>
@@ -209,7 +234,7 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
           {principle.content}
         </p>
 
-        <div className="mt-4 flex w-full items-center justify-center">
+        <div className="mt-4 flex w-full flex-col items-center justify-center gap-1 text-center">
           {(() => {
             const parts = [
               principle.appeal_year ? `السنة ${principle.appeal_year}` : null,
@@ -217,33 +242,31 @@ export default function PrinciplePdfUI({ principle }: ArticleCardProps) {
               principle.page_number ? `ص ${principle.page_number}` : null,
             ].filter(Boolean);
 
-            const text =
+            const hasMagazineCitation = parts.length > 0 || hasPublicationPdf;
+            const magazineText =
               parts.length > 0
                 ? `مجلة المحكمة العليا: ${parts.join(" - ")}`
                 : "مجلة المحكمة العليا";
+            const headerLine = hasMagazineCitation
+              ? magazineText
+              : principle.publish_on_website || websiteUrlClean
+                ? "منشور على موقع المحكمة العليا"
+                : magazineText;
 
-            return hasWebsiteUrl ? (
-              <Link
-                href={websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer text-center text-sm text-black hover:underline"
-              >
-                منشور على الموقع الإلكتروني للمحكمة العليا:
-                <br /> www.alolya.gov.ly
-              </Link>
-            ) : hasPublicationPdf ? (
-              <button
-                type="button"
-                onClick={handlePublicationPdfClick}
-                className="cursor-pointer text-start text-sm text-black hover:underline"
-              >
-                {text}
-              </button>
-            ) : (
-              <span className="text-sm text-black">
-                {text}
-              </span>
+            return (
+              <>
+                <span className="text-sm text-black">{headerLine}</span>
+                <a
+                  data-principle-page-link
+                  href={footerHref || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  dir="ltr"
+                  className="max-w-full break-all text-sm text-black underline hover:opacity-80"
+                >
+                  {footerUrlLabel}
+                </a>
+              </>
             );
           })()}
         </div>

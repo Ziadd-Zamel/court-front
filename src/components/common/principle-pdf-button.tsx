@@ -20,6 +20,7 @@ export function PrinciplePdfButton({
   variant = "default",
 }: PrinciplePdfButtonProps) {
   const [printing, setPrinting] = useState(false);
+  const [printPageHref, setPrintPageHref] = useState("");
   const printRef = useRef<HTMLDivElement>(null);
 
   const handlePrint = useReactToPrint({
@@ -42,6 +43,33 @@ export function PrinciplePdfButton({
   `,
     onBeforePrint: async () => {
       setPrinting(true);
+      const href = window.location.href;
+      setPrintPageHref(href);
+
+      const raw = principle.website_url;
+      const fromApi =
+        typeof raw === "string"
+          ? raw.trim()
+          : raw != null
+            ? String(raw).trim()
+            : "";
+      const apiHref =
+        fromApi && fromApi.toLowerCase() !== "null" ? fromApi : "";
+      const footerHref = apiHref || href;
+
+      const link = printRef.current?.querySelector(
+        "[data-principle-page-link]",
+      );
+      if (link instanceof HTMLAnchorElement) {
+        link.href = footerHref;
+        try {
+          link.textContent = decodeURI(footerHref);
+        } catch {
+          link.textContent = footerHref;
+        }
+        link.hidden = false;
+      }
+
       await document.fonts.ready;
       const host = printRef.current?.querySelector<HTMLElement>(
         "[data-print-ready]",
@@ -80,7 +108,11 @@ export function PrinciplePdfButton({
             } as CSSProperties
           }
         >
-          <PrinciplePdfUI principle={principle} index={0} />
+          <PrinciplePdfUI
+            principle={principle}
+            index={0}
+            pageHref={printPageHref}
+          />
         </div>
       </div>
 

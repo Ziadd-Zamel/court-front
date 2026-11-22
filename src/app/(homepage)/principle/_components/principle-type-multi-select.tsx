@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import { Tabs, TabsList } from "@/components/ui/tabs";
-import { ChevronLeft } from "lucide-react";
+import { ChevronDown, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   PrincipleCategoryProvider,
@@ -63,9 +63,19 @@ function PrincipleTypeMultiSelectInner({
                 data-state={isSelected ? "active" : "inactive"}
               >
                 <span>{opt.label}</span>
+                <ChevronDown
+                  size={18}
+                  className={cn(
+                    "shrink-0 lg:hidden",
+                    isSelected ? "text-white" : "text-inherit",
+                  )}
+                />
                 <ChevronLeft
                   size={18}
-                  className={isSelected ? "text-white" : "text-inherit"}
+                  className={cn(
+                    "hidden shrink-0 lg:block",
+                    isSelected ? "text-white" : "text-inherit",
+                  )}
                 />
               </button>
             );

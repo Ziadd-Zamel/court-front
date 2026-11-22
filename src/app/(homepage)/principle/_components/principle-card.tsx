@@ -12,7 +12,6 @@ import { ShareButton } from "@/components/common/share-button";
 import { PrinciplePdfButton } from "@/components/common/principle-pdf-button";
 import { HighlightedHtml } from "@/components/common/highlighted-html";
 import { HighlightedText } from "@/components/common/highlighted-text";
-
 type ArticleCardProps = {
   principle: Principle;
   index: number;
@@ -20,15 +19,32 @@ type ArticleCardProps = {
 
 export default function PrincipleCard({ principle }: ArticleCardProps) {
   const firstPublication = principle.publications?.[0];
-  const websiteUrl = principle.website_url?.trim() ?? "";
-  const hasWebsiteUrl = Boolean(websiteUrl);
-  const publicationPdfUrl =
-    typeof firstPublication?.pdf_file === "string"
-      ? firstPublication.pdf_file.trim()
-      : "";
-  const hasPublicationPdf = Boolean(publicationPdfUrl);
-  const pdfPageForAnchor =
-    firstPublication?.page_number ?? principle.page_number ?? 231;
+  const websiteUrlRaw = principle.website_url;
+  const websiteUrl =
+    typeof websiteUrlRaw === "string"
+      ? websiteUrlRaw.trim()
+      : websiteUrlRaw != null
+        ? String(websiteUrlRaw).trim()
+        : "";
+  const websiteUrlClean =
+    websiteUrl && websiteUrl.toLowerCase() !== "null" ? websiteUrl : "";
+  const pageHref =
+    typeof window !== "undefined"
+      ? websiteUrlClean || window.location.href
+      : websiteUrlClean;
+  const pageHrefLabel = (() => {
+    if (!pageHref) return "";
+    try {
+      return decodeURI(pageHref);
+    } catch {
+      return pageHref;
+    }
+  })();
+  const showFooterLink = Boolean(pageHref);
+  const hasPublicationPdf = Boolean(
+    typeof firstPublication?.pdf_file === "string" &&
+      firstPublication.pdf_file.trim(),
+  );
 
   // Normalize API fields so we never render null/undefined/"null" placeholders.
   const normalize = (value: unknown) => {
@@ -66,16 +82,6 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
       .replace(/\s+/g, " ")
       .trim() || brief;
 
-  const handlePublicationPdfClick = (title: string) => {
-    if (!publicationPdfUrl) return;
-    const params = new URLSearchParams({
-      src: publicationPdfUrl,
-      page: String(pdfPageForAnchor),
-    });
-    const cleanedTitle = title.trim();
-    if (cleanedTitle) params.set("title", cleanedTitle);
-    window.open(`/pdf-viewer?${params.toString()}`, "_blank");
-  };
   return (
     <AccordionItem
       key={principle.uuid}
@@ -137,7 +143,7 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
               className="mt-6 !text-justify !font-zain !font-normal !text-sm text-gray-500 dark:text-white/70 md:mt-10"
             />
 
-            <div className="mt-4 flex w-full md:mt-5">
+            <div className="mt-4 flex w-full flex-col gap-1 md:mt-5">
               {(() => {
                 const parts = [
                   principle.appeal_year
@@ -149,32 +155,34 @@ export default function PrincipleCard({ principle }: ArticleCardProps) {
                   principle.page_number ? `ص ${principle.page_number}` : null,
                 ].filter(Boolean);
 
-                const text =
+                const hasMagazineCitation = parts.length > 0 || hasPublicationPdf;
+                const magazineText =
                   parts.length > 0
                     ? `مجلة المحكمة العليا: ${parts.join(" - ")}`
                     : "مجلة المحكمة العليا";
+                const headerLine = hasMagazineCitation
+                  ? magazineText
+                  : websiteUrlClean || principle.publish_on_website
+                    ? "منشور على موقع المحكمة العليا"
+                    : magazineText;
 
-                return hasWebsiteUrl ? (
-                  <Link
-                    href={websiteUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cursor-pointer text-sm text-main hover:underline"
-                  >
-                    انقر للانتقال إلى صفحة الحكم
-                  </Link>
-                ) : hasPublicationPdf ? (
-                  <button
-                    type="button"
-                    onClick={() => handlePublicationPdfClick(text)}
-                    className="cursor-pointer text-start text-sm text-main hover:underline"
-                  >
-                    {text}
-                  </button>
-                ) : (
-                  <span className="text-sm text-main dark:text-white/70">
-                    {text}
-                  </span>
+                return (
+                  <>
+                    <span className="text-sm text-main dark:text-white/70">
+                      {headerLine}
+                    </span>
+                    {showFooterLink ? (
+                      <Link
+                        href={pageHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="break-all text-sm text-main hover:underline"
+                        dir="ltr"
+                      >
+                        {pageHrefLabel}
+                      </Link>
+                    ) : null}
+                  </>
                 );
               })()}
             </div>

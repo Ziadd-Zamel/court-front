@@ -2,7 +2,7 @@
 
 import { ReactNode, Suspense, useEffect, useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronLeft } from "lucide-react";
+import { ChevronDown, ChevronLeft } from "lucide-react";
 import SearchBar from "@/components/common/search-bar";
 import SectionHeading from "@/components/common/section-heading";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -95,7 +95,8 @@ function ReusableTabsInner({
               value={tab.value}
             >
               <span>{tab.label}</span>
-              <ChevronLeft />
+              <ChevronDown className="min-[1150px]:hidden shrink-0" />
+              <ChevronLeft className="hidden min-[1150px]:block shrink-0" />
             </TabsTrigger>
           ))}
 
