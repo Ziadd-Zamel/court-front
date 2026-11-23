@@ -39,7 +39,7 @@ function field(value: unknown) {
 }
 
 /** Book-tab stack: shape stays 23mm; vertical position steps by type order. */
-const RIBBON_STEP_MM = 6;
+const RIBBON_STEP_MM = 12;
 const RIBBON_BASE_TOP_MM = 70;
 
 function formatFooterUrlLabel(href: string): string {
@@ -166,14 +166,6 @@ export default function PrinciplePdfUI({
               unoptimized
             />
           </div>
-          <Image
-            src={"/assets/principle-print/basmala.jpeg"}
-            alt="basmal"
-            width={80}
-            height={80}
-            loading="eager"
-            unoptimized
-          />
           <Image
             src={"/assets/principle-print/pdf-principle.png"}
             alt="basmal"

@@ -272,11 +272,16 @@ export default function ContactSection({
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
             <DialogTitle className="text-center text-xl font-bold text-gray-900">
-              تم إرسال رسالتك بنجاح!
+              تم استقبال رسالتك على خدمة بريد المحكمة العليا بنجاح!
             </DialogTitle>
-            <DialogDescription className="text-center text-gray-600">
-              نشكر تواصلك معنا. سنراجع رسالتك، ونوافيك بالرد إن لزم في أقرب وقت
-              بإذن الله تعالى.
+            <DialogDescription className="space-y-3 text-center text-gray-600">
+              <span className="block">
+                شكراً لك على التواصل معنا. سندرس الرسالة، ونتواصل معك، إن لزم،
+                في أقرب وقت ممكن بإذن الله تعالى.
+              </span>
+              <span className="block font-medium text-gray-800">
+                مكتب التواصل بالمحكمة العليا
+              </span>
             </DialogDescription>
           </DialogHeader>
         </DialogContent>
