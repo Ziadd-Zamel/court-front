@@ -18,6 +18,20 @@ export const getLawByType = async (type: LawTypeSlug) => {
     next: { revalidate: 600 },
   });
 
+  if (response.status === 404) {
+    return {
+      data: null as unknown as Law,
+      meta: {
+        current_page: 1,
+        last_page: 1,
+        per_page: 0,
+        total: 0,
+        from: 0,
+        to: 0,
+      },
+    };
+  }
+
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }

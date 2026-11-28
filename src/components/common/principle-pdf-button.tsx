@@ -39,6 +39,16 @@ export function PrinciplePdfButton({
         margin: 0 !important;
         transform: translateX(0) !important;
       }
+      [data-principle-ribbon] span {
+        writing-mode: vertical-rl !important;
+        text-orientation: mixed !important;
+        direction: rtl !important;
+        transform: none !important;
+      }
+      [data-principle-page-link] {
+        font-size: 8pt !important;
+        line-height: 1.25 !important;
+      }
     }
   `,
     onBeforePrint: async () => {

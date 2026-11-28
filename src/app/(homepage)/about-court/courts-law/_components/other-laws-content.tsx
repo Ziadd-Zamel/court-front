@@ -7,7 +7,11 @@ import SecondaryTabs, {
 } from "@/components/common/secondary-tabs";
 import OtherLawsByCategory from "./other-laws-by-category";
 
-export default async function OtherLawsContent() {
+export default async function OtherLawsContent({
+  search,
+}: {
+  search?: string;
+}) {
   const [data, error] = await catchError(() => getOtherLawCategories());
 
   if (error) return <ErrorState />;
@@ -20,7 +24,9 @@ export default async function OtherLawsContent() {
     (category: OtherLawCategory) => ({
       label: category.name,
       value: category.uuid,
-      component: <OtherLawsByCategory categoryUuid={category.uuid} />,
+      component: (
+        <OtherLawsByCategory categoryUuid={category.uuid} search={search} />
+      ),
     }),
   );
 

@@ -139,8 +139,15 @@ export default function PrinciplePdfUI({
         aria-hidden
       >
         <span
-          className="whitespace-nowrap font-bold leading-none -rotate-90"
-          style={{ fontSize: label.length > 6 ? "12pt" : "18pt" }}
+          dir="rtl"
+          lang="ar"
+          className="whitespace-nowrap font-bold leading-none font-adobe-arabic"
+          style={{
+            fontSize: label.length > 6 ? "12pt" : "18pt",
+            writingMode: "vertical-rl",
+            textOrientation: "mixed",
+            unicodeBidi: "plaintext",
+          }}
         >
           {label}
         </span>
@@ -196,7 +203,7 @@ export default function PrinciplePdfUI({
               :رقم المبدأ
             </span>
           </div>
-          <p className="mt-3 w-full text-center text-sm font-medium text-black">
+          <p className="mt-3 w-full text-center text-xs font-medium text-black">
             {rulingType}: {headingMeta}
           </p>
           <p
@@ -254,7 +261,7 @@ export default function PrinciplePdfUI({
                   target="_blank"
                   rel="noopener noreferrer"
                   dir="ltr"
-                  className="max-w-full break-all text-sm text-black underline hover:opacity-80"
+                  className="max-w-full break-all text-[11px] leading-snug text-black underline hover:opacity-80"
                 >
                   {footerUrlLabel}
                 </a>

@@ -28,7 +28,7 @@ import {
   ZoomMode,
   ZoomPluginPackage,
 } from "@embedpdf/plugin-zoom/react";
-import { Download, Loader2, Minus, Plus, X } from "lucide-react";
+import { Download, Loader2, Minus, Plus, Printer, X } from "lucide-react";
 
 const MIN_ZOOM = 0.4;
 const MAX_ZOOM = 3;
@@ -39,6 +39,76 @@ type Props = {
   targetPage: number;
   title?: string;
 };
+
+const VIEWER_TOOLBAR_BTN =
+  "inline-flex h-8 shrink-0 cursor-pointer items-center justify-center gap-1 rounded-sm border border-gray-200/70 bg-white px-2.5 text-[11px] font-semibold text-gray-800 shadow-sm transition hover:border-main/50 hover:bg-main/10 hover:text-main dark:border-white/15 dark:bg-white/10 dark:text-white dark:hover:border-main/50 dark:hover:bg-main/15";
+
+const VIEWER_TOOLBAR_BTN_ICON =
+  "inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-sm border border-gray-200/70 bg-white text-gray-700 shadow-sm transition hover:border-main/50 hover:bg-main/10 hover:text-main dark:border-white/15 dark:bg-white/10 dark:text-white dark:hover:border-main/50 dark:hover:bg-main/15";
+
+function printPdfFromUrl(pdfHref: string) {
+  const iframe = document.createElement("iframe");
+  iframe.style.cssText =
+    "position:fixed;right:0;bottom:0;width:0;height:0;border:0";
+  iframe.src = pdfHref;
+  document.body.appendChild(iframe);
+  iframe.onload = () => {
+    try {
+      iframe.contentWindow?.focus();
+      iframe.contentWindow?.print();
+    } catch {
+      window.open(pdfHref, "_blank");
+    }
+    window.setTimeout(() => iframe.remove(), 2000);
+  };
+}
+
+function closeViewer() {
+  window.close();
+  if (window.history.length > 1) window.history.back();
+}
+
+function ViewerToolbarActions({
+  downloadHref,
+  downloadName,
+}: {
+  downloadHref: string;
+  downloadName: string;
+}) {
+  return (
+    <div className="flex shrink-0 items-center gap-1.5">
+      <button
+        type="button"
+        onClick={() => printPdfFromUrl(downloadHref)}
+        className={VIEWER_TOOLBAR_BTN}
+        aria-label="طباعة"
+        title="طباعة"
+      >
+        <Printer size={14} className="shrink-0" />
+        <span className="hidden sm:inline">طباعة</span>
+      </button>
+      <a
+        href={downloadHref}
+        download={downloadName}
+        className={VIEWER_TOOLBAR_BTN}
+        aria-label="تحميل"
+        title="تحميل"
+      >
+        <Download size={14} className="shrink-0" />
+        <span className="hidden sm:inline">تحميل</span>
+      </a>
+      <button
+        type="button"
+        onClick={closeViewer}
+        className={VIEWER_TOOLBAR_BTN_ICON}
+        aria-label="إغلاق"
+        title="إغلاق"
+      >
+        <X size={14} />
+      </button>
+    </div>
+  );
+}
 
 function buildDownloadName(src: string, title?: string) {
   if (title?.trim()) {
@@ -323,33 +393,10 @@ function PdfToolbar({
         </button>
       </form>
 
-      <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
-        <a
-          href={downloadHref}
-          download={downloadName}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 rounded-sm border border-black bg-white p-1 text-xs font-semibold text-black hover:bg-black/5 sm:px-2 dark:border-white dark:bg-transparent dark:text-white dark:hover:bg-white/10"
-          aria-label="تحميل"
-          title="تحميل"
-        >
-          <Download size={14} />
-          <span className="hidden sm:inline">تحميل</span>
-        </a>
-        <button
-          type="button"
-          onClick={() => {
-            window.close();
-            // Fallback for tabs not opened via window.open
-            if (window.history.length > 1) window.history.back();
-          }}
-          className="inline-flex items-center justify-center rounded-sm border border-gray-200 p-1 text-gray-600 hover:bg-gray-100 dark:border-white/10 dark:text-white/70 dark:hover:bg-white/10"
-          aria-label="إغلاق"
-          title="إغلاق"
-        >
-          <X size={14} />
-        </button>
-      </div>
+      <ViewerToolbarActions
+        downloadHref={downloadHref}
+        downloadName={downloadName}
+      />
     </header>
   );
 }
@@ -367,32 +414,10 @@ function FallbackToolbar({ title, src }: { title?: string; src: string }) {
         {title?.trim() || "عارض الملف"}
       </h1>
 
-      <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
-        <a
-          href={downloadHref}
-          download={downloadName}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 rounded-sm border border-black bg-white p-1 text-xs font-semibold text-black hover:bg-black/5 sm:px-2 dark:border-white dark:bg-transparent dark:text-white dark:hover:bg-white/10"
-          aria-label="تحميل"
-          title="تحميل"
-        >
-          <Download size={14} />
-          <span className="hidden sm:inline">تحميل</span>
-        </a>
-        <button
-          type="button"
-          onClick={() => {
-            window.close();
-            if (window.history.length > 1) window.history.back();
-          }}
-          className="inline-flex items-center justify-center rounded-sm border border-gray-200 p-1 text-gray-600 hover:bg-gray-100 dark:border-white/10 dark:text-white/70 dark:hover:bg-white/10"
-          aria-label="إغلاق"
-          title="إغلاق"
-        >
-          <X size={14} />
-        </button>
-      </div>
+      <ViewerToolbarActions
+        downloadHref={downloadHref}
+        downloadName={downloadName}
+      />
     </header>
   );
 }
